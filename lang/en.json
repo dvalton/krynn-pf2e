@@ -41,7 +41,7 @@
    "MoonMagic": {
     "Label": "Moon magic",
     "Hint": "How strongly the moons change High Sorcery for characters with the feat Mage of High Sorcery (compendium Krynn: Magic). Applied as an effect on their sheet, each day.",
-    "classic": "Classic: bonuses and penalties by phase, alignments, the Night of the Eye",
+    "classic": "Classic: bonuses and penalties by phase, extra spell slots, alignments, the Night of the Eye",
     "light": "Light: a bonus at High Sanction only",
     "narrative": "Narrative: chat and sheet notes, no numbers",
     "off": "Off: the calendar only"
@@ -120,6 +120,10 @@
     "Absent": "not active",
     "Workbench": "its automations are left alone; the module adds nothing that Workbench already does.",
     "Toolbelt": "its target helper gets the saves of death throes and dragonfear, with the creatures in reach as targets."
+   },
+   "Daylight": {
+    "Label": "Daylight on the active scene",
+    "Hint": "The active scene's darkness follows the sun: sunrise and sunset move with Krynn's seasons. A scene can opt out with the flag krynn-pf2e.noDaylight."
    }
   },
   "Calendar": {
@@ -714,6 +718,14 @@
    "Welcome": {
     "Title": "Welcome to Krynn",
     "Text": "The calendar is now the Calendar of Krynn, set to {date}. Change the age, date, moons and gods in Settings → Krynn."
+   },
+   "Affected": {
+    "godsLeave": "Their gods no longer answer {names}. Through {feat}, a divine caster can draw on the power of the heart instead.",
+    "moonsLeave": "The moons are gone for {names}. Through {feat}, a mage can learn the wild magic of the world.",
+    "godsReturn": "{names} can feel their gods again.",
+    "moonsReturn": "The moons shine again for {names}.",
+    "Mystic": "Mystic of the Heart",
+    "Primal": "Primal Sorcerer"
    }
   },
   "SelfTest": {
@@ -886,14 +898,31 @@
    "BlockedGods": "{who} prays for {spell}, and no god answers. The spell fails; nothing is spent.",
    "BlockedMoons": "{who} reaches for {spell}, but the moons of magic are gone. The spell fails; nothing is spent.",
    "WarnGods": "{who} cast {spell}, a divine spell, in {year}, when the gods are absent.",
-   "WarnMoons": "{who} cast {spell} through High Sorcery in {year}, when the moons are gone."
+   "WarnMoons": "{who} cast {spell} through High Sorcery in {year}, when the moons are gone.",
+   "SlotNote": {
+    "high": "From level 3: one extra spell slot of your highest rank, while the moon is high (added to your arcane spellcasting by the module).",
+    "waxing": "One extra spell slot of rank 1 while the moon waxes (added by the module).",
+    "eye": "Two extra spell slots of your highest rank tonight (added by the module)."
+   }
   },
   "Rule": {
    "InForest": "In a forest",
    "Stonework": "Stonework or Thorbardin",
    "LifeQuest": "Life Quest",
    "Clan": "Your clan",
-   "ElvenCourt": "At an elven court"
+   "ElvenCourt": "At an elven court",
+   "Solamnic": "With Solamnics who honour the Knights",
+   "Seafarer": "Ergothian seafarer",
+   "Plains": "On the plains",
+   "Rider": "Khurish rider",
+   "HardRoad": "Hard road or hunger",
+   "AtSea": "At sea",
+   "KagonestiKin": "With Kagonesti who read your tattoos",
+   "Circus": "Circus champion",
+   "SawYouWin": "The foe saw you win",
+   "Honour": "House honour",
+   "MinotaurKin": "With minotaurs",
+   "PassSoldier": "Passing as a dragonarmy soldier"
   },
   "Heritage": {
    "SilvanestiComposure": "Silvanesti composure",
@@ -937,7 +966,9 @@
     "indifferent": "Indifferent",
     "friendly": "Friendly",
     "helpful": "Helpful"
-   }
+   },
+   "Reason": "Why the standing changes (goes into the history)",
+   "History": "History"
   },
   "Finish": {
    "Title": "{name}: choices to make",
@@ -1123,7 +1154,14 @@
    "Breach": "in breach of the Measure",
    "OpenFactions": "Open the factions",
    "Life": "The life",
-   "Open": "Choices still to make:"
+   "Open": "Choices still to make:",
+   "Why": "What happened",
+   "RecordBreach": "Record a breach of the Measure",
+   "Penance": "Penance done",
+   "LogBreach": "breach of the Measure",
+   "LogPenance": "penance done",
+   "BreachTitle": "{name} has broken the Measure",
+   "PenanceTitle": "{name} has done penance"
   },
   "Steel": {
    "Abbr": "stl",
@@ -1194,6 +1232,29 @@
     "Notes": "<p>The high ogres, beautiful and secretive, who hid from the world and walk it now and then under borrowed faces.</p>",
     "many-faces": "The irda takes the shape of any Medium humanoid until it chooses to change back. Creatures who Seek with @Check[perception|dc:19] notice something is off.",
     "starlight-ward": "<strong>Frequency</strong> once per hour; <strong>Trigger</strong> The irda would be hit by a Strike.<hr />The irda gains a +2 status bonus to AC against the triggering Strike."
+   },
+   "death-knight": {
+    "Notes": "<p>A Knight who broke the Measure in some terrible way and was cursed to go on, burning and unresting, in a body of the dead.</p>",
+    "oath-broken": "30 feet. Living creatures that enter attempt @Check[will|dc:30]; on a failure they are frightened 1, on a critical failure frightened 2.",
+    "burning-word": "<strong>Frequency</strong> once per hour<hr />A 20-foot burst within 100 feet: @Damage[14d6[fire]] damage, @Check[reflex|dc:30|basic].",
+    "cursed-return": "Destroyed, the death knight returns to its keep in 1d10 days, unless its curse is lifted or its crime is set right."
+   },
+   "fetch": {
+    "Notes": "<p>A thing from the edges of the Abyss that wears the faces of the people its victims love, and takes them away.</p>",
+    "borrowed-likeness": "The fetch takes the look of someone dear to a creature it can see. That creature is off-guard to the fetch until it succeeds at @Check[will|dc:19] (one attempt each round, as a free action)."
+   },
+   "huldre": {
+    "Notes": "<p>Shy, ancient fey of the deep woods, who play long games with travellers and keep their bargains to the letter.</p>",
+    "fey-glamour": "One creature within 30 feet attempts @Check[will|dc:18]. <strong>Failure</strong> fascinated by the huldre for 1 minute. <strong>Critical Failure</strong> as failure, and it follows the huldre.",
+    "between-trees": "The huldre steps into one tree and out of another within 60 feet."
+   },
+   "dargonesti-warrior": {
+    "Notes": "<p>The deep-sea elves, dark-skinned and proud, who keep cities on the ocean floor and rarely come up.</p>",
+    "dolphin-form": "The dargonesti becomes a dolphin (swim 60 feet, a jaws Strike like its trident's) until it changes back."
+   },
+   "dimernesti-scout": {
+    "Notes": "<p>The shallow-sea elves, quick and curious, who trade with fishing villages and watch the coasts for their deep kin.</p>",
+    "otter-form": "The dimernesti becomes a sea otter (Tiny, swim 40 feet, +2 status bonus to Stealth in water) until it changes back."
    },
    "Throes": {
     "baaz": "<p>When the baaz dies, it turns to stone. The creature that struck the killing blow with a melee weapon attempts a Reflex save against the baaz's DC; on a failure, the weapon is stuck in the stone until the statue crumbles to dust at the start of the baaz's next turn (or the wielder succeeds at an Athletics check to Force Open against the same DC).</p>",

@@ -52,6 +52,26 @@
   "Irda Wanderer": {
    "name": "Andarilho Irda",
    "tokenName": "Andarilho Irda"
+  },
+  "Death Knight": {
+   "name": "Cavaleiro da Morte",
+   "tokenName": "Cavaleiro da Morte"
+  },
+  "Fetch": {
+   "name": "Fetch",
+   "tokenName": "Fetch"
+  },
+  "Huldre": {
+   "name": "Huldre",
+   "tokenName": "Huldre"
+  },
+  "Dargonesti Warrior": {
+   "name": "Guerreiro Dargonesti",
+   "tokenName": "Guerreiro Dargonesti"
+  },
+  "Dimernesti Scout": {
+   "name": "Batedor Dimernesti",
+   "tokenName": "Batedor Dimernesti"
   }
  }
 }

@@ -223,6 +223,7 @@ Each step is a usable release, tested in the group's world.
 | **0.6 The world** ✅ | Atlas of Ansalon, timeline, iconic NPCs by age |
 | **0.7 Generators** ✅ | Encounters, rumours, people, treasure, travel and weather, inns and the small tables |
 | **0.8 Polish** ✅ | Krynn tab, chat cards, steel, Workbench and Toolbelt integration, full Portuguese translation review |
+| **0.9 Completing the plan** ✅ | The moons' spell slots, human culture feats, the Measure and standing history, more creatures, daylight, the age's affected characters, a pack lint |
 | **1.0** | A full campaign test: one session per age, every self-test green |
 
 ## Risks and how we handle them

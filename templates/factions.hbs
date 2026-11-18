@@ -19,11 +19,16 @@
   </table>
   {{/if}}
   {{#if gm}}
+  <div class="reason"><input type="text" name="reason" placeholder="{{localize "KRYNN.Factions.Reason"}}"></div>
   <div class="add">
     <select name="preset"><option value="">{{localize "KRYNN.Factions.Pick"}}</option>{{#each presets}}<option value="{{id}}">{{name}}</option>{{/each}}</select>
     <input type="text" name="custom" placeholder="{{localize "KRYNN.Factions.Custom"}}">
     <button type="button" data-action="add"><i class="fa-solid fa-plus"></i> {{localize "KRYNN.Factions.Add"}}</button>
   </div>
+  {{/if}}
+  {{#if log.length}}
+  <h4>{{localize "KRYNN.Factions.History"}}</h4>
+  <ul class="krynn-log">{{#each log}}<li><span class="hint">{{date}}</span> <strong>{{name}}</strong>: {{from}} → {{to}}{{#if reason}} — {{reason}}{{/if}}</li>{{/each}}</ul>
   {{/if}}
   <p class="hint">{{localize "KRYNN.Factions.Hint"}}</p>
 </section>

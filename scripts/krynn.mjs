@@ -20,6 +20,7 @@ import { injectTab, headerButtons, openPanel, panelContext, KrynnPanelApp } from
 import { applySteel } from "./foundry/steel.mjs";
 import { companions } from "./foundry/compat.mjs";
 import { onFeatMessage } from "./foundry/peoples/tables.mjs";
+import { syncDaylight } from "./foundry/daylight.mjs";
 import { rememberHit, onActorUpdate, onCombatRound, runThroes } from "./foundry/dragons/throes.mjs";
 import { openDragons, importDragon, findDragons, onCombatStart, DragonsApp } from "./foundry/dragons/dragons.mjs";
 import { registerEnrichers, installYearClicks, refreshNowLines } from "./foundry/atlas.mjs";
@@ -53,6 +54,7 @@ Hooks.once("setup", () => installCastGate());
 Hooks.once("ready", async () => {
   registerSocket();
   installYearClicks();
+  syncDaylight();
   await firstRun();
   renderBanner();
   await buildPending();
@@ -80,10 +82,13 @@ Hooks.on("renderCharacterSheetPF2e", async (app, html) => { sheetNotice(app, htm
 
 // Steel as the coin of account, once the languages are loaded.
 Hooks.once("i18nInit", () => applySteel());
+// A scene made active takes the hour's daylight.
+Hooks.on("updateScene", (scene, changes) => { if (changes.active) syncDaylight(scene); });
 
 Hooks.on("updateWorldTime", async (worldTime, delta) => {
   refreshSky();
   refreshNowLines();
+  await syncDaylight();
   await onWorldTime(worldTime, delta);
   await syncAll();
 });

@@ -11,10 +11,14 @@
   {{/if}}
   {{#if knight}}
   <div class="krynn-panel-row"><h4><i class="fa-solid fa-shield-halved"></i> {{localize "KRYNN.Panel.Knighthood"}}</h4>
-    <p><strong>{{knight.order}}</strong>{{#if knight.measure}} · {{#if knight.breach}}<span class="krynn-warn">{{localize "KRYNN.Panel.Breach"}}</span>{{else}}{{localize "KRYNN.Panel.Measure"}}{{/if}}{{/if}}</p></div>
+    <p><strong>{{knight.order}}</strong>{{#if knight.measure}} · {{#if knight.breach}}<span class="krynn-warn">{{localize "KRYNN.Panel.Breach"}}</span>{{else}}{{localize "KRYNN.Panel.Measure"}}{{/if}}{{/if}}</p>
+    {{#if knight.measure}}{{#if gm}}<p class="krynn-measure"><input type="text" name="measure-reason" placeholder="{{localize "KRYNN.Panel.Why"}}">
+      {{#if knight.breach}}<a data-krynn-panel="penance"><i class="fa-solid fa-hands-praying"></i> {{localize "KRYNN.Panel.Penance"}}</a>{{else}}<a data-krynn-panel="breach"><i class="fa-solid fa-scale-unbalanced"></i> {{localize "KRYNN.Panel.RecordBreach"}}</a>{{/if}}</p>{{/if}}
+    {{#if knight.log.length}}<ul class="krynn-log">{{#each knight.log}}<li><span class="hint">{{date}}</span> {{label}}{{#if reason}} — {{reason}}{{/if}}</li>{{/each}}</ul>{{/if}}{{/if}}</div>
   {{/if}}
   <div class="krynn-panel-row"><h4><i class="fa-solid fa-flag"></i> {{localize "KRYNN.Factions.Title"}}</h4>
     {{#if factions.length}}<ul>{{#each factions}}<li class="standing-{{key}}">{{name}}: <strong>{{label}}</strong></li>{{/each}}</ul>{{else}}<p class="hint">{{localize "KRYNN.Factions.None"}}</p>{{/if}}
+    {{#if factionLog.length}}<ul class="krynn-log">{{#each factionLog}}<li><span class="hint">{{date}}</span> {{#if reason}}{{reason}}{{else}}…{{/if}}</li>{{/each}}</ul>{{/if}}
     <p><a data-krynn-panel="factions"><i class="fa-solid fa-flag"></i> {{localize "KRYNN.Panel.OpenFactions"}}</a></p></div>
   {{#if hasLife}}
   <div class="krynn-panel-row"><h4><i class="fa-solid fa-book-open"></i> {{localize "KRYNN.Panel.Life"}}</h4>

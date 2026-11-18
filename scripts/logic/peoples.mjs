@@ -113,3 +113,6 @@ export function factionRows(stored, factions, lang = "en") {
   return Object.entries(stored || {}).map(([id, f]) => ({ id, name: f.name || byId[id]?.name[lang === "pt" ? "pt" : "en"] || id, standing: f.standing ?? 0, key: standingKey(f.standing ?? 0), note: f.note || "" }))
     .sort((a, b) => b.standing - a.standing || a.name.localeCompare(b.name));
 }
+
+// A log of what happened to a character's standing or knighthood: newest first, kept to a length.
+export function logEntry(log = [], entry, keep = 30) { return [entry, ...(log || [])].slice(0, keep); }

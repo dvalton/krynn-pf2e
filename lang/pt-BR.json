@@ -41,7 +41,7 @@
    "MoonMagic": {
     "Label": "Magia lunar",
     "Hint": "O quanto as luas mudam a Alta Feitiçaria para personagens com o talento Mago da Alta Feitiçaria (compêndio Krynn: Magia). Aplicado como um efeito na ficha, a cada dia.",
-    "classic": "Clássica: bônus e penalidades por fase, alinhamentos, a Noite do Olho",
+    "classic": "Clássica: bônus e penalidades por fase, espaços de magia extras, alinhamentos, a Noite do Olho",
     "light": "Leve: um bônus só no Alto Santuário",
     "narrative": "Narrativa: notas no chat e na ficha, sem números",
     "off": "Desligada: só o calendário"
@@ -120,6 +120,10 @@
     "Absent": "inativo",
     "Workbench": "as automações dele ficam como estão; o módulo não acrescenta nada que o Workbench já faz.",
     "Toolbelt": "o ajudante de alvos dele recebe os testes dos estertores e do medo dracônico, com as criaturas ao alcance como alvos."
+   },
+   "Daylight": {
+    "Label": "Luz do dia na cena ativa",
+    "Hint": "A escuridão da cena ativa segue o sol: o nascer e o pôr do sol mudam com as estações de Krynn. Uma cena pode ficar de fora com a flag krynn-pf2e.noDaylight."
    }
   },
   "Calendar": {
@@ -714,6 +718,14 @@
    "Welcome": {
     "Title": "Bem-vindos a Krynn",
     "Text": "O calendário agora é o Calendário de Krynn, em {date}. Mude a era, a data, as luas e os deuses em Configurações → Krynn."
+   },
+   "Affected": {
+    "godsLeave": "Os deuses não respondem mais a {names}. Com {feat}, um conjurador divino pode usar o poder do coração.",
+    "moonsLeave": "As luas se foram para {names}. Com {feat}, um mago pode aprender a magia selvagem do mundo.",
+    "godsReturn": "{names} voltam a sentir seus deuses.",
+    "moonsReturn": "As luas voltam a brilhar para {names}.",
+    "Mystic": "Místico do Coração",
+    "Primal": "Feiticeiro Primordial"
    }
   },
   "SelfTest": {
@@ -886,14 +898,31 @@
    "BlockedGods": "{who} reza por {spell}, e nenhum deus responde. A magia falha; nada é gasto.",
    "BlockedMoons": "{who} busca {spell}, mas as luas da magia se foram. A magia falha; nada é gasto.",
    "WarnGods": "{who} lançou {spell}, uma magia divina, em {year}, quando os deuses estão ausentes.",
-   "WarnMoons": "{who} lançou {spell} pela Alta Feitiçaria em {year}, quando as luas se foram."
+   "WarnMoons": "{who} lançou {spell} pela Alta Feitiçaria em {year}, quando as luas se foram.",
+   "SlotNote": {
+    "high": "A partir do nível 3: um espaço de magia extra do seu grau mais alto, enquanto a lua está alta (somado à sua conjuração arcana pelo módulo).",
+    "waxing": "Um espaço de magia extra de grau 1 enquanto a lua cresce (somado pelo módulo).",
+    "eye": "Dois espaços de magia extras do seu grau mais alto esta noite (somados pelo módulo)."
+   }
   },
   "Rule": {
    "InForest": "Numa floresta",
    "Stonework": "Trabalho em pedra ou Thorbardin",
    "LifeQuest": "Busca de Vida",
    "Clan": "Seu clã",
-   "ElvenCourt": "Numa corte élfica"
+   "ElvenCourt": "Numa corte élfica",
+   "Solamnic": "Com solâmnicos que honram os Cavaleiros",
+   "Seafarer": "Marinheiro ergothiano",
+   "Plains": "Nas planícies",
+   "Rider": "Cavaleiro khurish",
+   "HardRoad": "Estrada dura ou fome",
+   "AtSea": "No mar",
+   "KagonestiKin": "Com Kagonesti que leem suas tatuagens",
+   "Circus": "Campeão do Circo",
+   "SawYouWin": "O inimigo o viu vencer",
+   "Honour": "Honra da Casa",
+   "MinotaurKin": "Com minotauros",
+   "PassSoldier": "Passando por soldado do exército dracônico"
   },
   "Heritage": {
    "SilvanestiComposure": "Compostura Silvanesti",
@@ -937,7 +966,9 @@
     "indifferent": "Indiferente",
     "friendly": "Amistoso",
     "helpful": "Prestativo"
-   }
+   },
+   "Reason": "Por que a reputação muda (vai para o histórico)",
+   "History": "Histórico"
   },
   "Finish": {
    "Title": "{name}: escolhas a fazer",
@@ -1123,7 +1154,14 @@
    "Breach": "em quebra da Medida",
    "OpenFactions": "Abrir as facções",
    "Life": "A vida",
-   "Open": "Escolhas a fazer:"
+   "Open": "Escolhas a fazer:",
+   "Why": "O que aconteceu",
+   "RecordBreach": "Registrar uma quebra da Medida",
+   "Penance": "Penitência cumprida",
+   "LogBreach": "quebra da Medida",
+   "LogPenance": "penitência cumprida",
+   "BreachTitle": "{name} quebrou a Medida",
+   "PenanceTitle": "{name} cumpriu a penitência"
   },
   "Steel": {
    "Abbr": "aço",
@@ -1194,6 +1232,29 @@
     "Notes": "<p>Os altos ogros, belos e reservados, que se esconderam do mundo e de vez em quando andam por ele com rostos emprestados.</p>",
     "many-faces": "O irda assume a forma de qualquer humanoide Médio até decidir voltar. Criaturas que Procurem com @Check[perception|dc:19] notam algo estranho.",
     "starlight-ward": "<strong>Frequência</strong> uma vez por hora; <strong>Gatilho</strong> O irda seria atingido por um Golpe.<hr />O irda recebe +2 de bônus de status na CA contra o Golpe."
+   },
+   "death-knight": {
+    "Notes": "<p>Um Cavaleiro que quebrou a Medida de algum modo terrível e foi amaldiçoado a continuar, ardendo e sem descanso, num corpo de morto.</p>",
+    "oath-broken": "9 m. Criaturas vivas que entrem fazem @Check[will|dc:30]; na falha ficam amedrontadas 1, na falha crítica amedrontadas 2.",
+    "burning-word": "<strong>Frequência</strong> uma vez por hora<hr />Uma explosão de 6 m a até 30 m: @Damage[14d6[fire]] de dano, @Check[reflex|dc:30|basic].",
+    "cursed-return": "Destruído, o cavaleiro da morte volta à sua fortaleza em 1d10 dias, a menos que a maldição seja quebrada ou seu crime, reparado."
+   },
+   "fetch": {
+    "Notes": "<p>Uma coisa das bordas do Abismo que usa os rostos das pessoas que suas vítimas amam, e as leva embora.</p>",
+    "borrowed-likeness": "O fetch assume a aparência de alguém querido de uma criatura que vê. Essa criatura fica desprevenida contra o fetch até passar em @Check[will|dc:19] (uma tentativa por rodada, como ação livre)."
+   },
+   "huldre": {
+    "Notes": "<p>Fadas antigas e tímidas das matas fundas, que fazem jogos longos com viajantes e cumprem seus acordos ao pé da letra.</p>",
+    "fey-glamour": "Uma criatura a até 9 m faz @Check[will|dc:18]. <strong>Falha</strong> fascinada pelo huldre por 1 minuto. <strong>Falha Crítica</strong> como na falha, e ela segue o huldre.",
+    "between-trees": "O huldre entra numa árvore e sai de outra a até 18 m."
+   },
+   "dargonesti-warrior": {
+    "Notes": "<p>Os elfos do mar profundo, de pele escura e orgulhosos, que mantêm cidades no fundo do oceano e raramente sobem.</p>",
+    "dolphin-form": "O dargonesti vira um golfinho (natação 18 m, um Golpe de mandíbula como o do tridente) até voltar."
+   },
+   "dimernesti-scout": {
+    "Notes": "<p>Os elfos do mar raso, rápidos e curiosos, que negociam com vilas de pescadores e vigiam as costas para seus parentes das profundezas.</p>",
+    "otter-form": "O dimernesti vira uma lontra-marinha (Minúsculo, natação 12 m, +2 de bônus de status em Furtividade na água) até voltar."
    },
    "Throes": {
     "baaz": "<p>Quando o baaz morre, vira pedra. A criatura que deu o golpe fatal com uma arma corpo a corpo faz um teste de Reflexos contra a CD do baaz; se falhar, a arma fica presa na pedra até a estátua virar pó no início do próximo turno do baaz (ou até o portador passar num teste de Atletismo para Forçar Abertura contra a mesma CD).</p>",

@@ -58,7 +58,7 @@ export class KrynnSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.api.A
       hs: opts(GODS_MODE, "Settings.HighSorcery", setting("hsMode")), moonMinLevel: setting("moonMinLevel"),
       nuitari: opts(NUITARI_SEEN, "Settings.Nuitari", setting("nuitariSeen")),
       announce: setting("announce"), life,
-      throes: opts(THROES_MODE, "Settings.Throes", setting("deathThroes")), dragonfearCards: setting("dragonfearCards"), steel: setting("steelCurrency"),
+      throes: opts(THROES_MODE, "Settings.Throes", setting("deathThroes")), dragonfearCards: setting("dragonfearCards"), steel: setting("steelCurrency"), daylight: setting("sceneDaylight"),
       companions: companions().map((c) => ({ ...c, text: T(`Settings.Companions.${c.key}`), state: T(c.active ? "Settings.Companions.Active" : "Settings.Companions.Absent") })),
       buttons: [{ type: "submit", icon: "fa-solid fa-floppy-disk", label: "KRYNN.Settings.Save" }],
     };
@@ -75,6 +75,7 @@ export class KrynnSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.api.A
     await game.settings.set(MODULE_ID, "eyeDate", { year: n(f.eye?.year, 351), month: n(f.eye?.month, 0), day: n(f.eye?.day, 1) });
     for (const k of ["moonMagic", "godsMode", "nuitariSeen", "hsMode", "deathThroes"]) if (f[k]) await game.settings.set(MODULE_ID, k, f[k]);
     await game.settings.set(MODULE_ID, "dragonfearCards", !!f.dragonfearCards);
+    await game.settings.set(MODULE_ID, "sceneDaylight", !!f.sceneDaylight);
     if (!!f.steelCurrency !== setting("steelCurrency")) { await game.settings.set(MODULE_ID, "steelCurrency", !!f.steelCurrency); foundry.utils.debouncedReload?.(); }
     if (f.moonMinLevel !== undefined) await game.settings.set(MODULE_ID, "moonMinLevel", Math.min(20, Math.max(1, n(f.moonMinLevel, 1))));
     await game.settings.set(MODULE_ID, "announce", !!f.announce);

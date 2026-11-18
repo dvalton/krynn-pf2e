@@ -2,7 +2,8 @@
 // to helpful. The GM edits; the owner sees it. Started from the organizations of a Lifewrought life.
 import { MODULE_ID, T, template } from "../constants.mjs";
 import { FACTIONS } from "../../content/orders.mjs";
-import { factionRows, STANDINGS, slugify } from "../../logic/peoples.mjs";
+import { factionRows, STANDINGS, slugify, logEntry } from "../../logic/peoples.mjs";
+import { now, formatDate } from "../time.mjs";
 
 const fa = foundry.applications;
 const lang = () => (game.i18n.lang?.startsWith("pt") ? "pt" : "en");
@@ -27,7 +28,10 @@ export class FactionsApp extends fa.api.HandlebarsApplicationMixin(fa.api.Applic
   async _prepareContext() {
     const rows = factionRows(this.stored, FACTIONS, lang()).map((r) => ({ ...r, label: T(`Factions.Standing.${r.key}`), up: r.standing < 2, down: r.standing > -2 }));
     const presets = FACTIONS.filter((f) => !(f.id in this.stored)).map((f) => ({ id: f.id, name: f.name[lang()] }));
-    return { rows, presets, gm: game.user.isGM, empty: !rows.length, scale: STANDINGS.map((k, i) => ({ n: i - 2, label: T(`Factions.Standing.${k}`) })) };
+    const names = Object.fromEntries(rows.map((r) => [r.id, r.name]));
+    const log = (this.actor.getFlag(MODULE_ID, "factionLog") ?? []).slice(0, 12).map((e) => ({ ...e, name: names[e.id] ?? e.name ?? e.id,
+      from: T(`Factions.Standing.${STANDINGS[e.from + 2]}`), to: T(`Factions.Standing.${STANDINGS[e.to + 2]}`) }));
+    return { rows, presets, log, gm: game.user.isGM, empty: !rows.length, scale: STANDINGS.map((k, i) => ({ n: i - 2, label: T(`Factions.Standing.${k}`) })) };
   }
 
   async #set(id, data) {
@@ -47,7 +51,12 @@ export class FactionsApp extends fa.api.HandlebarsApplicationMixin(fa.api.Applic
   static async #onStep(e, t) {
     const f = this.stored[t.dataset.id];
     if (!f) return;
-    return this.#set(t.dataset.id, { standing: Math.max(-2, Math.min(2, (f.standing ?? 0) + Number(t.dataset.by))) });
+    const from = f.standing ?? 0, to = Math.max(-2, Math.min(2, from + Number(t.dataset.by)));
+    if (to === from) return;
+    // Why it changed goes into the history, with the date in Krynn.
+    const reason = this.element?.querySelector?.("[name=reason]")?.value?.trim() ?? "";
+    await this.actor.setFlag(MODULE_ID, "factionLog", logEntry(this.actor.getFlag(MODULE_ID, "factionLog"), { id: t.dataset.id, name: f.name ?? null, from, to, reason, date: formatDate(now()) }));
+    return this.#set(t.dataset.id, { standing: to });
   }
 
   _onRender(context, options) {

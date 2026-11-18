@@ -48,3 +48,23 @@ export function castVerdict({ tradition, hasDeity, year, godsMode, hsMode, mysti
   }
   return { block: false, warn: false, reason: null };
 }
+
+// The moons' extra spell slots in the classic mode: High Sanction gives one slot of the highest rank (from level 3),
+// Waxing one slot of rank 1, the Night of the Eye two slots of the highest rank. Returns { rank: count }.
+export function moonSlots(m, level, highestRank) {
+  if (!m || m.mode !== "classic" || !highestRank) return {};
+  if (m.eye) return { [highestRank]: 2 };
+  if (m.phase === "high" && level >= 3) return { [highestRank]: 1 };
+  if (m.phase === "waxing") return { 1: 1 };
+  return {};
+}
+
+// What to change on an entry's slots to go from the extra slots given before to the new ones: { rank: delta }.
+export function slotDelta(before = {}, after = {}) {
+  const out = {};
+  for (const r of new Set([...Object.keys(before), ...Object.keys(after)])) {
+    const d = (after[r] ?? 0) - (before[r] ?? 0);
+    if (d) out[r] = d;
+  }
+  return out;
+}

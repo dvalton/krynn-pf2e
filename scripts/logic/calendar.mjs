@@ -115,3 +115,19 @@ export function calendarStrings(lang) {
   }
   return out;
 }
+
+// Daylight: sunrise and sunset by the day of the year (the longest day at the start of summer), and the scene's
+// darkness for an hour of the day, with an hour of twilight at each end.
+export function sunTimes(dayOfYear, daysInYear = 360, solstice = 170) {
+  const k = Math.cos((2 * Math.PI * (dayOfYear - solstice)) / daysInYear);
+  return { sunrise: 6 - 1.5 * k, sunset: 18 + 1.5 * k };
+}
+export function darknessAt(dayOfYear, hour, daysInYear = 360, night = 1) {
+  const { sunrise, sunset } = sunTimes(dayOfYear, daysInYear);
+  const ramp = (x) => Math.max(0, Math.min(1, x));
+  if (hour < sunrise - 0.5) return night;
+  if (hour < sunrise + 0.5) return night * (1 - ramp(hour - (sunrise - 0.5)));
+  if (hour < sunset - 0.5) return 0;
+  if (hour < sunset + 0.5) return night * ramp(hour - (sunset - 0.5));
+  return night;
+}

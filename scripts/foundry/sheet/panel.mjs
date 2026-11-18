@@ -5,7 +5,8 @@ import { MODULE_ID, T, template } from "../constants.mjs";
 import { now, stateNow } from "../time.mjs";
 import { robeOf, magicFor, effectData } from "../magic/moons.mjs";
 import { FACTIONS } from "../../content/orders.mjs";
-import { factionRows } from "../../logic/peoples.mjs";
+import { factionRows, logEntry } from "../../logic/peoples.mjs";
+import { formatDate } from "../time.mjs";
 import { pendingChoices, finishChoices } from "../lifewrought/finish.mjs";
 import { openFactions } from "../peoples/factions.mjs";
 
@@ -31,9 +32,11 @@ export function panelContext(actor) {
   const god = deity ? { name: deity.name, answers: state.gods, mystic } : mystic ? { name: T("Panel.Heart"), answers: true, mystic } : null;
   // The knighthoods.
   const sol = has("knight-of-solamnia-dedication"), dark = has("knight-of-takhisis-dedication");
-  const knight = sol ? { order: T(`Knight.${sol.flags?.pf2e?.rulesSelections?.knightOrder ?? "crown"}`), breach: !!has("krynn-breach-of-the-measure"), measure: true }
+  const measureLog = (actor.getFlag?.(MODULE_ID, "measureLog") ?? []).slice(0, 5).map((e) => ({ ...e, label: T(e.kind === "breach" ? "Panel.LogBreach" : "Panel.LogPenance") }));
+  const knight = sol ? { order: T(`Knight.${sol.flags?.pf2e?.rulesSelections?.knightOrder ?? "crown"}`), breach: !!has("krynn-breach-of-the-measure"), measure: true, log: measureLog }
     : dark ? { order: T(`Knight.${dark.flags?.pf2e?.rulesSelections?.darkOrder ?? "lily"}`), breach: false, measure: false } : null;
   // Factions, the life, choices.
+  const factionLog = (actor.getFlag?.(MODULE_ID, "factionLog") ?? []).slice(0, 3);
   const factions = factionRows(actor.getFlag?.(MODULE_ID, "factions") ?? {}, FACTIONS, lang()).map((r) => ({ ...r, label: T(`Factions.Standing.${r.key}`) }));
   const life = actor.getFlag?.(MODULE_ID, "lifewrought") ?? null;
   const journal = life?.journal ? game.journal?.get(life.journal) : null;
@@ -41,7 +44,7 @@ export function panelContext(actor) {
   const open = actor.isOwner && life ? pendingChoices(actor).map((o) => o.name) : [];
   return {
     actorId: actor.id, date: `${d.day}/${d.month + 1}/${d.year}`, age: T(`Age.${state.age}.Name`), magic, god, knight, factions, gm: game.user.isGM,
-    journal: journal ? { id: journal.id, name: journal.name } : null, people, open, hasLife: !!life,
+    factionLog, journal: journal ? { id: journal.id, name: journal.name } : null, people, open, hasLife: !!life,
   };
 }
 
@@ -50,6 +53,23 @@ async function onAction(actor, action, el, rerender) {
   if (action === "person") game.actors.get(el.dataset.id)?.sheet?.render(true);
   if (action === "factions") openFactions(actor);
   if (action === "finish") { await finishChoices(actor); rerender?.(); }
+  if (action === "breach" || action === "penance") { await measure(actor, action, el.closest(".krynn-panel")?.querySelector("[name=measure-reason]")?.value?.trim() ?? ""); rerender?.(); }
+}
+
+// The Measure: the GM records a breach (the effect goes on, with the reason) or the penance done (it comes off).
+export async function measure(actor, action, reason = "") {
+  if (!game.user.isGM) return;
+  const current = actor.items.find((i) => slugOf(i) === "krynn-breach-of-the-measure");
+  if (action === "breach" && !current) {
+    const pack = game.packs.get(`${MODULE_ID}.orders`);
+    const e = pack?.index?.find?.((x) => x.name === "Breach of the Measure");
+    const doc = e ? await pack.getDocument(e._id) : null;
+    if (doc) await actor.createEmbeddedDocuments("Item", [doc.toObject()]);
+  }
+  if (action === "penance" && current) await actor.deleteEmbeddedDocuments("Item", [current.id]);
+  await actor.setFlag(MODULE_ID, "measureLog", logEntry(actor.getFlag(MODULE_ID, "measureLog"), { kind: action, reason, date: formatDate(now()) }));
+  await ChatMessage.create({ speaker: { alias: T("Chat.Speaker") }, whisper: game.users.filter((u) => u.isGM || actor.testUserPermission?.(u, "OWNER")).map((u) => u.id),
+    content: `<div class="krynn-card"><h3>${T(`Panel.${action === "breach" ? "BreachTitle" : "PenanceTitle"}`, { name: foundry.utils.escapeHTML(actor.name) })}</h3>${reason ? `<p>${foundry.utils.escapeHTML(reason)}</p>` : ""}</div>` });
 }
 
 export class KrynnPanelApp extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV2) {

@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.9.0
+
+Completing the plan: what earlier versions left open.
+
+- **The moons' spell slots** in the classic mode, as the plan has them:
+  - High Sanction: one extra slot of the highest rank, from level 3.
+  - Waxing: one extra slot of rank 1.
+  - The Night of the Eye: two extra slots of the highest rank.
+  The module adds them to the mage's arcane spellcasting and takes them back as the moon changes, touching only what is the moon's.
+- **Human cultures and other peoples**: eleven new ancestry feats.
+  - Human cultures: Solamnic Upbringing, Ergothian Seafarer, Plainsfolk Ways, Khurish Rider, Nerakan Hardiness, Saifhum Sailor and Ice Folk Endurance, each with an extra language.
+  - Other peoples: Kagonesti Tattoos, Circus Champion, House Honour and Dragonarmy Auxiliary.
+- **The Measure on the Krynn tab**: the GM records a breach (with what happened) and the penance done. The effect goes on and off, the knight's history keeps both, and the owner is told.
+- **Standing history**: each change in a faction's standing is recorded with the date in Krynn and the reason. The factions window and the Krynn tab show it.
+- **More creatures**: death knight, fetch, huldre, and the sea elves (Dargonesti and Dimernesti), also in the encounter generator.
+- **Daylight on the active scene** (a setting, off by default): the darkness follows the sun, with sunrise and sunset moving with Krynn's seasons.
+- **When the gods or the moons leave**, the age's card names the characters it touches and links Mystic of the Heart or Primal Sorcerer; when they return, it says so.
+- **A lint of every pack** in the tests: each rule element uses a key PF2e has, each PF2e link is one PF2e has, and each link inside the module points to a built document.
+
 ## 0.8.0
 
 Polish.

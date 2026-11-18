@@ -75,6 +75,50 @@
   "House Etiquette": {
    "name": "Etiqueta das Casas",
    "description": "<p>Você foi criado nos costumes das Casas e cortes élficas. Você é treinado em Sociedade, e recebe +1 de bônus circunstancial em testes de Diplomacia numa corte élfica (use a opção).</p>"
+  },
+  "Solamnic Upbringing": {
+   "name": "Criação Solâmnica",
+   "description": "<p>Você cresceu nas províncias de Solamnia, com histórias dos Cavaleiros e da sua queda. Você aprende solâmnico como idioma extra e é treinado em Sociedade; recebe +1 de bônus circunstancial em Diplomacia com solâmnicos que ainda honram os Cavaleiros (use a opção).</p>"
+  },
+  "Ergothian Seafarer": {
+   "name": "Marinheiro Ergothiano",
+   "description": "<p>Seu povo governava os mares do velho império. Você aprende ergot como idioma extra, é treinado em Atletismo, e recebe +1 de bônus circunstancial em testes de Atletismo para Nadar e Escalar num navio.</p>"
+  },
+  "Plainsfolk Ways": {
+   "name": "Costumes das Planícies",
+   "description": "<p>Você foi criado por uma tribo das Planícies de Abanasinia, os Que-Shu, Que-Kiri ou Que-Teh. Você aprende a língua da tribo como idioma extra, é treinado em Sobrevivência, e recebe +1 de bônus circunstancial em testes de Sobrevivência para Sentir Direção e Subsistir nas planícies.</p>"
+  },
+  "Khurish Rider": {
+   "name": "Cavaleiro Khurish",
+   "description": "<p>Você aprendeu a cavalgar antes de andar, entre as tribos do deserto de Khur. Você aprende khurish como idioma extra, é treinado em Natureza, e recebe +1 de bônus circunstancial em testes de Natureza para Comandar um Animal que monta.</p>"
+  },
+  "Nerakan Hardiness": {
+   "name": "Resistência Nerakana",
+   "description": "<p>A vida nas montanhas de Taman Busuk era dura e nunca gentil. Você aprende nerakano como idioma extra, é treinado em Intimidação, e recebe +1 de bônus circunstancial em testes de Fortitude contra a fadiga de viagens duras e da fome.</p>"
+  },
+  "Saifhum Sailor": {
+   "name": "Navegante de Saifhum",
+   "description": "<p>Você é do povo do mar de Saifhum, rival dos minotauros no Mar de Sangue. Você aprende saifhum como idioma extra, é treinado em Conhecimento de Navegação, e recebe +1 de bônus circunstancial em testes de Percepção para notar perigo no mar.</p>"
+  },
+  "Ice Folk Endurance": {
+   "name": "Resistência do Povo do Gelo",
+   "description": "<p>Você cresceu nas geleiras de Icereach. Você aprende a língua do Povo do Gelo como idioma extra, trata o frio severo como ameno, e recebe resistência a frio igual à metade do seu nível (mínimo 1).</p>"
+  },
+  "Kagonesti Tattoos": {
+   "name": "Tatuagens Kagonesti",
+   "description": "<p>Os desenhos pintados e tatuados na sua pele contam seu clã e seus feitos. Você recebe +1 de bônus circunstancial em testes de Furtividade em florestas, e em Diplomacia com Kagonesti que saibam ler suas tatuagens (use as opções).</p>"
+  },
+  "Circus Champion": {
+   "name": "Campeão do Circo",
+   "description": "<p>Você lutou no Grande Circo de Nethosak e venceu. Você é treinado em Atletismo, e recebe +1 de bônus circunstancial em testes de Intimidação para Desmoralizar um inimigo que o viu vencer uma luta.</p>"
+  },
+  "House Honour": {
+   "name": "Honra da Casa",
+   "description": "<p>O nome da sua Casa vai à sua frente. Você recebe +1 de bônus circunstancial em testes de Vontade contra efeitos que o fariam fugir ou se render, e em Diplomacia com minotauros (use a opção).</p>"
+  },
+  "Dragonarmy Auxiliary": {
+   "name": "Auxiliar do Exército Dracônico",
+   "description": "<p>Você serviu, ou seu povo serviu, nas companhias auxiliares dos exércitos dracônicos. Você é treinado em Conhecimento de Guerra e Intimidação, e recebe +1 de bônus circunstancial em testes de Enganação para se passar por soldado dos exércitos dracônicos.</p>"
   }
  }
 }

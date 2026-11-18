@@ -185,6 +185,62 @@ export const CREATURES = [
       ["starlight-ward", { en: "Starlight Ward", pt: "Proteção Estelar" }, "reaction", ["primal"], { en: "<strong>Frequency</strong> once per hour; <strong>Trigger</strong> The irda would be hit by a Strike.<hr />The irda gains a +2 status bonus to AC against the triggering Strike.", pt: "<strong>Frequência</strong> uma vez por hora; <strong>Gatilho</strong> O irda seria atingido por um Golpe.<hr />O irda recebe +2 de bônus de status na CA contra o Golpe." }],
     ],
     notes: { en: "The high ogres, beautiful and secretive, who hid from the world and walk it now and then under borrowed faces.", pt: "Os altos ogros, belos e reservados, que se esconderam do mundo e de vez em quando andam por ele com rostos emprestados." } },
+
+  // ---- 0.9 -------------------------------------------------------------------------------------------------
+  { slug: "death-knight", level: 13, size: "med", traits: ["undead", "human", "humanoid", "unholy"], img: "modules/krynn-pf2e/icons/skull.svg",
+    name: { en: "Death Knight", pt: "Cavaleiro da Morte" },
+    abilities: { str: 7, dex: 2, con: 5, int: 2, wis: 3, cha: 5 }, ac: "high", hp: 1, saves: { fortitude: "high", reflex: "mod", will: "high" }, perception: "mod",
+    skills: { athletics: "high", intimidation: "high", religion: "mod" }, speed: 25, other: [], senses: ["darkvision"], languages: ["common", "solamnic"],
+    immunities: ["death-effects", "disease", "paralyzed", "poison", "unconscious"], weaknesses: [["vitality", 10]], resistances: [["fire", 10]],
+    strikes: [["Longsword", "high", "dmg", "slashing", ["versatile-p", "magical", "unholy"]]],
+    actions: [
+      ["oath-broken", { en: "Oath Broken", pt: "Juramento Quebrado" }, "passive", ["aura", "emotion", "fear", "mental"], { en: "30 feet. Living creatures that enter attempt @Check[will|dc:{dc}]; on a failure they are frightened 1, on a critical failure frightened 2.", pt: "9 m. Criaturas vivas que entrem fazem @Check[will|dc:{dc}]; na falha ficam amedrontadas 1, na falha crítica amedrontadas 2." },
+        [{ key: "Aura", radius: 30, slug: "death-knight-dread", traits: ["aura", "emotion", "fear", "mental"] }]],
+      ["burning-word", { en: "Burning Word", pt: "Palavra Ardente" }, 2, ["fire", "occult"], { en: "<strong>Frequency</strong> once per hour<hr />A 20-foot burst within 100 feet: @Damage[{area}[fire]] damage, @Check[reflex|dc:{dc}|basic].", pt: "<strong>Frequência</strong> uma vez por hora<hr />Uma explosão de 6 m a até 30 m: @Damage[{area}[fire]] de dano, @Check[reflex|dc:{dc}|basic]." }],
+      ["cursed-return", { en: "Cursed Return", pt: "Retorno Amaldiçoado" }, "passive", [], { en: "Destroyed, the death knight returns to its keep in 1d10 days, unless its curse is lifted or its crime is set right.", pt: "Destruído, o cavaleiro da morte volta à sua fortaleza em 1d10 dias, a menos que a maldição seja quebrada ou seu crime, reparado." }],
+    ],
+    notes: { en: "A Knight who broke the Measure in some terrible way and was cursed to go on, burning and unresting, in a body of the dead.", pt: "Um Cavaleiro que quebrou a Medida de algum modo terrível e foi amaldiçoado a continuar, ardendo e sem descanso, num corpo de morto." } },
+
+  { slug: "fetch", level: 5, size: "med", traits: ["aberration", "shadow"], img: "modules/krynn-pf2e/icons/skull.svg",
+    name: { en: "Fetch", pt: "Fetch" },
+    abilities: { str: 2, dex: 4, con: 2, int: 1, wis: 2, cha: 4 }, ac: "mod", hp: 0.9, saves: { fortitude: "low", reflex: "high", will: "mod" }, perception: "mod",
+    skills: { deception: "high", stealth: "high" }, speed: 30, other: [], senses: ["darkvision"], languages: ["common"],
+    strikes: [["Shadow Claw", "high", "dmg", "slashing", ["agile", "finesse"]]],
+    actions: [
+      ["borrowed-likeness", { en: "Borrowed Likeness", pt: "Semelhança Emprestada" }, 1, ["concentrate", "illusion", "occult"], { en: "The fetch takes the look of someone dear to a creature it can see. That creature is off-guard to the fetch until it succeeds at @Check[will|dc:{dc}] (one attempt each round, as a free action).", pt: "O fetch assume a aparência de alguém querido de uma criatura que vê. Essa criatura fica desprevenida contra o fetch até passar em @Check[will|dc:{dc}] (uma tentativa por rodada, como ação livre)." }],
+    ],
+    notes: { en: "A thing from the edges of the Abyss that wears the faces of the people its victims love, and takes them away.", pt: "Uma coisa das bordas do Abismo que usa os rostos das pessoas que suas vítimas amam, e as leva embora." } },
+
+  { slug: "huldre", level: 4, size: "med", traits: ["fey"], img: "modules/krynn-pf2e/icons/leaf.svg",
+    name: { en: "Huldre", pt: "Huldre" },
+    abilities: { str: 1, dex: 4, con: 1, int: 2, wis: 3, cha: 5 }, ac: "mod", hp: 0.85, saves: { fortitude: "low", reflex: "high", will: "high" }, perception: "high",
+    skills: { deception: "high", nature: "mod", stealth: "high" }, speed: 30, other: [], senses: ["low-light-vision"], languages: ["common", "elven", "sylvan"], weaknesses: [["cold-iron", 5]],
+    strikes: [["Thorn Dart", "high", "1d6+4", "piercing", ["agile", "range-30"]]],
+    actions: [
+      ["fey-glamour", { en: "Fey Glamour", pt: "Encanto Feérico" }, 2, ["emotion", "enchantment", "mental", "primal"], { en: "One creature within 30 feet attempts @Check[will|dc:{dc}]. <strong>Failure</strong> fascinated by the huldre for 1 minute. <strong>Critical Failure</strong> as failure, and it follows the huldre.", pt: "Uma criatura a até 9 m faz @Check[will|dc:{dc}]. <strong>Falha</strong> fascinada pelo huldre por 1 minuto. <strong>Falha Crítica</strong> como na falha, e ela segue o huldre." }],
+      ["between-trees", { en: "Between the Trees", pt: "Entre as Árvores" }, 1, ["primal", "teleportation"], { en: "The huldre steps into one tree and out of another within 60 feet.", pt: "O huldre entra numa árvore e sai de outra a até 18 m." }],
+    ],
+    notes: { en: "Shy, ancient fey of the deep woods, who play long games with travellers and keep their bargains to the letter.", pt: "Fadas antigas e tímidas das matas fundas, que fazem jogos longos com viajantes e cumprem seus acordos ao pé da letra." } },
+
+  { slug: "dargonesti-warrior", level: 3, size: "med", traits: ["elf", "humanoid", "aquatic"], img: "modules/krynn-pf2e/icons/leaf.svg",
+    name: { en: "Dargonesti Warrior", pt: "Guerreiro Dargonesti" },
+    abilities: { str: 3, dex: 3, con: 2, int: 1, wis: 2, cha: 1 }, ac: "mod", hp: 1, saves: { fortitude: "mod", reflex: "high", will: "mod" }, perception: "high",
+    skills: { athletics: "high", nature: "mod", stealth: "mod" }, speed: 10, other: [["swim", 40]], senses: ["darkvision"], languages: ["elven", "common"],
+    strikes: [["Trident", "high", "dmg", "piercing", []]],
+    actions: [
+      ["dolphin-form", { en: "Dolphin Shape", pt: "Forma de Golfinho" }, 1, ["concentrate", "polymorph", "primal"], { en: "The dargonesti becomes a dolphin (swim 60 feet, a jaws Strike like its trident's) until it changes back.", pt: "O dargonesti vira um golfinho (natação 18 m, um Golpe de mandíbula como o do tridente) até voltar." }],
+    ],
+    notes: { en: "The deep-sea elves, dark-skinned and proud, who keep cities on the ocean floor and rarely come up.", pt: "Os elfos do mar profundo, de pele escura e orgulhosos, que mantêm cidades no fundo do oceano e raramente sobem." } },
+
+  { slug: "dimernesti-scout", level: 2, size: "med", traits: ["elf", "humanoid", "aquatic"], img: "modules/krynn-pf2e/icons/leaf.svg",
+    name: { en: "Dimernesti Scout", pt: "Batedor Dimernesti" },
+    abilities: { str: 1, dex: 4, con: 1, int: 1, wis: 3, cha: 1 }, ac: "high", hp: 0.9, saves: { fortitude: "low", reflex: "high", will: "mod" }, perception: "high",
+    skills: { stealth: "high", survival: "mod", acrobatics: "mod" }, speed: 25, other: [["swim", 40]], senses: ["low-light-vision"], languages: ["elven", "common"],
+    strikes: [["Spear", "high", "1d8+3", "piercing", ["thrown-20"]]],
+    actions: [
+      ["otter-form", { en: "Otter Shape", pt: "Forma de Lontra" }, 1, ["concentrate", "polymorph", "primal"], { en: "The dimernesti becomes a sea otter (Tiny, swim 40 feet, +2 status bonus to Stealth in water) until it changes back.", pt: "O dimernesti vira uma lontra-marinha (Minúsculo, natação 12 m, +2 de bônus de status em Furtividade na água) até voltar." }],
+    ],
+    notes: { en: "The shallow-sea elves, quick and curious, who trade with fishing villages and watch the coasts for their deep kin.", pt: "Os elfos do mar raso, rápidos e curiosos, que negociam com vilas de pescadores e vigiam as costas para seus parentes das profundezas." } },
 ];
 
 // The death throes, by draconian. Shown on the action and in the chat card; the module runs them (logic/dragons.mjs).

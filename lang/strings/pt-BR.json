@@ -41,7 +41,7 @@
       "MoonMagic": {
         "Label": "Magia lunar",
         "Hint": "O quanto as luas mudam a Alta Feitiçaria para personagens com o talento Mago da Alta Feitiçaria (compêndio Krynn: Magia). Aplicado como um efeito na ficha, a cada dia.",
-        "classic": "Clássica: bônus e penalidades por fase, alinhamentos, a Noite do Olho",
+        "classic": "Clássica: bônus e penalidades por fase, espaços de magia extras, alinhamentos, a Noite do Olho",
         "light": "Leve: um bônus só no Alto Santuário",
         "narrative": "Narrativa: notas no chat e na ficha, sem números",
         "off": "Desligada: só o calendário"
@@ -120,6 +120,10 @@
         "Absent": "inativo",
         "Workbench": "as automações dele ficam como estão; o módulo não acrescenta nada que o Workbench já faz.",
         "Toolbelt": "o ajudante de alvos dele recebe os testes dos estertores e do medo dracônico, com as criaturas ao alcance como alvos."
+      },
+      "Daylight": {
+        "Label": "Luz do dia na cena ativa",
+        "Hint": "A escuridão da cena ativa segue o sol: o nascer e o pôr do sol mudam com as estações de Krynn. Uma cena pode ficar de fora com a flag krynn-pf2e.noDaylight."
       }
     },
     "Calendar": {
@@ -338,6 +342,14 @@
       "Welcome": {
         "Title": "Bem-vindos a Krynn",
         "Text": "O calendário agora é o Calendário de Krynn, em {date}. Mude a era, a data, as luas e os deuses em Configurações → Krynn."
+      },
+      "Affected": {
+        "godsLeave": "Os deuses não respondem mais a {names}. Com {feat}, um conjurador divino pode usar o poder do coração.",
+        "moonsLeave": "As luas se foram para {names}. Com {feat}, um mago pode aprender a magia selvagem do mundo.",
+        "godsReturn": "{names} voltam a sentir seus deuses.",
+        "moonsReturn": "As luas voltam a brilhar para {names}.",
+        "Mystic": "Místico do Coração",
+        "Primal": "Feiticeiro Primordial"
       }
     },
     "SelfTest": {
@@ -510,14 +522,31 @@
       "BlockedGods": "{who} reza por {spell}, e nenhum deus responde. A magia falha; nada é gasto.",
       "BlockedMoons": "{who} busca {spell}, mas as luas da magia se foram. A magia falha; nada é gasto.",
       "WarnGods": "{who} lançou {spell}, uma magia divina, em {year}, quando os deuses estão ausentes.",
-      "WarnMoons": "{who} lançou {spell} pela Alta Feitiçaria em {year}, quando as luas se foram."
+      "WarnMoons": "{who} lançou {spell} pela Alta Feitiçaria em {year}, quando as luas se foram.",
+      "SlotNote": {
+        "high": "A partir do nível 3: um espaço de magia extra do seu grau mais alto, enquanto a lua está alta (somado à sua conjuração arcana pelo módulo).",
+        "waxing": "Um espaço de magia extra de grau 1 enquanto a lua cresce (somado pelo módulo).",
+        "eye": "Dois espaços de magia extras do seu grau mais alto esta noite (somados pelo módulo)."
+      }
     },
     "Rule": {
       "InForest": "Numa floresta",
       "Stonework": "Trabalho em pedra ou Thorbardin",
       "LifeQuest": "Busca de Vida",
       "Clan": "Seu clã",
-      "ElvenCourt": "Numa corte élfica"
+      "ElvenCourt": "Numa corte élfica",
+      "Solamnic": "Com solâmnicos que honram os Cavaleiros",
+      "Seafarer": "Marinheiro ergothiano",
+      "Plains": "Nas planícies",
+      "Rider": "Cavaleiro khurish",
+      "HardRoad": "Estrada dura ou fome",
+      "AtSea": "No mar",
+      "KagonestiKin": "Com Kagonesti que leem suas tatuagens",
+      "Circus": "Campeão do Circo",
+      "SawYouWin": "O inimigo o viu vencer",
+      "Honour": "Honra da Casa",
+      "MinotaurKin": "Com minotauros",
+      "PassSoldier": "Passando por soldado do exército dracônico"
     },
     "Heritage": {
       "SilvanestiComposure": "Compostura Silvanesti",
@@ -561,7 +590,9 @@
         "indifferent": "Indiferente",
         "friendly": "Amistoso",
         "helpful": "Prestativo"
-      }
+      },
+      "Reason": "Por que a reputação muda (vai para o histórico)",
+      "History": "Histórico"
     },
     "Finish": {
       "Title": "{name}: escolhas a fazer",
@@ -747,7 +778,14 @@
       "Breach": "em quebra da Medida",
       "OpenFactions": "Abrir as facções",
       "Life": "A vida",
-      "Open": "Escolhas a fazer:"
+      "Open": "Escolhas a fazer:",
+      "Why": "O que aconteceu",
+      "RecordBreach": "Registrar uma quebra da Medida",
+      "Penance": "Penitência cumprida",
+      "LogBreach": "quebra da Medida",
+      "LogPenance": "penitência cumprida",
+      "BreachTitle": "{name} quebrou a Medida",
+      "PenanceTitle": "{name} cumpriu a penitência"
     },
     "Steel": {
       "Abbr": "aço",
