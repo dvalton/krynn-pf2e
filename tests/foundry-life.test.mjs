@@ -65,7 +65,8 @@ test("the window speaks to the Lifewrought page: init, saves, and the character 
   const app = new LifeApp({ userId: "gm1" });
   await app.render();
   const frame = app.frame;
-  assert.ok(frame && frame.src.endsWith("/modules/krynn-pf2e/lifewrought/index.html?embed=foundry"));
+  assert.ok(frame && frame.srcdoc.includes('window.LW_EMBED = "foundry"'), "the page is written into the frame");
+  assert.ok(frame.srcdoc.includes('<base href="http://localhost:30000/modules/krynn-pf2e/lifewrought/">'), "its files load from the module folder");
   const got = [];
   frame.contentWindow.addEventListener("message", (e) => got.push(e.data));
   const say = (data) => window.dispatchEvent(new window.MessageEvent("message", { data: { source: "lifewrought", ...data }, origin: window.location.origin, source: frame.contentWindow }));

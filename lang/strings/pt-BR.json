@@ -40,7 +40,7 @@
       },
       "MoonMagic": {
         "Label": "Magia lunar",
-        "Hint": "O quanto as luas mudam a Alta Feitiçaria. As regras chegam na versão 0.3; a escolha fica guardada até lá.",
+        "Hint": "O quanto as luas mudam a Alta Feitiçaria para personagens com o talento Mago da Alta Feitiçaria (compêndio Krynn: Magia). Aplicado como um efeito na ficha, a cada dia.",
         "classic": "Clássica: bônus e penalidades por fase, alinhamentos, a Noite do Olho",
         "light": "Leve: um bônus só no Alto Santuário",
         "narrative": "Narrativa: notas no chat e na ficha, sem números",
@@ -48,7 +48,7 @@
       },
       "Gods": {
         "Label": "Quando os deuses estão ausentes",
-        "Hint": "O que acontece com a magia divina nos anos em que os deuses não respondem (antes de 351 DC e de 384 a 420 DC). Chega na versão 0.3.",
+        "Hint": "O que acontece com as magias divinas de um conjurador que tem um deus, nos anos em que os deuses não respondem (antes de 351 DC e de 384 a 420 DC). Místicos do Coração não são afetados.",
         "strict": "Estrita: magias divinas de um deus ausente falham",
         "warn": "Aviso: funcionam, e o mestre é avisado",
         "off": "Desligada: nada muda"
@@ -81,6 +81,17 @@
         "NpcActors": "As pessoas de cada vida como NPCs",
         "NpcActorsHint": "Além do journal da Crônica, cria um ator NPC para cada pessoa da vida (família, mentores, rivais, amores).",
         "ToCome": "conteúdo por vir"
+      },
+      "HighSorcery": {
+        "Label": "Quando as luas se foram",
+        "Hint": "O que acontece com as magias arcanas dos magos da Alta Feitiçaria de 384 a 420 DC. Feiticeiros Primordiais não são afetados.",
+        "strict": "Estrita: as magias arcanas deles falham",
+        "warn": "Aviso: funcionam, e o mestre é avisado",
+        "off": "Desligada: nada muda"
+      },
+      "MoonMinLevel": {
+        "Label": "As luas contam a partir do nível",
+        "Hint": "As regras antigas deixavam os aprendizes (níveis 1 a 3) fora do alcance das luas. 1 quer dizer sempre."
       }
     },
     "Calendar": {
@@ -203,7 +214,8 @@
       "Rest": "+8 horas",
       "Day": "+1 dia",
       "Week": "+1 semana",
-      "Settings": "Data e configurações"
+      "Settings": "Data e configurações",
+      "MyMagic": "Sua magia esta noite:"
     },
     "Holiday": {
       "yearDay": {
@@ -319,7 +331,10 @@
         "Banner": "A faixa do céu está visível",
         "LifeEngine": "O motor do Lifewrought está carregado",
         "LifeData": "As tabelas do Lifewrought carregam",
-        "LifeBuild": "Uma vida aleatória é montada com os compêndios de PF2e deste mundo"
+        "LifeBuild": "Uma vida aleatória é montada com os compêndios de PF2e deste mundo",
+        "Packs": "Os compêndios Krynn: Magia, Deuses e Guias",
+        "CastGate": "As magias consultam os deuses e as luas ao serem lançadas",
+        "MoonMagic": "A magia lunar desta noite para as três Ordens"
       }
     },
     "Language": {
@@ -404,7 +419,10 @@
         "Likes": "Gosta de",
         "Dislikes": "Não gosta de",
         "Catchphrase": "Bordão"
-      }
+      },
+      "OrderFeat": "Mago da Alta Feitiçaria",
+      "ArcaneTitle": "{name} lança magia arcana",
+      "ArcaneText": "Em Krynn todo conjurador arcano pertence a uma ordem da Alta Feitiçaria ou é um renegado. Adicione {link} ao personagem e escolha os mantos, e as luas passam a contar."
     },
     "Lives": {
       "Title": "Vidas em Krynn",
@@ -423,6 +441,42 @@
       "Made": "Personagens feitos com o Lifewrought",
       "Chronicle": "Crônica",
       "NoneMade": "Nenhum ainda."
+    },
+    "Order": {
+      "white": "Mantos Brancos (Solinari)",
+      "red": "Mantos Vermelhos (Lunitari)",
+      "black": "Mantos Negros (Nuitari)"
+    },
+    "Feat": {
+      "ChooseOrder": "Escolha sua ordem",
+      "Moonwise": "Sábio das Luas",
+      "MoonwiseToggle": "Sábio das Luas: sobre as luas ou as Ordens"
+    },
+    "Magic": {
+      "EffectName": "Luas da Magia: {moon}, {phase}",
+      "Eye": "a Noite do Olho",
+      "Bonus": "+{value} de bônus de status nas jogadas de ataque e CDs de magia.",
+      "Penalty": "−{value} de penalidade de status nas jogadas de ataque e CDs de magia.",
+      "Note": {
+        "high": "Alto Santuário: sua lua está cheia. Uma vez hoje você pode recuperar um espaço de magia gasto de círculo até metade do seu nível arredondada para baixo, menos 1 (no mínimo 1), se tiver Reservatório Lunar.",
+        "waxing": "Crescente: sua lua cresce; sua magia está firme e subindo.",
+        "waning": "Minguante: sua lua diminui; sua magia está firme.",
+        "low": "Baixo Santuário: sua lua está escura; as magias custam a vir.",
+        "aligned": "Sua lua está alinhada com outra: +1.",
+        "eye": "A Noite do Olho: as três luas estão juntas, cheias. Os grandes rituais das Ordens podem ser feitos esta noite."
+      },
+      "Mode": {
+        "classic": "Magia lunar: clássica.",
+        "light": "Magia lunar: leve.",
+        "narrative": "Magia lunar: narrativa (sem números).",
+        "off": "Magia lunar: desligada."
+      },
+      "SilentGods": "Os deuses estão em silêncio",
+      "SilentMoons": "As luas se foram",
+      "BlockedGods": "{who} reza por {spell}, e nenhum deus responde. A magia falha; nada é gasto.",
+      "BlockedMoons": "{who} busca {spell}, mas as luas da magia se foram. A magia falha; nada é gasto.",
+      "WarnGods": "{who} lançou {spell}, uma magia divina, em {year}, quando os deuses estão ausentes.",
+      "WarnMoons": "{who} lançou {spell} pela Alta Feitiçaria em {year}, quando as luas se foram."
     }
   }
 }

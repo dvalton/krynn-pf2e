@@ -14,6 +14,13 @@ https://github.com/dvalton/krynn-pf2e/releases/latest/download/module.json
 
 Requires Foundry VTT 14 (verified on 14.370) and Pathfinder Second Edition 8.7 or newer (verified on 8.7.1). Enable it in your world, then open **Settings → Krynn**.
 
+## Magic (0.3)
+
+- Compendiums **Krynn: Magic**, **Krynn: Gods**, **Krynn: Guides** and **Krynn: GM Guides** (in Portuguese with Babele).
+- Give an arcane caster **Mage of High Sorcery** and choose the robes: the moon of their order changes their spells each day, as an effect on the sheet.
+- The years the gods are silent, and the years the moons are gone, change what divine and arcane spells do. Settings → Krynn chooses how strict.
+- Read **The Magic of Krynn** in the Guides compendium.
+
 ## Lifewrought in Foundry (0.2)
 
 - In the **Actors** sidebar, **Live a life** opens [Lifewrought](https://github.com/dvalton/lifewrought) in a window. Each player lives their character's life from birth to the first day of adventure, towards the campaign the GM set in **Settings → Krynn → Lifewrought**.

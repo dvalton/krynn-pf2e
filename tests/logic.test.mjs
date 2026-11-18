@@ -145,3 +145,58 @@ test("passing days tells holy days, High Sanctions and the Eye; long jumps only 
   assert.ok(eventsBetween(mortals, mortals + 60, "classic", eye).pub.every((e) => e.kind === "holiday"));
   assert.equal(eventsBetween(eye, eye, "classic", eye).pub.length, 0);
 });
+import { embedHTML } from "../scripts/logic/embed.mjs";
+test("the Lifewrought page is written into the frame with its base and the embed flag first", () => {
+  const out = embedHTML('<!DOCTYPE html><html><head><meta charset="utf-8"><script src="engine.js"></script></head></html>', "http://h/modules/krynn-pf2e/lifewrought/");
+  assert.ok(out.indexOf("<base") < out.indexOf("engine.js"));
+  assert.ok(out.indexOf("LW_EMBED") < out.indexOf("engine.js"));
+  assert.match(out, /^<!DOCTYPE html><html><head><base href="http:\/\/h\/modules\/krynn-pf2e\/lifewrought\/">/);
+});
+
+import { moonMagic, castVerdict } from "../scripts/logic/magic.mjs";
+import { skyOn } from "../scripts/logic/moons.mjs";
+test("moon magic: phases, alignments, the Eye, and the modes", () => {
+  const eye = 0;
+  const findDay = (pred) => { for (let d = 1; d < 2000; d++) if (pred(skyOn(d, eye))) return d; throw new Error("no such day"); };
+  const sol = (s) => s.moons.find((m) => m.id === "solinari");
+  const plain = (s, phase) => sol(s).phase === phase && !s.alignments.some((p) => p.includes("solinari"));
+  const high = skyOn(findDay((s) => plain(s, "high")), eye), low = skyOn(findDay((s) => plain(s, "low")), eye);
+  const wax = skyOn(findDay((s) => plain(s, "waxing")), eye);
+  const lowAligned = skyOn(findDay((s) => sol(s).phase === "low" && s.alignments.some((p) => p.includes("solinari"))), eye);
+  const night = skyOn(504, eye);
+  const m = (sky, mode = "classic", extra = {}) => moonMagic({ mode, robe: "white", sky, ...extra });
+  assert.equal(m(high).value, 1);
+  assert.equal(m(low).value, -1);
+  assert.equal(m(wax).value, 0);
+  assert.deepEqual(m(wax).notes, ["phase.waxing"], "waxing still has its gift");
+  assert.equal(m(lowAligned).value, 0, "an alignment lifts Low Sanction to nothing");
+  assert.equal(m(night).value, 2);
+  assert.deepEqual(m(night).notes, ["eye"]);
+  assert.equal(m(high, "light").value, 1);
+  assert.equal(m(low, "light"), null, "light mode only helps");
+  assert.equal(m(night, "light").value, 2);
+  assert.equal(m(high, "narrative").value, 0);
+  assert.ok(m(high, "narrative").notes.length);
+  assert.equal(m(high, "off"), null);
+  assert.equal(m(high, "classic", { renegade: true }), null);
+  assert.equal(m(high, "classic", { moons: false }), null);
+  assert.equal(m(high, "classic", { level: 2, minLevel: 3 }), null);
+  assert.equal(moonMagic({ mode: "classic", robe: "grey", sky: high }), null);
+  assert.notEqual(m(high).key, m(low).key);
+});
+
+test("spells and their sources: the gods' absence and the moons' absence", () => {
+  const base = { godsMode: "strict", hsMode: "strict" };
+  assert.deepEqual(castVerdict({ ...base, tradition: "divine", hasDeity: true, year: 340 }), { block: true, warn: false, reason: "gods" });
+  assert.equal(castVerdict({ ...base, tradition: "divine", hasDeity: true, year: 360 }).block, false);
+  assert.equal(castVerdict({ ...base, tradition: "divine", hasDeity: true, year: 400 }).block, true);
+  assert.equal(castVerdict({ ...base, tradition: "divine", hasDeity: true, year: 400, mystic: true }).block, false, "mystics draw on the heart");
+  assert.equal(castVerdict({ ...base, tradition: "divine", hasDeity: false, year: 400 }).block, false, "no god, nothing to lose");
+  assert.equal(castVerdict({ ...base, godsMode: "warn", tradition: "divine", hasDeity: true, year: 400 }).warn, true);
+  assert.equal(castVerdict({ ...base, godsMode: "off", tradition: "divine", hasDeity: true, year: 400 }).reason, null);
+  assert.equal(castVerdict({ ...base, tradition: "arcane", highSorcery: true, year: 400 }).block, true);
+  assert.equal(castVerdict({ ...base, tradition: "arcane", highSorcery: true, primal: true, year: 400 }).block, false);
+  assert.equal(castVerdict({ ...base, tradition: "arcane", highSorcery: false, year: 400 }).block, false, "only the Orders' magic needs the moons");
+  assert.equal(castVerdict({ ...base, tradition: "arcane", highSorcery: true, year: 425 }).block, false);
+  assert.equal(castVerdict({ ...base, tradition: "primal", hasDeity: true, year: 400 }).block, false);
+});

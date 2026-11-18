@@ -68,3 +68,10 @@
 .krynn-lives td.buttons button, .krynn-lives .made button { width: auto; display: inline-flex; gap: 0.3rem; align-items: center; }
 .krynn-lives .made { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.3rem; }
 .krynn-lives .hint { color: var(--color-text-secondary, #a8a8a8); font-size: var(--font-size-12, 12px); }
+
+/* ---------------- windows that can be taller than the screen ---------------- */
+#krynn-settings .window-content, #krynn-sky .window-content, #krynn-lives .window-content { overflow-y: auto; }
+#krynn-sky, #krynn-lives { max-height: calc(100vh - 2rem); }
+#krynn-settings .form-footer { position: sticky; bottom: 0; z-index: 1; padding: 0.5rem 0; background: var(--color-cool-5, #0b0a13); }
+.krynn-sky .my-magic { padding: 0.4rem 0.6rem; border-left: 3px solid var(--color-warm-2, #ee9b3a); background: rgba(0, 0, 0, 0.12); }
+.krynn-sky .my-magic p { margin: 0.15rem 0; }

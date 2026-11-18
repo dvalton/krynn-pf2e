@@ -3,6 +3,7 @@
 import { MODULE_ID, T } from "../constants.mjs";
 import { lwPath, campaign } from "./engine.mjs";
 import { requestCharacter } from "./socket.mjs";
+import { embedHTML } from "../../logic/embed.mjs";
 
 const fa = foundry.applications;
 
@@ -30,7 +31,10 @@ export class LifeApp extends fa.api.ApplicationV2 {
     const f = document.createElement("iframe");
     f.className = "krynn-life-frame";
     f.title = T("Life.Title");
-    f.src = `${lwPath("index.html")}?embed=foundry`;
+    // Foundry serves module HTML as text, so the page is written into the frame (see logic/embed.mjs).
+    const base = new URL(lwPath(""), window.location.href).href;
+    const r = await fetch(lwPath("index.html"));
+    f.srcdoc = embedHTML(await r.text(), base);
     this.frame = f;
     return f;
   }

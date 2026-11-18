@@ -12,6 +12,8 @@ const exists = (p) => fs.existsSync(path.join(ROOT, p));
 for (const k of ["id", "title", "version", "compatibility", "esmodules", "manifest", "download"]) if (!m[k]) errors.push(`module.json: no ${k}`);
 if (m.relationships?.systems?.[0]?.id !== "pf2e") errors.push("module.json: must require the pf2e system");
 for (const p of [...(m.scripts || []), ...m.esmodules, ...m.styles, ...m.languages.map((l) => l.path), "lifewrought/index.html", "lifewrought/data.json"]) if (!exists(p)) errors.push(`missing file: ${p}`);
+for (const p of m.packs || []) if (!fs.existsSync(path.join(ROOT, "packs-src", p.name)) || !fs.readdirSync(path.join(ROOT, "packs-src", p.name)).length) errors.push(`pack ${p.name} has no source (run tools/build-packs.mjs)`);
+for (const f of fs.readdirSync(path.join(ROOT, "scripts/content"))) { const src = fs.readFileSync(path.join(ROOT, "scripts/content", f), "utf8"); for (const im of src.matchAll(/modules\/krynn-pf2e\/(icons\/[a-z-]+\.svg)/g)) if (!exists(im[1])) errors.push(`${f}: icon ${im[1]} not found`); }
 if (!m.socket) errors.push("module.json: the socket is needed for players' characters");
 
 const scripts = fs.readdirSync(path.join(ROOT, "scripts"), { recursive: true }).filter((f) => f.endsWith(".mjs")).map((f) => path.join("scripts", f));

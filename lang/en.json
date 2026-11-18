@@ -40,7 +40,7 @@
    },
    "MoonMagic": {
     "Label": "Moon magic",
-    "Hint": "How strongly the moons change High Sorcery. The rules arrive in version 0.3; the choice is kept until then.",
+    "Hint": "How strongly the moons change High Sorcery for characters with the feat Mage of High Sorcery (compendium Krynn: Magic). Applied as an effect on their sheet, each day.",
     "classic": "Classic: bonuses and penalties by phase, alignments, the Night of the Eye",
     "light": "Light: a bonus at High Sanction only",
     "narrative": "Narrative: chat and sheet notes, no numbers",
@@ -48,7 +48,7 @@
    },
    "Gods": {
     "Label": "When the gods are absent",
-    "Hint": "What happens to divine magic in years the gods do not answer (before 351 AC, and from 384 to 420 AC). Arrives in version 0.3.",
+    "Hint": "What happens to the divine spells of a caster with a god in years the gods do not answer (before 351 AC, and from 384 to 420 AC). Mystics of the Heart are not affected.",
     "strict": "Strict: divine spells of an absent god fail",
     "warn": "Warn: they work, and the GM is told",
     "off": "Off: nothing changes"
@@ -81,6 +81,17 @@
     "NpcActors": "The people of each life as NPCs",
     "NpcActorsHint": "Besides the Chronicle journal, create an NPC actor for each person met in the life (family, mentors, rivals, loves).",
     "ToCome": "content to come"
+   },
+   "HighSorcery": {
+    "Label": "When the moons are gone",
+    "Hint": "What happens to the arcane spells of mages of High Sorcery from 384 to 420 AC. Primal Sorcerers are not affected.",
+    "strict": "Strict: their arcane spells fail",
+    "warn": "Warn: they work, and the GM is told",
+    "off": "Off: nothing changes"
+   },
+   "MoonMinLevel": {
+    "Label": "Moons matter from level",
+    "Hint": "The older rules left apprentices (levels 1 to 3) untouched by the moons. 1 means always."
    }
   },
   "Calendar": {
@@ -579,7 +590,8 @@
    "Rest": "+8 hours",
    "Day": "+1 day",
    "Week": "+1 week",
-   "Settings": "Date and settings"
+   "Settings": "Date and settings",
+   "MyMagic": "Your magic tonight:"
   },
   "Holiday": {
    "yearDay": {
@@ -695,7 +707,10 @@
     "Banner": "The sky banner is shown",
     "LifeEngine": "The Lifewrought engine is loaded",
     "LifeData": "The Lifewrought tables load",
-    "LifeBuild": "A random life builds from this world's PF2e compendiums"
+    "LifeBuild": "A random life builds from this world's PF2e compendiums",
+    "Packs": "The compendiums Krynn: Magic, Gods and Guides",
+    "CastGate": "Spells check the gods and the moons when cast",
+    "MoonMagic": "Tonight's moon magic for the three Orders"
    }
   },
   "Language": {
@@ -780,7 +795,10 @@
     "Likes": "Likes",
     "Dislikes": "Dislikes",
     "Catchphrase": "Catchphrase"
-   }
+   },
+   "OrderFeat": "Mage of High Sorcery",
+   "ArcaneTitle": "{name} casts arcane magic",
+   "ArcaneText": "On Krynn every arcane caster belongs to an order of High Sorcery or is a renegade. Add {link} to the character and choose the robes, and the moons will start to count."
   },
   "Lives": {
    "Title": "Lives on Krynn",
@@ -799,6 +817,42 @@
    "Made": "Characters made with Lifewrought",
    "Chronicle": "Chronicle",
    "NoneMade": "None yet."
+  },
+  "Order": {
+   "white": "White Robes (Solinari)",
+   "red": "Red Robes (Lunitari)",
+   "black": "Black Robes (Nuitari)"
+  },
+  "Feat": {
+   "ChooseOrder": "Choose your order",
+   "Moonwise": "Moonwise",
+   "MoonwiseToggle": "Moonwise: about the moons or the Orders"
+  },
+  "Magic": {
+   "EffectName": "Moons of Magic: {moon}, {phase}",
+   "Eye": "the Night of the Eye",
+   "Bonus": "+{value} status bonus to spell attack rolls and spell DCs.",
+   "Penalty": "−{value} status penalty to spell attack rolls and spell DCs.",
+   "Note": {
+    "high": "High Sanction: your moon is full. Once today you may regain one expended spell slot of a rank no higher than half your level rounded down, minus 1 (minimum 1), if you have Lunar Reservoir.",
+    "waxing": "Waxing: your moon grows; your magic is steady and rising.",
+    "waning": "Waning: your moon shrinks; your magic is steady.",
+    "low": "Low Sanction: your moon is dark; spells come hard.",
+    "aligned": "Your moon stands in alignment with another: +1.",
+    "eye": "The Night of the Eye: the three moons stand together, full. The Orders' great rituals can be worked tonight."
+   },
+   "Mode": {
+    "classic": "Moon magic: classic.",
+    "light": "Moon magic: light.",
+    "narrative": "Moon magic: narrative (no numbers).",
+    "off": "Moon magic: off."
+   },
+   "SilentGods": "The gods are silent",
+   "SilentMoons": "The moons are gone",
+   "BlockedGods": "{who} prays for {spell}, and no god answers. The spell fails; nothing is spent.",
+   "BlockedMoons": "{who} reaches for {spell}, but the moons of magic are gone. The spell fails; nothing is spent.",
+   "WarnGods": "{who} cast {spell}, a divine spell, in {year}, when the gods are absent.",
+   "WarnMoons": "{who} cast {spell} through High Sorcery in {year}, when the moons are gone."
   }
  }
 }

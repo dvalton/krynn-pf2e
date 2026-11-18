@@ -16,9 +16,11 @@ export function registerSettings() {
   world("calendarStyle", String, "classic", { choices: choices(Object.keys(STYLES), "Calendar.Style") });
   world("worldCulture", String, "ergothian", { choices: choices(CULTURES, "Calendar.Culture") });
   world("eyeDate", Object, { year: 351, month: 0, day: 1 });
-  world("moonMagic", String, "classic", { choices: choices(MOON_MAGIC, "Settings.MoonMagic") });
+  world("moonMagic", String, "classic", { choices: choices(MOON_MAGIC, "Settings.MoonMagic"), onChange: () => globalThis.krynn?.magic?.syncAll() });
   world("godsMode", String, "warn", { choices: choices(GODS_MODE, "Settings.Gods") });
   world("nuitariSeen", String, "blackRobes", { choices: choices(NUITARI_SEEN, "Settings.Nuitari") });
+  world("hsMode", String, "warn", { choices: choices(GODS_MODE, "Settings.HighSorcery") });
+  world("moonMinLevel", Number, 1);
   world("announce", Boolean, true);
   world("initialized", Boolean, false);
 

@@ -287,16 +287,19 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
   // Inside Foundry (the Krynn for PF2e module opens this page in a window with ?embed=foundry), the life is saved in
   // Foundry, the campaign is set by the GM, and the finished life becomes a character there. Messages go to the parent
   // window only, on the same origin.
-  const EMBED = new URLSearchParams(location.search).get("embed") === "foundry" && window.parent !== window;
+  // Foundry serves module HTML as plain text, so the module writes this page into the frame itself (srcdoc) and sets
+  // window.LW_EMBED; the page's real origin is then window.origin (location.origin of about:srcdoc is "null").
+  const EMBED = (window.LW_EMBED === "foundry" || new URLSearchParams(location.search).get("embed") === "foundry") && window.parent !== window;
+  const ORIGIN = window.origin && window.origin !== "null" ? window.origin : location.origin;
   const host = {
     state: { saved: null, recent: [], cfg: null, readonly: false },
-    post(type, data = {}) { if (EMBED) window.parent.postMessage({ source: "lifewrought", type, ...data }, location.origin); },
+    post(type, data = {}) { if (EMBED) window.parent.postMessage({ source: "lifewrought", type, ...data }, ORIGIN); },
     ready: null,
   };
   if (EMBED) {
     host.ready = new Promise((resolve) => {
       window.addEventListener("message", (e) => {
-        if (e.origin !== location.origin || e.source !== window.parent || !e.data || e.data.source !== "krynn") return;
+        if (e.origin !== ORIGIN || e.source !== window.parent || !e.data || e.data.source !== "krynn") return;
         if (e.data.type === "init") { Object.assign(host.state, e.data.state || {}); resolve(); }
         if (e.data.type === "created" || e.data.type === "failed") host.onResult && host.onResult(e.data);
       });

@@ -3,6 +3,7 @@ import { MODULE_ID, T, setting, template } from "./constants.mjs";
 import { now, skyNow, stateNow, formatDate, formatDateTime, yearLabel } from "./time.mjs";
 import { holidaysOn, seasonsFor, dateOfDay } from "../logic/calendar.mjs";
 import { litPath, illumination } from "../logic/moon-svg.mjs";
+import { magicFor, effectData } from "./magic/moons.mjs";
 
 const fa = foundry.applications;
 
@@ -46,8 +47,21 @@ export function skyContext() {
       svg: moonSvg(m, 72), small: moonSvg(m, 18), toHigh: m.toHigh, high: m.phase === "high" })),
     alignments: state.moons ? sky.alignments.filter((pair) => seeN || !pair.includes("nuitari")).map((pair) => pair.map((id) => T(`Moon.${id}`)).join(" · ")) : [],
     eye: state.moons && sky.eye, toEye: sky.toEye, eyeDate: formatDate(eyeDate), seeNuitari: seeN,
+    myMagic: myMagic(),
     isGM: game.user.isGM,
   };
+}
+
+// For a player whose character is a mage of High Sorcery: what their moon gives them tonight.
+function myMagic() {
+  const actor = game.user.character;
+  if (!actor?.items) return null;
+  try {
+    const m = magicFor(actor);
+    if (!m) return null;
+    const e = effectData(m);
+    return { name: e.name, text: e.system.description.value };
+  } catch (err) { return null; }
 }
 
 export class SkyApp extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV2) {

@@ -1,0 +1,36 @@
+{
+ "label": "Krynn: Magia",
+ "mapping": {
+  "description": "system.description.value"
+ },
+ "entries": {
+  "Mage of High Sorcery": {
+   "name": "Mago da Alta Feitiçaria",
+   "description": "<p>Você pertence a uma das três Ordens da Alta Feitiçaria, e sua magia está ligada à lua da ordem: Solinari para os Mantos Brancos, Lunitari para os Vermelhos, Nuitari para os Negros.</p><p>Escolha sua ordem. A lua da sua ordem aumenta e diminui seu poder conforme passa pelas fases; o módulo Krynn aplica o efeito a cada dia (Configurações → Krynn → Magia lunar).</p><p>Aos olhos das Ordens você é um aprendiz até passar no Teste da Alta Feitiçaria. Quem lança magias arcanas fora das Ordens é um renegado.</p>"
+  },
+  "The Test of High Sorcery": {
+   "name": "O Teste da Alta Feitiçaria",
+   "description": "<p>Você passou no Teste numa das Torres da Alta Feitiçaria e voltou mudado. O mestre concede este talento quando o Teste termina; ele pode deixar uma marca, uma cicatriz ou uma dívida.</p><p>Você veste abertamente os mantos da sua ordem e é reconhecido por magos das três Ordens. Você pode escolher os talentos das Ordens que exigem o Teste.</p>"
+  },
+  "Moonwise": {
+   "name": "Sábio das Luas",
+   "description": "<p>Você lê as três luas como um marinheiro lê o céu. Você sempre sabe a fase de cada lua da magia que consegue ver, e quantos dias faltam para o Alto Santuário dela e para a próxima Noite do Olho.</p><p>Você recebe +2 de bônus circunstancial em testes para Recordar Conhecimento sobre as luas, as Ordens da Alta Feitiçaria e suas torres.</p>"
+  },
+  "Lunar Reservoir": {
+   "name": "Reservatório Lunar",
+   "description": "<p><strong>Frequência</strong> uma vez por dia; <strong>Requisitos</strong> a lua da sua ordem está no Alto Santuário.</p><p>Você bebe da plenitude da lua e recupera um espaço de magia gasto. O círculo dele não pode ser maior que metade do seu nível arredondada para baixo, menos 1 (no mínimo 1º círculo).</p>"
+  },
+  "Mystic of the Heart": {
+   "name": "Místico do Coração",
+   "description": "<p>Nos anos em que os deuses se calam, você encontrou o poder divino dentro de si: o poder do coração, ensinado na Cidadela da Luz.</p><p>Suas magias divinas não dependem de um deus. Enquanto os deuses estão ausentes de Krynn, elas funcionam para você como antes.</p>"
+  },
+  "Primal Sorcerer": {
+   "name": "Feiticeiro Primordial",
+   "description": "<p>Com as luas da magia desaparecidas, você aprendeu a tirar magia do próprio mundo, selvagem e crua, como os feiticeiros da Era dos Mortais.</p><p>Suas magias arcanas não precisam das luas. Enquanto as luas da magia estão ausentes, elas funcionam para você como antes; as fases das luas não o afetam.</p>"
+  },
+  "Renegade": {
+   "name": "Renegado",
+   "description": "<p>Este mago pratica fora das Ordens da Alta Feitiçaria, ou quebrou suas leis. As Ordens caçam os renegados; as luas não lhes dão nada (nenhum efeito da magia lunar se aplica).</p><p>Remova este efeito quando o mago for aceito por uma ordem.</p>"
+  }
+ }
+}

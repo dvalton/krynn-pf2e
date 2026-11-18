@@ -1,16 +1,18 @@
 {
   "name": "krynn-pf2e",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Dragonlance (Krynn) for the PF2e system on Foundry VTT 14",
   "private": true,
   "type": "module",
   "scripts": {
     "test": "node --test",
     "lang": "node tools/lang.mjs",
-    "check": "node tools/lang.mjs --check && node --test && node tools/build.mjs && node tools/manifest-check.mjs",
-    "build": "node tools/build.mjs"
+    "check": "node tools/build-packs.mjs --json && node tools/lang.mjs --check && node --test && node tools/build.mjs && node tools/manifest-check.mjs",
+    "build": "node tools/build.mjs",
+    "packs": "node tools/build-packs.mjs"
   },
   "devDependencies": {
+    "@foundryvtt/foundryvtt-cli": "^3.0.5",
     "handlebars": "^4.7.10",
     "jsdom": "^25.0.1"
   }

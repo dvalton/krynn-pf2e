@@ -62,7 +62,18 @@ export async function createCharacter(record, userId) {
     lifewrought: { record, journal: journal.id, npcs: npcIds, user: userId, built: game.modules.get(MODULE_ID).version, at: Date.now() },
   } });
   if (user && !user.isGM && !user.character) await user.update({ character: actor.id });
-  return { actorId: actor.id, journalId: journal.id, name: data.name, missing, extraDraws, npcs: npcIds.length };
+  // An arcane caster on Krynn belongs to an order, or is a renegade: point the player to the feat.
+  const arcane = (data.items || []).some((i) => i.type === "spellcastingEntry" && i.system?.tradition?.value === "arcane");
+  if (arcane) await suggestOrder(actor, user);
+  return { actorId: actor.id, journalId: journal.id, name: data.name, missing, extraDraws, npcs: npcIds.length, arcane };
+}
+
+async function suggestOrder(actor, user) {
+  const pack = game.packs.get(`${MODULE_ID}.magic`);
+  const entry = pack?.index?.find?.((e) => e.name === "Mage of High Sorcery");
+  const link = entry ? `@UUID[${entry.uuid ?? `Compendium.${MODULE_ID}.magic.Item.${entry._id}`}]{${T("Life.OrderFeat")}}` : T("Life.OrderFeat");
+  await ChatMessage.create({ speaker: { alias: T("Chat.Speaker") }, whisper: [...game.users.filter((u) => u.isGM).map((u) => u.id), ...(user && !user.isGM ? [user.id] : [])],
+    content: `<div class="krynn-card"><h3>${T("Life.ArcaneTitle", { name: actor.name })}</h3><p>${T("Life.ArcaneText", { link })}</p></div>` });
 }
 
 // A random life lived without anyone, built against this world's compendiums but not created: the self-test's check

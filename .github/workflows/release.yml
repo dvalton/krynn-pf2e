@@ -28,7 +28,7 @@ jobs:
       - if: steps.done.outputs.yes != '1'
         run: npm ci && npm run check
       - if: steps.done.outputs.yes != '1'
-        run: node tools/build.mjs --zip
+        run: node tools/build-packs.mjs && node tools/build.mjs --zip
       - name: Publish the release
         if: steps.done.outputs.yes != '1'
         env:

@@ -1,0 +1,92 @@
+{
+ "label": "Krynn: Deuses",
+ "mapping": {
+  "description": "system.description.value"
+ },
+ "entries": {
+  "Paladine": {
+   "name": "Paladine",
+   "description": "<p><strong>Paladine</strong>, o Dragão de Platina, deus do bem, da lei e dos Cavaleiros da Rosa.</p><p><strong>Éditos</strong> proteger os fracos, cumprir a palavra, ter misericórdia dos arrependidos</p><p><strong>Anátema</strong> trair uma confiança, ferir um inocente, abandonar os desamparados</p>"
+  },
+  "Mishakal": {
+   "name": "Mishakal",
+   "description": "<p><strong>Mishakal</strong>, a Mão que Cura, deusa da cura e da compaixão.</p><p><strong>Éditos</strong> curar doentes e feridos, consolar quem está de luto, proteger as crianças</p><p><strong>Anátema</strong> recusar cura a quem pede, causar sofrimento sem necessidade</p>"
+  },
+  "Kiri-Jolith": {
+   "name": "Kiri-Jolith",
+   "description": "<p><strong>Kiri-Jolith</strong>, a Espada da Justiça, deus da honra e da guerra justa.</p><p><strong>Éditos</strong> lutar por uma causa justa, honrar um inimigo digno, ficar ao lado dos companheiros</p><p><strong>Anátema</strong> fugir de uma luta justa, ferir um prisioneiro, lutar só por dinheiro</p>"
+  },
+  "Majere": {
+   "name": "Majere",
+   "description": "<p><strong>Majere</strong>, o Mestre da Mente, deus da disciplina, da meditação e da fé.</p><p><strong>Éditos</strong> disciplinar corpo e mente, agir sem raiva, buscar compreensão</p><p><strong>Anátema</strong> agir por ganância, abandonar a disciplina, quebrar os votos</p>"
+  },
+  "Habbakuk": {
+   "name": "Habbakuk",
+   "description": "<p><strong>Habbakuk</strong>, o Rei Pescador, deus dos animais, do mar e do ciclo da vida.</p><p><strong>Éditos</strong> proteger o mundo vivo, honrar a caça, manter o equilíbrio da vida</p><p><strong>Anátema</strong> matar por esporte, envenenar a água, prender uma criatura selvagem sem necessidade</p>"
+  },
+  "Branchala": {
+   "name": "Branchala",
+   "description": "<p><strong>Branchala</strong>, o Rei Bardo, deus da música, da poesia e da alegria.</p><p><strong>Éditos</strong> trazer alegria, fazer música, lembrar as canções antigas</p><p><strong>Anátema</strong> calar uma canção verdadeira, destruir uma obra de arte, espalhar desespero</p>"
+  },
+  "Solinari": {
+   "name": "Solinari",
+   "description": "<p><strong>Solinari</strong>, a lua branca, deus da magia do bem e dos Mantos Brancos.</p><p><strong>Éditos</strong> usar a magia para proteger e curar, guardar o saber perigoso, honrar as Ordens</p><p><strong>Anátema</strong> usar a magia com crueldade, praticar como renegado, abandonar um colega mago em perigo</p><p>Os deuses da magia não têm clérigos: eles concedem a Alta Feitiçaria, pela sua lua, aos magos da sua ordem.</p>"
+  },
+  "Gilean": {
+   "name": "Gilean",
+   "description": "<p><strong>Gilean</strong>, o Livro, deus do conhecimento e do Equilíbrio.</p><p><strong>Éditos</strong> buscar e registrar o conhecimento, manter o equilíbrio entre o bem e o mal, observar antes de agir</p><p><strong>Anátema</strong> destruir conhecimento, tomar um lado só por paixão, esconder a verdade da história</p>"
+  },
+  "Chislev": {
+   "name": "Chislev",
+   "description": "<p><strong>Chislev</strong>, a Selvagem, deusa da natureza e do mundo vivo.</p><p><strong>Éditos</strong> proteger os lugares selvagens, viver dentro do ciclo, respeitar as estações</p><p><strong>Anátema</strong> devastar a terra, queimar uma floresta sem necessidade, prender o selvagem</p>"
+  },
+  "Reorx": {
+   "name": "Reorx",
+   "description": "<p><strong>Reorx</strong>, a Forja, deus do ofício, da criação e dos anões.</p><p><strong>Éditos</strong> fazer coisas que durem, honrar o bom trabalho, cumprir os juramentos da forja</p><p><strong>Anátema</strong> roubar o trabalho de outro, quebrar por despeito algo bem feito, enganar um artesão</p>"
+  },
+  "Shinare": {
+   "name": "Shinare",
+   "description": "<p><strong>Shinare</strong>, a Vitória Alada, deusa do comércio, da riqueza e do trato honesto.</p><p><strong>Éditos</strong> cumprir os acordos, negociar com honestidade, fazer a riqueza trabalhar</p><p><strong>Anátema</strong> quebrar um contrato, enganar um cliente justo, acumular o que deveria circular</p>"
+  },
+  "Sirrion": {
+   "name": "Sirrion",
+   "description": "<p><strong>Sirrion</strong>, a Chama que Flui, deus do fogo, da paixão e da mudança.</p><p><strong>Éditos</strong> viver com paixão, transformar o que está parado, criar beleza com o fogo</p><p><strong>Anátema</strong> sufocar uma paixão por medo, deixar morrer um fogo que poderia arder, viver sem amor</p>"
+  },
+  "Zivilyn": {
+   "name": "Zivilyn",
+   "description": "<p><strong>Zivilyn</strong>, a Árvore da Vida, deus da sabedoria e do discernimento.</p><p><strong>Éditos</strong> aconselhar com sabedoria, ver todos os lados, aprender com cada era</p><p><strong>Anátema</strong> agir na ignorância por escolha, negar a sabedoria do outro, zombar de quem busca</p>"
+  },
+  "Lunitari": {
+   "name": "Lunitari",
+   "description": "<p><strong>Lunitari</strong>, a lua vermelha, deusa da magia neutra e dos Mantos Vermelhos.</p><p><strong>Éditos</strong> buscar a magia por ela mesma, manter o equilíbrio entre as Ordens, pôr-se à prova</p><p><strong>Anátema</strong> tornar-se renegado, usar a magia só para os fins de outros</p><p>Os deuses da magia não têm clérigos: eles concedem a Alta Feitiçaria, pela sua lua, aos magos da sua ordem.</p>"
+  },
+  "Takhisis": {
+   "name": "Takhisis",
+   "description": "<p><strong>Takhisis</strong>, a Rainha das Trevas, deusa do mal, da ambição e dos dragões.</p><p><strong>Éditos</strong> tomar o poder, dominar os fracos, espalhar a ordem da Rainha</p><p><strong>Anátema</strong> mostrar fraqueza, servir aos deuses da luz, deixar um insulto sem resposta</p>"
+  },
+  "Sargonnas": {
+   "name": "Sargonnas",
+   "description": "<p><strong>Sargonnas</strong>, o Chifrudo, deus da vingança, da fúria e dos minotauros.</p><p><strong>Éditos</strong> vingar cada injustiça, provar a sua força, honrar os fortes</p><p><strong>Anátema</strong> perdoar um inimigo que não pagou, mostrar medo em batalha</p>"
+  },
+  "Morgion": {
+   "name": "Morgion",
+   "description": "<p><strong>Morgion</strong>, o Vento Negro, deus da doença e da decadência.</p><p><strong>Éditos</strong> espalhar a doença, suportar a dor em silêncio, esconder a sua podridão</p><p><strong>Anátema</strong> curar uma doença, revelar o templo</p>"
+  },
+  "Chemosh": {
+   "name": "Chemosh",
+   "description": "<p><strong>Chemosh</strong>, o Senhor dos Ossos, deus da morte-vida.</p><p><strong>Éditos</strong> buscar a vida além da morte, prender os mortos a um propósito</p><p><strong>Anátema</strong> destruir mortos-vivos que você poderia comandar, aceitar uma morte natural</p>"
+  },
+  "Zeboim": {
+   "name": "Zeboim",
+   "description": "<p><strong>Zeboim</strong>, a Bruxa do Mar, deusa das tempestades e da fúria do mar.</p><p><strong>Éditos</strong> respeitar a ira do mar, aceitar o que as ondas trazem, nunca perdoar uma ofensa</p><p><strong>Anátema</strong> navegar sem uma oferenda, salvar um inimigo que se afoga</p>"
+  },
+  "Hiddukel": {
+   "name": "Hiddukel",
+   "description": "<p><strong>Hiddukel</strong>, o Príncipe das Mentiras, deus da ganância e dos acordos quebrados.</p><p><strong>Éditos</strong> lucrar em cada acordo, mentir bem, colecionar segredos</p><p><strong>Anátema</strong> dar algo em troca de nada, cumprir um acordo que daria lucro quebrar</p>"
+  },
+  "Nuitari": {
+   "name": "Nuitari",
+   "description": "<p><strong>Nuitari</strong>, a lua negra, deus da magia do mal e dos Mantos Negros.</p><p><strong>Éditos</strong> buscar poder pela magia, guardar o saber proibido, honrar as Ordens</p><p><strong>Anátema</strong> compartilhar seus segredos livremente, tornar-se renegado</p><p>Os deuses da magia não têm clérigos: eles concedem a Alta Feitiçaria, pela sua lua, aos magos da sua ordem.</p>"
+  }
+ }
+}

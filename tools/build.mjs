@@ -4,6 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { HOMEBREW } from "../scripts/foundry/homebrew.mjs";
+import { PACKS } from "./build-packs.mjs";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8"));
@@ -26,6 +27,9 @@ const manifest = {
     { lang: "en", name: "English", path: "lang/en.json" },
     { lang: "pt-BR", name: "Português (Brasil)", path: "lang/pt-BR.json" },
   ],
+  packs: PACKS.map((p) => ({ name: p.name, label: p.label, path: `packs/${p.name}`, type: p.type, ...(p.type === "Item" ? { system: "pf2e" } : {}),
+    ownership: p.gmOnly ? { PLAYER: "NONE", TRUSTED: "NONE", ASSISTANT: "OWNER" } : { PLAYER: "OBSERVER", ASSISTANT: "OWNER" } })),
+  packFolders: [{ name: "Krynn", sorting: "m", color: "#2b2742", packs: PACKS.map((p) => p.name) }],
   url: REPO,
   manifest: `${REPO}/releases/latest/download/module.json`,
   download: `${REPO}/releases/download/v${version}/module.zip`,
@@ -41,7 +45,7 @@ if (process.argv.includes("--zip")) {
   const dist = path.join(ROOT, "dist");
   fs.rmSync(dist, { recursive: true, force: true });
   fs.mkdirSync(dist);
-  const parts = ["module.json", "scripts", "templates", "styles", "lang/en.json", "lang/pt-BR.json", "lifewrought", "README.md", "CHANGELOG.md", "LICENSE"].filter((p) => fs.existsSync(path.join(ROOT, p)));
+  const parts = ["module.json", "scripts", "templates", "styles", "icons", "packs", "babele", "lang/en.json", "lang/pt-BR.json", "lifewrought", "README.md", "CHANGELOG.md", "LICENSE"].filter((p) => fs.existsSync(path.join(ROOT, p)));
   execFileSync("zip", ["-r", "-q", path.join(dist, "module.zip"), ...parts], { cwd: ROOT });
   fs.copyFileSync(path.join(ROOT, "module.json"), path.join(dist, "module.json"));
   console.log(`dist/module.zip: ${parts.join(", ")}`);

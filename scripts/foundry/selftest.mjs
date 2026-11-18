@@ -6,6 +6,8 @@ import { daysPerYear, CULTURES } from "../logic/calendar.mjs";
 import { KRYNN_LANGUAGES, KRYNN_CREATURE_TRAITS } from "./homebrew.mjs";
 import { lwData } from "./lifewrought/engine.mjs";
 import { dryRun } from "./lifewrought/create.mjs";
+import { castGateInstalled } from "./magic/gate.mjs";
+import { moonMagic } from "../logic/magic.mjs";
 
 const newer = (have, need) => foundry.utils.isNewerVersion(have, need) || have === need;
 
@@ -34,6 +36,13 @@ export async function selfTest({ seed } = {}) {
   check("Traits", !missingT.length, missingT.join(", "));
 
   check("Banner", !game.settings.get(MODULE_ID, "showBanner") || document.getElementById("krynn-banner"));
+
+  // Magic: the compendiums, the gate at casting, and tonight's moon magic for each order.
+  const packs = ["magic", "deities", "guides", "gm-guides"].map((p) => game.packs.get(`${MODULE_ID}.${p}`));
+  check("Packs", packs.every((p) => p && p.index.size > 0), packs.map((p) => (p ? p.index.size : "×")).join(" · "));
+  check("CastGate", castGateInstalled());
+  const tonight = ["white", "red", "black"].map((robe) => moonMagic({ mode: setting("moonMagic"), robe, sky, moons: true }));
+  check("MoonMagic", true, tonight.map((m, i) => `${["W", "R", "B"][i]} ${m ? (m.value > 0 ? "+" : "") + m.value : "0"}`).join(" "));
 
   // Lifewrought: the engine and data load, and a random life builds from this world's PF2e compendiums.
   check("LifeEngine", !!globalThis.LW?.live);

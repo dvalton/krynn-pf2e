@@ -1,0 +1,22 @@
+{
+ "label": "Krynn: Guias do Mestre",
+ "entries": {
+  "The Test of High Sorcery (GM)": {
+   "name": "O Teste da Alta Feitiçaria (mestre)",
+   "pages": {
+    "Before the Test": {
+     "name": "Antes do Teste",
+     "text": "<p>O Teste não é uma prova. É uma travessia que o mago faz uma única vez, numa Torre da Alta Feitiçaria, diante do conclave das três Ordens, e ela é feita para aquele mago: seus medos, seus amores, aquilo por que venderia a alma.</p><p>Chame-o quando um aprendiz mostrar poder de verdade, em geral por volta do nível 3 a 5, ou quando a história precisar que ele escolha. Diga ao jogador apenas que a Torre está esperando, e que alguns não voltam.</p>"
+    },
+    "Building the trials": {
+     "name": "Montando as provas",
+     "text": "<p>Monte três provas a partir da vida do próprio personagem (os ganchos da Crônica dele são um bom começo):</p><p><strong>Uma prova de poder</strong>: uma magia que ele precisa lançar no limite do que consegue, com um custo real. Use um teste difícil contra a CD de classe dele, ou uma magia que ele ainda não domina.</p><p><strong>Uma prova do coração</strong>: alguém que ele ama, ou a lembrança dessa pessoa, pede algo que as Ordens proíbem. Não há resposta certa, só a que ele der.</p><p><strong>Uma prova de si</strong>: ele encontra aquilo em que poderia se tornar. Um Manto Branco encontra sua crueldade, um Manto Negro sua misericórdia, um Manto Vermelho o lado que se recusa a tomar.</p><p>Os mantos não são escolhidos antes do Teste; o Teste mostra quais servem. O mago pode sair com uma cor que não esperava.</p>"
+    },
+    "The price, and after": {
+     "name": "O preço, e depois",
+     "text": "<p>Todo mundo paga alguma coisa. Escolha um, a partir do que aconteceu nas provas: uma marca duradoura (olhos, pele, voz), um corpo enfraquecido (−1 nos testes de Fortitude até ele recuperar), uma dívida com alguém da Torre, ou uma lembrança perdida.</p><p>Quem falha e sobrevive não pode tentar de novo por muito tempo; quem recusa o Teste e continua conjurando se torna renegado.</p><p>Quando terminar, dê ao personagem o talento <strong>O Teste da Alta Feitiçaria</strong>, e ajuste a ordem em <strong>Mago da Alta Feitiçaria</strong> se o Teste a mudou. Agora seus mantos são usados abertamente.</p>"
+    }
+   }
+  }
+ }
+}

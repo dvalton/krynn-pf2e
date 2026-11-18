@@ -48,7 +48,7 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
   globalThis.Hooks = Hooks;
 
   const chat = [];
-  globalThis.ChatMessage = { create: async (data) => { chat.push(data); return data; } };
+  globalThis.ChatMessage = { create: async (data) => { chat.push(data); return data; }, getSpeaker: ({ actor }) => ({ alias: actor?.name }) };
 
   // Documents with flags, enough for actors, journals, folders and users.
   const ids = { n: 0 };
@@ -64,20 +64,47 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
   }
   const collection = (name) => { const c = new Map(); c.find = (fn) => [...c.values()].find(fn); c.filter = (fn) => [...c.values()].filter(fn); c.name = name; return c; };
   const actors = collection("actors"), journal = collection("journal"), folders = collection("folders");
+  // Embedded items, with the hooks Foundry fires when they change.
+  class Items extends Map {
+    find(fn) { return [...this.values()].find(fn); }
+    filter(fn) { return [...this.values()].filter(fn); }
+    some(fn) { return [...this.values()].some(fn); }
+    map(fn) { return [...this.values()].map(fn); }
+    get length() { return this.size; }
+  }
+  class Item extends Doc {
+    constructor(data, parent) { super(data); this.parent = parent; this.flags ??= {}; this.system ??= {}; }
+    async delete() { return this.parent.deleteEmbeddedDocuments("Item", [this.id]); }
+  }
   class Actor extends Doc {
+    constructor(data) { super({ ...data, items: undefined }); this.items = new Items(); for (const i of data.items || []) { const it = new Item(i, this); this.items.set(it.id, it); } this.system ??= {}; }
+    get level() { return this.system?.details?.level?.value ?? 1; }
+    get deity() { return this.items.find((i) => i.type === "deity") ?? null; }
+    getRollOptions() { return this.items.filter((i) => i.system?.rules).flatMap((i) => i.system.rules.filter((r) => r.key === "RollOption" && !r.toggleable).map((r) => r.option.replace("{item|flags.system.rulesSelections.order}", i.flags?.pf2e?.rulesSelections?.order ?? ""))); }
     static async create(data) { const a = new Actor(data); a.sheet = { render: () => { a.sheet.rendered = true; } }; actors.set(a.id, a); return a; }
     static async createDocuments(list) { return Promise.all(list.map((d) => Actor.create(d))); }
-    async importFromJSON(json) { const d = JSON.parse(json); const keep = { id: this.id, folder: this.folder }; Object.assign(this, d, keep); this.ownership = undefined; this.items = d.items; return this; }
+    async importFromJSON(json) { const d = JSON.parse(json); const keep = { id: this.id, folder: this.folder }; Object.assign(this, { ...d, items: undefined }, keep); this.ownership = undefined; this.items = new Items(); for (const i of d.items || []) { const it = new Item(i, this); this.items.set(it.id, it); } return this; }
+    async createEmbeddedDocuments(type, list) { const made = list.map((d) => new Item(d, this)); for (const it of made) { this.items.set(it.id, it); await Hooks.callAll("createItem", it, {}, "gm1"); } return made; }
+    async updateEmbeddedDocuments(type, list) { for (const ch of list) { const it = this.items.get(ch._id); const { _id, ...rest } = ch; await it.update(rest); await Hooks.callAll("updateItem", it, rest, {}, "gm1"); } }
+    async deleteEmbeddedDocuments(type, ids) { for (const i of ids) { const it = this.items.get(i); this.items.delete(i); if (it) await Hooks.callAll("deleteItem", it, {}, "gm1"); } }
   }
   class JournalEntry extends Doc { static async create(data) { const j = new JournalEntry(data); j.sheet = { render: () => {} }; journal.set(j.id, j); return j; } }
   class Folder extends Doc { static async create(data) { const f = new Folder(data); f.folder = data.folder ? folders.get(data.folder) : null; folders.set(f.id, f); return f; } }
   globalThis.Actor = Actor; globalThis.JournalEntry = JournalEntry; globalThis.Folder = Folder;
+  const casts = [];
+  class SpellcastingEntry { constructor(actor, tradition) { this.actor = actor; this.tradition = tradition; } async cast(spell, options) { casts.push({ actor: this.actor.name, spell: spell.name, tradition: this.tradition }); } }
+  const packs = new Map();
+  for (const name of ["magic", "deities", "guides", "gm-guides"]) {
+    let n = 0;
+    try { n = fs.readdirSync(new URL(`packs-src/${name}/`, ROOT)).length; } catch (e) { /* not built */ }
+    packs.set(`krynn-pf2e.${name}`, { index: { size: n } });
+  }
   globalThis.CONST = { DOCUMENT_OWNERSHIP_LEVELS: { INHERIT: -1, NONE: 0, LIMITED: 1, OBSERVER: 2, OWNER: 3 } };
   const items = JSON.parse(fs.readFileSync(new URL("tests/fixtures/pf2e-items.json", ROOT)));
   globalThis.fromUuid = async (uuid) => (items[uuid] ? { toObject: () => structuredClone(items[uuid]) } : null);
   globalThis.fetch = async (url) => {
     const file = String(url).replace(/^\/?modules\/krynn-pf2e\//, "");
-    try { const text = fs.readFileSync(new URL(file, ROOT), "utf8"); return { ok: true, status: 200, json: async () => JSON.parse(text) }; } catch (e) { return { ok: false, status: 404 }; }
+    try { const text = fs.readFileSync(new URL(file, ROOT), "utf8"); return { ok: true, status: 200, json: async () => JSON.parse(text), text: async () => text }; } catch (e) { return { ok: false, status: 404 }; }
   };
   // Lifewrought's engine, as module.json's "scripts" would load it.
   globalThis.LW = createRequire(import.meta.url)(new URL("lifewrought/engine.js", ROOT).pathname);
@@ -106,7 +133,7 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
   globalThis.game = {
     i18n, time, users, user: isGM ? gmUser : playerUser,
     release: { version: "14.370" }, system: { id: "pf2e", version: "8.7.1" },
-    actors, journal, folders,
+    actors, journal, folders, packs,
     socket: { handlers: [], on(ch, fn) { this.handlers.push([ch, fn]); }, emit(ch, msg) { sent.push([ch, msg]); } },
     modules: new Map([["krynn-pf2e", module]]),
     settings: {
@@ -125,6 +152,7 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
     PF2E: {
       languages: { common: "Common", draconic: "Draconic", ...Object.fromEntries(Object.entries(hb.languages).map(([k, v]) => [k, v])) },
       creatureTraits: Object.fromEntries(Object.entries(hb.creatureTraits).map(([k, v]) => [k, v.label])),
+      Item: { documentClasses: { spellcastingEntry: SpellcastingEntry } },
     },
   };
 
@@ -166,16 +194,18 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
       isNewerVersion: (a, b) => { const pa = String(a).split(".").map(Number), pb = String(b).split(".").map(Number); for (let i = 0; i < Math.max(pa.length, pb.length); i++) { if ((pa[i] || 0) !== (pb[i] || 0)) return (pa[i] || 0) > (pb[i] || 0); } return false; },
       debouncedReload: () => { globalThis.__reloaded = true; },
       getRoute: (p) => `/${p}`,
+      mergeObject: (a, b) => { const out = structuredClone(a); const m = (x, y) => { for (const [k, v] of Object.entries(y || {})) { if (v && typeof v === "object" && !Array.isArray(v) && x[k] && typeof x[k] === "object") m(x[k], v); else x[k] = v; } }; m(out, b); return out; },
       randomID: () => newId(),
       debounce: (fn) => fn,
     },
   };
 
   return {
-    chat, settings, menus, hooks: Hooks, notes, sent, gmUser, playerUser,
+    chat, settings, menus, hooks: Hooks, notes, sent, gmUser, playerUser, casts, SpellcastingEntry, Actor,
     // Foundry builds game.time.calendar from CONFIG.time after init.
     async start() {
       await Hooks.callAll("init");
+      await Hooks.callAll("setup");
       game.time.calendar = new CONFIG.time.worldCalendarClass(CONFIG.time.worldCalendarConfig);
       await Hooks.callAll("ready");
     },

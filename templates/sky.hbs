@@ -17,6 +17,7 @@
   {{/if}}
 
   {{#if moonsPresent}}
+    {{#if myMagic}}<div class="my-magic"><p><strong>{{localize "KRYNN.Sky.MyMagic"}}</strong> {{myMagic.name}}</p>{{{myMagic.text}}}</div>{{/if}}
     {{#if eye}}<p class="eye-now"><i class="fa-solid fa-eye"></i> {{localize "KRYNN.Sky.EyeTonight"}}</p>{{/if}}
     <ol class="moons">
       {{#each moons}}

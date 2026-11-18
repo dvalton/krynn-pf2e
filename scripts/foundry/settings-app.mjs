@@ -13,8 +13,8 @@ export class KrynnSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.api.A
     id: "krynn-settings",
     tag: "form",
     classes: ["krynn"],
-    window: { title: "KRYNN.Settings.Menu.Name", icon: "fa-solid fa-moon", contentClasses: ["standard-form"] },
-    position: { width: 560 },
+    window: { title: "KRYNN.Settings.Menu.Name", icon: "fa-solid fa-moon", contentClasses: ["standard-form"], resizable: true },
+    position: { width: 600 },
     form: { handler: KrynnSettingsApp.#onSubmit, closeOnSubmit: true },
     actions: {
       jumpToPeriod: KrynnSettingsApp.#onJumpToPeriod,
@@ -22,7 +22,12 @@ export class KrynnSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.api.A
     },
   };
 
-  static PARTS = { form: { template: template("settings") }, footer: { template: "templates/generic/form-footer.hbs" } };
+  static PARTS = { form: { template: template("settings"), scrollable: [""] }, footer: { template: "templates/generic/form-footer.hbs" } };
+
+  // Tall enough for most of the form, never taller than the screen: the form scrolls, the Save button stays.
+  constructor(options = {}) {
+    super(foundry.utils.mergeObject({ position: { height: Math.max(420, Math.min(900, (window.innerHeight || 900) - 80)) } }, options));
+  }
 
   async _prepareContext() {
     const d = now(), eye = setting("eyeDate"), culture = setting("worldCulture");
@@ -49,6 +54,7 @@ export class KrynnSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.api.A
       cultures: opts(CULTURES, "Calendar.Culture", culture),
       moonMagic: opts(MOON_MAGIC, "Settings.MoonMagic", setting("moonMagic")),
       gods: opts(GODS_MODE, "Settings.Gods", setting("godsMode")),
+      hs: opts(GODS_MODE, "Settings.HighSorcery", setting("hsMode")), moonMinLevel: setting("moonMinLevel"),
       nuitari: opts(NUITARI_SEEN, "Settings.Nuitari", setting("nuitariSeen")),
       announce: setting("announce"), life,
       buttons: [{ type: "submit", icon: "fa-solid fa-floppy-disk", label: "KRYNN.Settings.Save" }],
@@ -64,7 +70,8 @@ export class KrynnSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.api.A
     const f = foundry.utils.expandObject(formData.object);
     const n = (x, def) => (Number.isFinite(Number(x)) ? Number(x) : def);
     await game.settings.set(MODULE_ID, "eyeDate", { year: n(f.eye?.year, 351), month: n(f.eye?.month, 0), day: n(f.eye?.day, 1) });
-    for (const k of ["moonMagic", "godsMode", "nuitariSeen"]) if (f[k]) await game.settings.set(MODULE_ID, k, f[k]);
+    for (const k of ["moonMagic", "godsMode", "nuitariSeen", "hsMode"]) if (f[k]) await game.settings.set(MODULE_ID, k, f[k]);
+    if (f.moonMinLevel !== undefined) await game.settings.set(MODULE_ID, "moonMinLevel", Math.min(20, Math.max(1, n(f.moonMinLevel, 1))));
     await game.settings.set(MODULE_ID, "announce", !!f.announce);
     if (f.lw) {
       await game.settings.set(MODULE_ID, "lwYearMode", f.lw.yearMode === "fixed" ? "fixed" : "world");
@@ -85,6 +92,7 @@ export class KrynnSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.api.A
     if (f.worldCulture) await game.settings.set(MODULE_ID, "worldCulture", f.worldCulture);
     if (styleChanged || year !== d.year || month !== d.month || day !== d.day) await setDate({ year, month, day, hour: d.hour, minute: d.minute });
     globalThis.krynn.refresh();
+    await globalThis.krynn.magic?.syncAll();
     if (reload) foundry.utils.debouncedReload();
   }
 }

@@ -1,0 +1,26 @@
+{
+ "label": "Krynn: Guias",
+ "entries": {
+  "The Magic of Krynn": {
+   "name": "A Magia de Krynn",
+   "pages": {
+    "The three moons": {
+     "name": "As três luas",
+     "text": "<p>Três luas cruzam o céu de Krynn. Solinari, a branca, dá a volta em 36 dias; Lunitari, a vermelha, em 28; Nuitari, a negra, em 8. A maioria das pessoas conhece só duas: Nuitari só é vista pelos Mantos Negros, e por todos na Noite do Olho.</p><p>Cada lua passa por quatro fases, cada uma de um quarto da volta: <strong>Alto Santuário</strong> (cheia), <strong>Minguante</strong>, <strong>Baixo Santuário</strong> (nova) e <strong>Crescente</strong>. Quando duas luas ficam próximas, estão em alinhamento. Uma vez a cada 504 dias as três ficam cheias juntas: a <strong>Noite do Olho</strong>.</p><p>Clique na faixa no alto da tela para ver o céu desta noite.</p>"
+    },
+    "The Orders of High Sorcery": {
+     "name": "As Ordens da Alta Feitiçaria",
+     "text": "<p>A magia arcana em Krynn pertence às três Ordens. O mago escolhe o talento <strong>Mago da Alta Feitiçaria</strong> (no compêndio Krynn: Magia) e uma ordem: os Mantos Brancos de Solinari, os Mantos Vermelhos de Lunitari ou os Mantos Negros de Nuitari.</p><p>Com a magia lunar <strong>clássica</strong>, a lua do próprio mago dá a cada dia: Alto Santuário, +1 de bônus de status nas jogadas de ataque e CDs de magia; Crescente e Minguante, nada; Baixo Santuário, −1 de penalidade de status. Um alinhamento com outra lua soma 1 (no máximo +2). A Noite do Olho dá +2 a todo mago das Ordens.</p><p>Com a magia lunar <strong>leve</strong> só contam o Alto Santuário (+1) e o Olho (+2). Com a magia lunar <strong>narrativa</strong> o efeito só descreve a noite. O mestre escolhe em Configurações → Krynn, e a partir de qual nível as luas passam a contar.</p><p>Os aprendizes fazem <strong>O Teste da Alta Feitiçaria</strong> quando o mestre diz que estão prontos. Um mago fora das Ordens é um <strong>Renegado</strong> (um efeito no compêndio): as luas não fazem nada por ele, e as Ordens o caçam.</p>"
+    },
+    "The gods, age by age": {
+     "name": "Os deuses, era a era",
+     "text": "<p>Os verdadeiros deuses nem sempre respondem. Depois do Cataclismo eles se calam até 351 DC, quando os Discos de Mishakal são encontrados; partem de novo depois da Guerra do Caos (383 DC) e voltam com a Guerra das Almas (421 DC).</p><p>Enquanto estão ausentes, um conjurador cujas magias divinas vêm de um deus encontra silêncio. O mestre escolhe o que isso significa em Configurações → Krynn: <strong>estrita</strong> (a magia falha e nada é gasto), <strong>aviso</strong> (ela funciona, e o mestre é avisado) ou <strong>desligada</strong>.</p><p>Os deuses de Krynn estão no compêndio Krynn: Deuses, com seus domínios, fontes, santificação e armas favoritas.</p>"
+    },
+    "Magic in the Age of Mortals": {
+     "name": "A magia na Era dos Mortais",
+     "text": "<p>De 384 a 420 DC os deuses e as luas da magia se foram. Duas magias novas preenchem o silêncio:</p><p>O <strong>misticismo</strong>, o poder do coração ensinado na Cidadela da Luz: um conjurador divino com o talento <strong>Místico do Coração</strong> mantém suas magias sem um deus.</p><p>A <strong>feitiçaria primordial</strong>, a magia selvagem do mundo: um conjurador arcano com o talento <strong>Feiticeiro Primordial</strong> mantém suas magias sem as luas.</p><p>Magos das Ordens sem a feitiçaria primordial veem a Alta Feitiçaria falhar (estrita) ou vacilar (aviso), conforme o mestre escolheu.</p>"
+    }
+   }
+  }
+ }
+}
