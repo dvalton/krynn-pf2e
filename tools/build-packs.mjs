@@ -15,6 +15,7 @@ import { DRAGON_ACTIONS, DRAGON_EFFECTS, GEAR, RELICS, DRAGON_JOURNALS } from ".
 import { REGIONS, POWERS, PEOPLE_NAMES, SIZE_NAMES, PAGE_NAMES } from "../scripts/content/atlas.mjs";
 import { TIMELINE, AGE_PAGES } from "../scripts/content/timeline.mjs";
 import { ICONIC } from "../scripts/content/iconic.mjs";
+import { GUIDES } from "../scripts/content/guides.mjs";
 import { placesOf, sizeOf, yearLabel } from "../scripts/logic/atlas.mjs";
 import { buildNpc } from "../scripts/logic/npc.mjs";
 
@@ -146,7 +147,7 @@ function journal(j) {
       title: { show: true, level: 1 }, text: { content: pg.text.en, format: 1 }, flags: {}, ownership: { default: -1 }, _stats: stats }; }) };
 }
 
-const ALL_JOURNALS = [...JOURNALS, ...DRAGON_JOURNALS];
+const ALL_JOURNALS = [...GUIDES, ...JOURNALS, ...DRAGON_JOURNALS];
 
 // The Atlas of Ansalon: a journal per region (pages in both languages), the Timeline and the Powers of Krynn.
 const P = (t) => `<p>${t}</p>`;

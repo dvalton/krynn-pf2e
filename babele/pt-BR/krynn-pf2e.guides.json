@@ -1,6 +1,31 @@
 {
  "label": "Krynn: Guias",
  "entries": {
+  "Krynn for PF2e: Player's Guide": {
+   "name": "Krynn para PF2e: Guia do Jogador",
+   "pages": {
+    "Welcome to Krynn": {
+     "name": "Bem-vindo a Krynn",
+     "text": "<p>Este mundo segue o tempo de Krynn: uma data, uma era, três luas e deuses que podem ou não responder. A faixa no topo da tela mostra a data e as luas; clique nela para abrir o céu.</p>"
+    },
+    "Living a Life": {
+     "name": "Vivendo uma Vida",
+     "text": "<p>Na barra de Atores, <strong>Viver uma vida em Krynn</strong> abre o Lifewrought. Você vive a vida do personagem do nascimento ao primeiro dia de aventura, rumo à campanha que o mestre definiu. Tudo é salvo enquanto você joga, em qualquer computador.</p><p>No fim, <strong>Criar o personagem no Foundry</strong>. Seu personagem chega com ancestralidade, herança, antecedente, classe, talentos, magias e equipamento, e a <em>Crônica</em> da vida no Diário. Se a ficha disser que há escolhas pendentes, aperte <strong>Concluir escolhas</strong> e o PF2e vai perguntar.</p>"
+    },
+    "The Krynn Tab": {
+     "name": "A Aba Krynn",
+     "text": "<p>Sua ficha tem uma aba Krynn (ou um botão Krynn no topo). Ela mostra sua ordem e a lua desta noite, seu deus e se os deuses respondem nesta era, sua cavalaria e a Medida, sua reputação com as facções de Krynn, e as pessoas da sua vida.</p>"
+    },
+    "Magic and the Moons": {
+     "name": "A Magia e as Luas",
+     "text": "<p>Um mago das Ordens pega <strong>Mago da Alta Feitiçaria</strong> (Krynn: Magia) e escolhe os Mantos Brancos, Vermelhos ou Negros. Sua lua então muda suas magias a cada dia: mais forte no Alto Santuário, mais fraca no Baixo Santuário, no auge na Noite do Olho. Aparece como um efeito na ficha; você não precisa controlar nada.</p><p>Só os Mantos Negros veem Nuitari. Nos anos em que os deuses se foram, magias divinas podem falhar; nos anos em que as luas se foram, a magia das Ordens também. O compêndio de Guias tem <em>A Magia de Krynn</em> com os detalhes.</p>"
+    },
+    "Peoples, Orders and Gods": {
+     "name": "Povos, Ordens e Deuses",
+     "text": "<p>Krynn: Povos tem as heranças de Krynn (as nações élficas, os clãs de Thorbardin, gnomos funileiros, kender) e talentos de cultura para humanos. Krynn: Antecedentes tem dez antecedentes do mundo. Krynn: Ordens de Cavalaria tem os Cavaleiros de Solamnia e de Takhisis. Krynn: Deuses tem os vinte e um deuses.</p>"
+    }
+   }
+  },
   "The Magic of Krynn": {
    "name": "A Magia de Krynn",
    "pages": {

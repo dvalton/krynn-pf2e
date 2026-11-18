@@ -86,7 +86,8 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
     get level() { return this.system?.details?.level?.value ?? 1; }
     get deity() { return this.items.find((i) => i.type === "deity") ?? null; }
     getRollOptions() { return this.items.filter((i) => i.system?.rules).flatMap((i) => i.system.rules.filter((r) => r.key === "RollOption" && !r.toggleable).map((r) => r.option.replace("{item|flags.system.rulesSelections.order}", i.flags?.pf2e?.rulesSelections?.order ?? ""))); }
-    static async create(data) { const a = new Actor(data); a.sheet = { render: () => { a.sheet.rendered = true; } }; actors.set(a.id, a); return a; }
+    async delete() { actors.delete(this.id); return this; }
+    static async create(data) { const { _id, ...rest } = data ?? {}; const a = new Actor(rest); /* Foundry gives a new id */ a.sheet = { render: () => { a.sheet.rendered = true; } }; actors.set(a.id, a); return a; }
     static async createDocuments(list) { return Promise.all(list.map((d) => Actor.create(d))); }
     async importFromJSON(json) { const d = JSON.parse(json); const keep = { id: this.id, folder: this.folder }; Object.assign(this, { ...d, items: undefined }, keep); this.ownership = undefined; this.items = new Items(); for (const i of d.items || []) { const it = new Item(i, this); this.items.set(it.id, it); } return this; }
     async createEmbeddedDocuments(type, list) { const made = list.map((d) => new Item(d, this)); for (const it of made) { this.items.set(it.id, it); await Hooks.callAll("createItem", it, {}, "gm1"); } return made; }

@@ -21,6 +21,7 @@ import { applySteel } from "./foundry/steel.mjs";
 import { companions } from "./foundry/compat.mjs";
 import { onFeatMessage } from "./foundry/peoples/tables.mjs";
 import { syncDaylight } from "./foundry/daylight.mjs";
+import { campaignCheck } from "./foundry/campaign.mjs";
 import { rememberHit, onActorUpdate, onCombatRound, runThroes } from "./foundry/dragons/throes.mjs";
 import { openDragons, importDragon, findDragons, onCombatStart, DragonsApp } from "./foundry/dragons/dragons.mjs";
 import { registerEnrichers, installYearClicks, refreshNowLines } from "./foundry/atlas.mjs";
@@ -34,7 +35,7 @@ Hooks.once("init", () => {
     life: { open: openLife, lives: openLives, create: createCharacter, dryRun, LifeApp, finishChoices, pendingChoices },
     factions: { open: openFactions, FactionsApp },
     panel: { open: openPanel, context: panelContext, KrynnPanelApp },
-    companions,
+    companions, campaignCheck,
     atlas: { refresh: refreshNowLines },
     generators: { open: openGenerators, run: (kind, state) => GeneratorsApp.run(kind, state), makeNpc, placeEncounter, creatureIndex, GeneratorsApp },
     dragons: { open: openDragons, import: importDragon, find: findDragons, throes: runThroes, DragonsApp },

@@ -1,6 +1,14 @@
 # Krynn for PF2e
 
-The world of Dragonlance for the **Pathfinder Second Edition** system on **Foundry VTT 14**: the ages of Krynn, its calendar and the three moons of magic, and, in the versions to come, its gods, peoples, orders, dragons and draconians, and the lives of its heroes made with [Lifewrought](https://github.com/dvalton/lifewrought).
+The world of Dragonlance for the **Pathfinder Second Edition** system on **Foundry VTT 14**. You get:
+- Krynn's ages, calendar and three moons of magic;
+- its gods and their silences;
+- its peoples, knights, dragons and draconians;
+- an atlas that knows what year it is;
+- generators for the table;
+- the lives of your heroes, made with [Lifewrought](https://github.com/dvalton/lifewrought) and built straight into Foundry.
+
+Everything is in English and Brazilian Portuguese.
 
 Unofficial fan content for private play. Not approved or endorsed by Wizards of the Coast or Paizo. Dragonlance and its names are property of Wizards of the Coast; Pathfinder is a trademark of Paizo Inc.
 
@@ -12,83 +20,72 @@ In Foundry's setup screen: **Add-on Modules → Install Module**, and paste this
 https://github.com/dvalton/krynn-pf2e/releases/latest/download/module.json
 ```
 
-Requires Foundry VTT 14 (verified on 14.370) and Pathfinder Second Edition 8.7 or newer (verified on 8.7.1). Enable it in your world, then open **Settings → Krynn**.
+Requires Foundry VTT 14 (verified on 14.370) and Pathfinder Second Edition 8.7 or newer (verified on 8.7.1). Babele is optional, for the compendiums in Portuguese. PF2e Workbench and PF2e Toolbelt are optional; Krynn works with them and without them.
 
-## Completing the plan (0.9)
+## Quick start
 
-- The moons give extra spell slots in the classic mode.
-- Culture feats for the humans of Krynn and the other peoples.
-- The Measure and the history of standing on the Krynn tab.
-- Death knights, fetches, huldre and the sea elves.
-- Daylight that follows the seasons, if you want it.
+1. Enable the module, then open **Settings → Krynn**.
+2. Set the year (it decides the age, the gods and the moons), the calendar and how strong moon magic is.
+3. Set the Lifewrought campaign (year, region, starting town).
+4. Press **Run the check**, then **Run the campaign check**. Both post a card to you.
+5. Open the **GM's Guide** in the compendium *Krynn: GM Guides*. Share the **Player's Guide** (*Krynn: Guides*) with your table.
+6. Tell your players about **Live a life**, in the Actors sidebar.
 
-## Polish (0.8)
+## What's in it
 
-- A **Krynn tab** on the character sheet (or the **Krynn** button at the top of the sheet).
-- **Steel** as the coin of account, if you want it (Settings → Krynn → At the table).
-- Works with **PF2e Workbench** and **PF2e Toolbelt** when they are active, and without them.
+**Time and the sky**
+- A Krynn date.
+- Ages from before the Cataclysm to the War of Souls.
+- The Calendar of Krynn, with month names for each people.
+- The three moons, their alignments and the Night of the Eye.
+- A sky banner, and cards when something in the heavens matters.
+- Optional daylight that follows the seasons.
 
-## Generators (0.7)
+**Magic**
+- The Orders of High Sorcery. Each mage's moon changes their spells every day: bonuses, penalties and extra spell slots.
+- The Test, renegades, and the Night of the Eye.
+- The years the gods are silent and the years the moons are gone, as strict, warn or off.
+- Mysticism and primal sorcery for the Age of Mortals.
 
-- **Generators** (Actors sidebar, GM): people, encounters, rumours, treasure, travel and weather, inns, ship names, gnome inventions and kender pockets, by region and year.
-- Make the NPC from a generated person, or put a generated encounter on the scene, with one click.
+**Lifewrought**
+- Players live their characters' lives inside Foundry.
+- The character is built from your own compendiums, with its Chronicle journal and the people of the life.
+- A GM view of every life at the table.
 
-## The world (0.6)
+**Peoples and orders**
+- Heritages: the elven nations, the clans of Thorbardin, tinker gnomes, kender.
+- Culture feats, Krynn backgrounds, and the Knights of Solamnia and of Takhisis, with the Measure.
+- Standing with the factions of Krynn, with its history.
 
-- **Krynn: Atlas of Ansalon**: a journal per region with its places, cities, history and hooks, and a line that shows what is happening there in the world's current year.
-- **The Timeline of Krynn**: click a year (GM) to bring the world to it.
-- **Krynn: Iconic People**: the Heroes of the Lance, their enemies and the Age of Mortals, as NPCs for their age.
+**Dragons and draconians**
+- Draconians whose death throes happen on their own: stone, acid, bone, a stolen face, a final frenzy.
+- Your legacy bestiaries' dragons brought in with Dragonfear.
+- The five Overlords, the dragonlances, and the relics of the gods.
+- More creatures of Krynn.
 
-## Dragons and draconians (0.5)
+**The world**
+- The Atlas of Ansalon, a journal per region with a line that shows what is happening there in the world's year.
+- The Timeline of Krynn: click a year to go there.
+- The Powers of Krynn.
+- Twenty-five iconic people, by age.
 
-- Compendiums **Krynn: Draconians and Creatures**, **Krynn: Dragons** and **Krynn: Relics**.
-- Drop a draconian on the map: when it falls, its **death throes** happen on their own (stone, acid, bone, a stolen face, a final frenzy).
-- **Dragons** (Actors sidebar, GM) brings your legacy bestiaries' dragons into Krynn with **Dragonfear**, and builds the five **Dragon Overlords**.
-- The dragonlances, the dragon saddle, the Disks of Mishakal and the Blue Crystal Staff.
-
-## Peoples and orders (0.4)
-
-- Compendiums **Krynn: Peoples** (heritages and ancestry feats), **Krynn: Backgrounds**, **Krynn: Knightly Orders** and **Krynn: Tables**.
-- The Knights of Solamnia and of Takhisis as archetypes, each with a choice of order; the Breach of the Measure effect for the GM.
-- **Factions**: a button on the character sheet shows the character's standing with the factions of Krynn. The GM keeps it up to date.
-- Lifewrought characters get their Krynn heritage, their god from Krynn: Gods, and a **Finish choices** button for the few choices PF2e has to ask.
-
-## Magic (0.3)
-
-- Compendiums **Krynn: Magic**, **Krynn: Gods**, **Krynn: Guides** and **Krynn: GM Guides** (in Portuguese with Babele).
-- Give an arcane caster **Mage of High Sorcery** and choose the robes: the moon of their order changes their spells each day, as an effect on the sheet.
-- The years the gods are silent, and the years the moons are gone, change what divine and arcane spells do. Settings → Krynn chooses how strict.
-- Read **The Magic of Krynn** in the Guides compendium.
-
-## Lifewrought in Foundry (0.2)
-
-- In the **Actors** sidebar, **Live a life** opens [Lifewrought](https://github.com/dvalton/lifewrought) in a window. Each player lives their character's life from birth to the first day of adventure, towards the campaign the GM set in **Settings → Krynn → Lifewrought**.
-- The life is saved in the player's Foundry account as it goes.
-- At the end, **Create the character in Foundry** builds the PF2e character from your world's compendiums, gives it to the player, and writes **The Chronicle of …** in the Journal (with a page only the GM sees). Optionally, everyone they met becomes an NPC.
-- The GM's **Lives** button shows every life at the table; any of them can be watched read-only.
-
-## What 0.1 does
-
-- **The age and the date.** The world keeps a Krynn date. The year decides the age and the period (the War of the Lance, the Age of Mortals...), whether the gods answer, and whether the moons of magic shine. The first time the module runs, the clock is set to 351 AC.
-- **The Calendar of Krynn**, as Foundry's world calendar: twelve months of thirty days (or the newer 4-week months), holy days and seasons. Month and day names by people: Ergothian, Solamnic, Plainsmen, Dwarven, Elven, Kender, Goblin and the gods' days. Each player picks their own.
-- **The three moons**: Solinari (36 days), Lunitari (28) and Nuitari (8), through High Sanction, Waning, Low Sanction and Waxing, their alignments, and the Night of the Eye every 504 days. Nuitari is seen only by the GM and the Black Robes. After the Chaos War a single pale moon rises, until 421 AC.
-- **The sky banner** at the top of the screen and the **sky window** (click the banner), with GM buttons to pass time.
-- **Chat cards** when a moon reaches High Sanction, on the Night of the Eye, on holy days, and when the age changes (the gods leaving or returning).
-- **The languages and creature traits of Krynn** registered in PF2e (Solamnic, Ergot, Kenderspeak, Qualinesti, Kothian...; kender, draconian, aghar, irda, thanoi, bakali).
-- **English and Brazilian Portuguese.**
-- **A self-test**: Settings → Krynn → *Run the check* posts a report to the GM.
-
-The plan for the whole module is in [docs/plan.md](docs/plan.md).
+**At the table**
+- The Generators: people, encounters, rumours, treasure, weather and the road, inns, ships, gnome inventions, kender pockets.
+- The Krynn tab on every character sheet.
+- Steel as the coin of account (optional).
 
 ## Em português
 
-Módulo de Dragonlance para o Pathfinder 2e no Foundry 14. Instale pelo link de manifest acima e abra **Configurações → Krynn**. A 0.9 completa o plano: os espaços de magia das luas, talentos das culturas humanas e de outros povos, a Medida e o histórico de reputação, mais criaturas, a luz do dia na cena e o aviso de quem é afetado quando os deuses e as luas partem. A 0.8 é o polimento: a aba Krynn na ficha, o aço como moeda (opcional), os cards com visual próprio, a integração com Workbench e Toolbelt e a revisão automática do português. A 0.7 traz os geradores: pessoas, encontros, rumores, tesouro, viagem e clima, estalagens, navios, invenções gnômicas e bolsos de kender, por região e ano, com um clique para criar o NPC ou pôr o encontro na cena. A 0.6 traz o mundo: o Atlas de Ansalon com o que está acontecendo em cada região no ano atual, a Linha do Tempo (clique num ano para levar o mundo até ele) e os personagens icônicos de cada era. A 0.5 traz os dragões e draconianos: os estertores automáticos dos draconianos, os dragões dos bestiários legacy com o Medo Dracônico, os Senhores Supremos, as lanças do dragão e as relíquias. A 0.4 traz os povos e as ordens: heranças de Krynn (kender, elfos, anões dos clãs, gnomos funileiros), antecedentes, os Cavaleiros de Solamnia e de Takhisis, as tabelas de bolsos de kender e engenhocas, e a reputação com as facções. A 0.3 traz a magia das luas e os deuses. A 0.2 traz o Lifewrought para dentro do Foundry: cada jogador vive a vida do personagem numa janela, e no fim o personagem é criado direto, com a Crônica no Diário. A versão 0.1 traz a era e a data da campanha, o Calendário de Krynn com os nomes de cada povo, as três luas com a Noite do Olho, a faixa do céu, os avisos no chat, os idiomas e traits de Krynn e a verificação do mundo. Tudo em inglês e português.
+Dragonlance para o Pathfinder 2e no Foundry 14: as eras e o calendário de Krynn, as três luas da magia, os deuses e seus silêncios, os povos e as ordens, dragões e draconianos, um atlas que sabe em que ano está, geradores para a mesa e as vidas dos heróis feitas no Lifewrought e criadas direto no Foundry. Tudo em português e inglês.
+
+Instale pelo link de manifest acima e abra **Configurações → Krynn**. Comece pelo **Guia do Mestre** (compêndio *Krynn: Guias do Mestre*) e compartilhe o **Guia do Jogador** (*Krynn: Guias*) com a mesa.
 
 ## Development
 
 ```
 npm ci
-npm run check   # strings in both languages, unit tests, the module in a mock Foundry, module.json
+npm run check   # strings in both languages, the Portuguese review, unit tests, the module in a mock Foundry
+                # (with a campaign rehearsal through six ages), module.json
 ```
 
-`lang/en.json` and `lang/pt-BR.json` are built from `lang/strings/*` and the calendar names (`npm run lang`); `module.json` is built by `tools/build.mjs`. A new version in `package.json` pushed to main publishes a release.
+`lang/en.json` and `lang/pt-BR.json` are built from `lang/strings/*`, the calendar names and the bestiary texts (`npm run lang`). `module.json` is built by `tools/build.mjs`; the compendium packs by `tools/build-packs.mjs`. A new version in `package.json` pushed to main publishes a release. The plan is in [docs/plan.md](docs/plan.md); the history in [CHANGELOG.md](CHANGELOG.md).

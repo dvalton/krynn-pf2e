@@ -66,5 +66,8 @@ export async function firstRun() {
   const { setDate } = await import("./time.mjs");
   if (now().year < -4000) await setDate({ year: 351, month: 8, day: 1, hour: 8, minute: 0 });
   await game.settings.set(MODULE_ID, "initialized", true);
-  await post(`<h3>${T("Chat.Welcome.Title")}</h3><p>${T("Chat.Welcome.Text", { date: formatDate(now()) })}</p>`, game.users.filter((u) => u.isGM).map((u) => u.id));
+  const pack = game.packs.get(`${MODULE_ID}.gm-guides`);
+  const e = pack?.index?.find?.((x) => x.name === "Krynn for PF2e: GM's Guide");
+  const guide = e ? `<p>@UUID[${e.uuid ?? `Compendium.${MODULE_ID}.gm-guides.JournalEntry.${e._id}`}]{${T("Chat.Welcome.Guide")}}</p>` : "";
+  await post(`<h3>${T("Chat.Welcome.Title")}</h3><p>${T("Chat.Welcome.Text", { date: formatDate(now()) })}</p>${guide}`, game.users.filter((u) => u.isGM).map((u) => u.id));
 }

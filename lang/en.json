@@ -717,7 +717,8 @@
    },
    "Welcome": {
     "Title": "Welcome to Krynn",
-    "Text": "The calendar is now the Calendar of Krynn, set to {date}. Change the age, date, moons and gods in Settings → Krynn."
+    "Text": "The calendar is now the Calendar of Krynn, set to {date}. Change the age, date, moons and gods in Settings → Krynn.",
+    "Guide": "Start with the GM's Guide"
    },
    "Affected": {
     "godsLeave": "Their gods no longer answer {names}. Through {feat}, a divine caster can draw on the power of the heart instead.",
@@ -1166,6 +1167,26 @@
   "Steel": {
    "Abbr": "stl",
    "Name": "Steel"
+  },
+  "Campaign": {
+   "Run": "Run the campaign check",
+   "Title": "The campaign check: each age",
+   "Year": "Year",
+   "Gods": "Gods answer",
+   "Moons": "Moons shine",
+   "RedRobe": "Red Robe (day 27)",
+   "Cleric": "Cleric's spells",
+   "Mage": "Mage's spells",
+   "Draconians": "Draconians",
+   "Yes": "yes",
+   "No": "no",
+   "Works": "work",
+   "Warns": "warn the GM",
+   "Fails": "fail",
+   "Slots": "slot(s)",
+   "Throes": "A baaz that falls turns to stone; its killer saves against DC {dc}.",
+   "AllGood": "Every age behaves as it should. The throwaway actors have been deleted.",
+   "Problems": "Something didn't behave as expected; see the table. The throwaway actors have been deleted."
   },
   "Bestiary": {
    "baaz-draconian": {

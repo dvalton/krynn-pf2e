@@ -128,3 +128,7 @@ a.krynn-year { white-space: nowrap; }
 .krynn-panel .krynn-warn { color: #b3261e; font-weight: 600; }
 .krynn-tab { overflow-y: auto; }
 .krynn-companions ul { margin: 4px 0; padding-left: 1.2em; }
+
+/* 1.0: the campaign check */
+.krynn-campaign { width: 100%; border-collapse: collapse; font-size: 0.85em; }
+.krynn-campaign th, .krynn-campaign td { padding: 2px 4px; border-bottom: 1px solid rgba(138, 108, 58, 0.3); text-align: left; vertical-align: top; }

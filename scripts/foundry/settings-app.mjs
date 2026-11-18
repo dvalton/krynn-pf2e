@@ -20,6 +20,7 @@ export class KrynnSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.api.A
     actions: {
       jumpToPeriod: KrynnSettingsApp.#onJumpToPeriod,
       selfTest: () => globalThis.krynn.selfTest(),
+      campaignCheck: () => globalThis.krynn.campaignCheck(),
     },
   };
 

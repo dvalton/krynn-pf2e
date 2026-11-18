@@ -341,7 +341,8 @@
       },
       "Welcome": {
         "Title": "Bem-vindos a Krynn",
-        "Text": "O calendário agora é o Calendário de Krynn, em {date}. Mude a era, a data, as luas e os deuses em Configurações → Krynn."
+        "Text": "O calendário agora é o Calendário de Krynn, em {date}. Mude a era, a data, as luas e os deuses em Configurações → Krynn.",
+        "Guide": "Comece pelo Guia do Mestre"
       },
       "Affected": {
         "godsLeave": "Os deuses não respondem mais a {names}. Com {feat}, um conjurador divino pode usar o poder do coração.",
@@ -790,6 +791,26 @@
     "Steel": {
       "Abbr": "aço",
       "Name": "Aço"
+    },
+    "Campaign": {
+      "Run": "Fazer a verificação de campanha",
+      "Title": "A verificação de campanha: cada era",
+      "Year": "Ano",
+      "Gods": "Deuses respondem",
+      "Moons": "Luas brilham",
+      "RedRobe": "Manto Vermelho (dia 27)",
+      "Cleric": "Magias do clérigo",
+      "Mage": "Magias do mago",
+      "Draconians": "Draconianos",
+      "Yes": "sim",
+      "No": "não",
+      "Works": "funcionam",
+      "Warns": "avisam o mestre",
+      "Fails": "falham",
+      "Slots": "espaço(s)",
+      "Throes": "Um baaz que cai vira pedra; quem o matou faz o teste contra CD {dc}.",
+      "AllGood": "Todas as eras se comportam como deveriam. Os atores descartáveis foram apagados.",
+      "Problems": "Algo não se comportou como esperado; veja a tabela. Os atores descartáveis foram apagados."
     }
   }
 }

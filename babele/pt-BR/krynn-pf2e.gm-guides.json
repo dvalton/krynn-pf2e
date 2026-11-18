@@ -1,6 +1,35 @@
 {
  "label": "Krynn: Guias do Mestre",
  "entries": {
+  "Krynn for PF2e: GM's Guide": {
+   "name": "Krynn para PF2e: Guia do Mestre",
+   "pages": {
+    "Getting Started": {
+     "name": "Começando",
+     "text": "<ul><li>Abra <strong>Configurações → Krynn</strong>. Defina a data (o ano decide a era, os deuses e as luas), o calendário e a magia lunar.</li><li>Aperte <strong>Fazer a verificação</strong>: um card diz se tudo está ligado. <strong>Fazer a verificação de campanha</strong> mostra o que acontece em cada era.</li><li>Na parte do Lifewrought das configurações, defina a campanha (ano, região, cidade inicial). Depois conte aos jogadores sobre <strong>Viver uma vida</strong>.</li><li>Leia o Guia do Jogador (Krynn: Guias) e compartilhe com a mesa.</li></ul>"
+    },
+    "Time, Sky and Ages": {
+     "name": "Tempo, Céu e Eras",
+     "text": "<p>O tempo passa com o relógio do Foundry (a janela do céu tem botões de uma hora, um descanso, um dia, uma semana). Quando uma lua chega ao Alto Santuário, na Noite do Olho, nos dias santos e quando a era muda, um card conta à mesa o que isso significa. Quando os deuses ou as luas partem, o card diz quais personagens são afetados.</p><p>Na Linha do Tempo de Krynn (Krynn: Atlas de Ansalon), clique num ano para levar o mundo até ele.</p>"
+    },
+    "Lives and Characters": {
+     "name": "Vidas e Personagens",
+     "text": "<p>O botão <strong>Vidas</strong> (barra de Atores) mostra todas as vidas da mesa. Assista a qualquer uma, construa uma terminada se nenhum mestre estava online, abra os personagens, suas Crônicas e suas facções. Cada Crônica tem uma página que só você vê, com os fios para puxar.</p>"
+    },
+    "Dragons and Draconians": {
+     "name": "Dragões e Draconianos",
+     "text": "<p><strong>Dragões</strong> (barra de Atores) traz os dragões dos seus bestiários legacy para Krynn com o Medo Dracônico, e monta os cinco Senhores Supremos. Os draconianos de Krynn: Draconianos e Criaturas morrem como devem: leve um a 0 PV e os estertores acontecem sozinhos (a configuração escolhe automático, só o card ou desligado). Quando um encontro começa, o teste do Medo Dracônico é postado para cada inimigo ao alcance.</p>"
+    },
+    "The World and the Generators": {
+     "name": "O Mundo e os Geradores",
+     "text": "<p>O Atlas tem um diário por região, com uma linha que mostra o que está acontecendo lá neste ano. O compêndio de Personagens Icônicos tem os Heróis da Lança, seus inimigos e a Era dos Mortais, por era.</p><p><strong>Geradores</strong> (barra de Atores) fazem pessoas, encontros, rumores, tesouro, clima e estrada, estalagens, navios e invenções gnômicas para uma região e um ano. Os cards chegam primeiro para você; mostre quando quiser.</p>"
+    },
+    "At the Table": {
+     "name": "Na Mesa",
+     "text": "<p>Configurações opcionais: o <strong>aço</strong> como moeda, a <strong>luz do dia</strong> que segue as estações, a ausência dos deuses e das luas como estrita, aviso ou desligada, e a partir de que nível as luas contam. PF2e Workbench e PF2e Toolbelt funcionam junto com o módulo quando estão ativos; as configurações dizem o que cada um faz.</p><p>Se algo parecer errado, faça a verificação primeiro. O módulo nunca trava o jogo: na dúvida, ele avisa e deixa a história seguir.</p>"
+    }
+   }
+  },
   "The Test of High Sorcery (GM)": {
    "name": "O Teste da Alta Feitiçaria (mestre)",
    "pages": {

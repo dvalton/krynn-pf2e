@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.0.0
+
+The whole of Krynn, tested across its ages.
+
+- **The campaign rehearsal**: the tests play six sessions, one per age. The ages are before the Cataclysm, the War of the Lance, the years after, the Summer of Chaos, the Age of Mortals and the War of Souls. Each session checks:
+  - the gods and the moons;
+  - the cast gate;
+  - moon magic;
+  - the Atlas's line;
+  - an encounter;
+  - a draconian's death;
+  - a Lifewrought character built from scratch;
+  - the self-test, green.
+- **The campaign check** in Foundry (Settings → Krynn): throwaway actors taken through each age. The card shows what the gods, the moons, a Red Robe, a cleric and the draconians do in every one. Then the actors are deleted.
+- **The Player's Guide and the GM's Guide**, in both languages, in the Guides compendiums. The welcome card points the GM to the guide.
+- A new README: what the module does, how to install it, and a quick start.
+
+Everything from 0.1 to 0.9 is below.
+
 ## 0.9.0
 
 Completing the plan: what earlier versions left open.

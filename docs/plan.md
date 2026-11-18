@@ -224,7 +224,7 @@ Each step is a usable release, tested in the group's world.
 | **0.7 Generators** ✅ | Encounters, rumours, people, treasure, travel and weather, inns and the small tables |
 | **0.8 Polish** ✅ | Krynn tab, chat cards, steel, Workbench and Toolbelt integration, full Portuguese translation review |
 | **0.9 Completing the plan** ✅ | The moons' spell slots, human culture feats, the Measure and standing history, more creatures, daylight, the age's affected characters, a pack lint |
-| **1.0** | A full campaign test: one session per age, every self-test green |
+| **1.0** ✅ | A full campaign test: one session per age, every self-test green |
 
 ## Risks and how we handle them
 - **PF2e updates** (8.x moves fast): everything touching system internals sits in the compatibility layer; the self-test runs after every system update; each release states the versions it was verified on.
