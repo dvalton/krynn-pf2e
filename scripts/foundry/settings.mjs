@@ -22,6 +22,15 @@ export function registerSettings() {
   world("announce", Boolean, true);
   world("initialized", Boolean, false);
 
+  // Lifewrought: the campaign every life is lived towards, set once by the GM.
+  world("lwYearMode", String, "world", { choices: { world: "KRYNN.Settings.Life.YearWorld", fixed: "KRYNN.Settings.Life.YearFixed" } });
+  world("lwYear", Number, 351);
+  world("lwRegion", String, "abanasinia");
+  world("lwStart", String, "");
+  world("lwScope", String, "favoured");
+  world("lwNpcActors", Boolean, false);
+  world("lwWho", String, "everyone", { choices: { everyone: "KRYNN.Settings.Life.WhoEveryone", gm: "KRYNN.Settings.Life.WhoGM" } });
+
   // Per user: whose names for the months and days, and whether the sky banner shows.
   game.settings.register(MODULE_ID, "userCulture", {
     name: "KRYNN.Settings.UserCulture.Name", hint: "KRYNN.Settings.UserCulture.Hint",

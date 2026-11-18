@@ -4,13 +4,14 @@
 import fs from "node:fs";
 import { JSDOM } from "jsdom";
 import Handlebars from "handlebars";
+import { createRequire } from "node:module";
 
 const ROOT = new URL("../../", import.meta.url);
 const flat = (o, p = "", out = {}) => { for (const [k, v] of Object.entries(o)) { const key = p ? `${p}.${k}` : k; if (v && typeof v === "object") flat(v, key, out); else out[key] = v; } return out; };
 
 export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe = null } = {}) {
-  const dom = new JSDOM(`<!doctype html><body><div id="interface"><div id="ui-middle"><div id="ui-top"></div></div></div></body>`);
-  globalThis.window = dom.window; globalThis.document = dom.window.document;
+  const dom = new JSDOM(`<!doctype html><body><div id="interface"><div id="ui-middle"><div id="ui-top"></div></div></div></body>`, { url: "http://localhost:30000/game" });
+  globalThis.window = dom.window; globalThis.document = dom.window.document; globalThis.HTMLElement = dom.window.HTMLElement;
 
   const strings = flat(JSON.parse(fs.readFileSync(new URL(`lang/${lang}.json`, ROOT))));
   const i18n = {
@@ -49,11 +50,49 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
   const chat = [];
   globalThis.ChatMessage = { create: async (data) => { chat.push(data); return data; } };
 
-  const gmUser = { id: "gm1", name: "GM", isGM: true, active: true, isSelf: isGM, character: null };
-  const playerUser = { id: "pl1", name: "Player", isGM: false, active: true, isSelf: !isGM,
-    character: { getFlag: (scope, key) => (scope === "krynn-pf2e" && key === "robe" ? robe : undefined) } };
+  // Documents with flags, enough for actors, journals, folders and users.
+  const ids = { n: 0 };
+  const newId = () => `id${String(++ids.n).padStart(14, "0")}`;
+  const setPath = (o, k, v) => { const parts = k.split("."); let n = o; parts.slice(0, -1).forEach((p) => { n = n[p] ??= {}; }); n[parts.at(-1)] = v; };
+  class Doc {
+    constructor(data) { Object.assign(this, structuredClone(data)); this.id ??= newId(); this.flags ??= {}; this.uuid = `${this.constructor.name}.${this.id}`; }
+    getFlag(scope, key) { return this.flags?.[scope]?.[key]; }
+    async setFlag(scope, key, value) { (this.flags[scope] ??= {})[key] = structuredClone(value); return this; }
+    async unsetFlag(scope, key) { if (this.flags[scope]) delete this.flags[scope][key]; return this; }
+    async update(changes) { for (const [k, v] of Object.entries(changes)) { if (k.includes(".")) setPath(this, k, structuredClone(v)); else this[k] = structuredClone(v); } return this; }
+    toObject() { return structuredClone({ ...this, uuid: undefined }); }
+  }
+  const collection = (name) => { const c = new Map(); c.find = (fn) => [...c.values()].find(fn); c.filter = (fn) => [...c.values()].filter(fn); c.name = name; return c; };
+  const actors = collection("actors"), journal = collection("journal"), folders = collection("folders");
+  class Actor extends Doc {
+    static async create(data) { const a = new Actor(data); a.sheet = { render: () => { a.sheet.rendered = true; } }; actors.set(a.id, a); return a; }
+    static async createDocuments(list) { return Promise.all(list.map((d) => Actor.create(d))); }
+    async importFromJSON(json) { const d = JSON.parse(json); const keep = { id: this.id, folder: this.folder }; Object.assign(this, d, keep); this.ownership = undefined; this.items = d.items; return this; }
+  }
+  class JournalEntry extends Doc { static async create(data) { const j = new JournalEntry(data); j.sheet = { render: () => {} }; journal.set(j.id, j); return j; } }
+  class Folder extends Doc { static async create(data) { const f = new Folder(data); f.folder = data.folder ? folders.get(data.folder) : null; folders.set(f.id, f); return f; } }
+  globalThis.Actor = Actor; globalThis.JournalEntry = JournalEntry; globalThis.Folder = Folder;
+  globalThis.CONST = { DOCUMENT_OWNERSHIP_LEVELS: { INHERIT: -1, NONE: 0, LIMITED: 1, OBSERVER: 2, OWNER: 3 } };
+  const items = JSON.parse(fs.readFileSync(new URL("tests/fixtures/pf2e-items.json", ROOT)));
+  globalThis.fromUuid = async (uuid) => (items[uuid] ? { toObject: () => structuredClone(items[uuid]) } : null);
+  globalThis.fetch = async (url) => {
+    const file = String(url).replace(/^\/?modules\/krynn-pf2e\//, "");
+    try { const text = fs.readFileSync(new URL(file, ROOT), "utf8"); return { ok: true, status: 200, json: async () => JSON.parse(text) }; } catch (e) { return { ok: false, status: 404 }; }
+  };
+  // Lifewrought's engine, as module.json's "scripts" would load it.
+  globalThis.LW = createRequire(import.meta.url)(new URL("lifewrought/engine.js", ROOT).pathname);
+  globalThis.ui = { notifications: { info: (m) => notes.push(["info", m]), error: (m) => notes.push(["error", m]), warn: (m) => notes.push(["warn", m]) } };
+  const notes = [];
+
+  const gmUser = new Doc({ id: "gm1", name: "GM", isGM: true, active: true, isSelf: isGM, character: null });
+  const playerUser = new Doc({ id: "pl1", name: "Player", isGM: false, active: true, isSelf: !isGM, character: null });
+  playerUser.character = robe ? { getFlag: (scope, key) => (scope === "krynn-pf2e" && key === "robe" ? robe : undefined) } : null;
+  // A user's character is a document in Foundry; setting it by id finds the actor.
+  for (const u of [gmUser, playerUser]) { const up = u.update.bind(u); u.update = async (ch) => { if ("character" in ch) { u.character = actors.get(ch.character) ?? null; const { character, ...rest } = ch; return up(rest); } return up(ch); }; }
   const users = [gmUser, playerUser];
   users.activeGM = gmUser;
+  users.get = (id) => users.find((u) => u.id === id);
+  const sent = [];
 
   const time = {
     worldTime,
@@ -67,6 +106,8 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
   globalThis.game = {
     i18n, time, users, user: isGM ? gmUser : playerUser,
     release: { version: "14.370" }, system: { id: "pf2e", version: "8.7.1" },
+    actors, journal, folders,
+    socket: { handlers: [], on(ch, fn) { this.handlers.push([ch, fn]); }, emit(ch, msg) { sent.push([ch, msg]); } },
     modules: new Map([["krynn-pf2e", module]]),
     settings: {
       register(ns, key, cfg) { registered.set(`${ns}.${key}`, cfg); if (!settings.has(`${ns}.${key}`)) settings.set(`${ns}.${key}`, structuredClone(cfg.default)); },
@@ -90,10 +131,20 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
   // Applications: render Handlebars templates from the module folder with the app's context.
   const hbs = Handlebars.create();
   hbs.registerHelper("localize", (key, options) => (options?.hash && Object.keys(options.hash).length ? i18n.format(key, options.hash) : i18n.localize(key)));
+  const instances = new Map();
   class ApplicationV2 {
     static DEFAULT_OPTIONS = {};
-    constructor() { this.rendered = false; this.element = null; }
+    constructor(options = {}) { this.rendered = false; this.element = null; this.options = { ...this.constructor.DEFAULT_OPTIONS, ...options }; this.id = this.options.id; if (this.id) instances.set(this.id, this); }
     async render() {
+      if (!this.constructor.PARTS) {
+        // A window that draws its own content (the Lifewrought frame).
+        if (!this.element) { this.element = document.createElement("div"); this.content = document.createElement("div"); this.element.append(this.content); document.body.append(this.element); }
+        const result = await this._renderHTML({}, {});
+        this._replaceHTML(result, this.content, {});
+        if (!this.rendered) await this._onFirstRender?.({}, {});
+        this.rendered = true;
+        return this;
+      }
       const ctx = await this._prepareContext({});
       const html = Object.values(this.constructor.PARTS).map((p) => {
         const file = p.template.replace(/^modules\/krynn-pf2e\//, "");
@@ -108,17 +159,20 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
   }
   const HandlebarsApplicationMixin = (Base) => class extends Base {};
   globalThis.foundry = {
-    applications: { api: { ApplicationV2, HandlebarsApplicationMixin } },
+    applications: { api: { ApplicationV2, HandlebarsApplicationMixin }, instances },
     utils: {
       escapeHTML: (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"),
       expandObject: (o) => { const out = {}; for (const [k, v] of Object.entries(o)) { const parts = k.split("."); let n = out; parts.slice(0, -1).forEach((p) => { n = n[p] ??= {}; }); n[parts.at(-1)] = v; } return out; },
       isNewerVersion: (a, b) => { const pa = String(a).split(".").map(Number), pb = String(b).split(".").map(Number); for (let i = 0; i < Math.max(pa.length, pb.length); i++) { if ((pa[i] || 0) !== (pb[i] || 0)) return (pa[i] || 0) > (pb[i] || 0); } return false; },
       debouncedReload: () => { globalThis.__reloaded = true; },
+      getRoute: (p) => `/${p}`,
+      randomID: () => newId(),
+      debounce: (fn) => fn,
     },
   };
 
   return {
-    chat, settings, menus, hooks: Hooks,
+    chat, settings, menus, hooks: Hooks, notes, sent, gmUser, playerUser,
     // Foundry builds game.time.calendar from CONFIG.time after init.
     async start() {
       await Hooks.callAll("init");

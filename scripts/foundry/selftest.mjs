@@ -4,10 +4,12 @@ import { MODULE_ID, T, setting } from "./constants.mjs";
 import { now, skyNow } from "./time.mjs";
 import { daysPerYear, CULTURES } from "../logic/calendar.mjs";
 import { KRYNN_LANGUAGES, KRYNN_CREATURE_TRAITS } from "./homebrew.mjs";
+import { lwData } from "./lifewrought/engine.mjs";
+import { dryRun } from "./lifewrought/create.mjs";
 
 const newer = (have, need) => foundry.utils.isNewerVersion(have, need) || have === need;
 
-export async function selfTest() {
+export async function selfTest({ seed } = {}) {
   const results = [];
   const check = (key, ok, detail = "") => results.push({ key, ok: !!ok, detail });
   const style = setting("calendarStyle");
@@ -32,6 +34,18 @@ export async function selfTest() {
   check("Traits", !missingT.length, missingT.join(", "));
 
   check("Banner", !game.settings.get(MODULE_ID, "showBanner") || document.getElementById("krynn-banner"));
+
+  // Lifewrought: the engine and data load, and a random life builds from this world's PF2e compendiums.
+  check("LifeEngine", !!globalThis.LW?.live);
+  let D = null;
+  try { D = await lwData(); } catch (e) { /* reported below */ }
+  check("LifeData", !!D?.regions?.length, D ? `${D.regions.filter((r) => r.content === "ready").length}` : "");
+  if (globalThis.LW && D) {
+    try {
+      const r = await dryRun({ seed });
+      check("LifeBuild", !r.missing.length, r.missing.length ? r.missing.slice(0, 3).join(", ") : `${r.name}, ${r.items}`);
+    } catch (e) { check("LifeBuild", false, e.message); }
+  }
 
   const ok = results.every((r) => r.ok);
   const rows = results.map((r) => `<li class="${r.ok ? "ok" : "bad"}"><i class="fa-solid ${r.ok ? "fa-check" : "fa-xmark"}"></i> ${T(`SelfTest.Check.${r.key}`)}${r.detail ? ` <span class="detail">${foundry.utils.escapeHTML(String(r.detail))}</span>` : ""}</li>`);

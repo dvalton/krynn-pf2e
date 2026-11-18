@@ -1,0 +1,39 @@
+<section class="krynn-lives">
+  <h3>{{localize "KRYNN.Lives.AtTheTable"}}</h3>
+  <table>
+    <thead><tr><th>{{localize "KRYNN.Lives.Player"}}</th><th>{{localize "KRYNN.Lives.Life"}}</th><th></th></tr></thead>
+    <tbody>
+      {{#each rows}}
+      <tr>
+        <td>{{user}}{{#unless active}} <span class="hint">({{localize "KRYNN.Lives.Away"}})</span>{{/unless}}</td>
+        <td>
+          {{#if living}}<strong>{{name}}</strong> · {{stage}} · {{localize "KRYNN.Lives.Choices" n=choices}}{{/if}}
+          {{#if finished}}<strong>{{name}}</strong> · {{localize "KRYNN.Lives.Finished"}}{{#if pending}} · {{localize "KRYNN.Lives.Pending"}}{{/if}}{{/if}}
+          {{#unless living}}{{#unless finished}}<span class="hint">{{localize "KRYNN.Lives.None"}}</span>{{/unless}}{{/unless}}
+        </td>
+        <td class="buttons">
+          {{#if living}}<button type="button" data-action="watch" data-user="{{id}}"><i class="fa-solid fa-eye"></i> {{localize "KRYNN.Lives.Watch"}}</button>{{/if}}
+          {{#if finished}}<button type="button" data-action="watch" data-user="{{id}}"><i class="fa-solid fa-eye"></i> {{localize "KRYNN.Lives.Watch"}}</button>{{/if}}
+          {{#if canBuild}}<button type="button" data-action="build" data-user="{{id}}"><i class="fa-solid fa-hammer"></i> {{localize "KRYNN.Lives.Build"}}</button>{{/if}}
+          {{#if created}}<button type="button" data-action="actor" data-id="{{created.actorId}}"><i class="fa-solid fa-user"></i> {{created.name}}</button>{{/if}}
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <h3>{{localize "KRYNN.Lives.Made"}}</h3>
+  {{#if made.length}}
+  <ul class="made">
+    {{#each made}}
+    <li>
+      <button type="button" data-action="actor" data-id="{{id}}"><i class="fa-solid fa-user"></i> {{name}}</button>
+      {{#if journal}}<button type="button" data-action="journal" data-id="{{journal}}"><i class="fa-solid fa-book"></i> {{localize "KRYNN.Lives.Chronicle"}}</button>{{/if}}
+      {{#if owner}}<span class="hint">{{owner}}</span>{{/if}}
+    </li>
+    {{/each}}
+  </ul>
+  {{else}}<p class="hint">{{localize "KRYNN.Lives.NoneMade"}}</p>{{/if}}
+
+  {{#if canLive}}<p><button type="button" data-action="live"><i class="fa-solid fa-book-open"></i> {{localize "KRYNN.Life.Open"}}</button></p>{{/if}}
+</section>

@@ -70,6 +70,48 @@
   </fieldset>
 
   <fieldset>
+    <legend>{{localize "KRYNN.Settings.Life.Legend"}}</legend>
+    {{#if life.error}}<p class="hint">{{life.error}}</p>{{else}}
+    <p class="hint">{{localize "KRYNN.Settings.Life.Hint"}}</p>
+    <div class="form-group">
+      <label>{{localize "KRYNN.Settings.Life.Year"}}</label>
+      <div class="form-fields">
+        <select name="lw.yearMode">
+          <option value="world" {{#if life.yearWorld}}selected{{/if}}>{{localize "KRYNN.Settings.Life.YearWorld"}}</option>
+          <option value="fixed" {{#unless life.yearWorld}}selected{{/unless}}>{{localize "KRYNN.Settings.Life.YearFixed"}}</option>
+        </select>
+        <input type="number" name="lw.year" value="{{life.year}}" min="1" max="430" step="1" aria-label="{{localize "KRYNN.Settings.Date.Year"}}">
+      </div>
+      <p class="hint">{{life.summary}}{{#if life.clamped}} {{localize "KRYNN.Settings.Life.Clamped"}}{{/if}}</p>
+    </div>
+    <div class="form-group">
+      <label>{{localize "KRYNN.Settings.Life.Region"}}</label>
+      <div class="form-fields"><select name="lw.region">{{#each life.regions}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "KRYNN.Settings.Life.Start"}}</label>
+      <div class="form-fields"><input type="text" name="lw.start" value="{{life.start}}" placeholder="{{localize "KRYNN.Settings.Life.StartHint"}}"></div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "KRYNN.Settings.Life.Scope"}}</label>
+      <div class="form-fields"><select name="lw.scope">{{#each life.scopes}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "KRYNN.Settings.Life.Who"}}</label>
+      <div class="form-fields"><select name="lw.who">
+        <option value="everyone" {{#if life.whoEveryone}}selected{{/if}}>{{localize "KRYNN.Settings.Life.WhoEveryone"}}</option>
+        <option value="gm" {{#unless life.whoEveryone}}selected{{/unless}}>{{localize "KRYNN.Settings.Life.WhoGM"}}</option>
+      </select></div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "KRYNN.Settings.Life.NpcActors"}}</label>
+      <div class="form-fields"><input type="checkbox" name="lw.npcActors" {{#if life.npcActors}}checked{{/if}}></div>
+      <p class="hint">{{localize "KRYNN.Settings.Life.NpcActorsHint"}}</p>
+    </div>
+    {{/if}}
+  </fieldset>
+
+  <fieldset>
     <legend>{{localize "KRYNN.SelfTest.Legend"}}</legend>
     <p class="hint">{{localize "KRYNN.SelfTest.Hint"}}</p>
     <button type="button" data-action="selfTest"><i class="fa-solid fa-stethoscope"></i> {{localize "KRYNN.SelfTest.Run"}}</button>

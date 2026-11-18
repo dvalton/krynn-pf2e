@@ -7,11 +7,12 @@ import { skyOn } from "../logic/moons.mjs";
 
 export const style = () => setting("calendarStyle");
 
-// The culture whose month and weekday names this user sees.
+// The culture whose month and weekday names this user sees: their own choice, else their character's people
+// (a Lifewrought character knows it), else the world's default.
 export function cultureForUser() {
   const mine = game.settings.get(MODULE_ID, "userCulture");
   if (mine && mine !== "world") return mine;
-  return setting("worldCulture");
+  return game.user.character?.getFlag(MODULE_ID, "culture") || setting("worldCulture");
 }
 
 // Register the Krynn calendar as Foundry's world calendar. Called during init, before game.time is built.

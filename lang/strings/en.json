@@ -9,7 +9,7 @@
       "UserCulture": {
         "Name": "Calendar names",
         "Hint": "Whose names you see for the months and the days of the week.",
-        "World": "The world's default"
+        "World": "My character's people, or the world's default"
       },
       "ShowBanner": {
         "Name": "Show the sky banner",
@@ -62,6 +62,25 @@
       "Announce": {
         "Label": "Announce the sky in chat",
         "Hint": "Post a card when a moon reaches High Sanction, on the Night of the Eye, on holy days and when the age changes."
+      },
+      "Life": {
+        "Legend": "Lifewrought",
+        "Hint": "Every life a player lives in Foundry leads to this campaign. Players don't choose these; you do.",
+        "Year": "Year the campaign starts",
+        "YearWorld": "The world's current year",
+        "YearFixed": "This year:",
+        "Summary": "Lives will lead to {year} AC, in {region}.",
+        "Clamped": "Lifewrought covers 1–430 AC, so the year was brought into that range.",
+        "Region": "Region of the starting town",
+        "Start": "Where the campaign begins",
+        "StartHint": "Leave empty and the dice choose a town in the region",
+        "Scope": "Dragonlance canon",
+        "Who": "Who can live a life",
+        "WhoEveryone": "Every player",
+        "WhoGM": "Only the GM",
+        "NpcActors": "The people of each life as NPCs",
+        "NpcActorsHint": "Besides the Chronicle journal, create an NPC actor for each person met in the life (family, mentors, rivals, loves).",
+        "ToCome": "content to come"
       }
     },
     "Calendar": {
@@ -297,7 +316,10 @@
         "Moons": "The three moons and the Night of the Eye",
         "Languages": "The languages of Krynn are registered",
         "Traits": "The creature traits of Krynn are registered",
-        "Banner": "The sky banner is shown"
+        "Banner": "The sky banner is shown",
+        "LifeEngine": "The Lifewrought engine is loaded",
+        "LifeData": "The Lifewrought tables load",
+        "LifeBuild": "A random life builds from this world's PF2e compendiums"
       }
     },
     "Language": {
@@ -338,6 +360,69 @@
       "highSorcery": "Tied to the Orders of High Sorcery and the moons of magic.",
       "solamnicKnight": "Tied to the Oath and the Measure of the Knights of Solamnia.",
       "mystic": "Magic of the heart, drawn from within rather than from a god."
+    },
+    "Life": {
+      "Title": "Live a life on Krynn",
+      "Open": "Live a life",
+      "WatchTitle": "{name}'s life (watching)",
+      "NoEngine": "The Lifewrought engine did not load (lifewrought/engine.js).",
+      "NoData": "The Lifewrought tables did not load ({status}).",
+      "NeedGM": "Only a GM can create the character.",
+      "NotFinished": "This life is not finished yet.",
+      "Folder": "Lifewrought",
+      "ChronicleOf": "The Chronicle of {name}",
+      "PeopleOf": "The people of {name}",
+      "Created": "{name} is ready: the character is in the Actors, and their Chronicle in the Journal.",
+      "Failed": "The character could not be created: {error}",
+      "Queued": "No GM is online. The life is saved; the character will be created when a GM connects.",
+      "Timeout": "The GM did not answer. Try again, or ask the GM to build it from the Lives window.",
+      "Built": "{name}: built from this life",
+      "Missing": "{n} items were not found in this world's compendiums and were left out:",
+      "ExtraDraws": "The saved life ended {n} rolls early; those rolls were made again.",
+      "Page": {
+        "Backstory": "Backstory",
+        "Years": "Year by year",
+        "People": "People",
+        "Campaign": "For the campaign",
+        "GM": "Threads (GM only)",
+        "Personality": "Personality",
+        "Appearance": "Appearance",
+        "Wounds": "Scars and wounds",
+        "Age": "age",
+        "Nobody": "Nobody yet.",
+        "Allies": "Allies",
+        "Enemies": "Enemies",
+        "Organizations": "Organizations",
+        "Threads": "Threads to pull",
+        "ThreadsHint": "What this life leaves for the story: secrets, enemies, debts and reasons to adventure. The player lived it; this page is for your notes.",
+        "Secrets": "Secret",
+        "Enemy": "Enemy",
+        "Attitude": "Attitude",
+        "Beliefs": "Beliefs",
+        "Edicts": "Edicts",
+        "Anathema": "Anathema",
+        "Likes": "Likes",
+        "Dislikes": "Dislikes",
+        "Catchphrase": "Catchphrase"
+      }
+    },
+    "Lives": {
+      "Title": "Lives on Krynn",
+      "Open": "Lives",
+      "AtTheTable": "At the table",
+      "Player": "Player",
+      "Life": "Life",
+      "Away": "away",
+      "Unnamed": "Not yet named",
+      "Choices": "{n} choices made",
+      "Finished": "finished",
+      "Pending": "waiting for a GM",
+      "None": "no life yet",
+      "Watch": "Watch",
+      "Build": "Create the character",
+      "Made": "Characters made with Lifewrought",
+      "Chronicle": "Chronicle",
+      "NoneMade": "None yet."
     }
   }
 }

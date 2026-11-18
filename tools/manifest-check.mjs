@@ -11,7 +11,8 @@ const exists = (p) => fs.existsSync(path.join(ROOT, p));
 
 for (const k of ["id", "title", "version", "compatibility", "esmodules", "manifest", "download"]) if (!m[k]) errors.push(`module.json: no ${k}`);
 if (m.relationships?.systems?.[0]?.id !== "pf2e") errors.push("module.json: must require the pf2e system");
-for (const p of [...m.esmodules, ...m.styles, ...m.languages.map((l) => l.path)]) if (!exists(p)) errors.push(`missing file: ${p}`);
+for (const p of [...(m.scripts || []), ...m.esmodules, ...m.styles, ...m.languages.map((l) => l.path), "lifewrought/index.html", "lifewrought/data.json"]) if (!exists(p)) errors.push(`missing file: ${p}`);
+if (!m.socket) errors.push("module.json: the socket is needed for players' characters");
 
 const scripts = fs.readdirSync(path.join(ROOT, "scripts"), { recursive: true }).filter((f) => f.endsWith(".mjs")).map((f) => path.join("scripts", f));
 for (const f of scripts) {

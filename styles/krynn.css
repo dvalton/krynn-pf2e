@@ -57,3 +57,14 @@
 .krynn-card.selftest li.bad i { color: #b33a2c; }
 .krynn-card .detail { opacity: 0.7; font-size: 0.9em; }
 .krynn-card .hint { opacity: 0.7; font-size: 0.9em; margin: 0.4rem 0 0; }
+
+/* ---------------- Lifewrought ---------------- */
+.krynn-life .window-content { padding: 0; overflow: hidden; }
+.krynn-life-frame { width: 100%; height: 100%; border: 0; display: block; background: #eef1f4; }
+.krynn-life-buttons { display: flex; gap: 0.3rem; margin-top: 0.3rem; flex: 0 0 100%; }
+.krynn-life-buttons button { flex: 1 1 auto; white-space: nowrap; }
+.krynn-lives table { width: 100%; }
+.krynn-lives td.buttons { text-align: right; white-space: nowrap; }
+.krynn-lives td.buttons button, .krynn-lives .made button { width: auto; display: inline-flex; gap: 0.3rem; align-items: center; }
+.krynn-lives .made { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.3rem; }
+.krynn-lives .hint { color: var(--color-text-secondary, #a8a8a8); font-size: var(--font-size-12, 12px); }

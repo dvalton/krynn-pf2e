@@ -2,7 +2,7 @@
   "id": "krynn-pf2e",
   "title": "Krynn for PF2e",
   "description": "The world of Dragonlance for the Pathfinder Second Edition system: the ages of Krynn, its calendar and the three moons of magic, its gods, peoples and orders, and the lives of its heroes, made with Lifewrought. Unofficial fan content for private play.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "authors": [
     {
       "name": "dvalton",
@@ -25,9 +25,13 @@
       }
     ]
   },
+  "scripts": [
+    "lifewrought/engine.js"
+  ],
   "esmodules": [
     "scripts/krynn.mjs"
   ],
+  "socket": true,
   "styles": [
     "styles/krynn.css"
   ],
@@ -45,7 +49,7 @@
   ],
   "url": "https://github.com/dvalton/krynn-pf2e",
   "manifest": "https://github.com/dvalton/krynn-pf2e/releases/latest/download/module.json",
-  "download": "https://github.com/dvalton/krynn-pf2e/releases/download/v0.1.0/module.zip",
+  "download": "https://github.com/dvalton/krynn-pf2e/releases/download/v0.2.0/module.zip",
   "readme": "https://github.com/dvalton/krynn-pf2e#readme",
   "bugs": "https://github.com/dvalton/krynn-pf2e/issues",
   "changelog": "https://github.com/dvalton/krynn-pf2e/blob/main/CHANGELOG.md",

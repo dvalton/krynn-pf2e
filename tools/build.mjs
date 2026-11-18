@@ -18,7 +18,9 @@ const manifest = {
   authors: [{ name: "dvalton", url: "https://github.com/dvalton" }],
   compatibility: { minimum: "14.360", verified: "14.370" },
   relationships: { systems: [{ id: "pf2e", type: "system", compatibility: { minimum: "8.7.0", verified: "8.7.1" } }] },
+  scripts: ["lifewrought/engine.js"],
   esmodules: ["scripts/krynn.mjs"],
+  socket: true,
   styles: ["styles/krynn.css"],
   languages: [
     { lang: "en", name: "English", path: "lang/en.json" },
@@ -39,7 +41,7 @@ if (process.argv.includes("--zip")) {
   const dist = path.join(ROOT, "dist");
   fs.rmSync(dist, { recursive: true, force: true });
   fs.mkdirSync(dist);
-  const parts = ["module.json", "scripts", "templates", "styles", "lang/en.json", "lang/pt-BR.json", "README.md", "CHANGELOG.md", "LICENSE"].filter((p) => fs.existsSync(path.join(ROOT, p)));
+  const parts = ["module.json", "scripts", "templates", "styles", "lang/en.json", "lang/pt-BR.json", "lifewrought", "README.md", "CHANGELOG.md", "LICENSE"].filter((p) => fs.existsSync(path.join(ROOT, p)));
   execFileSync("zip", ["-r", "-q", path.join(dist, "module.zip"), ...parts], { cwd: ROOT });
   fs.copyFileSync(path.join(ROOT, "module.json"), path.join(dist, "module.json"));
   console.log(`dist/module.zip: ${parts.join(", ")}`);

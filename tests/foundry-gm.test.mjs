@@ -95,14 +95,14 @@ test("the self-test passes in a healthy world", async () => {
   CONFIG.time.worldCalendarConfig = (await import("../scripts/logic/calendar.mjs")).calendarConfig("kalaman", "ergothian");
   game.time.calendar = new CONFIG.time.worldCalendarClass(CONFIG.time.worldCalendarConfig);
   F.chat.length = 0;
-  const r = await K.selfTest();
+  const r = await K.selfTest({ seed: 7 });
   assert.deepEqual(r.results.filter((x) => !x.ok), []);
   assert.match(F.chat.at(-1).content, /everything is in place/);
 });
 
 test("the self-test notices a missing language registration", async () => {
   delete CONFIG.PF2E.languages.solamnic;
-  const r = await K.selfTest();
+  const r = await K.selfTest({ seed: 7 });
   assert.equal(r.ok, false);
   assert.ok(r.results.find((x) => x.key === "Languages" && !x.ok && /solamnic/.test(x.detail)));
 });

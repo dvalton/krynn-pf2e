@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lifewrought</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,500;0,700;1,500&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Plan: a chronicle that grows with every roll, a portrait beside it, and a sticky band that always says where in the life we are. */
+:root {
+  --paper: #eef1f4; --leaf: #ffffff; --ink: #1b2530; --ink-2: #55626f; --line: #cfd6dd;
+  --verdigris: #23736d; --verdigris-soft: #dcecea; --bronze: #8a5a12; --bronze-soft: #f3e7d0; --wound: #9b3a2f; --wound-soft: #f6e1dd;
+  --display: "Alegreya", Georgia, "Times New Roman", serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #12171d; --leaf: #1a2129; --ink: #e6ebf0; --ink-2: #9aa7b4; --line: #2e3944;
+    --verdigris: #6cc4bb; --verdigris-soft: #1d3533; --bronze: #e0b469; --bronze-soft: #3a2f1a; --wound: #f0948a; --wound-soft: #3d2320;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #12171d; --leaf: #1a2129; --ink: #e6ebf0; --ink-2: #9aa7b4; --line: #2e3944;
+  --verdigris: #6cc4bb; --verdigris-soft: #1d3533; --bronze: #e0b469; --bronze-soft: #3a2f1a; --wound: #f0948a; --wound-soft: #3d2320;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body { background: var(--paper); color: var(--ink); font: 400 17px/1.55 var(--body); }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; text-wrap: balance; margin: 0; line-height: 1.2; }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--verdigris); outline-offset: 2px; }
+
+.top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 20px; padding: 16px 20px 10px; }
+.top h1 { font-size: 28px; }
+.top .motto { font-family: var(--display); font-style: italic; color: var(--ink-2); }
+
+/* the band: where we are, always */
+.band { position: sticky; top: 0; z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line); padding: 8px 20px 10px; }
+.band-inner { max-width: 1140px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
+.now { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; font-variant-numeric: tabular-nums; }
+.now .where { font: 700 20px/1.2 var(--display); }
+.now .step { color: var(--ink-2); }
+.now .age { margin-left: auto; font-weight: 600; }
+.bar { display: flex; gap: 3px; align-items: stretch; }
+.seg { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.seg .ticks { display: flex; gap: 2px; height: 8px; }
+.seg .ticks i { flex: 1; border-radius: 2px; background: var(--line); }
+.seg .ticks i.done { background: var(--verdigris); }
+.seg .ticks i.here { background: var(--bronze); }
+.seg span { font-size: 11.5px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.seg.current span { color: var(--ink); font-weight: 600; }
+
+.page { display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 28px; max-width: 1260px; margin: 0 auto; padding: 22px 20px 120px; align-items: start; }
+.chronicle { display: flex; flex-direction: column; gap: 18px; max-width: 720px; grid-column: 1; grid-row: 1; }
+.page > .notice { grid-column: 1; grid-row: 2; }
+/* the character sheet, docked beside the chronicle and filled in as the life goes: laid out like the pf2e sheet */
+.sheet { grid-column: 2; grid-row: 1 / span 2; position: sticky; top: 112px; display: flex; flex-direction: column; background: var(--leaf); border: 1px solid var(--line); border-radius: 10px; font-size: 15px; max-height: calc(100vh - 128px); overflow: hidden; }
+.sheet-head { padding: 14px 16px 10px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 6px; }
+.sheet-head .title { display: flex; align-items: baseline; gap: 10px; justify-content: space-between; }
+.sheet-head h2 { font-size: 21px; }
+.sheet-head .lvl { font: 600 13px var(--body); color: var(--ink-2); white-space: nowrap; }
+.traits { display: flex; flex-wrap: wrap; gap: 4px; }
+.trait { font: 600 11.5px/1.5 var(--body); letter-spacing: 0.04em; text-transform: uppercase; padding: 0 7px; border-radius: 4px; background: var(--bronze-soft); color: var(--bronze); }
+.trait.size { background: var(--verdigris-soft); color: var(--verdigris); }
+.strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
+.strip div { text-align: center; border: 1px solid var(--line); border-radius: 6px; padding: 3px 2px; }
+.strip b { display: block; font: 700 18px/1.15 var(--display); font-variant-numeric: tabular-nums; }
+.strip span { font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); }
+.strip .empty b { color: var(--line); }
+.tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 2px; padding: 4px 8px 0; border-bottom: 1px solid var(--line); }
+.tab { border: 0; background: transparent; padding: 6px 2px 5px; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600; color: var(--ink-2); cursor: pointer; border-bottom: 3px solid transparent; min-height: 34px; }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--verdigris); }
+.tab:hover { color: var(--ink); }
+.tab-body { padding: 14px 16px 16px; overflow: auto; display: flex; flex-direction: column; gap: 14px; }
+.sheet h3 { font: 600 12px/1.2 var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 6px; }
+.sheet ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 3px; }
+.sheet dl.lines { grid-template-columns: minmax(84px, auto) 1fr; gap: 3px 12px; font-size: 14.5px; }
+.sheet .attrs { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; }
+.sheet .attrs b { font-size: 19px; }
+.sheet .attrs div { padding: 5px 1px; }
+.ranks { width: 100%; font-size: 14px; }
+.ranks td { padding: 3px 6px; }
+.ranks td:first-child { width: 55%; }
+.ranks td.mod { font-variant-numeric: tabular-nums; font-weight: 700; text-align: right; width: 3.2em; }
+.ranks tr.untrained td { color: var(--ink-2); }
+.rank { font: 600 11px/1.5 var(--body); letter-spacing: 0.04em; text-transform: uppercase; padding: 0 6px; border-radius: 4px; background: var(--paper); color: var(--ink-2); white-space: nowrap; }
+.rank.Trained { background: var(--verdigris-soft); color: var(--verdigris); }
+.rank.Expert { background: var(--bronze-soft); color: var(--bronze); }
+.rank.Master, .rank.Legendary { background: var(--wound-soft); color: var(--wound); }
+.strike { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; }
+.strike .row1 { display: flex; justify-content: space-between; gap: 8px; font-weight: 700; }
+.strike .row1 span { font-variant-numeric: tabular-nums; }
+.strike .sub { font-size: 13.5px; color: var(--ink-2); }
+.yearlog { font-size: 14px; }
+.yearlog summary { cursor: pointer; font-weight: 600; }
+.yearlog li { padding: 3px 0; border-top: 1px solid var(--line); }
+.yearlog li b { font-variant-numeric: tabular-nums; }
+.sheet-toggle { display: none; }
+.sheet .close { display: none; min-height: 32px; padding: 4px 12px; }
+.muted { color: var(--ink-2); }
+.bars { display: grid; grid-template-columns: auto 1fr auto; gap: 4px 8px; align-items: center; }
+.bars .track { height: 8px; background: var(--paper); border-radius: 4px; overflow: hidden; }
+.bars .track i { display: block; height: 100%; background: var(--verdigris); border-radius: 4px; }
+.bars b { font-variant-numeric: tabular-nums; font-weight: 600; }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip { font-size: 13px; padding: 1px 8px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); }
+.chip.W { background: var(--wound-soft); border-color: transparent; color: var(--wound); }
+.chip.S, .chip.domain { background: var(--verdigris-soft); border-color: transparent; color: var(--verdigris); font-weight: 600; }
+.chip.M { background: var(--bronze-soft); border-color: transparent; color: var(--bronze); font-weight: 600; }
+.chip.tie, .chip.place { border-color: var(--verdigris); color: var(--verdigris); }
+
+.card { background: var(--leaf); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; }
+.card.history { border-left: 5px solid var(--bronze); }
+.card.opportunity { border-left: 5px solid var(--verdigris); }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 14px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.badge { background: var(--bronze-soft); color: var(--bronze); font-weight: 600; padding: 1px 9px; border-radius: 999px; }
+.badge.op { background: var(--verdigris-soft); color: var(--verdigris); }
+.card h2 { font-size: 24px; }
+.card p { margin: 0; max-width: 65ch; }
+.echo { font-size: 14.5px; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.stage { font-family: var(--display); font-size: 30px; font-weight: 700; margin-top: 14px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px; }
+.stage small { font: 400 15px var(--body); color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+.choices { display: flex; flex-direction: column; gap: 8px; }
+.choice { text-align: left; padding: 11px 14px; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; cursor: pointer; }
+.choice:hover:not(:disabled) { border-color: var(--verdigris); background: var(--verdigris-soft); }
+.choice:disabled { cursor: default; opacity: 0.45; }
+.choice.made { opacity: 1; border-color: var(--verdigris); background: var(--verdigris-soft); font-weight: 600; }
+
+.roll { display: flex; flex-direction: column; gap: 10px; border-top: 1px dashed var(--line); padding-top: 12px; }
+.card > .roll:first-child { border-top: 0; padding-top: 0; }
+.roll h3 { font-size: 20px; }
+.roll .ask { color: var(--ink-2); }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 15.5px; }
+th { text-align: left; font: 600 12px var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); padding: 4px 8px; }
+td { padding: 6px 8px; border-top: 1px solid var(--line); vertical-align: top; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink-2); }
+td .why { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 3px; }
+td .why span { font-size: 12.5px; padding: 0 7px; border-radius: 999px; background: var(--bronze-soft); color: var(--bronze); }
+td .why span.down { background: var(--wound-soft); color: var(--wound); }
+td .note { display: block; font-size: 13.5px; color: var(--ink-2); }
+tr.hit td { background: var(--verdigris-soft); color: var(--ink); font-weight: 600; }
+table.rolled tr:not(.hit) td { opacity: 0.45; }
+.dice-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.die { min-width: 74px; text-align: center; font: 700 30px/1 var(--display); font-variant-numeric: tabular-nums; padding: 10px 12px; border: 2px solid var(--ink); border-radius: 10px; background: var(--leaf); }
+.die.stop { border-color: var(--verdigris); color: var(--verdigris); }
+.btn { padding: 10px 18px; border-radius: 8px; border: 1px solid var(--verdigris); background: var(--verdigris); color: var(--leaf); font-weight: 600; cursor: pointer; }
+.btn:hover { filter: brightness(1.08); }
+.btn.alt { background: transparent; color: var(--verdigris); }
+.btn:disabled { opacity: 0.5; cursor: default; }
+
+/* the result card: shown after every roll and every decision */
+.result { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 16px 18px 16px 22px; border-radius: 10px; background: var(--verdigris-soft); border: 1px solid var(--verdigris); }
+.result::before { content: ""; position: absolute; left: 0; top: 12px; bottom: 12px; width: 5px; border-radius: 0 4px 4px 0; background: var(--verdigris); }
+.result .label { font: 600 12px var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--verdigris); }
+.result .text { font: 600 22px/1.35 var(--display); }
+.result .sub { color: var(--ink-2); }
+.result .stamp { font-size: 13.5px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.big { font-family: var(--display); font-size: 30px; font-weight: 700; }
+
+form.prologue { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px 16px; }
+form.prologue label { display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: var(--ink-2); }
+form.prologue input, form.prologue select { padding: 9px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); }
+form.prologue .wide { grid-column: 1 / -1; }
+form.prologue .year-pick { display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: var(--ink-2); }
+form.prologue .year-pick output { font-weight: 600; color: var(--ink); }
+form.prologue input[type=range] { padding: 0; border: 0; background: transparent; width: 100%; accent-color: var(--verdigris); min-height: 28px; }
+form.prologue .year-ends { display: flex; justify-content: space-between; }
+form.prologue .year-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+form.prologue .nudge { min-width: 32px; min-height: 32px; border: 1px solid var(--line); border-radius: 8px; background: var(--leaf); color: var(--ink); font-size: 18px; line-height: 1; cursor: pointer; }
+form.prologue .nudge:focus-visible { outline: 2px solid var(--verdigris); outline-offset: 2px; }
+form.prologue .row { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.small { font-size: 14.5px; color: var(--ink-2); }
+
+.attrs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+.attrs div { text-align: center; border: 1px solid var(--line); border-radius: 8px; padding: 8px 2px; }
+.attrs div.key { border-color: var(--verdigris); background: var(--verdigris-soft); }
+.attrs b { display: block; font: 700 24px/1.1 var(--display); font-variant-numeric: tabular-nums; }
+.attrs span { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); }
+dl.lines { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; margin: 0; }
+dl.lines dt { color: var(--ink-2); }
+dl.lines dd { margin: 0; }
+.copies { display: flex; flex-wrap: wrap; gap: 10px; }
+textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menlo, Consolas, monospace; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); }
+
+@media (max-width: 1080px) and (min-width: 881px) { .page { grid-template-columns: minmax(0, 1fr) 360px; gap: 20px; } }
+@media (max-width: 880px) {
+  .page { grid-template-columns: minmax(0, 1fr); }
+  .page > .notice { grid-row: 3; }
+  /* on a phone the sheet opens over the chronicle from a button that is always there */
+  .sheet { position: fixed; inset: 0; top: 0; max-height: none; border-radius: 0; z-index: 20; }
+  .sheet:not(.open) { display: none; }
+  .sheet-toggle { display: inline-flex; position: fixed; right: 14px; bottom: 14px; z-index: 21; box-shadow: 0 2px 10px rgba(0,0,0,0.25); }
+  .sheet .close { display: inline-flex; }
+  .attrs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .seg span { display: none; }
+  .seg.current span { display: block; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .card, .stage, .result { animation: arrive 0.25s ease-out; }
+  @keyframes arrive { from { transform: translateY(8px); } to { transform: none; } }
+}
+  body.readonly .chronicle button, body.readonly .chronicle .choice { pointer-events: none; }
+  html.embed .top { padding-top: 8px; }
+  .notice { max-width: 72rem; margin: 2rem auto 3rem; padding: 0 1rem; color: var(--muted, #667); }
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Lifewrought</h1>
+  <span class="motto">What hath life wrought?</span>
+</header>
+<div class="band" id="band" hidden>
+  <div class="band-inner">
+    <div class="now" aria-live="polite"><span class="where" id="now-where"></span><span class="step" id="now-step"></span><span class="age" id="now-age"></span></div>
+    <div class="bar" id="bar" aria-label="Progress through the life"></div>
+  </div>
+</div>
+<div class="page">
+  <main class="chronicle" id="chronicle">
+    <section class="card" id="resume" hidden>
+      <h2>A life is in progress</h2>
+      <p id="resume-text"></p>
+      <div class="copies"><button class="btn" type="button" id="resume-go">Carry on with it</button><button class="btn alt" type="button" id="resume-new">Start a new life</button></div>
+    </section>
+    <section class="card" id="prologue">
+      <h2>Prologue</h2>
+      <p>You are about to live a whole life on Krynn, from birth to the first day of adventure. The dice decide what happens; you decide how to respond to it. Every table is shown before it is rolled, with the reasons its odds look the way they do. Nothing on the character sheet is chosen directly: your class, your background and the rest grow out of what you lived. There is no death, no reroll, and no going back on a decision.</p>
+      <form class="prologue" id="prologue-form">
+        <label for="f-age">Age of the campaign
+          <select id="f-age" name="age"></select>
+        </label>
+        <div class="year-pick wide">
+          <div class="year-head"><label for="f-year">Year the campaign starts:</label>
+            <button class="nudge" type="button" id="f-year-down" aria-label="One year earlier">‹</button>
+            <output id="f-year-out" for="f-year">381 AC</output>
+            <button class="nudge" type="button" id="f-year-up" aria-label="One year later">›</button></div>
+          <input id="f-year" name="year" type="range" min="1" max="383" step="1" value="381" list="f-year-ticks">
+          <datalist id="f-year-ticks"></datalist>
+          <div class="year-ends small"><span id="f-year-min"></span><span id="f-year-max"></span></div>
+        </div>
+        <p class="small wide" id="year-note"></p>
+        <label class="wide" for="f-start">Where the campaign begins (town, village, keep, or one you invent)
+          <input id="f-start" name="start" autocomplete="off" placeholder="Leave empty and the dice choose a town in the region">
+        </label>
+        <label for="f-region">Region of the starting town
+          <select id="f-region" name="region"></select>
+        </label>
+        <p class="small wide" id="region-note"></p>
+        <label class="wide" for="f-scope">Dragonlance canon (which classes and backgrounds can emerge)
+          <select id="f-scope" name="scope"></select>
+        </label>
+        <p class="small wide" id="scope-note"></p>
+        <div class="row">
+          <button class="btn" type="submit" id="start" disabled>Loading the tables</button>
+          <span class="small">The game master sets these. A life takes about 15 to 25 minutes, and is saved as you go.</span>
+        </div>
+      </form>
+    </section>
+  </main>
+  <footer class="notice small">
+    <p>Lifewrought is unofficial Fan Content permitted under the Fan Content Policy. Not approved or endorsed by Wizards of the Coast. Portions of the materials used are property of Wizards of the Coast. ©Wizards of the Coast LLC. Free to use; nothing here is sold.</p>
+    <p>Pathfinder rules data comes from the Foundry VTT pf2e system, drawn from Pathfinder Second Edition Remaster books published by Paizo Inc. under the ORC License. Paizo and Pathfinder are trademarks of Paizo Inc.; this project is not published, endorsed or approved by Paizo.</p>
+  </footer>
+  <aside class="sheet" id="portrait" aria-label="Character sheet"></aside>
+  <button class="btn sheet-toggle" type="button" id="sheet-toggle" aria-controls="portrait" aria-expanded="false">Character sheet</button>
+</div>
+
+<script src="engine.js"></script>
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const el = (tag, attrs = {}, ...kids) => {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) {
+      if (v === null || v === undefined || v === false) continue;
+      if (k === "class") n.className = v; else if (k === "text") n.textContent = v; else n.setAttribute(k, v === true ? "" : v);
+    }
+    for (const c of kids) if (c != null) n.append(c);
+    return n;
+  };
+  // Inside Foundry (the Krynn for PF2e module opens this page in a window with ?embed=foundry), the life is saved in
+  // Foundry, the campaign is set by the GM, and the finished life becomes a character there. Messages go to the parent
+  // window only, on the same origin.
+  const EMBED = new URLSearchParams(location.search).get("embed") === "foundry" && window.parent !== window;
+  const host = {
+    state: { saved: null, recent: [], cfg: null, readonly: false },
+    post(type, data = {}) { if (EMBED) window.parent.postMessage({ source: "lifewrought", type, ...data }, location.origin); },
+    ready: null,
+  };
+  if (EMBED) {
+    host.ready = new Promise((resolve) => {
+      window.addEventListener("message", (e) => {
+        if (e.origin !== location.origin || e.source !== window.parent || !e.data || e.data.source !== "krynn") return;
+        if (e.data.type === "init") { Object.assign(host.state, e.data.state || {}); resolve(); }
+        if (e.data.type === "created" || e.data.type === "failed") host.onResult && host.onResult(e.data);
+      });
+    });
+    document.documentElement.classList.add("embed");
+  }
+  const SAVE = "lifewrought.life.v6";
+  // The events of your last five lives, so the next one doesn't repeat them.
+  const RECENT = "lifewrought.recent.v1";
+  const recent = EMBED ? {
+    get() { return host.state.recent || []; },
+    add(ids) { host.state.recent = [...(host.state.recent || []), ids].slice(-5); if (!host.state.readonly) host.post("recent", { recent: host.state.recent }); },
+  } : {
+    get() { try { return JSON.parse(localStorage.getItem(RECENT)) || []; } catch (e) { return []; } },
+    add(ids) { try { localStorage.setItem(RECENT, JSON.stringify([...recent.get(), ids].slice(-5))); } catch (e) { /* storage unavailable */ } },
+  };
+  const store = EMBED ? {
+    get() { return host.state.saved; },
+    set(x) { host.state.saved = x; if (!host.state.readonly) host.post("save", { record: x }); },
+    clear() { host.state.saved = null; if (!host.state.readonly) host.post("clear"); },
+  } : {
+    get() { try { return JSON.parse(localStorage.getItem(SAVE)); } catch (e) { return null; } },
+    set(x) { try { localStorage.setItem(SAVE, JSON.stringify(x)); } catch (e) { /* storage unavailable: the life just isn't saved */ } },
+    clear() { try { localStorage.removeItem(SAVE); } catch (e) { /* nothing to clear */ } },
+  };
+  const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  const click = (b) => new Promise((r) => b.addEventListener("click", r, { once: true }));
+  const sign = (n) => (n >= 0 ? "+" + n : String(n));
+  const RANK = ["untrained", "trained", "expert"];
+  const ATTR_NAME = { str: "Str", dex: "Dex", con: "Con", int: "Int", wis: "Wis", cha: "Cha" };
+  const KIND = { M: "What drives you", W: "Wounds", S: "Strengths", T: "Ties and debts", X: "Secrets", K: "Know-how", R: "Standing", H: "Lived history", O: "From birth" };
+
+  const chronicle = $("#chronicle"), portrait = $("#portrait");
+  let D = null, current = null, plan = [], replaying = false, life = null;
+
+  function put(node) {
+    chronicle.append(node);
+    if (!replaying) node.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "nearest" });
+    return node;
+  }
+  const stampText = (n) => (n && n.year !== null && n.year !== undefined ? `${n.year} AC · age ${n.age}` : "");
+
+  // ---- the band ----
+  function paintBand(n) {
+    $("#band").hidden = false;
+    const p = plan.find((x) => x.stage === n.stage);
+    $("#now-where").textContent = LW.STAGE_NAMES[n.stage] || "";
+    let step = n.step || "";
+    if (n.total) step = `${n.step === "Event" || n.step === "Opportunity" || n.step === "History" ? (n.step === "Event" ? "event" : n.step.toLowerCase()) : n.step} ${n.index} of ${n.total}`;
+    $("#now-step").textContent = step && step !== LW.STAGE_NAMES[n.stage] ? "· " + step : "";
+    $("#now-age").textContent = n.year === null || n.year === undefined ? "before birth" : n.age === 0 ? `born ${n.year} AC` : `age ${n.age} · ${n.year} AC`;
+    const bar = $("#bar");
+    if (!plan.length) { bar.replaceChildren(el("div", { class: "seg current", style: "flex: 1" }, el("div", { class: "ticks" }, el("i", { class: "here" })), el("span", { text: "Origin" }))); return; }
+    const si = plan.findIndex((x) => x.stage === n.stage);
+    bar.replaceChildren(...plan.map((x, i) => {
+      const steps = x.steps.length;
+      let at = -1;
+      if (i === si) {
+        if (x.stage === "origin") at = x.steps.indexOf(n.step);
+        else if (x.stage === "youth" && n.step === "Coming of age") at = 0;
+        else if (n.step === "Known As") at = steps - 1;
+        else if (n.index) at = (x.stage === "youth" ? 1 : 0) + n.index - 1;
+        else if (x.stage === "becoming" || x.stage === "road") at = Math.max(0, (n.index || 1) - 1);
+        else at = 0;
+        at = Math.min(at, steps - 1);
+      }
+      const ticks = x.steps.map((s, k) => el("i", { class: i < si || (i === si && k < at) ? "done" : i === si && k === at ? "here" : "", title: s }));
+      return el("div", { class: "seg" + (i === si ? " current" : ""), style: `flex: ${Math.max(steps, 1)} 1 0` }, el("div", { class: "ticks" }, ...ticks), el("span", { text: LW.STAGE_NAMES[x.stage] }));
+    }));
+  }
+
+  // ---- the character sheet, docked: it fills in as the life goes ----
+  const TABS = [["character", "Character"], ["actions", "Actions"], ["proficiencies", "Proficiencies"], ["feats", "Feats"], ["spells", "Spells"], ["inventory", "Inventory"], ["biography", "Biography"], ["campaign", "Campaign"]];
+  let tabNow = "character";
+  const dash = (x) => (x === "" || x === null || x === undefined ? "—" : String(x));
+  const section = (title, ...kids) => el("div", {}, el("h3", { text: title }), ...kids);
+  const lines = (pairs) => el("dl", { class: "lines" }, ...pairs.filter((p) => p).flatMap(([dt, dd]) => [el("dt", { text: dt }), el("dd", { text: dash(dd) })]));
+  const list = (items) => el("ul", {}, ...items.map((t) => el("li", { text: t })));
+  const chips = (items, k) => el("div", { class: "chips" }, ...items.map((t) => el("span", { class: "chip " + (k || ""), text: t })));
+  const pending = (t) => el("p", { class: "muted small", text: t });
+  function tabCharacter(s, v) {
+    const c = s.character, out = [];
+    out.push(lines([["Ancestry", c.ancestry], ["Heritage", c.heritage], ["Background", c.background], ["Class", c.klass],
+      ...c.classChoices.map((x) => [x.split(": ")[0], x.split(": ").slice(1).join(": ")]), c.style && ["How you fight", c.style], c.deity && ["Deity", c.deity]]));
+    if (c.attributes) {
+      out.push(section("Attributes", el("div", { class: "attrs" }, ...c.attributes.map((a) => el("div", { class: a.key ? "key" : "", title: a.key ? "Key attribute" : "" }, el("b", { text: sign(a.mod) }), el("span", { text: ATTR_NAME[a.id] })))),
+        el("p", { class: "small", text: `Boosts: ancestry ${c.boosts.ancestry.map((x) => ATTR_NAME[x]).join(", ")}${c.boosts.flaws.length ? ` (flaw ${c.boosts.flaws.map((x) => ATTR_NAME[x]).join(", ")})` : ""}; background ${c.boosts.background.map((x) => ATTR_NAME[x]).join(", ")}; class ${ATTR_NAME[c.boosts.klass]}; free ${c.boosts.free.map((x) => ATTR_NAME[x]).join(", ")}.` })));
+    } else {
+      const lead = s.proficiencies.lifeTraining.slice(0, 3).map((x) => x.name).join(", ");
+      out.push(section("Attributes", pending(`Set by the rules when you reach level 1, from what life has trained${lead ? " (so far mostly " + lead + ")" : ""} and what your class needs.`)));
+    }
+    out.push(section("Details", lines([["Gender", c.gender], ["Age", c.age], ["Born", c.born], ["Ethnicity", c.ethnicity], ["Nationality", c.nationality], ["Drawn to", c.drawnTo], ["Languages", (c.languages || []).map((l) => l[0].toUpperCase() + l.slice(1)).join(", ")], ["Speed", s.strip.speed]])));
+    return out;
+  }
+  function tabActions(s) {
+    const A = s.actions, out = [];
+    if (!A.strikes.length) return [pending("Your strikes appear when you choose your gear, at the end of the life.")];
+    out.push(section("Strikes", ...A.strikes.map((a) => el("div", { class: "strike" },
+      el("div", { class: "row1" }, el("span", { text: a.name }), el("span", { text: `${a.attack} · ${a.map.join(" · ")}` })),
+      el("div", { class: "sub", text: `${a.damage}${a.traits.length ? " · " + a.traits.join(", ") : ""} · ${a.rank}` })))));
+    for (const [k, t] of [["actions", "Actions"], ["reactions", "Reactions"], ["free", "Free actions"]])
+      if ((A[k] || []).length) out.push(section(t, el("ul", {}, ...A[k].map((x) => el("li", {}, el("strong", { text: `${x.name} ` }), el("span", { class: "muted", text: `(${x.cost}) ` }), x.text)))));
+    return out;
+  }
+  function rankTable(rows) {
+    return el("table", { class: "ranks" }, el("tbody", {}, ...rows.map((r) => el("tr", { class: (r.rank || "").toLowerCase() }, el("td", { text: r.name }), el("td", { class: "mod", text: r.mod || "" }), el("td", {}, r.rank ? el("span", { class: "rank " + r.rank, text: r.rank }) : "")))));
+  }
+  function tabProficiencies(s) {
+    const P = s.proficiencies, out = [];
+    if (P.lifeTraining.length) {
+      const max = Math.max(6, P.lifeTraining[0].value), g = el("div", { class: "bars" });
+      for (const x of P.lifeTraining) { const i = el("i"); i.style.width = (100 * x.value / max) + "%"; g.append(el("span", { text: x.name }), el("span", { class: "track" }, i), el("b", { text: String(x.value) })); }
+      out.push(section("What life has trained", g));
+    }
+    if (P.skills[0].rank) out.push(section("Skills", rankTable(P.skills)));
+    else out.push(section("Skills", pending("Which skills are trained is decided at level 1, by your class, your background and your Intelligence. Until then, life is training the domains above.")));
+    if (P.lores.length) out.push(section("Lore", rankTable(P.lores)));
+    if (P.knowhow.length) out.push(section("Know-how (not a rule; tell your GM)", chips(P.knowhow, "K")));
+    if (P.attacks.length) {
+      out.push(section("Attacks", rankTable(P.attacks.map((x) => ({ name: x.name, rank: x.rank })))));
+      out.push(section("Defences", rankTable(P.defenses.map((x) => ({ name: x.name, rank: x.rank })))));
+      out.push(section("Perception, saves and DCs", rankTable([{ name: "Perception", mod: s.strip.perception, rank: P.perception }, { name: "Fortitude", mod: s.strip.fortitude, rank: P.saves.fortitude }, { name: "Reflex", mod: s.strip.reflex, rank: P.saves.reflex }, { name: "Will", mod: s.strip.will, rank: P.saves.will }, { name: "Class DC", mod: String(s.strip.classDC), rank: "Trained" }])),
+        ...(P.spell ? [el("p", { class: "small", text: "Spells: " + P.spell }) ] : []));
+    }
+    return out;
+  }
+  function tabFeats(s) {
+    const F = s.feats;
+    if (!F.ancestry.length && !F.classFeatures.length && !F.heritage) return [pending("Feats arrive with your heritage, your class and your background.")];
+    return [section("Ancestry and heritage", list([F.heritage && `Heritage: ${F.heritage}`, ...F.ancestry].filter(Boolean))),
+      ...(F.classFeatures.length || F.classFeat ? [section("Class", list([...F.classFeatures, ...F.classChoices, F.classFeat && `Class feat: ${F.classFeat}`].filter(Boolean)))] : []),
+      ...(F.skillFeats.length ? [section("Skill feats (from your background)", list(F.skillFeats))] : [])];
+  }
+  function tabSpells(s) {
+    const S = s.spells;
+    if (!S) return [pending(s.final || s.character.klass ? "This character doesn't cast spells." : "Spells, if your calling has them, are chosen at the end of the life.")];
+    return [lines([["Tradition", `${S.tradition} (${S.type})`], ["Spell attack and DC", s.proficiencies.spell], ["Rank 1 slots", `${S.slots} a day`]]),
+      section("Cantrips", list(S.cantrips)), section("Rank 1", list(S.rank1)), ...(S.book && S.book.length ? [section("Spellbook", list(S.book.map((x) => x.name || x)))] : [])];
+  }
+  function tabInventory(s) {
+    const I = s.inventory;
+    if (!I) return [pending("You choose your gear at the end of the life, from what you can afford.")];
+    const coins = [I.coins.gp && `${I.coins.gp} gp`, I.coins.sp && `${I.coins.sp} sp`, I.coins.cp && `${I.coins.cp} cp`].filter(Boolean).join(", ") || "none";
+    return [section("Carried", list(I.items.map((i) => i.name + (i.qty > 1 ? ` ×${i.qty}` : "")))), lines([["Coins", coins]]), ...(I.keepsakes.length ? [section("Keepsakes", list(I.keepsakes))] : [])];
+  }
+  function tabBiography(s) {
+    const b = s.biography, p = b.personality, out = [];
+    out.push(lines([["Appearance", b.appearance], ["Height", b.height], ["Weight", b.weight], ["Birthplace", b.birthPlace]]));
+    if (b.wounds.length) out.push(section("Scars and wounds", chips(b.wounds, "W")));
+    out.push(section("Backstory", list(b.backstory)));
+    const pp = [["Attitude", p.attitude], ["Beliefs", p.beliefs], ["Edicts", p.edicts.join("; ")], ["Anathema", p.anathema.join("; ")], ["Likes", p.likes], ["Dislikes", p.dislikes], ["Catchphrase", p.catchphrases]];
+    out.push(section("Personality", pp.some((x) => x[1]) ? lines(pp) : pending("Your personality is drawn from the life you lived, once you come of age.")));
+    if (b.years.length) out.push(el("details", { class: "yearlog" }, el("summary", { text: `Year by year (${b.years.length})` }),
+      el("ul", {}, ...b.years.map((r) => el("li", {}, el("b", { text: `${r.year} AC, age ${r.age}: ` }), `${r.title}. `, el("span", { class: "muted", text: r.outcome }))))));
+    return out;
+  }
+  function tabCampaign(s) {
+    const C = s.biography.campaign;
+    return [section("Notes for the campaign", C.notes.length ? list(C.notes) : pending("Motives, bonds, reputation and secrets gather here.")),
+      section("Allies", C.allies.length ? list(C.allies) : pending("None yet.")), section("Enemies", C.enemies.length ? list(C.enemies) : pending("None known.")),
+      section("Organizations", C.organizations.length ? list(C.organizations) : pending("None yet."))];
+  }
+  const TAB_FN = { character: tabCharacter, actions: tabActions, proficiencies: tabProficiencies, feats: tabFeats, spells: tabSpells, inventory: tabInventory, biography: tabBiography, campaign: tabCampaign };
+  function paint(v) {
+    life = v;
+    const close = el("button", { class: "btn alt close", type: "button", text: "Back to the life" });
+    close.addEventListener("click", () => toggleSheet(false));
+    let s = null;
+    if (v && v.ancestry) { try { s = LW.sheetData(v, D); } catch (e) { s = null; } }
+    const name = s ? s.header.name : v && v.name ? v.name.full : "Not yet named";
+    const head = el("div", { class: "sheet-head" }, el("div", { class: "title" }, el("h2", { text: name }), el("span", { class: "lvl", text: s && s.final ? "Level 1" : "Level 0 · living" }), close));
+    if (!s) { portrait.replaceChildren(head, el("div", { class: "tab-body" }, pending("Nobody yet. The first roll decides your ancestry; the sheet fills in as you live."))); return; }
+    head.append(el("div", { class: "traits" }, ...s.header.traits.map((t, i) => el("span", { class: "trait" + (i === 0 ? " size" : ""), text: t })),
+      ...[s.character.background, s.character.klass].filter(Boolean).map((t) => el("span", { class: "trait", text: t }))));
+    const st = s.strip, cell = (label, val) => el("div", { class: val === "" ? "empty" : "" }, el("b", { text: dash(val) }), el("span", { text: label }));
+    head.append(el("div", { class: "strip" }, cell("HP", st.hp && s.final ? st.hp : ""), cell("AC", st.ac), cell("Percep.", st.perception), cell("Speed", String(st.speed).replace(" ft", "")),
+      cell("Fort", st.fortitude), cell("Ref", st.reflex), cell("Will", st.will), cell("Class DC", st.classDC)));
+    const tabs = el("div", { class: "tabs", role: "tablist", "aria-label": "Sheet sections" });
+    const body = el("div", { class: "tab-body", role: "tabpanel", id: "sheet-panel", tabindex: "0" });
+    for (const [id, label] of TABS) {
+      const b = el("button", { class: "tab", type: "button", role: "tab", id: "tab-" + id, "aria-selected": String(id === tabNow), "aria-controls": "sheet-panel", tabindex: id === tabNow ? "0" : "-1", text: label });
+      b.addEventListener("click", () => { tabNow = id; paint(life); const n = document.getElementById("tab-" + id); if (n) n.focus(); });
+      b.addEventListener("keydown", (e) => {
+        const k = TABS.findIndex((t) => t[0] === tabNow);
+        if (e.key === "ArrowRight" || e.key === "ArrowLeft") { e.preventDefault(); tabNow = TABS[(k + (e.key === "ArrowRight" ? 1 : TABS.length - 1)) % TABS.length][0]; paint(life); const n = document.getElementById("tab-" + tabNow); if (n) n.focus(); }
+      });
+      tabs.append(b);
+    }
+    body.setAttribute("aria-labelledby", "tab-" + tabNow);
+    body.replaceChildren(...TAB_FN[tabNow](s, v));
+    const keep = portrait.querySelector(".tab-body"), top = keep ? keep.scrollTop : 0;
+    portrait.replaceChildren(head, tabs, body);
+    body.scrollTop = top;
+  }
+  function toggleSheet(open) {
+    portrait.classList.toggle("open", open);
+    const t = $("#sheet-toggle"); t.setAttribute("aria-expanded", String(open)); t.hidden = open;
+    if (open) { const n = portrait.querySelector('.tab[aria-selected="true"]'); if (n) n.focus(); } else t.focus();
+  }
+  $("#sheet-toggle").addEventListener("click", () => toggleSheet(true));
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && portrait.classList.contains("open")) toggleSheet(false); });
+
+  // ---- cards ----
+  async function spin(die, value, max = 100) {
+    if (!still && !replaying) for (let i = 0; i < 14; i++) { die.textContent = String(1 + Math.floor(Math.random() * max)).padStart(2, "0"); await wait(45 + i * 6); }
+    die.textContent = String(value).padStart(2, "0");
+    die.classList.add("stop");
+  }
+  const rangeText = (r) => (!r ? "" : r[0] === r[1] ? String(r[0]).padStart(2, "0") : `${String(r[0]).padStart(2, "0")} to ${String(r[1]).padStart(2, "0")}`);
+
+  function resultCard(res, now) {
+    const changes = (res.changes || []).map((c) => el("span", { class: "chip " + c.kind, text: c.text }));
+    return el("div", { class: "result" }, el("span", { class: "label", text: res.label }), el("p", { class: "text", text: res.text }), res.sub ? el("p", { class: "sub", text: res.sub }) : null,
+      changes.length ? el("div", { class: "chips" }, ...changes) : null, stampText(now) ? el("span", { class: "stamp", text: stampText(now) }) : null);
+  }
+  async function cont(host) {
+    if (replaying) return;
+    const btn = el("button", { class: "btn alt", type: "button", text: "Continue" });
+    const holder = el("div", {}, btn);
+    host.append(holder);
+    btn.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "nearest" });
+    btn.focus({ preventScroll: true });
+    await click(btn);
+    holder.remove();
+  }
+
+  const ui = {
+    now(n) { paintBand(n); },
+    plan(p) { plan = p; },
+    async table(t) {
+      replaying = t.replay;
+      const inside = t.kind === "outcome" && current;
+      const body = el("tbody");
+      const trs = t.rows.map((r) => {
+        const cell = el("td", {}, r.text);
+        if (r.note) cell.append(el("span", { class: "note", text: r.note }));
+        if (r.why && r.why.length) cell.append(el("span", { class: "why" }, ...r.why.map((w) => el("span", { class: w.up ? "" : "down", text: (w.up ? "▲ " : "▼ ") + w.text }))));
+        const tr = el("tr", {}, el("td", { class: "num", text: rangeText(r.range) }), el("td", { class: "num", text: r.pct + "%" }), cell);
+        body.append(tr);
+        return tr;
+      });
+      const size = t.die || 100;
+      const table = el("table", {}, el("thead", {}, el("tr", {}, el("th", { text: "d" + size }), el("th", { text: "Chance" }), el("th", { text: inside ? "What could happen" : "Result" }))), body);
+      const die = el("div", { class: "die", "aria-live": "polite", text: "??" });
+      const btn = el("button", { class: "btn", type: "button", text: "Roll d" + size });
+      const hasWhy = t.rows.some((r) => r.why && r.why.length);
+      const block = el("div", { class: "roll" }, el("h3", { text: t.title }), inside ? null : el("p", { class: "ask", text: t.ask }),
+        hasWhy ? el("p", { class: "small", text: "Marked lines show what in your life changed the odds." }) : null,
+        el("div", { class: "scroll" }, table), el("div", { class: "dice-row" }, die, replaying ? null : btn));
+      const host = inside ? current : put(el("section", { class: "card" }));
+      host.append(block);
+      if (!replaying) { block.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "nearest" }); btn.focus({ preventScroll: true }); await click(btn); btn.remove(); }
+      await spin(die, t.rolled, size);
+      trs[t.idx].classList.add("hit");
+      table.classList.add("rolled");
+      if (t.result) { host.append(resultCard(t.result, t.now)); await cont(host); }
+    },
+    async number(t) {
+      replaying = t.replay;
+      const die = el("div", { class: "die", "aria-live": "polite", text: "??" });
+      const btn = el("button", { class: "btn", type: "button", text: "Roll the age" });
+      const host = put(el("section", { class: "card" }, el("div", { class: "roll" }, el("h3", { text: t.title }), el("p", { class: "ask", text: t.ask }), el("div", { class: "dice-row" }, die, replaying ? null : btn))));
+      if (!replaying) { btn.focus({ preventScroll: true }); await click(btn); btn.remove(); }
+      await spin(die, t.value, t.max);
+      host.append(resultCard({ label: "Age", text: `${t.value} years old when the adventure begins`, sub: t.after }, null));
+      await cont(host);
+    },
+    async reveal(t) {
+      replaying = t.replay;
+      const host = put(el("section", { class: "card" }, resultCard({ label: t.title, text: t.text, sub: t.note }, t.now)));
+      await cont(host);
+    },
+    async stage(stage, a0, a1, i0, i1) {
+      let sub = "";
+      if (a0 !== undefined) sub = a0 === a1 ? `${a0} AC, age ${i0}` : `${a0} to ${a1} AC, ages ${i0} to ${i1}`;
+      put(el("div", { class: "stage" }, el("span", { text: LW.STAGE_NAMES[stage] }), sub ? el("small", { text: sub }) : null));
+    },
+    state(v) { paint(v); },
+    event(ctx, opts) {
+      replaying = ctx.replay;
+      return new Promise((resolve) => {
+        const meta = el("div", { class: "meta" }, el("span", { text: `${ctx.year} AC` }), el("span", { text: `age ${ctx.age}` }),
+          ctx.history ? el("span", { class: "badge", text: "History of Krynn" }) : null, ctx.opportunity ? el("span", { class: "badge op", text: "Opportunity" }) : null);
+        const echo = ctx.echoes.length ? el("p", { class: "echo" }, el("span", { text: "Shaped by:" }), ...ctx.echoes.map((e) => el("span", { class: "chip", text: e }))) : null;
+        const list = el("div", { class: "choices" });
+        const btns = opts.map((o) => {
+          const b = el("button", { class: "choice", type: "button", text: o.text });
+          b.addEventListener("click", () => { btns.forEach((x) => { x.disabled = true; }); b.classList.add("made"); resolve(o.id); });
+          list.append(b);
+          return b;
+        });
+        current = put(el("section", { class: "card" + (ctx.history ? " history" : ctx.opportunity ? " opportunity" : "") }, meta, el("h2", { text: ctx.title }), echo, el("p", { text: ctx.scene }), list));
+        if (ctx.replay) { const i = opts.findIndex((o) => o.id === ctx.replayAnswer); btns.forEach((x) => { x.disabled = true; }); if (i >= 0) btns[i].classList.add("made"); resolve(ctx.replayAnswer); }
+      });
+    },
+    async outcome(rec) {
+      replaying = rec.replay;
+      const changes = [];
+      for (const [d, n] of Object.entries(rec.got.domains)) changes.push({ kind: "domain", text: `${LW.DOMAIN_NAMES[d]} +${n}` });
+      for (const t of rec.got.ties) changes.push({ kind: "tie", text: `${t.name}, ${t.role.replace(/_/g, " ")}` });
+      for (const m of rec.got.marks) { const k = D.marks[m] || "O"; if (k !== "P") changes.push({ kind: k, text: LW.human(m) }); else changes.push({ kind: "M", text: "a new path: " + LW.human(m) }); }
+      current.append(resultCard({ label: rec.title, text: rec.outcome, changes }, rec.now));
+      await cont(current);
+      current = null;
+    },
+  };
+
+  function copyButton(label, getText, out) {
+    const b = el("button", { class: "btn alt", type: "button", text: label });
+    b.addEventListener("click", async () => {
+      const t = getText();
+      out.hidden = false; out.value = t;
+      try { await navigator.clipboard.writeText(t); b.textContent = "Copied"; }
+      catch (e) { out.focus(); out.select(); b.textContent = "Selected: press Ctrl+C"; }
+      setTimeout(() => { b.textContent = label; }, 2500);
+    });
+    return b;
+  }
+
+  function theCharacter(v) {
+    replaying = false;
+    const scopeName = ((D.scope.scopes[v.scope] || {}).text || "").split(":")[0];
+    put(el("div", { class: "stage" }, el("span", { text: "The Character" }), el("small", { text: `${v.year} AC, age ${v.age}` + (scopeName ? ` · canon: ${scopeName}` : "") })));
+    const f = LW.buildSheet(v, D), sd = LW.sheetData(v, D), S = (v.l1 || {}).spells;
+    tabNow = "character"; paint(v);
+    const attrs = el("div", { class: "attrs" }, ...LW.ATTR.map((a) => el("div", { class: a === f.key ? "key" : "" }, el("b", { text: sign(f.mod[a]) }), el("span", { text: ATTR_NAME[a] }))));
+    const st = sd.strip;
+    const out = el("textarea", { class: "out", id: "copy-out", readonly: true, "aria-label": "Text to copy" });
+    out.hidden = true;
+    const problems = sd.problems;
+    const again = el("button", { class: "btn alt", type: "button", text: "Start a new life" });
+    again.addEventListener("click", () => { store.clear(); location.reload(); });
+    const open = el("button", { class: "btn alt", type: "button", text: "Open the full sheet" });
+    open.addEventListener("click", () => { if (window.matchMedia("(max-width: 880px)").matches) toggleSheet(true); else { const n = portrait.querySelector('.tab[aria-selected="true"]'); if (n) n.focus(); } });
+    const status = el("p", { class: "small", "aria-live": "polite" });
+    const dlBtn = el("button", { class: "btn", type: "button", text: EMBED ? "Create the character in Foundry" : "Download for Foundry (.json)" });
+    if (EMBED) {
+      host.onResult = (r) => {
+        dlBtn.disabled = r.type === "created";
+        status.textContent = r.type === "created" ? `${r.name} is in your Actors, with the Chronicle of their life in the Journal.` : `It didn't work: ${r.error}`;
+      };
+      if (host.state.readonly) { dlBtn.hidden = true; again.hidden = true; }
+      if (host.state.created) { dlBtn.disabled = true; status.textContent = `${host.state.created} is already in your Actors.`; }
+    }
+    dlBtn.addEventListener("click", async () => {
+      if (EMBED) { dlBtn.disabled = true; status.textContent = "Creating the character in Foundry…"; host.post("finish", { record: store.get() }); return; }
+      dlBtn.disabled = true; status.textContent = "Gathering the rules items…";
+      try {
+        const items = {};
+        for (const g of ["core", "feats", "features", "spells", "equipment"]) Object.assign(items, await (await fetch(`items/${g}.json`)).json());
+        const json = JSON.stringify(LW.foundryActor(v, D, f, items), null, 1);
+        const name = `${v.name.full.replace(/[^\w\s-]/g, "").trim().replace(/\s+/g, "-") || "character"}.json`;
+        const dls = window.claude && window.claude.use ? await window.claude.use("downloads") : null;
+        if (dls) { await dls.save({ filename: name, data: json }); status.textContent = "Saved. In Foundry: create a character, right-click it in the Actors list, choose Import Data, and pick this file."; }
+        else { const a = el("a", { href: URL.createObjectURL(new Blob([json], { type: "application/json" })), download: name }); document.body.append(a); a.click(); a.remove(); status.textContent = "Downloaded. In Foundry: create a character, right-click it in the Actors list, choose Import Data, and pick this file."; }
+      } catch (e) { status.textContent = e && e.code === "declined" ? "Download cancelled." : "The download didn't work here: " + ((e && (e.message || e.code)) || e); }
+      dlBtn.disabled = false;
+    });
+    put(el("section", { class: "card" }, el("h2", { text: `${v.name.full}: level 1` }),
+      resultCard({ label: "In brief", text: LW.summaryText(v, D) }, null),
+      el("p", { text: [sd.character.ancestry, sd.character.heritage, sd.character.background, sd.character.klass + (sd.character.classChoices.length ? ` (${sd.character.classChoices.map((c) => c.split(": ").slice(1).join(": ")).join(", ")})` : "")].filter(Boolean).join(" · ") }),
+      attrs,
+      el("p", { class: "small", text: `HP ${st.hp} · AC ${st.ac} · Perception ${st.perception} · Fort ${st.fortitude}, Ref ${st.reflex}, Will ${st.will} · Class DC ${st.classDC}. Every tab of the sheet beside the chronicle is now filled in: actions, proficiencies, feats, ${S ? "spells, " : ""}inventory, biography and campaign notes.` }),
+      el("p", { class: "small", text: problems.length ? "The rules check found problems: " + problems.join("; ") : "Checked against the Foundry pf2e system data: boosts, Hit Points, proficiency ranks and number of skills follow the rules for level 1." }),
+      ...(S && S.check ? [el("p", { class: "small", text: "Spell counts for this class are still to be confirmed in Foundry." })] : []),
+      ...(f.notes.length ? [el("p", { class: "small", text: "Krynn adaptation (not an official rule): " + f.notes.join(" ") })] : []),
+      el("div", { class: "copies" }, dlBtn, open,
+        copyButton("Copy the sheet", () => LW.sheetText(v, D), out),
+        copyButton("Copy the backstory", () => LW.backstoryText(v, D), out)),
+      status, out, el("div", {}, again)));
+  }
+
+  // ---- prologue ----
+  function regionsFor(year) { return D.regions.filter((r) => year >= r.years[0] && year <= r.years[1]); }
+  function statusOf(r, year) { const s = (r.status || []).find((x) => year >= x.years[0] && year <= x.years[1]); return s ? s.text : ""; }
+  // ---- the campaign's age and year ----
+  const lastYear = {};
+  function ageOf(id) { return (D.ages || []).find((a) => a.id === id); }
+  function fillAges() {
+    const sel = $("#f-age");
+    sel.replaceChildren(...(D.ages || []).map((a) => el("option", { value: a.id, disabled: a.content !== "ready",
+      text: a.name + (a.content === "ready" ? ` (${a.years[0]}–${a.years[1]} AC)` : " · content to come") })));
+    const def = (D.ages || []).find((a) => a.content === "ready" && a.default === 381) || (D.ages || []).find((a) => a.content === "ready");
+    sel.value = def.id;
+    setAge(def.id, 381);
+  }
+  function setAge(id, year) {
+    const a = ageOf(id), r = $("#f-year");
+    r.min = a.years[0]; r.max = a.years[1];
+    r.value = Math.min(a.years[1], Math.max(a.years[0], year ?? lastYear[id] ?? a.default));
+    $("#f-year-min").textContent = a.years[0] + " AC"; $("#f-year-max").textContent = a.years[1] + " AC";
+    $("#f-year-ticks").replaceChildren(...(a.ticks || []).map((t) => el("option", { value: t })));
+    noteYear();
+  }
+  function noteYear() {
+    const a = ageOf($("#f-age").value), y = parseInt($("#f-year").value, 10);
+    lastYear[a.id] = y;
+    const p = (a.periods || []).find((x) => y >= x.years[0] && y <= x.years[1]);
+    $("#f-year-out").textContent = y + " AC";
+    $("#f-year").setAttribute("aria-valuetext", `${y} AC, ${p ? p.text : a.name}`);
+    $("#year-note").textContent = `${a.name}, ${y} AC: ${p ? p.text : ""}.`;
+    fillRegions();
+  }
+
+  function fillRegions() {
+    const year = parseInt($("#f-year").value, 10) || 381;
+    const sel = $("#f-region"), keep = sel.value || "abanasinia";
+    sel.replaceChildren(...regionsFor(year).map((r) => { const st = statusOf(r, year); return el("option", { value: r.id, text: r.name + (st ? ` (${st})` : "") + (r.content === "ready" ? "" : " · content to come") }); }));
+    sel.value = [...sel.options].some((o) => o.value === keep) ? keep : "abanasinia";
+    noteRegion();
+  }
+  function fillScopes() {
+    const S = D.scope, sel = $("#f-scope");
+    sel.replaceChildren(...Object.entries(S.scopes).map(([id, x]) => el("option", { value: id, text: x.text })));
+    sel.value = S.default;
+    noteScope();
+  }
+  function noteScope() { const x = D.scope.scopes[$("#f-scope").value]; $("#scope-note").textContent = x ? x.note : ""; }
+  function noteRegion() {
+    const r = D.regions.find((x) => x.id === $("#f-region").value);
+    $("#region-note").textContent = !r ? "" : r.content === "ready"
+      ? `About 6 in 10 characters are born in ${r.name}; the rest come from the other regions the app knows, and travel there.`
+      : `${r.name} has no tables and events of its own yet: characters are born in the regions the app knows, and travel there.`;
+    const year = parseInt($("#f-year").value, 10) || 381;
+    if (year < 320) $("#region-note").textContent += ` Before 320 AC the app has little recorded history yet: lives will be mostly personal, with few events from the wider world.`;
+  }
+
+  async function run(cfg, saved) {
+    $("#prologue").hidden = true; $("#resume").hidden = true;
+    if (EMBED && host.state.readonly) chronicle.prepend(el("section", { class: "card" }, el("h2", { text: "Watching" }), el("p", { text: "This is the life as far as the player has lived it. Choices are theirs to make." })));
+    try {
+      const v = await LW.live(D, { ...cfg, saved, onSave: (rec) => store.set({ ...rec, name: life && life.name ? life.name.full : "", stage: (plan.find(() => true) && $("#now-where").textContent) || "" }) }, ui);
+      if (!saved || !saved.done) recent.add([...v.used]);
+      store.set({ ...(store.get() || {}), done: true });
+      theCharacter(v);
+      chronicle.lastElementChild.scrollIntoView({ behavior: "auto", block: "nearest" });
+    } catch (err) {
+      put(el("section", { class: "card" }, el("h2", { text: "Something broke" }), el("p", { text: "The engine stopped with an error: " + (err && err.message ? err.message : err) + ". Tell me what you had just done, and I'll reproduce it." })));
+    }
+  }
+
+  paint(null);
+  host.post("ready");
+  const btnStart = $("#start");
+  fetch("data.json").then((r) => { if (!r.ok) throw new Error(String(r.status)); return r.json(); }).then((d) => {
+    D = d;
+    fillAges();
+    fillScopes();
+    $("#f-scope").addEventListener("change", noteScope);
+    $("#f-age").addEventListener("change", () => setAge($("#f-age").value));
+    $("#f-year").addEventListener("input", noteYear);
+    const nudge = (d) => { const r = $("#f-year"); r.value = Math.min(+r.max, Math.max(+r.min, +r.value + d)); noteYear(); };
+    $("#f-year-down").addEventListener("click", () => nudge(-1));
+    $("#f-year-up").addEventListener("click", () => nudge(1));
+    $("#f-region").addEventListener("change", noteRegion);
+    btnStart.disabled = false; btnStart.textContent = "Begin the life";
+    return (host.ready || Promise.resolve()).then(() => afterLoad());
+  }).catch(() => { btnStart.textContent = "The tables didn't load. Reload the page."; });
+
+  // The campaign the GM set in Foundry, shown instead of the prologue's fields.
+  function lockToHost() {
+    const c = host.state.cfg;
+    const r = D.regions.find((x) => x.id === c.region), sc = (D.scope.scopes[c.scope] || {}).text || "";
+    $("#prologue-form").querySelectorAll("label, .year-pick, .small.wide, p.small, .row .small").forEach((n) => { n.hidden = true; });
+    const note = el("p", { class: "wide", text: `Your game master has set the campaign: ${c.year} AC, ${r ? r.name : c.region}${c.start ? ", in " + c.start : ""}. Canon: ${sc.split(":")[0]}.` });
+    $("#prologue-form").prepend(note);
+  }
+
+  function afterLoad() {
+    if (EMBED && host.state.cfg) lockToHost();
+    if (EMBED && host.state.readonly) {
+      document.body.classList.add("readonly");
+      if (host.state.saved) run(host.state.saved.cfg, host.state.saved);
+      return;
+    }
+    const saved = store.get();
+    if (saved && saved.draws && saved.draws.length) {
+      $("#resume").hidden = false;
+      const sa = (D.ages || []).find((a) => a.years && saved.cfg.year >= a.years[0] && saved.cfg.year <= a.years[1]);
+      $("#resume-text").textContent = `${saved.name || "An unnamed character"}, campaign ${saved.cfg.year} AC${sa ? ", " + sa.name : ""}. Pick up where you left off, or start again.`;
+      $("#resume-go").addEventListener("click", () => run(saved.cfg, saved));
+      $("#resume-new").addEventListener("click", () => { store.clear(); $("#resume").hidden = true; });
+    }
+  }
+
+  $("#prologue-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!D) return;
+    if (EMBED && host.state.readonly) return;
+    store.clear();
+    if (EMBED && host.state.cfg) { const c = host.state.cfg; run({ year: c.year, region: c.region, start: c.start || "", scope: c.scope, recent: recent.get() }, null); return; }
+    const year = Math.min(430, Math.max(1, parseInt($("#f-year").value, 10) || 381));
+    run({ year, region: $("#f-region").value, start: $("#f-start").value.trim(), scope: $("#f-scope").value, recent: recent.get() }, null);
+  });
+})();
+</script>
+</body>
+</html>

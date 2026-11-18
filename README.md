@@ -14,6 +14,13 @@ https://github.com/dvalton/krynn-pf2e/releases/latest/download/module.json
 
 Requires Foundry VTT 14 (verified on 14.370) and Pathfinder Second Edition 8.7 or newer (verified on 8.7.1). Enable it in your world, then open **Settings → Krynn**.
 
+## Lifewrought in Foundry (0.2)
+
+- In the **Actors** sidebar, **Live a life** opens [Lifewrought](https://github.com/dvalton/lifewrought) in a window. Each player lives their character's life from birth to the first day of adventure, towards the campaign the GM set in **Settings → Krynn → Lifewrought**.
+- The life is saved in the player's Foundry account as it goes.
+- At the end, **Create the character in Foundry** builds the PF2e character from your world's compendiums, gives it to the player, and writes **The Chronicle of …** in the Journal (with a page only the GM sees). Optionally, everyone they met becomes an NPC.
+- The GM's **Lives** button shows every life at the table; any of them can be watched read-only.
+
 ## What 0.1 does
 
 - **The age and the date.** The world keeps a Krynn date. The year decides the age and the period (the War of the Lance, the Age of Mortals...), whether the gods answer, and whether the moons of magic shine. The first time the module runs, the clock is set to 351 AC.
@@ -29,7 +36,7 @@ The plan for the whole module is in [docs/plan.md](docs/plan.md).
 
 ## Em português
 
-Módulo de Dragonlance para o Pathfinder 2e no Foundry 14. Instale pelo link de manifest acima e abra **Configurações → Krynn**. A versão 0.1 traz a era e a data da campanha, o Calendário de Krynn com os nomes de cada povo, as três luas com a Noite do Olho, a faixa do céu, os avisos no chat, os idiomas e traits de Krynn e a verificação do mundo. Tudo em inglês e português.
+Módulo de Dragonlance para o Pathfinder 2e no Foundry 14. Instale pelo link de manifest acima e abra **Configurações → Krynn**. A 0.2 traz o Lifewrought para dentro do Foundry: cada jogador vive a vida do personagem numa janela, e no fim o personagem é criado direto, com a Crônica no Diário. A versão 0.1 traz a era e a data da campanha, o Calendário de Krynn com os nomes de cada povo, as três luas com a Noite do Olho, a faixa do céu, os avisos no chat, os idiomas e traits de Krynn e a verificação do mundo. Tudo em inglês e português.
 
 ## Development
 

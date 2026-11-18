@@ -9,7 +9,7 @@
       "UserCulture": {
         "Name": "Nomes do calendário",
         "Hint": "De qual povo são os nomes dos meses e dos dias da semana que você vê.",
-        "World": "O padrão do mundo"
+        "World": "O povo do meu personagem, ou o padrão do mundo"
       },
       "ShowBanner": {
         "Name": "Mostrar a faixa do céu",
@@ -62,6 +62,25 @@
       "Announce": {
         "Label": "Anunciar o céu no chat",
         "Hint": "Publica um cartão quando uma lua chega ao Alto Santuário, na Noite do Olho, nos dias santos e quando a era muda."
+      },
+      "Life": {
+        "Legend": "Lifewrought",
+        "Hint": "Toda vida que um jogador vive no Foundry leva a esta campanha. Quem escolhe isto é você, não os jogadores.",
+        "Year": "Ano em que a campanha começa",
+        "YearWorld": "O ano atual do mundo",
+        "YearFixed": "Este ano:",
+        "Summary": "As vidas levam a {year} DC, em {region}.",
+        "Clamped": "O Lifewrought cobre de 1 a 430 DC, então o ano foi trazido para esse intervalo.",
+        "Region": "Região da cidade inicial",
+        "Start": "Onde a campanha começa",
+        "StartHint": "Deixe vazio e os dados escolhem uma cidade da região",
+        "Scope": "Cânone de Dragonlance",
+        "Who": "Quem pode viver uma vida",
+        "WhoEveryone": "Todos os jogadores",
+        "WhoGM": "Só o mestre",
+        "NpcActors": "As pessoas de cada vida como NPCs",
+        "NpcActorsHint": "Além do journal da Crônica, cria um ator NPC para cada pessoa da vida (família, mentores, rivais, amores).",
+        "ToCome": "conteúdo por vir"
       }
     },
     "Calendar": {
@@ -297,7 +316,10 @@
         "Moons": "As três luas e a Noite do Olho",
         "Languages": "Os idiomas de Krynn estão registrados",
         "Traits": "Os traits de criatura de Krynn estão registrados",
-        "Banner": "A faixa do céu está visível"
+        "Banner": "A faixa do céu está visível",
+        "LifeEngine": "O motor do Lifewrought está carregado",
+        "LifeData": "As tabelas do Lifewrought carregam",
+        "LifeBuild": "Uma vida aleatória é montada com os compêndios de PF2e deste mundo"
       }
     },
     "Language": {
@@ -338,6 +360,69 @@
       "highSorcery": "Ligado às Ordens da Alta Feitiçaria e às luas da magia.",
       "solamnicKnight": "Ligado ao Juramento e à Medida dos Cavaleiros de Solamnia.",
       "mystic": "Magia do coração, tirada de dentro e não de um deus."
+    },
+    "Life": {
+      "Title": "Viver uma vida em Krynn",
+      "Open": "Viver uma vida",
+      "WatchTitle": "A vida de {name} (assistindo)",
+      "NoEngine": "O motor do Lifewrought não carregou (lifewrought/engine.js).",
+      "NoData": "As tabelas do Lifewrought não carregaram ({status}).",
+      "NeedGM": "Só um mestre pode criar o personagem.",
+      "NotFinished": "Esta vida ainda não terminou.",
+      "Folder": "Lifewrought",
+      "ChronicleOf": "A Crônica de {name}",
+      "PeopleOf": "As pessoas de {name}",
+      "Created": "{name} está pronto: o personagem está em Atores, e a Crônica no Diário.",
+      "Failed": "Não foi possível criar o personagem: {error}",
+      "Queued": "Nenhum mestre está online. A vida está salva; o personagem será criado quando um mestre entrar.",
+      "Timeout": "O mestre não respondeu. Tente de novo, ou peça ao mestre para criar pela janela de Vidas.",
+      "Built": "{name}: criado a partir desta vida",
+      "Missing": "{n} itens não foram encontrados nos compêndios deste mundo e ficaram de fora:",
+      "ExtraDraws": "A vida salva terminou {n} rolagens antes; essas rolagens foram feitas de novo.",
+      "Page": {
+        "Backstory": "História",
+        "Years": "Ano a ano",
+        "People": "Pessoas",
+        "Campaign": "Para a campanha",
+        "GM": "Ganchos (só o mestre)",
+        "Personality": "Personalidade",
+        "Appearance": "Aparência",
+        "Wounds": "Cicatrizes e feridas",
+        "Age": "idade",
+        "Nobody": "Ninguém ainda.",
+        "Allies": "Aliados",
+        "Enemies": "Inimigos",
+        "Organizations": "Organizações",
+        "Threads": "Ganchos para puxar",
+        "ThreadsHint": "O que esta vida deixa para a história: segredos, inimigos, dívidas e motivos para aventurar. O jogador viveu isto; esta página é para as suas notas.",
+        "Secrets": "Segredo",
+        "Enemy": "Inimigo",
+        "Attitude": "Atitude",
+        "Beliefs": "Crenças",
+        "Edicts": "Éditos",
+        "Anathema": "Anátema",
+        "Likes": "Gosta de",
+        "Dislikes": "Não gosta de",
+        "Catchphrase": "Bordão"
+      }
+    },
+    "Lives": {
+      "Title": "Vidas em Krynn",
+      "Open": "Vidas",
+      "AtTheTable": "Na mesa",
+      "Player": "Jogador",
+      "Life": "Vida",
+      "Away": "fora",
+      "Unnamed": "Ainda sem nome",
+      "Choices": "{n} escolhas feitas",
+      "Finished": "terminada",
+      "Pending": "esperando um mestre",
+      "None": "nenhuma vida ainda",
+      "Watch": "Assistir",
+      "Build": "Criar o personagem",
+      "Made": "Personagens feitos com o Lifewrought",
+      "Chronicle": "Crônica",
+      "NoneMade": "Nenhum ainda."
     }
   }
 }
