@@ -1,7 +1,11 @@
 name: release
+# A new version in package.json on main publishes a release: the tag, module.json and module.zip.
+# (Foundry installs from the latest release's module.json.)
 on:
   push:
-    tags: ["v*"]
+    branches: [main]
+    paths: [package.json]
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:
@@ -12,14 +16,24 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm ci
-      - run: npm run check
-      - name: The tag matches the version
-        run: test "v$(node -p "require('./package.json').version")" = "${GITHUB_REF_NAME}"
-      - run: node tools/build.mjs --zip
-      - name: Publish the release
+      - name: Version
+        id: v
+        run: echo "tag=v$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+      - name: Already released?
+        id: done
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          notes=$(awk "/^## ${GITHUB_REF_NAME#v}/{f=1;next} /^## /{f=0} f" CHANGELOG.md)
-          gh release create "$GITHUB_REF_NAME" dist/module.json dist/module.zip --title "Krynn for PF2e ${GITHUB_REF_NAME}" --notes "$notes"
+          if gh release view "${{ steps.v.outputs.tag }}" >/dev/null 2>&1; then echo "yes=1" >> "$GITHUB_OUTPUT"; fi
+      - if: steps.done.outputs.yes != '1'
+        run: npm ci && npm run check
+      - if: steps.done.outputs.yes != '1'
+        run: node tools/build.mjs --zip
+      - name: Publish the release
+        if: steps.done.outputs.yes != '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.v.outputs.tag }}
+        run: |
+          notes=$(awk "/^## ${TAG#v}/{f=1;next} /^## /{f=0} f" CHANGELOG.md)
+          gh release create "$TAG" dist/module.json dist/module.zip --target "$GITHUB_SHA" --title "Krynn for PF2e $TAG" --notes "$notes"

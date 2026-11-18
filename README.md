@@ -38,4 +38,4 @@ npm ci
 npm run check   # strings in both languages, unit tests, the module in a mock Foundry, module.json
 ```
 
-`lang/en.json` and `lang/pt-BR.json` are built from `lang/strings/*` and the calendar names (`npm run lang`); `module.json` is built by `tools/build.mjs`. A tag `vX.Y.Z` matching `package.json` publishes a release.
+`lang/en.json` and `lang/pt-BR.json` are built from `lang/strings/*` and the calendar names (`npm run lang`); `module.json` is built by `tools/build.mjs`. A new version in `package.json` pushed to main publishes a release.
