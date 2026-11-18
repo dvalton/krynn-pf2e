@@ -25,6 +25,7 @@ export function registerSettings() {
   world("announce", Boolean, true);
   world("deathThroes", String, "auto", { choices: choices(THROES_MODE, "Settings.Throes") });
   world("dragonfearCards", Boolean, true);
+  world("steelCurrency", Boolean, false, { requiresReload: true });
   world("initialized", Boolean, false);
 
   // Lifewrought: the campaign every life is lived towards, set once by the GM.

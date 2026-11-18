@@ -4,6 +4,7 @@
 import { MODULE_ID, T, template, setting, isLeadGM } from "../constants.mjs";
 import { parseDragon, dragonfearRadius, dragonfearDC, overlordBase, withinFeet } from "../../logic/dragons.mjs";
 import { OVERLORDS } from "../../content/dragons.mjs";
+import { toolbeltSave } from "../compat.mjs";
 
 const fa = foundry.applications;
 const FEAR = "krynn-dragonfear", OVERLORD = "krynn-overlord", TOTEM = "krynn-skull-totem";
@@ -105,7 +106,7 @@ export async function onCombatStart(combat) {
   if (!isLeadGM() || !setting("dragonfearCards")) return;
   const scene = combat.scene ?? game.scenes?.current;
   const grid = scene?.grid ?? { size: 100, distance: 5 };
-  const centre = (t) => ({ id: t.id, name: t.name, x: t.x + (t.width * grid.size) / 2, y: t.y + (t.height * grid.size) / 2, size: t.width, disposition: t.disposition, level: t.actor?.level ?? 0, actor: t.actor });
+  const centre = (t) => ({ id: t.id, name: t.name, uuid: t.uuid, x: t.x + (t.width * grid.size) / 2, y: t.y + (t.height * grid.size) / 2, size: t.width, disposition: t.disposition, level: t.actor?.level ?? 0, actor: t.actor });
   const tokens = (combat.combatants?.contents ?? [...(combat.combatants ?? [])]).map((c) => c.token).filter(Boolean);
   for (const tok of tokens) {
     const fear = tok.actor?.items?.find?.((i) => i.system?.slug === FEAR);
@@ -113,6 +114,7 @@ export async function onCombatStart(combat) {
     const radius = fear.system.rules?.find((r) => r.key === "Aura")?.radius ?? 90;
     const me = centre(tok), level = tok.actor.level ?? 0, dc = dragonfearDC(level);
     const foes = withinFeet(me, tokens.filter((t) => t.disposition !== tok.disposition).map(centre), radius, grid.distance, grid.size);
+    const immuneOf = (f) => f.level > level || f.actor?.items?.some?.((i) => i.system?.slug === "krynn-faced-dragonfear");
     const rows = foes.map((f) => {
       const immune = f.level > level || f.actor?.items?.some?.((i) => i.system?.slug === "krynn-faced-dragonfear");
       return `<li>${foundry.utils.escapeHTML(f.name)}${immune ? ` <span class="hint">(${T("Dragons.Immune")})</span>` : ""}</li>`;
@@ -120,5 +122,6 @@ export async function onCombatStart(combat) {
     if (!foes.length) continue;
     await ChatMessage.create({ speaker: { alias: tok.name },
       content: `<div class="krynn-card krynn-dragonfear"><h3>${T("Dragons.FearTitle", { name: foundry.utils.escapeHTML(tok.name) })}</h3><p>${T("Dragons.FearText", { feet: radius, m: Math.round(radius * 0.3) })}</p><ul>${rows}</ul><p>@Check[will|dc:${dc}|traits:emotion,fear,mental|options:area-effect,inflicts:frightened]</p></div>` });
+    await toolbeltSave({ statistic: "will", dc, targets: foes.filter((f) => !immuneOf(f)).map((f) => f.uuid).filter(Boolean), traits: ["emotion", "fear", "mental"], options: ["area-effect"], speaker: { alias: tok.name } });
   }
 }

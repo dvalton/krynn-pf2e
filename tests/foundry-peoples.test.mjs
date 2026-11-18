@@ -85,11 +85,11 @@ test("factions: started from the life, kept by the GM, in PF2e's attitudes", asy
   assert.equal(a.getFlag("krynn-pf2e", "factions")["knights-of-solamnia"].standing, -2, "never below hostile");
 });
 
-test("the sheet gets a Factions header button", async () => {
+test("the sheet gets a Krynn header button", async () => {
   const a = game.actors.find((x) => x.getFlag("krynn-pf2e", "lifewrought"));
   const buttons = [];
   await F.hooks.callAll("getActorSheetHeaderButtons", { actor: a }, buttons);
-  assert.equal(buttons[0].label, "Factions");
+  assert.equal(buttons[0].label, "Krynn");
 });
 
 test("Lifewrought's peoples get the Krynn heritage (a setting): a kender is a kender, not a halfling heritage", async () => {

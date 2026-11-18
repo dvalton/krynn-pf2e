@@ -106,6 +106,20 @@
         "Legend": "Dragões e draconianos",
         "FearCards": "Medo dracônico quando um encontro começa",
         "FearCardsHint": "Posta um card com o teste de Vontade para os inimigos ao alcance do Medo Dracônico de cada dragão quando o combate começa."
+      },
+      "Table": {
+        "Legend": "Na mesa"
+      },
+      "Steel": {
+        "Label": "Aço como moeda",
+        "Hint": "As peças de ouro do PF2e aparecem como peças de aço nas fichas, nos preços e no navegador de compêndios. Os valores não mudam. Recarrega o Foundry."
+      },
+      "Companions": {
+        "Title": "Módulos parceiros",
+        "Active": "ativo",
+        "Absent": "inativo",
+        "Workbench": "as automações dele ficam como estão; o módulo não acrescenta nada que o Workbench já faz.",
+        "Toolbelt": "o ajudante de alvos dele recebe os testes dos estertores e do medo dracônico, com as criaturas ao alcance como alvos."
       }
     },
     "Calendar": {
@@ -714,6 +728,30 @@
         "arctic": "Gelo e neve",
         "volcanic": "Vulcânico"
       }
+    },
+    "Panel": {
+      "Title": "Krynn",
+      "Short": "Krynn",
+      "TitleOf": "Krynn: {name}",
+      "Magic": "Alta Feitiçaria",
+      "Tonight": "Esta noite:",
+      "MoonsSilent": "as luas não dão nada esta noite",
+      "Renegade": "renegado",
+      "Faith": "Fé",
+      "Heart": "O poder do coração",
+      "Mystic": "misticismo, não um deus",
+      "Answers": "os deuses respondem nesta era",
+      "Silent": "os deuses se calam nesta era",
+      "Knighthood": "Cavalaria",
+      "Measure": "cumpre a Medida",
+      "Breach": "em quebra da Medida",
+      "OpenFactions": "Abrir as facções",
+      "Life": "A vida",
+      "Open": "Escolhas a fazer:"
+    },
+    "Steel": {
+      "Abbr": "aço",
+      "Name": "Aço"
     }
   }
 }

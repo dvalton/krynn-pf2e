@@ -15,7 +15,11 @@ import { createCharacter, dryRun } from "./foundry/lifewrought/create.mjs";
 import { syncAll, syncActor, onItemChange, magicFor, robeOf } from "./foundry/magic/moons.mjs";
 import { installCastGate } from "./foundry/magic/gate.mjs";
 import { openFactions, FactionsApp } from "./foundry/peoples/factions.mjs";
-import { finishChoices, pendingChoices, sheetNotice, headerButtons } from "./foundry/lifewrought/finish.mjs";
+import { finishChoices, pendingChoices, sheetNotice } from "./foundry/lifewrought/finish.mjs";
+import { injectTab, headerButtons, openPanel, panelContext, KrynnPanelApp } from "./foundry/sheet/panel.mjs";
+import { applySteel } from "./foundry/steel.mjs";
+import { companions } from "./foundry/compat.mjs";
+import { onFeatMessage } from "./foundry/peoples/tables.mjs";
 import { rememberHit, onActorUpdate, onCombatRound, runThroes } from "./foundry/dragons/throes.mjs";
 import { openDragons, importDragon, findDragons, onCombatStart, DragonsApp } from "./foundry/dragons/dragons.mjs";
 import { registerEnrichers, installYearClicks, refreshNowLines } from "./foundry/atlas.mjs";
@@ -28,6 +32,8 @@ Hooks.once("init", () => {
   const api = { now, setDate, sky: skyNow, state: stateNow, formatDate, openSky, selfTest, refresh: refreshSky, ages, moons, calendar,
     life: { open: openLife, lives: openLives, create: createCharacter, dryRun, LifeApp, finishChoices, pendingChoices },
     factions: { open: openFactions, FactionsApp },
+    panel: { open: openPanel, context: panelContext, KrynnPanelApp },
+    companions,
     atlas: { refresh: refreshNowLines },
     generators: { open: openGenerators, run: (kind, state) => GeneratorsApp.run(kind, state), makeNpc, placeEncounter, creatureIndex, GeneratorsApp },
     dragons: { open: openDragons, import: importDragon, find: findDragons, throes: runThroes, DragonsApp },
@@ -61,7 +67,7 @@ Hooks.on("renderChatMessageHTML", (message, html) => onChatCard(message, html));
 
 // Dragons and draconians: who hit whom, the death throes at 0 HP, dragonfear when an encounter begins, the acid
 // pools drying up as rounds pass.
-Hooks.on("createChatMessage", (message) => rememberHit(message));
+Hooks.on("createChatMessage", (message) => { rememberHit(message); onFeatMessage(message); });
 Hooks.on("updateActor", (actor, changes) => onActorUpdate(actor, changes));
 // An unlinked token's HP lives in its delta: the same check, from the token's side (the flag keeps it to once).
 Hooks.on("updateToken", (token, changes) => { if (changes.delta?.system && token.actor) onActorUpdate(token.actor, changes.delta); });
@@ -69,8 +75,11 @@ Hooks.on("combatStart", (combat) => onCombatStart(combat));
 Hooks.on("combatRound", (combat) => onCombatRound(combat));
 
 // The character sheet: a Factions button, and a note while PF2e choices are still open.
-Hooks.on("getActorSheetHeaderButtons", (sheet, buttons) => headerButtons(sheet, buttons, { openFactions }));
-Hooks.on("renderCharacterSheetPF2e", (app, html) => sheetNotice(app, html));
+Hooks.on("getActorSheetHeaderButtons", (sheet, buttons) => headerButtons(sheet, buttons));
+Hooks.on("renderCharacterSheetPF2e", async (app, html) => { sheetNotice(app, html); try { await injectTab(app, html); } catch (e) { console.warn("krynn-pf2e | Krynn tab", e); } });
+
+// Steel as the coin of account, once the languages are loaded.
+Hooks.once("i18nInit", () => applySteel());
 
 Hooks.on("updateWorldTime", async (worldTime, delta) => {
   refreshSky();

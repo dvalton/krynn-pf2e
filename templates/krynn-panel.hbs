@@ -1,0 +1,26 @@
+<section class="krynn-panel">
+  <header class="krynn-panel-head"><i class="fa-solid fa-hourglass-half"></i> {{date}} · {{age}}</header>
+  {{#if magic}}
+  <div class="krynn-panel-row"><h4><i class="fa-solid fa-moon"></i> {{localize "KRYNN.Panel.Magic"}}</h4>
+    <p><strong>{{magic.robe}}</strong>{{#if magic.renegade}} · <span class="krynn-warn">{{localize "KRYNN.Panel.Renegade"}}</span>{{/if}}</p>
+    {{#if magic.tonight}}<p>{{localize "KRYNN.Panel.Tonight"}} {{magic.tonight}}</p>{{/if}}</div>
+  {{/if}}
+  {{#if god}}
+  <div class="krynn-panel-row"><h4><i class="fa-solid fa-sun"></i> {{localize "KRYNN.Panel.Faith"}}</h4>
+    <p><strong>{{god.name}}</strong> · {{#if god.mystic}}{{localize "KRYNN.Panel.Mystic"}}{{else}}{{#if god.answers}}{{localize "KRYNN.Panel.Answers"}}{{else}}<span class="krynn-warn">{{localize "KRYNN.Panel.Silent"}}</span>{{/if}}{{/if}}</p></div>
+  {{/if}}
+  {{#if knight}}
+  <div class="krynn-panel-row"><h4><i class="fa-solid fa-shield-halved"></i> {{localize "KRYNN.Panel.Knighthood"}}</h4>
+    <p><strong>{{knight.order}}</strong>{{#if knight.measure}} · {{#if knight.breach}}<span class="krynn-warn">{{localize "KRYNN.Panel.Breach"}}</span>{{else}}{{localize "KRYNN.Panel.Measure"}}{{/if}}{{/if}}</p></div>
+  {{/if}}
+  <div class="krynn-panel-row"><h4><i class="fa-solid fa-flag"></i> {{localize "KRYNN.Factions.Title"}}</h4>
+    {{#if factions.length}}<ul>{{#each factions}}<li class="standing-{{key}}">{{name}}: <strong>{{label}}</strong></li>{{/each}}</ul>{{else}}<p class="hint">{{localize "KRYNN.Factions.None"}}</p>{{/if}}
+    <p><a data-krynn-panel="factions"><i class="fa-solid fa-flag"></i> {{localize "KRYNN.Panel.OpenFactions"}}</a></p></div>
+  {{#if hasLife}}
+  <div class="krynn-panel-row"><h4><i class="fa-solid fa-book-open"></i> {{localize "KRYNN.Panel.Life"}}</h4>
+    {{#if journal}}<p><a data-krynn-panel="chronicle" data-id="{{journal.id}}"><i class="fa-solid fa-book"></i> {{journal.name}}</a></p>{{/if}}
+    {{#if people.length}}<p>{{#each people}}<a data-krynn-panel="person" data-id="{{id}}">{{name}}</a>{{#unless @last}} · {{/unless}}{{/each}}</p>{{/if}}
+    {{#if open.length}}<p class="krynn-warn">{{localize "KRYNN.Panel.Open"}} {{#each open}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</p>
+      <p><a data-krynn-panel="finish"><i class="fa-solid fa-wand-magic-sparkles"></i> {{localize "KRYNN.Finish.Button"}}</a></p>{{/if}}</div>
+  {{/if}}
+</section>

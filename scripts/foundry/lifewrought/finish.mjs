@@ -58,10 +58,3 @@ export function sheetNotice(app, html) {
   const target = root.querySelector(".sheet-body") || root.querySelector(".window-content") || root;
   target.prepend(box);
 }
-
-// Header buttons on the PF2e character sheet (Application v1): factions, and finish choices when open.
-export function headerButtons(sheet, buttons, { openFactions }) {
-  const actor = sheet.actor;
-  if (!actor || actor.type !== "character") return;
-  buttons.unshift({ label: T("Factions.Short"), class: "krynn-factions-button", icon: "fa-solid fa-flag", onclick: () => openFactions(actor) });
-}

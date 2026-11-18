@@ -3,6 +3,7 @@
 // The last creature that hurt each token is remembered from PF2e's attack and damage messages.
 import { MODULE_ID, T, setting, isLeadGM } from "../constants.mjs";
 import { draconianKind, throesPlan, inlineFor, withinFeet } from "../../logic/dragons.mjs";
+import { toolbeltSave } from "../compat.mjs";
 
 const lastHit = new Map(); // token uuid -> { name, humanoid, weapon, melee, tokenUuid }
 const AREA_FLAG = "acidPool";
@@ -45,8 +46,12 @@ export async function runThroes(actor, kind = kindOf(actor)) {
   const plan = throesPlan(kind, actor.level ?? actor.system?.details?.level?.value ?? 1, killer);
   if (!plan) return null;
   const auto = setting("deathThroes") === "auto";
-  const reached = plan.burst && token ? nearby(token, plan.burst) : [];
+  const reachedTokens = plan.burst && token ? nearby(token, plan.burst) : [];
+  const reached = reachedTokens.map((t) => t.name);
   await ChatMessage.create({ speaker: { alias: actor.name }, content: card(actor, plan, killer, reached), flags: { [MODULE_ID]: { throes: kind } } });
+  // With Toolbelt: the save for those in reach (or the baaz's killer), in its target helper.
+  const targets = plan.kind === "baaz" ? [killer?.tokenUuid].filter(Boolean) : reachedTokens.map((t) => t.uuid).filter(Boolean);
+  if (plan.save) await toolbeltSave({ statistic: plan.save.type, dc: plan.dc, basic: !!plan.save.basic, targets, speaker: { alias: actor.name } });
   if (!auto || !token) return plan;
   // The token: stone, gone, the killer's face, or green fire.
   const up = {};
@@ -62,8 +67,8 @@ export async function runThroes(actor, kind = kindOf(actor)) {
 function nearby(token, feet) {
   const tokens = token.parent?.tokens?.contents ?? [];
   const grid = token.parent?.grid ?? { size: 100, distance: 5 };
-  const centre = (t) => ({ id: t.id, name: t.name, x: t.x + (t.width * grid.size) / 2, y: t.y + (t.height * grid.size) / 2, size: t.width });
-  return withinFeet(centre(token), tokens.filter((t) => !t.hidden).map(centre), feet, grid.distance, grid.size).map((t) => t.name);
+  const centre = (t) => ({ id: t.id, name: t.name, uuid: t.uuid, x: t.x + (t.width * grid.size) / 2, y: t.y + (t.height * grid.size) / 2, size: t.width });
+  return withinFeet(centre(token), tokens.filter((t) => !t.hidden).map(centre), feet, grid.distance, grid.size);
 }
 
 function card(actor, plan, killer, reached) {

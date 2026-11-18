@@ -106,6 +106,20 @@
         "Legend": "Dragons and draconians",
         "FearCards": "Dragonfear when an encounter begins",
         "FearCardsHint": "Post a card with the Will save for the enemies within each dragon's Dragonfear when combat starts."
+      },
+      "Table": {
+        "Legend": "At the table"
+      },
+      "Steel": {
+        "Label": "Steel as the coin of account",
+        "Hint": "PF2e's gold pieces read as steel pieces (stl) in sheets, prices and the compendium browser. Values don't change. Reloads Foundry."
+      },
+      "Companions": {
+        "Title": "Companion modules",
+        "Active": "active",
+        "Absent": "not active",
+        "Workbench": "its automations are left alone; the module adds nothing that Workbench already does.",
+        "Toolbelt": "its target helper gets the saves of death throes and dragonfear, with the creatures in reach as targets."
       }
     },
     "Calendar": {
@@ -714,6 +728,30 @@
         "arctic": "Ice and snow",
         "volcanic": "Volcanic"
       }
+    },
+    "Panel": {
+      "Title": "Krynn",
+      "Short": "Krynn",
+      "TitleOf": "Krynn: {name}",
+      "Magic": "High Sorcery",
+      "Tonight": "Tonight:",
+      "MoonsSilent": "the moons give nothing tonight",
+      "Renegade": "renegade",
+      "Faith": "Faith",
+      "Heart": "The power of the heart",
+      "Mystic": "mysticism, not a god",
+      "Answers": "the gods answer in this age",
+      "Silent": "the gods are silent in this age",
+      "Knighthood": "Knighthood",
+      "Measure": "keeps the Measure",
+      "Breach": "in breach of the Measure",
+      "OpenFactions": "Open the factions",
+      "Life": "The life",
+      "Open": "Choices still to make:"
+    },
+    "Steel": {
+      "Abbr": "stl",
+      "Name": "Steel"
     }
   }
 }

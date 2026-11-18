@@ -109,3 +109,22 @@ a.krynn-year { white-space: nowrap; }
 .krynn-gen-actions button { width: 100%; }
 .krynn-gen .krynn-gen-buttons { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
 .krynn-gen .krynn-gen-buttons button { flex: 1 1 auto; width: auto; }
+
+/* 0.8: the Krynn cards, the panel and the sheet tab */
+.krynn-card { background: linear-gradient(#f4ecd8, #ebdfc2); color: #2b2216; border: 1px solid #b99a5c; border-left: 4px solid #8a6c3a; border-radius: 4px; padding: 6px 8px; font-family: var(--font-body, serif); }
+.krynn-card h3 { font-family: var(--font-header, serif); color: #4a3517; }
+.krynn-card a.content-link, .krynn-card a.inline-roll, .krynn-card a.inline-check { color: inherit; }
+.krynn-card.krynn-throes, .krynn-card.krynn-dragonfear { border-left-color: #7a1f24; }
+.krynn-card.krynn-gen { border-left-color: #2c5aa0; }
+.krynn-card.selftest { border-left-color: #3c8a3a; }
+.krynn-card.moon, .krynn-card.eye { border-left-color: #9aa0b8; }
+.krynn-panel { display: flex; flex-direction: column; gap: 6px; padding: 4px; }
+.krynn-panel-head { font-weight: 600; opacity: 0.8; }
+.krynn-panel-row { border: 1px solid rgba(138, 108, 58, 0.4); border-radius: 4px; padding: 4px 8px; }
+.krynn-panel-row h4 { margin: 0 0 2px; font-size: 1em; border: none; }
+.krynn-panel-row p { margin: 2px 0; }
+.krynn-panel-row ul { margin: 2px 0; padding-left: 1.2em; }
+.krynn-panel a[data-krynn-panel] { cursor: pointer; text-decoration: underline; }
+.krynn-panel .krynn-warn { color: #b3261e; font-weight: 600; }
+.krynn-tab { overflow-y: auto; }
+.krynn-companions ul { margin: 4px 0; padding-left: 1.2em; }

@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.8.0
+
+Polish.
+
+- **The Krynn tab** on PF2e's character sheet shows:
+  - the order, the robe and what the moon gives tonight;
+  - the god, and whether the gods answer in this age (or the power of the heart);
+  - the knighthood, its order and any breach of the Measure;
+  - the factions;
+  - the life, with its Chronicle and its people;
+  - the choices still to make.
+  The **Krynn** button at the top of the sheet opens the same panel in a window, and keeps working if a PF2e update changes the sheet.
+- **Cards**: Kender Pockets and Tinker's Contraption draw their table when used. Every Krynn card has its own parchment look, with a colour for each kind.
+- **Steel as the coin of account** (a setting, off by default): PF2e's gold pieces read as steel pieces in sheets, prices and the compendium browser. Values don't change.
+- **PF2e Workbench and PF2e Toolbelt**: detected, never required. With Toolbelt, the saves of death throes and dragonfear go to its target helper, with the creatures in reach as targets. The settings list what each module does and what Krynn leaves to it.
+- **Portuguese review**: an automatic check of every Portuguese text (language files, compendium translations, generator tables) for English left behind and distances in feet. It runs with the tests. It found nothing to fix.
+
 ## 0.7.0
 
 Generators.

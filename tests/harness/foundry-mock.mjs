@@ -16,7 +16,7 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
 
   const strings = flat(JSON.parse(fs.readFileSync(new URL(`lang/${lang}.json`, ROOT))));
   const i18n = {
-    lang,
+    lang, translations: { PF2E: { CurrencyAbbreviations: { gp: "gp" }, Currency: { gp: "Gold" } } },
     has: (k) => k in strings,
     localize: (k) => strings[k] ?? k,
     format: (k, data) => (strings[k] ?? k).replace(/\{(\w+)\}/g, (_, n) => (n in data ? data[n] : `{${n}}`)),
@@ -223,6 +223,7 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
       expandObject: (o) => { const out = {}; for (const [k, v] of Object.entries(o)) { const parts = k.split("."); let n = out; parts.slice(0, -1).forEach((p) => { n = n[p] ??= {}; }); n[parts.at(-1)] = v; } return out; },
       isNewerVersion: (a, b) => { const pa = String(a).split(".").map(Number), pb = String(b).split(".").map(Number); for (let i = 0; i < Math.max(pa.length, pb.length); i++) { if ((pa[i] || 0) !== (pb[i] || 0)) return (pa[i] || 0) > (pb[i] || 0); } return false; },
       debouncedReload: () => { globalThis.__reloaded = true; },
+      setProperty: (o, k, v) => { setPath(o, k, v); return true; },
       getProperty: (o, k) => k.split(".").reduce((n, p) => (n == null ? undefined : n[p]), o),
       getRoute: (p) => `/${p}`.replace(/\/+$/, ""), // like Foundry: no trailing slash
       mergeObject: (a, b) => { const out = structuredClone(a); const m = (x, y) => { for (const [k, v] of Object.entries(y || {})) { if (v && typeof v === "object" && !Array.isArray(v) && x[k] && typeof x[k] === "object") m(x[k], v); else x[k] = v; } }; m(out, b); return out; },
@@ -236,6 +237,7 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
     // Foundry builds game.time.calendar from CONFIG.time after init.
     async start() {
       await Hooks.callAll("init");
+      await Hooks.callAll("i18nInit");
       await Hooks.callAll("setup");
       game.time.calendar = new CONFIG.time.worldCalendarClass(CONFIG.time.worldCalendarConfig);
       await Hooks.callAll("ready");
