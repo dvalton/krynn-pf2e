@@ -64,7 +64,7 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
     async update(changes) { for (const [k, v] of Object.entries(changes)) { if (k.includes(".")) setPath(this, k, structuredClone(v)); else this[k] = structuredClone(v); } return this; }
     toObject() { return structuredClone({ ...this, uuid: undefined }); }
   }
-  const collection = (name) => { const c = new Map(); c.find = (fn) => [...c.values()].find(fn); c.filter = (fn) => [...c.values()].filter(fn); c.name = name; return c; };
+  const collection = (name) => { const c = new Map(); c[Symbol.iterator] = function () { return this.values(); }; Object.defineProperty(c, "contents", { get() { return [...c.values()]; } }); c.find = (fn) => [...c.values()].find(fn); c.filter = (fn) => [...c.values()].filter(fn); c.name = name; return c; };
   const actors = collection("actors"), journal = collection("journal"), folders = collection("folders");
   // Embedded items, with the hooks Foundry fires when they change.
   class Items extends Map {
@@ -81,6 +81,7 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
     toObject() { const { parent, uuid, ...rest } = this; return structuredClone(rest); }
   }
   class Actor extends Doc {
+    async update(changes) { await super.update(changes); await Hooks.callAll("updateActor", this, foundry.utils.expandObject(changes), {}, "gm1"); return this; }
     constructor(data) { super({ ...data, items: undefined }); this.items = new Items(); for (const i of data.items || []) { const it = new Item(i, this); this.items.set(it.id, it); } this.system ??= {}; }
     get level() { return this.system?.details?.level?.value ?? 1; }
     get deity() { return this.items.find((i) => i.type === "deity") ?? null; }
@@ -98,17 +99,27 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
   const casts = [];
   class SpellcastingEntry { constructor(actor, tradition) { this.actor = actor; this.tradition = tradition; } async cast(spell, options) { casts.push({ actor: this.actor.name, spell: spell.name, tradition: this.tradition }); } }
   // The module's packs, read from packs-src (npm run check builds it first), with an index and their documents.
-  const packs = new Map(), packDocs = {};
+  const packs = collection("packs"), packDocs = {};
   for (const { name, type } of PACKS) {
     let docs = [];
     try { docs = fs.readdirSync(new URL(`packs-src/${name}/`, ROOT)).map((f) => JSON.parse(fs.readFileSync(new URL(`packs-src/${name}/${f}`, ROOT), "utf8"))); } catch (e) { /* not built */ }
     const uuid = (d) => `Compendium.krynn-pf2e.${name}.${type}.${d._id}`;
     const index = collection(`index-${name}`);
     for (const d of docs) { index.set(d._id, { _id: d._id, name: d.name, type: d.type, uuid: uuid(d) }); packDocs[uuid(d)] = d; }
-    packs.set(`krynn-pf2e.${name}`, { collection: `krynn-pf2e.${name}`, documentName: type, index,
+    packs.set(`krynn-pf2e.${name}`, { collection: `krynn-pf2e.${name}`, documentName: type, metadata: { label: name }, index,
       getDocument: async (id) => { const d = docs.find((x) => x._id === id); return d ? { ...structuredClone(d), uuid: uuid(d), toObject: () => structuredClone(d) } : null; } });
   }
   globalThis.CONST = { DOCUMENT_OWNERSHIP_LEVELS: { INHERIT: -1, NONE: 0, LIMITED: 1, OBSERVER: 2, OWNER: 3 } };
+  // A legacy bestiary with a few of its dragons (just enough of each NPC to bring it in).
+  {
+    const legacy = collection("index-legacy"), docs = {};
+    const dragon = (name, level) => ({ _id: newId(), name, type: "npc", img: "systems/pf2e/icons/default-icons/npc.svg", items: [{ _id: newId(), name: "Jaws", type: "melee", system: { bonus: { value: level + 10 } } }],
+      system: { details: { level: { value: level } }, traits: { size: { value: "huge" }, value: ["dragon", "fire"] }, attributes: { hp: { value: 100, max: 100 } } }, prototypeToken: { name, width: 3, height: 3 } });
+    for (const [n, l] of [["Young Red Dragon", 10], ["Adult Red Dragon", 14], ["Ancient Red Dragon", 19], ["Adult Bronze Dragon", 11], ["Ancient Blue Dragon", 18], ["Red Dragon Wyrmling", 4]]) {
+      const d = dragon(n, l); docs[d._id] = d; const uuid = `Compendium.pf2e.pathfinder-bestiary.Actor.${d._id}`; legacy.set(d._id, { _id: d._id, name: n, type: "npc", uuid }); packDocs[uuid] = d;
+    }
+    packs.set("pf2e.pathfinder-bestiary", { collection: "pf2e.pathfinder-bestiary", documentName: "Actor", metadata: { label: "Pathfinder Bestiary" }, index: legacy, getDocument: async (id) => (docs[id] ? { ...structuredClone(docs[id]), toObject: () => structuredClone(docs[id]) } : null) });
+  }
   const items = JSON.parse(fs.readFileSync(new URL("tests/fixtures/pf2e-items.json", ROOT)));
   globalThis.fromUuid = async (uuid) => { const d = items[uuid] ?? packDocs[uuid]; return d ? { uuid, toObject: () => structuredClone(d) } : null; };
   globalThis.fetch = async (url) => {
@@ -204,6 +215,7 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
       expandObject: (o) => { const out = {}; for (const [k, v] of Object.entries(o)) { const parts = k.split("."); let n = out; parts.slice(0, -1).forEach((p) => { n = n[p] ??= {}; }); n[parts.at(-1)] = v; } return out; },
       isNewerVersion: (a, b) => { const pa = String(a).split(".").map(Number), pb = String(b).split(".").map(Number); for (let i = 0; i < Math.max(pa.length, pb.length); i++) { if ((pa[i] || 0) !== (pb[i] || 0)) return (pa[i] || 0) > (pb[i] || 0); } return false; },
       debouncedReload: () => { globalThis.__reloaded = true; },
+      getProperty: (o, k) => k.split(".").reduce((n, p) => (n == null ? undefined : n[p]), o),
       getRoute: (p) => `/${p}`.replace(/\/+$/, ""), // like Foundry: no trailing slash
       mergeObject: (a, b) => { const out = structuredClone(a); const m = (x, y) => { for (const [k, v] of Object.entries(y || {})) { if (v && typeof v === "object" && !Array.isArray(v) && x[k] && typeof x[k] === "object") m(x[k], v); else x[k] = v; } }; m(out, b); return out; },
       randomID: () => newId(),
@@ -212,7 +224,7 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
   };
 
   return {
-    chat, settings, menus, hooks: Hooks, notes, sent, gmUser, playerUser, casts, SpellcastingEntry, Actor,
+    chat, settings, menus, hooks: Hooks, notes, sent, gmUser, playerUser, casts, SpellcastingEntry, Actor, packs, packDocs, collection,
     // Foundry builds game.time.calendar from CONFIG.time after init.
     async start() {
       await Hooks.callAll("init");

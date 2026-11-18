@@ -9,6 +9,7 @@ const choices = (ids, prefix) => Object.fromEntries(ids.map((id) => [id, `KRYNN.
 export const MOON_MAGIC = ["classic", "light", "narrative", "off"];
 export const GODS_MODE = ["strict", "warn", "off"];
 export const NUITARI_SEEN = ["blackRobes", "everyone", "gm"];
+export const THROES_MODE = ["auto", "card", "off"];
 
 export function registerSettings() {
   const world = (key, type, def, extra = {}) => game.settings.register(MODULE_ID, key, { scope: "world", config: false, type, default: def, ...extra });
@@ -22,6 +23,8 @@ export function registerSettings() {
   world("hsMode", String, "warn", { choices: choices(GODS_MODE, "Settings.HighSorcery") });
   world("moonMinLevel", Number, 1);
   world("announce", Boolean, true);
+  world("deathThroes", String, "auto", { choices: choices(THROES_MODE, "Settings.Throes") });
+  world("dragonfearCards", Boolean, true);
   world("initialized", Boolean, false);
 
   // Lifewrought: the campaign every life is lived towards, set once by the GM.

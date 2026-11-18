@@ -14,6 +14,13 @@ https://github.com/dvalton/krynn-pf2e/releases/latest/download/module.json
 
 Requires Foundry VTT 14 (verified on 14.370) and Pathfinder Second Edition 8.7 or newer (verified on 8.7.1). Enable it in your world, then open **Settings → Krynn**.
 
+## Dragons and draconians (0.5)
+
+- Compendiums **Krynn: Draconians and Creatures**, **Krynn: Dragons** and **Krynn: Relics**.
+- Drop a draconian on the map: when it falls, its **death throes** happen on their own (stone, acid, bone, a stolen face, a final frenzy).
+- **Dragons** (Actors sidebar, GM) brings your legacy bestiaries' dragons into Krynn with **Dragonfear**, and builds the five **Dragon Overlords**.
+- The dragonlances, the dragon saddle, the Disks of Mishakal and the Blue Crystal Staff.
+
 ## Peoples and orders (0.4)
 
 - Compendiums **Krynn: Peoples** (heritages and ancestry feats), **Krynn: Backgrounds**, **Krynn: Knightly Orders** and **Krynn: Tables**.
@@ -50,7 +57,7 @@ The plan for the whole module is in [docs/plan.md](docs/plan.md).
 
 ## Em português
 
-Módulo de Dragonlance para o Pathfinder 2e no Foundry 14. Instale pelo link de manifest acima e abra **Configurações → Krynn**. A 0.4 traz os povos e as ordens: heranças de Krynn (kender, elfos, anões dos clãs, gnomos funileiros), antecedentes, os Cavaleiros de Solamnia e de Takhisis, as tabelas de bolsos de kender e engenhocas, e a reputação com as facções. A 0.3 traz a magia das luas e os deuses. A 0.2 traz o Lifewrought para dentro do Foundry: cada jogador vive a vida do personagem numa janela, e no fim o personagem é criado direto, com a Crônica no Diário. A versão 0.1 traz a era e a data da campanha, o Calendário de Krynn com os nomes de cada povo, as três luas com a Noite do Olho, a faixa do céu, os avisos no chat, os idiomas e traits de Krynn e a verificação do mundo. Tudo em inglês e português.
+Módulo de Dragonlance para o Pathfinder 2e no Foundry 14. Instale pelo link de manifest acima e abra **Configurações → Krynn**. A 0.5 traz os dragões e draconianos: os estertores automáticos dos draconianos, os dragões dos bestiários legacy com o Medo Dracônico, os Senhores Supremos, as lanças do dragão e as relíquias. A 0.4 traz os povos e as ordens: heranças de Krynn (kender, elfos, anões dos clãs, gnomos funileiros), antecedentes, os Cavaleiros de Solamnia e de Takhisis, as tabelas de bolsos de kender e engenhocas, e a reputação com as facções. A 0.3 traz a magia das luas e os deuses. A 0.2 traz o Lifewrought para dentro do Foundry: cada jogador vive a vida do personagem numa janela, e no fim o personagem é criado direto, com a Crônica no Diário. A versão 0.1 traz a era e a data da campanha, o Calendário de Krynn com os nomes de cada povo, as três luas com a Noite do Olho, a faixa do céu, os avisos no chat, os idiomas e traits de Krynn e a verificação do mundo. Tudo em inglês e português.
 
 ## Development
 

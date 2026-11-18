@@ -94,6 +94,18 @@
    "MoonMinLevel": {
     "Label": "Moons matter from level",
     "Hint": "The older rules left apprentices (levels 1 to 3) untouched by the moons. 1 means always."
+   },
+   "Throes": {
+    "Label": "Draconians' death throes",
+    "Hint": "What happens when a draconian drops to 0 Hit Points.",
+    "auto": "Automatic: the card, the token changes, the acid pool on the map",
+    "card": "Card only: the chat card with its damage and saves",
+    "off": "Off"
+   },
+   "Dragons": {
+    "Legend": "Dragons and draconians",
+    "FearCards": "Dragonfear when an encounter begins",
+    "FearCardsHint": "Post a card with the Will save for the enemies within each dragon's Dragonfear when combat starts."
    }
   },
   "Calendar": {
@@ -710,10 +722,11 @@
     "LifeEngine": "The Lifewrought engine is loaded",
     "LifeData": "The Lifewrought tables load",
     "LifeBuild": "A random life builds from this world's PF2e compendiums",
-    "Packs": "The compendiums of Krynn (magic, gods, peoples, backgrounds, orders, tables, guides)",
+    "Packs": "The compendiums of Krynn (magic, gods, peoples, backgrounds, orders, tables, creatures, dragons, relics, guides)",
     "CastGate": "Spells check the gods and the moons when cast",
     "MoonMagic": "Tonight's moon magic for the three Orders",
-    "LifePage": "The Lifewrought page finds its files"
+    "LifePage": "The Lifewrought page finds its files",
+    "Dragons": "Legacy dragons for the Dragons of Krynn window"
    }
   },
   "Language": {
@@ -919,6 +932,137 @@
    "Nothing": "No choices left to make.",
    "NotOwner": "Only the character's owner can finish its choices.",
    "NoSource": "{name} could not be found in its compendium; take it again by hand."
+  },
+  "Throes": {
+   "Title": "{name}: death throes",
+   "BaazStuck": "{who}'s {weapon} is caught in the stone:",
+   "TheWeapon": "weapon",
+   "StuckEffect": "Weapon Caught in Stone",
+   "SivakShape": "The body takes the shape of {who}, the one who killed it.",
+   "Burst": "Within {feet} feet:",
+   "Pool": "In the pool (it dries up after {rounds} rounds):",
+   "InReach": "In reach: {names}.",
+   "Frenzy": "It fights on for {rounds} rounds (Final Frenzy), then explodes.",
+   "PoolName": "Kapak acid pool"
+  },
+  "Dragons": {
+   "Title": "Dragons of Krynn",
+   "Open": "Dragons",
+   "Hint": "The chromatic and metallic dragons of your legacy bestiaries, brought into this world with the Krynn templates: Dragonfear, and for the Overlords the elite adjustment, Gargantuan size and the Skull Totem.",
+   "Overlords": "The Dragon Overlords (Age of Mortals)",
+   "Found": "Dragons in your compendiums",
+   "Bring": "Bring in",
+   "Missing": "base dragon not found",
+   "None": "No legacy dragons found. Enable the legacy bestiary in this world.",
+   "NoBase": "No {name} in your compendiums.",
+   "NotFound": "{name} not found.",
+   "NeedGM": "Only a GM can bring dragons in.",
+   "Imported": "{name} is in the Actors, in Dragons of Krynn.",
+   "Folder": "Dragons of Krynn",
+   "Immune": "immune",
+   "FearTitle": "{name}: Dragonfear",
+   "FearText": "Every enemy within {feet} feet attempts the Will save:",
+   "NearTotem": "Near the skull totem",
+   "Frenzy": "Final frenzy",
+   "Dragonbane": "Dragonlance",
+   "Dragonmetal": "Dragonmetal",
+   "Saddle": "Dragon saddle",
+   "Disks": "Disks of Mishakal",
+   "Staff": "Blue Crystal Staff",
+   "Color": {
+    "black": "Black",
+    "blue": "Blue",
+    "green": "Green",
+    "red": "Red",
+    "white": "White",
+    "brass": "Brass",
+    "bronze": "Bronze",
+    "copper": "Copper",
+    "gold": "Gold",
+    "silver": "Silver"
+   },
+   "Age": {
+    "young": "Young",
+    "adult": "Adult",
+    "ancient": "Ancient"
+   }
+  },
+  "Bestiary": {
+   "baaz-draconian": {
+    "Notes": "<p>The most common of the draconians: soldiers bred for numbers, loud and quick to anger. Born from corrupted brass dragon eggs.</p>",
+    "glide": "The draconian's stubby wings can't lift it, but it takes no damage from a fall and can move 5 feet sideways for every 10 feet it falls.",
+    "brute-rush": "The baaz Strides twice and makes a longsword Strike. If it hits, the target is pushed 5 feet."
+   },
+   "kapak-draconian": {
+    "Notes": "<p>Scouts, assassins and saboteurs of the dragonarmies, with venom in their mouths. Born from copper dragon eggs.</p>",
+    "sneak-attack": "The kapak deals 1d6 extra precision damage to off-guard creatures.",
+    "toxic-saliva": "The kapak licks its blade. Its next Strike that hits before the end of its turn exposes the target to kapak venom.<hr />@Localize[KRYNN.Bestiary.Venom.kapak]"
+   },
+   "bozak-draconian": {
+    "Notes": "<p>Sorcerers and sergeants, the bozaks lead the lesser draconians with magic and fear. Born from bronze dragon eggs.</p>",
+    "sorcerous-blast": "A 15-foot cone of red fire: @Damage[3d6[fire]] damage, @Check[reflex|dc:18|basic].",
+    "web-of-shadows": "<strong>Frequency</strong> once per hour<hr />Sticky threads fill a 10-foot burst within 60 feet. Each creature there must attempt @Check[reflex|dc:18]. <strong>Failure</strong> immobilized for 1 round or until it Escapes. <strong>Critical Failure</strong> also restrained until it Escapes.",
+    "commander": "One baaz or kapak within 30 feet that can hear the bozak gains a +1 status bonus to its next attack roll this round."
+   },
+   "sivak-draconian": {
+    "Notes": "<p>Big, winged and cunning, the sivaks are the dragonarmies' hunters and infiltrators. Born from silver dragon eggs.</p>",
+    "take-the-face": "<strong>Requirements</strong> The sivak killed a humanoid of size Small to Large within the last minute.<hr />It takes that creature's exact shape and voice, as the polymorph trait describes, until it chooses to end it. It gains a +4 circumstance bonus to Deception checks to pass as that creature.",
+    "sky-strike": "The sivak Flies up to its fly Speed and makes a greatsword Strike at the end. On a hit, the target is knocked prone."
+   },
+   "aurak-draconian": {
+    "Notes": "<p>Wingless, golden and the most dangerous of the draconians: sorcerers who command the others. Born from gold dragon eggs.</p>",
+    "lightning-rays": "Two rays at one or two targets within 60 feet; make a spell attack roll (+22) for each. Each hit deals @Damage[3d8[electricity]] damage.",
+    "golden-veil": "<strong>Frequency</strong> once per hour<hr />The aurak becomes invisible for 1 minute, or until it uses a hostile action.",
+    "dimension-step": "<strong>Frequency</strong> once per 10 minutes<hr />The aurak teleports to a place it can see within 60 feet.",
+    "borrowed-face": "The aurak looks like any humanoid of its size, an illusion that a creature who Seeks and succeeds at @Check[perception|dc:23] sees through."
+   },
+   "bakali-warrior": {
+    "Notes": "<p>The great lizard-folk of the old southern swamps, proud, territorial and slow to trust anyone warm-blooded.</p>",
+    "bellow": "<strong>Frequency</strong> once per minute<hr />Each enemy within 30 feet attempts @Check[will|dc:14]; on a failure it is frightened 1."
+   },
+   "thanoi-hunter": {
+    "Notes": "<p>Walrus-folk of the frozen Icereach, who hunt on the ice floes and raid the ice folk's camps.</p>",
+    "ice-adapted": "The thanoi ignores difficult terrain from ice and snow and isn't harmed by severe cold.",
+    "tusk-rake": "The thanoi makes a tusks Strike. On a hit, the target takes @Damage[1d6[bleed]] persistent bleed damage."
+   },
+   "aghar-scrounger": {
+    "Notes": "<p>Gully dwarves: the outcast clan, who live on what others throw away and outlast everyone who looks down on them.</p>",
+    "survivor": "The aghar gains a +2 circumstance bonus to saving throws against diseases and poisons from spoiled food and foul water.",
+    "duck-and-cover": "<strong>Trigger</strong> A creature targets the aghar with a Strike.<hr />The aghar drops prone, gaining a +2 circumstance bonus to AC against the triggering Strike."
+   },
+   "kyrie-skywatcher": {
+    "Notes": "<p>Bird-folk of the far southern isles, wary of outsiders and of the land-bound wars of Ansalon.</p>",
+    "dive": "The kyrie Flies at least 20 feet downward and makes a talons Strike; on a hit it deals 1d8 extra damage."
+   },
+   "spectral-minion": {
+    "Notes": "<p>Spirits held to a broken vow: soldiers still guarding a fallen gate, servants still waiting on a dead lord.</p>",
+    "unfinished-oath": "The minion is bound to the task it failed in life. When the task is finished or released, it is laid to rest. Until then, if destroyed, it re-forms in 1d4 days near where it fell."
+   },
+   "dreamwraith": {
+    "Notes": "<p>Shapes from a nightmare made real: twisted soldiers, weeping trees and hungry beasts, real enough to kill.</p>",
+    "made-of-dreams": "A creature that spends an action to disbelieve the dreamwraith attempts @Check[will|dc:21]. On a success, it takes half damage from the dreamwraith for the rest of the encounter.",
+    "dread-whisper": "One creature within 30 feet attempts @Check[will|dc:21]. <strong>Failure</strong> frightened 2. <strong>Critical Failure</strong> frightened 2 and fleeing for 1 round."
+   },
+   "fireshadow": {
+    "Notes": "<p>A living shadow of flame that haunts burned places and the fires of sorcerers who called more than they could hold.</p>",
+    "flicker": "The fireshadow vanishes into a flame or light source and steps out of another within 60 feet.",
+    "ember-burst": "<strong>Frequency</strong> once per minute<hr />A 10-foot emanation of sparks: @Damage[6d6[fire]] damage, @Check[reflex|dc:19|basic]."
+   },
+   "irda-wanderer": {
+    "Notes": "<p>The high ogres, beautiful and secretive, who hid from the world and walk it now and then under borrowed faces.</p>",
+    "many-faces": "The irda takes the shape of any Medium humanoid until it chooses to change back. Creatures who Seek with @Check[perception|dc:19] notice something is off.",
+    "starlight-ward": "<strong>Frequency</strong> once per hour; <strong>Trigger</strong> The irda would be hit by a Strike.<hr />The irda gains a +2 status bonus to AC against the triggering Strike."
+   },
+   "Throes": {
+    "baaz": "<p>When the baaz dies, it turns to stone. The creature that struck the killing blow with a melee weapon attempts a Reflex save against the baaz's DC; on a failure, the weapon is stuck in the stone until the statue crumbles to dust at the start of the baaz's next turn (or the wielder succeeds at an Athletics check to Force Open against the same DC).</p>",
+    "kapak": "<p>When the kapak dies, its body melts into a pool of acid 10 feet across. A creature in the pool when it forms, or that ends its turn in it, takes acid damage (basic Reflex save against the kapak's DC). The pool dries up after 3 rounds.</p>",
+    "bozak": "<p>When the bozak dies, its flesh shrivels away and its bones burst outward. Each creature within 10 feet takes piercing damage (basic Reflex save against the bozak's DC).</p>",
+    "sivak": "<p>When a humanoid kills the sivak, the body takes the killer's shape for three days, a body that looks like the killer's own. If anything else kills it, the sivak bursts into flame: each creature adjacent takes fire damage (basic Reflex save against the sivak's DC).</p>",
+    "aurak": "<p>When the aurak drops to 0 Hit Points, it doesn't die yet. Wrapped in green fire, it goes into a frenzy for 2 rounds: it can't be reduced further, gains a +2 status bonus to attack rolls and acts only to attack. Then it explodes: each creature within 10 feet takes electricity damage (basic Reflex save against the aurak's DC).</p>"
+   },
+   "Venom": {
+    "kapak": "<strong>Kapak Venom</strong> (poison) <strong>Saving Throw</strong> DC 17 Fortitude; <strong>Maximum Duration</strong> 4 rounds; <strong>Stage 1</strong> @Damage[1d6[poison]] and clumsy 1 (1 round); <strong>Stage 2</strong> @Damage[1d6[poison]] and slowed 1 (1 round); <strong>Stage 3</strong> paralyzed (1 round)."
+   }
   }
  }
 }

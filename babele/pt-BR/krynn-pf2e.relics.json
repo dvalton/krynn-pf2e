@@ -1,0 +1,20 @@
+{
+ "label": "Krynn: Relíquias",
+ "mapping": {
+  "description": "system.description.value"
+ },
+ "entries": {
+  "Disks of Mishakal": {
+   "name": "Discos de Mishakal",
+   "description": "<p>Uma pilha de discos finos de platina, unidos, escritos com os ensinamentos dos verdadeiros deuses. Nada menos que um deus pode danificá-los.</p><p>Enquanto os segura, você recebe +3 de bônus de item em testes de Religião. Uma criatura que os leia por um dia descobre que os verdadeiros deuses existem e como rezar a eles; nos anos em que os deuses se calam, quem os lê pode se tornar clérigo dos deuses do bem (o mestre decide).</p><p><strong>Ativar—Misericórdia de Mishakal</strong> (concentração, cura) 2 ações; <strong>Frequência</strong> uma vez por dia; <strong>Efeito</strong> Os Discos lançam @UUID[Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs]{cura} no grau 5 (a versão em área de 9 m), mesmo nos anos em que os deuses se calam.</p>"
+  },
+  "Blue Crystal Staff": {
+   "name": "Cajado de Cristal Azul",
+   "description": "<p>Um cajado de cristal azul que brilha com a luz de Mishakal, o primeiro sinal em trezentos anos de que os verdadeiros deuses não tinham partido. É um cajado <em>+1 poderoso</em>.</p><p>Ele soma +2 de bônus de item aos Pontos de Vida que você restaura com @UUID[Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs]{cura}, e seus Golpes causam 1d6 de dano espiritual extra a criaturas profanas.</p><p><strong>Ativar—Luz Curativa</strong> (manipulação) 2 ações; <strong>Frequência</strong> três vezes por dia; <strong>Efeito</strong> O cajado lança cura no grau 3.</p><p><strong>Recusa</strong> Uma criatura profana que toque o cajado sofre @Damage[4d6[spirit]] de dano e o solta.</p>"
+  },
+  "Skull Totem": {
+   "name": "Totem de Crânios",
+   "description": "<p>Um monte de crânios de dragão, as cabeças dos dragões que um Senhor Supremo matou, erguido no coração do seu domínio. O poder do Senhor Supremo está ancorado nele: a até 1,5 km, ele fica mais forte (veja Senhor Supremo Dracônico). Destruir o totem (cada crânio tem Dureza 15 e 60 PV) enfraquece o domínio do Senhor Supremo por um ano e um dia.</p>"
+  }
+ }
+}

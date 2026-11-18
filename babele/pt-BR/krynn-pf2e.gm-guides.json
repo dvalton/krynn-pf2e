@@ -17,6 +17,35 @@
      "text": "<p>Todo mundo paga alguma coisa. Escolha um, a partir do que aconteceu nas provas: uma marca duradoura (olhos, pele, voz), um corpo enfraquecido (−1 nos testes de Fortitude até ele recuperar), uma dívida com alguém da Torre, ou uma lembrança perdida.</p><p>Quem falha e sobrevive não pode tentar de novo por muito tempo; quem recusa o Teste e continua conjurando se torna renegado.</p><p>Quando terminar, dê ao personagem o talento <strong>O Teste da Alta Feitiçaria</strong>, e ajuste a ordem em <strong>Mago da Alta Feitiçaria</strong> se o Teste a mudou. Agora seus mantos são usados abertamente.</p>"
     }
    }
+  },
+  "The Dragon Overlords": {
+   "name": "Os Senhores Supremos Dracônicos",
+   "pages": {
+    "The Overlords": {
+     "name": "Os Senhores Supremos",
+     "text": "<p>Depois da Guerra do Caos, sem os deuses, grandes dragões chegaram a Ansalon e o dividiram. Mataram muitos dos dragões de Krynn e ergueram totens com seus crânios. Cinco governaram a maior parte do continente durante a Era dos Mortais, até a Guerra das Almas.</p><p>Cada um é um dragão ancião dos bestiários legacy transformado em Senhor Supremo: elite, Imenso, imune ao medo, com o Medo Dracônico e o Totem de Crânios. Seus domínios são perigos para quem viaja por eles.</p>"
+    },
+    "Malystryx": {
+     "name": "Malystryx",
+     "text": "<p><strong>Malystryx</strong> (vermelho) — a península de Goodlund, em volta do seu pico.</p><p>Para jogar: importe o <em>Ancient Red Dragon</em> do bestiário legacy pela janela Dragões de Krynn, como Senhor Supremo. Ele fica elite, Imenso, imune ao medo, com o Medo Dracônico e o Totem de Crânios.</p><p><strong>O domínio</strong> A terra é um deserto vulcânico. Cada hora de viagem no calor: @Check[fortitude|dc:30] ou sofre @Damage[2d6[fire]] e fica fatigado.</p>"
+    },
+    "Khellendros": {
+     "name": "Khellendros",
+     "text": "<p><strong>Khellendros</strong> (azul) — a Desolação, o deserto que ele fez do norte de Abanasinia.</p><p>Para jogar: importe o <em>Ancient Blue Dragon</em> do bestiário legacy pela janela Dragões de Krynn, como Senhor Supremo. Ele fica elite, Imenso, imune ao medo, com o Medo Dracônico e o Totem de Crânios.</p><p><strong>O domínio</strong> Tempestades de areia e raios secos. Cada dia: @Check[survival|dc:30] para achar água, ou sofre @Damage[1d6[untyped]] e fica fatigado; raios atingem a criatura mais alta a céu aberto: @Damage[4d12[electricity]] (@Check[reflex|dc:30|basic]).</p>"
+    },
+    "Beryllinthranox": {
+     "name": "Beryllinthranox",
+     "text": "<p><strong>Beryllinthranox</strong> (verde) — a floresta de Qualinesti, crescida selvagem e sufocante.</p><p>Para jogar: importe o <em>Ancient Green Dragon</em> do bestiário legacy pela janela Dragões de Krynn, como Senhor Supremo. Ele fica elite, Imenso, imune ao medo, com o Medo Dracônico e o Totem de Crânios.</p><p><strong>O domínio</strong> A própria floresta vigia por ela. Cada hora de viagem: @Check[stealth|dc:30] ou os espiões dela contam onde você está; fora das velhas estradas, o mato é terreno difícil maior.</p>"
+    },
+    "Onysablet": {
+     "name": "Onysablet",
+     "text": "<p><strong>Onysablet</strong> (negro) — o grande pântano que ela fez crescer sobre a Nova Costa.</p><p>Para jogar: importe o <em>Ancient Black Dragon</em> do bestiário legacy pela janela Dragões de Krynn, como Senhor Supremo. Ele fica elite, Imenso, imune ao medo, com o Medo Dracônico e o Totem de Crânios.</p><p><strong>O domínio</strong> Água podre e enxames que picam. Cada dia: @Check[fortitude|dc:30] contra febre do pântano (a doença à escolha do mestre); perto do covil a água é ácida: @Damage[2d6[acid]] por rodada andando nela.</p>"
+    },
+    "Gellidus": {
+     "name": "Gellidus",
+     "text": "<p><strong>Gellidus</strong> (branco) — o sul de Ergoth, enterrado sob a sua geleira.</p><p>Para jogar: importe o <em>Ancient White Dragon</em> do bestiário legacy pela janela Dragões de Krynn, como Senhor Supremo. Ele fica elite, Imenso, imune ao medo, com o Medo Dracônico e o Totem de Crânios.</p><p><strong>O domínio</strong> Frio severo e nevascas cegantes. Cada hora ao ar livre sem roupa de frio: @Damage[2d6[cold]] (@Check[fortitude|dc:30|basic]); a visibilidade cai para 9 m nas tempestades.</p>"
+    }
+   }
   }
  }
 }

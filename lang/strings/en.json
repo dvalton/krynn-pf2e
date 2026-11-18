@@ -94,6 +94,18 @@
       "MoonMinLevel": {
         "Label": "Moons matter from level",
         "Hint": "The older rules left apprentices (levels 1 to 3) untouched by the moons. 1 means always."
+      },
+      "Throes": {
+        "Label": "Draconians' death throes",
+        "Hint": "What happens when a draconian drops to 0 Hit Points.",
+        "auto": "Automatic: the card, the token changes, the acid pool on the map",
+        "card": "Card only: the chat card with its damage and saves",
+        "off": "Off"
+      },
+      "Dragons": {
+        "Legend": "Dragons and draconians",
+        "FearCards": "Dragonfear when an encounter begins",
+        "FearCardsHint": "Post a card with the Will save for the enemies within each dragon's Dragonfear when combat starts."
       }
     },
     "Calendar": {
@@ -334,10 +346,11 @@
         "LifeEngine": "The Lifewrought engine is loaded",
         "LifeData": "The Lifewrought tables load",
         "LifeBuild": "A random life builds from this world's PF2e compendiums",
-        "Packs": "The compendiums of Krynn (magic, gods, peoples, backgrounds, orders, tables, guides)",
+        "Packs": "The compendiums of Krynn (magic, gods, peoples, backgrounds, orders, tables, creatures, dragons, relics, guides)",
         "CastGate": "Spells check the gods and the moons when cast",
         "MoonMagic": "Tonight's moon magic for the three Orders",
-        "LifePage": "The Lifewrought page finds its files"
+        "LifePage": "The Lifewrought page finds its files",
+        "Dragons": "Legacy dragons for the Dragons of Krynn window"
       }
     },
     "Language": {
@@ -543,6 +556,60 @@
       "Nothing": "No choices left to make.",
       "NotOwner": "Only the character's owner can finish its choices.",
       "NoSource": "{name} could not be found in its compendium; take it again by hand."
+    },
+    "Throes": {
+      "Title": "{name}: death throes",
+      "BaazStuck": "{who}'s {weapon} is caught in the stone:",
+      "TheWeapon": "weapon",
+      "StuckEffect": "Weapon Caught in Stone",
+      "SivakShape": "The body takes the shape of {who}, the one who killed it.",
+      "Burst": "Within {feet} feet:",
+      "Pool": "In the pool (it dries up after {rounds} rounds):",
+      "InReach": "In reach: {names}.",
+      "Frenzy": "It fights on for {rounds} rounds (Final Frenzy), then explodes.",
+      "PoolName": "Kapak acid pool"
+    },
+    "Dragons": {
+      "Title": "Dragons of Krynn",
+      "Open": "Dragons",
+      "Hint": "The chromatic and metallic dragons of your legacy bestiaries, brought into this world with the Krynn templates: Dragonfear, and for the Overlords the elite adjustment, Gargantuan size and the Skull Totem.",
+      "Overlords": "The Dragon Overlords (Age of Mortals)",
+      "Found": "Dragons in your compendiums",
+      "Bring": "Bring in",
+      "Missing": "base dragon not found",
+      "None": "No legacy dragons found. Enable the legacy bestiary in this world.",
+      "NoBase": "No {name} in your compendiums.",
+      "NotFound": "{name} not found.",
+      "NeedGM": "Only a GM can bring dragons in.",
+      "Imported": "{name} is in the Actors, in Dragons of Krynn.",
+      "Folder": "Dragons of Krynn",
+      "Immune": "immune",
+      "FearTitle": "{name}: Dragonfear",
+      "FearText": "Every enemy within {feet} feet attempts the Will save:",
+      "NearTotem": "Near the skull totem",
+      "Frenzy": "Final frenzy",
+      "Dragonbane": "Dragonlance",
+      "Dragonmetal": "Dragonmetal",
+      "Saddle": "Dragon saddle",
+      "Disks": "Disks of Mishakal",
+      "Staff": "Blue Crystal Staff",
+      "Color": {
+        "black": "Black",
+        "blue": "Blue",
+        "green": "Green",
+        "red": "Red",
+        "white": "White",
+        "brass": "Brass",
+        "bronze": "Bronze",
+        "copper": "Copper",
+        "gold": "Gold",
+        "silver": "Silver"
+      },
+      "Age": {
+        "young": "Young",
+        "adult": "Adult",
+        "ancient": "Ancient"
+      }
     }
   }
 }

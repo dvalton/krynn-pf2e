@@ -1,0 +1,24 @@
+<section class="krynn-dragons-list">
+  <p class="hint">{{localize "KRYNN.Dragons.Hint"}}</p>
+  <h3>{{localize "KRYNN.Dragons.Overlords"}}</h3>
+  <ul class="overlords">
+    {{#each overlords}}
+    <li>
+      <strong>{{name}}</strong> <span class="hint">{{color}} · {{base}}</span>
+      {{#if ready}}<button type="button" data-action="overlord" data-slug="{{slug}}"><i class="fa-solid fa-crown"></i> {{localize "KRYNN.Dragons.Bring"}}</button>
+      {{else}}<span class="hint">{{localize "KRYNN.Dragons.Missing"}}</span>{{/if}}
+    </li>
+    {{/each}}
+  </ul>
+  <h3>{{localize "KRYNN.Dragons.Found"}}</h3>
+  {{#if none}}<p class="hint">{{localize "KRYNN.Dragons.None"}}</p>{{/if}}
+  {{#each groups}}
+  <h4>{{color}}</h4>
+  <ul>
+    {{#each rows}}
+    <li>{{name}} <span class="hint">{{ageLabel}} · {{packLabel}}</span>
+      <button type="button" data-action="import" data-uuid="{{uuid}}"><i class="fa-solid fa-file-import"></i> {{localize "KRYNN.Dragons.Bring"}}</button></li>
+    {{/each}}
+  </ul>
+  {{/each}}
+</section>

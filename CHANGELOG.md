@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.5.0
+
+Dragons and draconians.
+
+- **Krynn: Draconians and Creatures**: the baaz, kapak, bozak, sivak and aurak, and eight more creatures of Krynn (bakali, thanoi, aghar, kyrie, spectral minion, dreamwraith, fireshadow, irda), built to the Monster Core's tables. Their abilities read in English or Portuguese, as each player's Foundry is set.
+- **Death throes, automated**: when a draconian drops to 0 Hit Points, a chat card rolls what happens, with PF2e's damage and save buttons. In automatic mode the token changes too:
+  - the baaz turns to stone, and the sword that killed it may be caught;
+  - the kapak melts into an acid pool on the map, which dries up after three rounds;
+  - the bozak's bones burst at everyone within 10 feet;
+  - the sivak takes the face of the humanoid who killed it, or bursts into flame;
+  - the aurak fights on for two rounds of Final Frenzy, then explodes.
+  The module remembers who struck the last blow from PF2e's own roll messages. A setting chooses automatic, card only, or off.
+- **Dragons of Krynn** (GM button in the Actors sidebar): finds the chromatic and metallic dragons of your legacy bestiaries and brings them in with **Dragonfear**, a stronger frightful presence whose reach depends on the dragon's age. When an encounter begins, the Will save is posted for every enemy in reach.
+- **The Dragon Overlords**: Malystryx, Khellendros, Beryllinthranox, Onysablet and Gellidus, built from the legacy ancient dragons: elite, Gargantuan, immune to fear, with the Skull Totem. Their realms are described as hazards in the GM Guides.
+- **Krynn: Dragons**: the footman's and mounted dragonlances (bane of dragons), the dragon saddle and dragon barding, and the effects the throes and dragonfear use.
+- **Krynn: Relics**: the Disks of Mishakal and the Blue Crystal Staff.
+- **Guides**: The Dragons of Krynn (dragonfear, dragonlances and riding, the good dragons' oath, draconians); GM Guides: The Dragon Overlords.
+- Self-test: the new compendiums and the legacy dragons found.
+
 ## 0.4.0
 
 Peoples and orders, and fixes for Lifewrought characters.

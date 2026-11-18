@@ -10,6 +10,8 @@ import { FEATS, EFFECTS, JOURNALS } from "../scripts/content/magic.mjs";
 import { DEITIES_PT } from "../scripts/content/deities-pt.mjs";
 import { HERITAGES, ANCESTRY_FEATS, BACKGROUNDS, TABLES } from "../scripts/content/peoples.mjs";
 import { ORDER_FEATS, ORDER_EFFECTS } from "../scripts/content/orders.mjs";
+import { CREATURES, stat, fill } from "../scripts/content/creatures.mjs";
+import { DRAGON_ACTIONS, DRAGON_EFFECTS, GEAR, RELICS, DRAGON_JOURNALS } from "../scripts/content/dragons.mjs";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const D = JSON.parse(fs.readFileSync(path.join(ROOT, "lifewrought/data.json"), "utf8"));
@@ -22,6 +24,9 @@ export const PACKS = [
   { name: "backgrounds", label: "Krynn: Backgrounds", labelPt: "Krynn: Antecedentes", type: "Item" },
   { name: "orders", label: "Krynn: Knightly Orders", labelPt: "Krynn: Ordens de Cavalaria", type: "Item" },
   { name: "tables", label: "Krynn: Tables", labelPt: "Krynn: Tabelas", type: "RollTable" },
+  { name: "creatures", label: "Krynn: Draconians and Creatures", labelPt: "Krynn: Draconianos e Criaturas", type: "Actor" },
+  { name: "dragons", label: "Krynn: Dragons", labelPt: "Krynn: Dragões", type: "Item" },
+  { name: "relics", label: "Krynn: Relics", labelPt: "Krynn: Relíquias", type: "Item" },
   { name: "guides", label: "Krynn: Guides", labelPt: "Krynn: Guias", type: "JournalEntry" },
   { name: "gm-guides", label: "Krynn: GM Guides", labelPt: "Krynn: Guias do Mestre", type: "JournalEntry", gmOnly: true },
 ];
@@ -35,7 +40,11 @@ const stats = { coreVersion: "14.370", systemId: "pf2e", systemVersion: "8.7.1" 
 const SKILL_FEATS = Object.fromEntries(D.build.skill_feats.map((x) => [x.name, x.uuid]));
 export function featUuid(name) { const u = SKILL_FEATS[name]; if (!u) throw new Error(`no PF2e skill feat named ${name}`); return u; }
 export const tableUuid = (slug) => `Compendium.krynn-pf2e.tables.RollTable.${id(`table:${slug}`)}`;
-export const links = (html) => html.replace(/@UUID\[TABLE:([\w-]+)\]/g, (_, s) => `@UUID[${tableUuid(s)}]`).replace(/@UUID\[FEAT:([^\]]+)\]/g, (_, n) => `@UUID[${featUuid(n)}]`);
+const itemPack = (slug) => (RELICS.some((r) => r.slug === slug) ? "relics" : "dragons");
+const itemKind = (slug) => (DRAGON_EFFECTS.some((e) => e.slug === slug) ? "effect" : [...GEAR, ...RELICS].some((g) => g.slug === slug) ? "gear" : "action");
+export const itemUuid = (slug) => `Compendium.krynn-pf2e.${itemPack(slug)}.Item.${id(`${itemKind(slug)}:${slug}`)}`;
+export const links = (html) => html.replace(/@UUID\[TABLE:([\w-]+)\]/g, (_, s) => `@UUID[${tableUuid(s)}]`).replace(/@UUID\[FEAT:([^\]]+)\]/g, (_, n) => `@UUID[${featUuid(n)}]`)
+  .replace(/@UUID\[(?:EFFECT|ITEM):([\w-]+)\]/g, (_, s) => `@UUID[${itemUuid(s)}]`).replace(/@UUID\[SPELL:([^\]]+)\]/g, (_, n) => `@UUID[${SPELL(n)}]`);
 const text = (t) => ({ en: links(t.en), pt: links(t.pt) });
 
 function feat(f) {
@@ -53,8 +62,8 @@ function feat(f) {
 function effect(e) {
   const _id = id(`effect:${e.slug}`);
   return { _id, _key: `!items!${_id}`, name: e.name.en, type: "effect", img: e.img, folder: null, sort: 0, flags: { "krynn-pf2e": { slug: e.slug } }, effects: [], ownership: { default: 0 }, _stats: stats,
-    system: { slug: e.slug, description: { value: e.description.en, gm: "" }, rules: e.rules, publication, level: { value: 1 }, traits: { value: [], rarity: "common", otherTags: [] },
-      duration: { value: -1, unit: "unlimited", expiry: null, sustained: false }, start: { value: 0, initiative: null }, tokenIcon: { show: true }, badge: null } };
+    system: { slug: e.slug, description: { value: links(e.description.en), gm: "" }, rules: e.rules, publication, level: { value: 1 }, traits: { value: [], rarity: "common", otherTags: [] },
+      duration: e.duration ? { value: e.duration.value, unit: e.duration.unit, expiry: "turn-start", sustained: false } : { value: -1, unit: "unlimited", expiry: null, sustained: false }, start: { value: 0, initiative: null }, tokenIcon: { show: true }, badge: null } };
 }
 
 const SPELLS = Object.fromEntries(D.build.spells.map((x) => [x.name, x.uuid]));
@@ -101,6 +110,69 @@ function table(t) {
       img: t.img, weight: 1, range: [i + 1, i + 1], drawn: false, flags: {}, _stats: stats }; }) };
 }
 
+// The Krynn templates and gear (packs "dragons" and "relics").
+function action(a) {
+  const _id = id(`action:${a.slug}`);
+  return { _id, _key: `!items!${_id}`, name: a.name.en, type: "action", img: a.img, folder: null, sort: 0, flags: { "krynn-pf2e": { slug: a.slug } }, effects: [], ownership: { default: 0 }, _stats: stats,
+    system: { slug: a.slug, actionType: { value: "passive" }, actions: { value: null }, category: "offensive", description: { value: links(a.description.en), gm: "" }, rules: a.rules || [], publication,
+      traits: { value: a.traits || [], rarity: "common", otherTags: [] } } };
+}
+function gear(g) {
+  const _id = id(`gear:${g.slug}`);
+  const base = { slug: g.slug, level: { value: g.level }, price: { value: { gp: g.price } }, quantity: 1, description: { value: links(g.description.en), gm: "" }, rules: g.rules || [], publication,
+    traits: { value: g.traits || g.system.traits || [], rarity: g.rarity, otherTags: [] }, hardness: 0, hp: { max: 0, value: 0 }, material: { grade: null, type: null }, size: "med", containerId: null,
+    equipped: { carryType: "worn", handsHeld: 0, invested: null } };
+  const { traits, ...sys } = g.system;
+  const system = { ...base, ...sys };
+  if (g.type === "weapon") Object.assign(system, { bonus: { value: 0 }, bonusDamage: { value: 0 }, splashDamage: { value: 0 }, range: null, reload: { value: null }, expend: null, ammo: null, runes: { potency: 0, striking: 0, property: [], ...(sys.runes || {}) } });
+  if (g.type === "armor") Object.assign(system, { runes: { potency: 0, resilient: 0, property: [] }, group: null, baseItem: null });
+  return { _id, _key: `!items!${_id}`, name: g.name.en, type: g.type, img: g.img, folder: null, sort: 0, flags: { "krynn-pf2e": { slug: g.slug } }, effects: [], ownership: { default: 0 }, _stats: stats, system };
+}
+
+// The creatures of Krynn as PF2e NPCs, from the building tables (scripts/content/creatures.mjs).
+const SIZE = { tiny: 0.5, sm: 1, med: 1, lg: 2, huge: 3, grg: 4 };
+const ACTION_TYPE = (a) => (typeof a === "number" ? { actionType: { value: "action" }, actions: { value: a } } : { actionType: { value: a }, actions: { value: null } });
+export function creature(c) {
+  const _id = id(`creature:${c.slug}`), L = c.level;
+  const items = [];
+  const item = (key, data) => { const iid = id(`creature:${c.slug}:${key}`); items.push({ _id: iid, _key: `!actors.items!${_id}.${iid}`, img: c.img, effects: [], flags: {}, sort: items.length * 100000, _stats: stats, ...data }); };
+  for (const [name, t, dmg, type, traits] of c.strikes) {
+    const range = traits.map((x) => /^(?:range|thrown)-(\d+)$/.exec(x)).find(Boolean);
+    item(`strike:${name}`, { name, type: "melee", system: { slug: null, bonus: { value: stat.atk(L, t) }, damageRolls: { [id(`dmg:${c.slug}:${name}`).toLowerCase()]: { damage: dmg === "dmg" ? stat.dmg(L, t) : dmg, damageType: type } },
+      traits: { value: traits.filter((x) => !/^range-\d+$/.test(x)), rarity: "common" }, attack: { value: "" }, attackEffects: { custom: "", value: [] }, description: { value: "" }, range: range ? { increment: Number(range[1]), max: null } : null, rules: [], publication } });
+  }
+  for (const [slug, name, act, traits, text, rules] of c.actions) {
+    const desc = text.en.startsWith("@Localize") ? text.en : `@Localize[KRYNN.Bestiary.${c.slug}.${slug}]`;
+    item(`action:${slug}`, { name: name.en, type: "action", flags: { "krynn-pf2e": { slug } }, system: { slug, ...ACTION_TYPE(act), category: act === "passive" || act === "reaction" ? "defensive" : "offensive",
+      description: { value: desc }, rules: rules || [], traits: { value: traits, rarity: "common" }, publication } });
+  }
+  const a = c.abilities, sz = SIZE[c.size];
+  return {
+    _id, _key: `!actors!${_id}`, name: c.name.en, type: "npc", img: c.img, folder: null, sort: 0, ownership: { default: 0 }, _stats: stats,
+    flags: { "krynn-pf2e": { slug: c.slug, ...(c.draconian ? { draconian: c.draconian } : {}) } },
+    prototypeToken: { name: c.name.en, texture: { src: c.img }, width: sz, height: sz, disposition: -1, actorLink: false, displayName: 20, displayBars: 20, bar1: { attribute: "attributes.hp" } },
+    items,
+    system: {
+      abilities: Object.fromEntries(Object.entries(a).map(([k, v]) => [k, { mod: v }])),
+      attributes: {
+        ac: { value: stat.ac(L, c.ac), details: "" }, allSaves: { value: "" },
+        hp: { value: stat.hp(L, c.hp), max: stat.hp(L, c.hp), temp: 0, details: "" },
+        speed: { value: c.speed, otherSpeeds: c.other.map(([type, value]) => ({ type, value })) },
+        immunities: (c.immunities || []).map((type) => ({ type })),
+        resistances: (c.resistances || []).map(([type, value, exceptions]) => ({ type, value, ...(exceptions ? { exceptions } : {}) })),
+        weaknesses: (c.weaknesses || []).map(([type, value]) => ({ type, value })),
+      },
+      details: { level: { value: L }, blurb: "", languages: { value: c.languages, details: "" }, publicNotes: `@Localize[KRYNN.Bestiary.${c.slug}.Notes]`, privateNotes: "", publication },
+      initiative: { statistic: "perception" },
+      perception: { mod: stat.save(L, c.perception), senses: c.senses.map((type) => ({ type })), details: "" },
+      saves: Object.fromEntries(Object.entries(c.saves).map(([k, t]) => [k, { value: stat.save(L, t), saveDetail: "" }])),
+      skills: Object.fromEntries(Object.entries(c.skills).map(([k, t]) => [k, { base: stat.skill(L, t) }])),
+      traits: { rarity: "common", size: { value: c.size }, value: c.traits },
+      resources: {},
+    },
+  };
+}
+
 function journal(j) {
   const _id = id(`journal:${j.slug}`);
   return { _id, _key: `!journal!${_id}`, name: j.name.en, folder: null, sort: 0, flags: { "krynn-pf2e": { slug: j.slug } }, ownership: { default: 0 }, _stats: stats, categories: [],
@@ -108,6 +180,7 @@ function journal(j) {
       title: { show: true, level: 1 }, text: { content: pg.text.en, format: 1 }, flags: {}, ownership: { default: -1 }, _stats: stats }; }) };
 }
 
+const ALL_JOURNALS = [...JOURNALS, ...DRAGON_JOURNALS];
 export function buildDocs() {
   return {
     magic: [...FEATS.map(feat), ...EFFECTS.map(effect)],
@@ -116,8 +189,11 @@ export function buildDocs() {
     backgrounds: BACKGROUNDS.map(background),
     orders: [...ORDER_FEATS.map((f) => feat({ category: "class", ...f })), ...ORDER_EFFECTS.map(effect)],
     tables: TABLES.map(table),
-    guides: JOURNALS.filter((j) => !j.gmOnly).map(journal),
-    "gm-guides": JOURNALS.filter((j) => j.gmOnly).map(journal),
+    creatures: CREATURES.map(creature),
+    dragons: [...DRAGON_ACTIONS.map(action), ...DRAGON_EFFECTS.map(effect), ...GEAR.map(gear)],
+    relics: RELICS.map(gear),
+    guides: ALL_JOURNALS.filter((j) => !j.gmOnly).map(journal),
+    "gm-guides": ALL_JOURNALS.filter((j) => j.gmOnly).map(journal),
   };
 }
 
@@ -128,6 +204,9 @@ export function buildBabele() {
     peoples: { label: "Krynn: Povos", mapping: { description: "system.description.value" }, entries: entries([...HERITAGES, ...ANCESTRY_FEATS]) },
     backgrounds: { label: "Krynn: Antecedentes", mapping: { description: "system.description.value" }, entries: entries(BACKGROUNDS) },
     orders: { label: "Krynn: Ordens de Cavalaria", mapping: { description: "system.description.value" }, entries: entries([...ORDER_FEATS, ...ORDER_EFFECTS]) },
+    creatures: { label: "Krynn: Draconianos e Criaturas", entries: Object.fromEntries(CREATURES.map((c) => [c.name.en, { name: c.name.pt, tokenName: c.name.pt }])) },
+    dragons: { label: "Krynn: Dragões", mapping: { description: "system.description.value" }, entries: entries([...DRAGON_ACTIONS, ...DRAGON_EFFECTS, ...GEAR]) },
+    relics: { label: "Krynn: Relíquias", mapping: { description: "system.description.value" }, entries: entries(RELICS) },
     tables: { label: "Krynn: Tabelas", entries: Object.fromEntries(TABLES.map((t) => [t.name.en, { name: t.name.pt,
       results: Object.fromEntries(t.results.map(([, pt], i) => [`${i + 1}-${i + 1}`, pt])) }])) },
     magic: { label: "Krynn: Magia", mapping: { description: "system.description.value" },
@@ -137,7 +216,7 @@ export function buildBabele() {
   };
   for (const [pack, gm] of [["guides", false], ["gm-guides", true]]) {
     out[pack] = { label: gm ? "Krynn: Guias do Mestre" : "Krynn: Guias",
-      entries: Object.fromEntries(JOURNALS.filter((j) => !!j.gmOnly === gm).map((j) => [j.name.en, { name: j.name.pt,
+      entries: Object.fromEntries(ALL_JOURNALS.filter((j) => !!j.gmOnly === gm).map((j) => [j.name.en, { name: j.name.pt,
         pages: Object.fromEntries(j.pages.map((pg) => [pg.name.en, { name: pg.name.pt, text: pg.text.pt }])) }])) };
   }
   return out;

@@ -16,6 +16,8 @@ import { syncAll, syncActor, onItemChange, magicFor, robeOf } from "./foundry/ma
 import { installCastGate } from "./foundry/magic/gate.mjs";
 import { openFactions, FactionsApp } from "./foundry/peoples/factions.mjs";
 import { finishChoices, pendingChoices, sheetNotice, headerButtons } from "./foundry/lifewrought/finish.mjs";
+import { rememberHit, onActorUpdate, onCombatRound, runThroes } from "./foundry/dragons/throes.mjs";
+import { openDragons, importDragon, findDragons, onCombatStart, DragonsApp } from "./foundry/dragons/dragons.mjs";
 
 Hooks.once("init", () => {
   registerSettings();
@@ -24,6 +26,7 @@ Hooks.once("init", () => {
   const api = { now, setDate, sky: skyNow, state: stateNow, formatDate, openSky, selfTest, refresh: refreshSky, ages, moons, calendar,
     life: { open: openLife, lives: openLives, create: createCharacter, dryRun, LifeApp, finishChoices, pendingChoices },
     factions: { open: openFactions, FactionsApp },
+    dragons: { open: openDragons, import: importDragon, find: findDragons, throes: runThroes, DragonsApp },
     magic: { syncAll, syncActor, magicFor, robeOf } };
   game.modules.get(MODULE_ID).api = api;
   globalThis.krynn = api;
@@ -45,7 +48,16 @@ Hooks.once("ready", async () => {
 
 for (const hook of ["createItem", "updateItem", "deleteItem"]) Hooks.on(hook, (item) => onItemChange(item));
 
-Hooks.on("renderActorDirectory", (app, html) => addDirectoryButtons(app, html));
+Hooks.on("renderActorDirectory", (app, html) => addDirectoryButtons(app, html, { openDragons }));
+
+// Dragons and draconians: who hit whom, the death throes at 0 HP, dragonfear when an encounter begins, the acid
+// pools drying up as rounds pass.
+Hooks.on("createChatMessage", (message) => rememberHit(message));
+Hooks.on("updateActor", (actor, changes) => onActorUpdate(actor, changes));
+// An unlinked token's HP lives in its delta: the same check, from the token's side (the flag keeps it to once).
+Hooks.on("updateToken", (token, changes) => { if (changes.delta?.system && token.actor) onActorUpdate(token.actor, changes.delta); });
+Hooks.on("combatStart", (combat) => onCombatStart(combat));
+Hooks.on("combatRound", (combat) => onCombatRound(combat));
 
 // The character sheet: a Factions button, and a note while PF2e choices are still open.
 Hooks.on("getActorSheetHeaderButtons", (sheet, buttons) => headerButtons(sheet, buttons, { openFactions }));

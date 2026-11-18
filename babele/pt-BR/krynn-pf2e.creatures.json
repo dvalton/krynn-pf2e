@@ -1,0 +1,57 @@
+{
+ "label": "Krynn: Draconianos e Criaturas",
+ "entries": {
+  "Baaz Draconian": {
+   "name": "Draconiano Baaz",
+   "tokenName": "Draconiano Baaz"
+  },
+  "Kapak Draconian": {
+   "name": "Draconiano Kapak",
+   "tokenName": "Draconiano Kapak"
+  },
+  "Bozak Draconian": {
+   "name": "Draconiano Bozak",
+   "tokenName": "Draconiano Bozak"
+  },
+  "Sivak Draconian": {
+   "name": "Draconiano Sivak",
+   "tokenName": "Draconiano Sivak"
+  },
+  "Aurak Draconian": {
+   "name": "Draconiano Aurak",
+   "tokenName": "Draconiano Aurak"
+  },
+  "Bakali Warrior": {
+   "name": "Guerreiro Bakali",
+   "tokenName": "Guerreiro Bakali"
+  },
+  "Thanoi Hunter": {
+   "name": "Caçador Thanoi",
+   "tokenName": "Caçador Thanoi"
+  },
+  "Aghar Scrounger": {
+   "name": "Catador Aghar",
+   "tokenName": "Catador Aghar"
+  },
+  "Kyrie Skywatcher": {
+   "name": "Vigia do Céu Kyrie",
+   "tokenName": "Vigia do Céu Kyrie"
+  },
+  "Spectral Minion": {
+   "name": "Servo Espectral",
+   "tokenName": "Servo Espectral"
+  },
+  "Dreamwraith": {
+   "name": "Espectro Onírico",
+   "tokenName": "Espectro Onírico"
+  },
+  "Fireshadow": {
+   "name": "Sombra de Fogo",
+   "tokenName": "Sombra de Fogo"
+  },
+  "Irda Wanderer": {
+   "name": "Andarilho Irda",
+   "tokenName": "Andarilho Irda"
+  }
+ }
+}

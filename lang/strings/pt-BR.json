@@ -94,6 +94,18 @@
       "MoonMinLevel": {
         "Label": "As luas contam a partir do nível",
         "Hint": "As regras antigas deixavam os aprendizes (níveis 1 a 3) fora do alcance das luas. 1 quer dizer sempre."
+      },
+      "Throes": {
+        "Label": "Estertores dos draconianos",
+        "Hint": "O que acontece quando um draconiano chega a 0 Pontos de Vida.",
+        "auto": "Automático: o card, o token muda, a poça de ácido no mapa",
+        "card": "Só o card: o card do chat com o dano e os testes",
+        "off": "Desligado"
+      },
+      "Dragons": {
+        "Legend": "Dragões e draconianos",
+        "FearCards": "Medo dracônico quando um encontro começa",
+        "FearCardsHint": "Posta um card com o teste de Vontade para os inimigos ao alcance do Medo Dracônico de cada dragão quando o combate começa."
       }
     },
     "Calendar": {
@@ -334,10 +346,11 @@
         "LifeEngine": "O motor do Lifewrought está carregado",
         "LifeData": "As tabelas do Lifewrought carregam",
         "LifeBuild": "Uma vida aleatória é montada com os compêndios de PF2e deste mundo",
-        "Packs": "Os compêndios de Krynn (magia, deuses, povos, antecedentes, ordens, tabelas, guias)",
+        "Packs": "Os compêndios de Krynn (magia, deuses, povos, antecedentes, ordens, tabelas, criaturas, dragões, relíquias, guias)",
         "CastGate": "As magias consultam os deuses e as luas ao serem lançadas",
         "MoonMagic": "A magia lunar desta noite para as três Ordens",
-        "LifePage": "A página do Lifewrought encontra seus arquivos"
+        "LifePage": "A página do Lifewrought encontra seus arquivos",
+        "Dragons": "Dragões legacy para a janela Dragões de Krynn"
       }
     },
     "Language": {
@@ -543,6 +556,60 @@
       "Nothing": "Não há escolhas a fazer.",
       "NotOwner": "Só o dono do personagem pode concluir as escolhas.",
       "NoSource": "{name} não foi encontrado no compêndio; pegue de novo à mão."
+    },
+    "Throes": {
+      "Title": "{name}: estertores",
+      "BaazStuck": "A arma de {who} ({weapon}) fica presa na pedra:",
+      "TheWeapon": "arma",
+      "StuckEffect": "Arma Presa na Pedra",
+      "SivakShape": "O corpo assume a forma de {who}, quem o matou.",
+      "Burst": "A até {m} m:",
+      "Pool": "Na poça (seca depois de {rounds} rodadas):",
+      "InReach": "Ao alcance: {names}.",
+      "Frenzy": "Continua lutando por {rounds} rodadas (Frenesi Final), e então explode.",
+      "PoolName": "Poça de ácido do kapak"
+    },
+    "Dragons": {
+      "Title": "Dragões de Krynn",
+      "Open": "Dragões",
+      "Hint": "Os dragões cromáticos e metálicos dos seus bestiários legacy, trazidos para este mundo com os modelos de Krynn: Medo Dracônico e, para os Senhores Supremos, o ajuste de elite, o tamanho Imenso e o Totem de Crânios.",
+      "Overlords": "Os Senhores Supremos Dracônicos (Era dos Mortais)",
+      "Found": "Dragões nos seus compêndios",
+      "Bring": "Trazer",
+      "Missing": "dragão-base não encontrado",
+      "None": "Nenhum dragão legacy encontrado. Ative o bestiário legacy neste mundo.",
+      "NoBase": "Não há {name} nos seus compêndios.",
+      "NotFound": "{name} não encontrado.",
+      "NeedGM": "Só o mestre pode trazer dragões.",
+      "Imported": "{name} está nos Atores, em Dragões de Krynn.",
+      "Folder": "Dragões de Krynn",
+      "Immune": "imune",
+      "FearTitle": "{name}: Medo Dracônico",
+      "FearText": "Cada inimigo a até {m} m faz o teste de Vontade:",
+      "NearTotem": "Perto do totem de crânios",
+      "Frenzy": "Frenesi final",
+      "Dragonbane": "Lança do Dragão",
+      "Dragonmetal": "Metal dracônico",
+      "Saddle": "Sela de dragão",
+      "Disks": "Discos de Mishakal",
+      "Staff": "Cajado de Cristal Azul",
+      "Color": {
+        "black": "Negro",
+        "blue": "Azul",
+        "green": "Verde",
+        "red": "Vermelho",
+        "white": "Branco",
+        "brass": "Latão",
+        "bronze": "Bronze",
+        "copper": "Cobre",
+        "gold": "Ouro",
+        "silver": "Prata"
+      },
+      "Age": {
+        "young": "Jovem",
+        "adult": "Adulto",
+        "ancient": "Ancião"
+      }
     }
   }
 }

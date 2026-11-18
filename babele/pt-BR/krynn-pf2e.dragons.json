@@ -1,0 +1,44 @@
+{
+ "label": "Krynn: Dragões",
+ "mapping": {
+  "description": "system.description.value"
+ },
+ "entries": {
+  "Dragonfear": {
+   "name": "Medo Dracônico",
+   "description": "<p>27 m (18 para um dragão jovem, 36 para um ancião). @Check[will|dc:resolve(16 + @actor.level + floor(@actor.level / 3))|traits:emotion,fear,mental|options:area-effect,inflicts:frightened]</p><p>Um dragão de Krynn é um terror saído das lendas. Uma criatura que entre na aura ou comece o turno nela faz um teste de Vontade, uma vez por encontro. Criaturas de nível maior que o dragão não são afetadas.</p><p><strong>Sucesso</strong> A criatura não é afetada e recebe @UUID[Compendium.krynn-pf2e.dragons.Item.cZHNeS0LyKYoaUkE]{Encarou o Medo Dracônico} deste dragão.</p><p><strong>Falha</strong> A criatura fica @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Amedrontada 2}.</p><p><strong>Falha Crítica</strong> Como na falha, e a criatura fica fugindo por 1 rodada.</p><p>Quando um encontro começa, o módulo Krynn posta o teste para cada inimigo ao alcance.</p>"
+  },
+  "Dragon Overlord": {
+   "name": "Senhor Supremo Dracônico",
+   "description": "<p>Este dragão é um dos Senhores Supremos da Era dos Mortais: enorme, antigo, e engordado com os dragões de Ansalon. É elite (o módulo aplica o ajuste), imune ao medo, e não pode ser surpreendido em seu domínio.</p><p>Enquanto estiver no seu domínio a até 1,5 km do seu @UUID[Compendium.krynn-pf2e.relics.Item.YwnBHdoB0sFzUe5l]{totem de crânios}, ligue a opção: recebe +1 de bônus de status na CA, testes de resistência e CDs. Seu domínio transforma a terra ao redor (veja Os Senhores Supremos Dracônicos nos Guias do Mestre).</p>"
+  },
+  "Faced Dragonfear": {
+   "name": "Encarou o Medo Dracônico",
+   "description": "<p>Esta criatura encarou o medo dracônico deste dragão e está imune a ele por 1 dia.</p>"
+  },
+  "Weapon Caught in Stone": {
+   "name": "Arma Presa na Pedra",
+   "description": "<p>Um baaz virou pedra em volta da arma desta criatura. A arma não pode ser usada até a estátua desmoronar no início do próximo turno do baaz, ou até o portador passar num teste de Atletismo para Forçar Abertura.</p>"
+  },
+  "Aurak's Final Frenzy": {
+   "name": "Frenesi Final do Aurak",
+   "description": "<p>Envolto em fogo verde, o aurak continua lutando com 0 Pontos de Vida: não pode ser reduzido mais e só age para atacar. Quando este efeito acaba, ele explode (veja seus Estertores).</p>"
+  },
+  "Footman's Dragonlance": {
+   "name": "Lança do Dragão de Infantaria",
+   "description": "<p>Uma longa lança de metal dracônico prateado, forjada com a ajuda de um deus para a guerra contra os dragões da Rainha das Trevas. É uma arma <em>+2 poderosa</em>.</p><p>Contra um dragão, Golpes com ela recebem +1 de bônus de status na jogada de ataque e causam 2d8 de dano espiritual extra. Enquanto a empunha, você recebe +2 de bônus circunstancial em testes de resistência contra efeitos de criaturas com o trait dragão (o sopro de um dragão).</p>"
+  },
+  "Mounted Dragonlance": {
+   "name": "Lança do Dragão de Montaria",
+   "description": "<p>A grande lança do dragão, pesada demais para usar a pé, feita para ser apoiada numa sela de dragão e levada aos céus por um dragão bondoso. É uma arma <em>+2 poderosa maior</em>.</p><p>Apoiada numa @UUID[Compendium.krynn-pf2e.dragons.Item.hUuFlpGsJKI8RiSp]{sela de dragão}, é empunhada com uma mão. Contra um dragão, Golpes com ela recebem +1 de bônus de status na jogada de ataque e causam 3d8 de dano espiritual extra; você recebe +2 de bônus circunstancial em testes contra efeitos de dragões enquanto a empunha.</p>"
+  },
+  "Dragon Saddle": {
+   "name": "Sela de Dragão",
+   "description": "<p>Uma sela de encosto alto com tiras para as pernas e um encaixe para a lança do dragão de montaria, feita para montar um dragão no ar. Enquanto a monta, você recebe +2 de bônus circunstancial nas CDs de Fortitude e Reflexos contra ser Empurrado, Derrubado ou Reposicionado da montaria, e não cai dela a menos que queira ou esteja inconsciente.</p>"
+  },
+  "Dragon Barding": {
+   "name": "Armadura de Dragão",
+   "description": "<p>Placas de aço moldadas para o peito e o pescoço de um dragão, usadas pelos dragões bondosos que lutam ao lado dos exércitos da Pedra Branca.</p>"
+  }
+ }
+}

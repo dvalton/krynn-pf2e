@@ -8,6 +8,7 @@ import { KRYNN_LANGUAGES, KRYNN_CREATURE_TRAITS } from "./homebrew.mjs";
 import { lwData } from "./lifewrought/engine.mjs";
 import { dryRun } from "./lifewrought/create.mjs";
 import { castGateInstalled } from "./magic/gate.mjs";
+import { findDragons } from "./dragons/dragons.mjs";
 import { moonMagic } from "../logic/magic.mjs";
 
 const newer = (have, need) => foundry.utils.isNewerVersion(have, need) || have === need;
@@ -39,9 +40,12 @@ export async function selfTest({ seed } = {}) {
   check("Banner", !game.settings.get(MODULE_ID, "showBanner") || document.getElementById("krynn-banner"));
 
   // Magic: the compendiums, the gate at casting, and tonight's moon magic for each order.
-  const packs = ["magic", "deities", "peoples", "backgrounds", "orders", "tables", "guides", "gm-guides"].map((p) => game.packs.get(`${MODULE_ID}.${p}`));
+  const packs = ["magic", "deities", "peoples", "backgrounds", "orders", "tables", "creatures", "dragons", "relics", "guides", "gm-guides"].map((p) => game.packs.get(`${MODULE_ID}.${p}`));
   check("Packs", packs.every((p) => p && p.index.size > 0), packs.map((p) => (p ? p.index.size : "×")).join(" · "));
   check("CastGate", castGateInstalled());
+  // The legacy dragons the Dragons of Krynn window can bring in.
+  const dragons = findDragons();
+  check("Dragons", dragons.length > 0, `${dragons.length}`);
   const tonight = ["white", "red", "black"].map((robe) => moonMagic({ mode: setting("moonMagic"), robe, sky, moons: true }));
   check("MoonMagic", true, tonight.map((m, i) => `${["W", "R", "B"][i]} ${m ? (m.value > 0 ? "+" : "") + m.value : "0"}`).join(" "));
 

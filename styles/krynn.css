@@ -91,3 +91,11 @@
 .krynn-finish { display: flex; align-items: center; gap: 8px; margin: 4px 8px; padding: 6px 10px; border: 1px solid #c9a24b; border-radius: 4px; background: rgba(201, 162, 75, 0.15); }
 .krynn-finish span { flex: 1; }
 .krynn-finish button { flex: 0 0 auto; width: auto; }
+
+/* 0.5: dragons and death throes */
+.krynn-dragons-list { overflow-y: auto; max-height: 100%; }
+.krynn-dragons-list ul { list-style: none; padding: 0; margin: 0 0 8px; }
+.krynn-dragons-list li { display: flex; align-items: center; gap: 8px; padding: 3px 0; border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
+.krynn-dragons-list li .hint { flex: 1; }
+.krynn-dragons-list li button { flex: 0 0 auto; width: auto; }
+.krynn-card.krynn-throes h3, .krynn-card.krynn-dragonfear h3 { color: #7a1f24; }

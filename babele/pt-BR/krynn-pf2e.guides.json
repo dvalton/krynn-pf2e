@@ -21,6 +21,27 @@
      "text": "<p>De 384 a 420 DC os deuses e as luas da magia se foram. Duas magias novas preenchem o silêncio:</p><p>O <strong>misticismo</strong>, o poder do coração ensinado na Cidadela da Luz: um conjurador divino com o talento <strong>Místico do Coração</strong> mantém suas magias sem um deus.</p><p>A <strong>feitiçaria primordial</strong>, a magia selvagem do mundo: um conjurador arcano com o talento <strong>Feiticeiro Primordial</strong> mantém suas magias sem as luas.</p><p>Magos das Ordens sem a feitiçaria primordial veem a Alta Feitiçaria falhar (estrita) ou vacilar (aviso), conforme o mestre escolheu.</p>"
     }
    }
+  },
+  "The Dragons of Krynn": {
+   "name": "Os Dragões de Krynn",
+   "pages": {
+    "Dragonfear": {
+     "name": "Medo Dracônico",
+     "text": "<p>Os dragões de Krynn não são feras: são poderes do mundo, e servos dos próprios deuses. Quando um se mostra, exércitos se desfazem. No jogo, todo dragão trazido pelo módulo tem <strong>Medo Dracônico</strong>, mais forte que a presença aterradora: amedrontado 2 na falha, e também fugindo na falha crítica.</p><p>O módulo posta o teste de Vontade para cada inimigo ao alcance quando um encontro começa. Quem passa fica imune àquele dragão por um dia.</p>"
+    },
+    "Dragonlances and Riding": {
+     "name": "Lanças do Dragão e Montaria",
+     "text": "<p>As lanças do dragão foram forjadas de metal dracônico com a ajuda de um deus, e dadas aos cavaleiros que montariam os dragões bondosos contra as revoadas da Rainha das Trevas. A <em>lança do dragão de infantaria</em> se usa a pé; a <em>de montaria</em> se apoia numa <em>sela de dragão</em>.</p><p>Um dragão bondoso que deixa um mortal montá-lo está escolhendo esse cavaleiro; nunca é uma montaria como um cavalo. Pergunte ao dragão, não ao cavaleiro, para onde eles voam.</p>"
+    },
+    "The Good Dragons' Oath": {
+     "name": "O Juramento dos Dragões Bondosos",
+     "text": "<p>Depois da última grande guerra contra a Rainha das Trevas, os dragões metálicos juraram ficar fora das guerras dos mortais. Enquanto o juramento vale, eles não lutam, nem quando os dragões cromáticos voltam. O juramento se rompe quando os dragões bondosos descobrem o que foi feito com seus ovos, e eles voltam à guerra.</p><p>No jogo: antes disso, um dragão metálico encontrado no mundo é um eremita, um enigma ou um disfarce, não um aliado de batalha.</p>"
+    },
+    "Draconians": {
+     "name": "Draconianos",
+     "text": "<p>Os draconianos foram feitos dos ovos roubados dos dragões bondosos, corrompidos por sacerdotes e magos das trevas. Cada tipo morre do seu jeito, e essas mortes são perigosas: o baaz vira pedra em volta da lâmina que o matou, o kapak derrete em ácido, os ossos do bozak explodem, o sivak toma o rosto de quem o matou, o aurak continua lutando em fogo verde e explode.</p><p>O módulo executa esses estertores quando um draconiano chega a 0 Pontos de Vida: o card do chat rola o dano e os testes, o token muda, e a poça de ácido aparece no mapa e seca depois de três rodadas.</p>"
+    }
+   }
   }
  }
 }

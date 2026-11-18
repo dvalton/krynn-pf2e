@@ -94,6 +94,18 @@
    "MoonMinLevel": {
     "Label": "As luas contam a partir do nível",
     "Hint": "As regras antigas deixavam os aprendizes (níveis 1 a 3) fora do alcance das luas. 1 quer dizer sempre."
+   },
+   "Throes": {
+    "Label": "Estertores dos draconianos",
+    "Hint": "O que acontece quando um draconiano chega a 0 Pontos de Vida.",
+    "auto": "Automático: o card, o token muda, a poça de ácido no mapa",
+    "card": "Só o card: o card do chat com o dano e os testes",
+    "off": "Desligado"
+   },
+   "Dragons": {
+    "Legend": "Dragões e draconianos",
+    "FearCards": "Medo dracônico quando um encontro começa",
+    "FearCardsHint": "Posta um card com o teste de Vontade para os inimigos ao alcance do Medo Dracônico de cada dragão quando o combate começa."
    }
   },
   "Calendar": {
@@ -710,10 +722,11 @@
     "LifeEngine": "O motor do Lifewrought está carregado",
     "LifeData": "As tabelas do Lifewrought carregam",
     "LifeBuild": "Uma vida aleatória é montada com os compêndios de PF2e deste mundo",
-    "Packs": "Os compêndios de Krynn (magia, deuses, povos, antecedentes, ordens, tabelas, guias)",
+    "Packs": "Os compêndios de Krynn (magia, deuses, povos, antecedentes, ordens, tabelas, criaturas, dragões, relíquias, guias)",
     "CastGate": "As magias consultam os deuses e as luas ao serem lançadas",
     "MoonMagic": "A magia lunar desta noite para as três Ordens",
-    "LifePage": "A página do Lifewrought encontra seus arquivos"
+    "LifePage": "A página do Lifewrought encontra seus arquivos",
+    "Dragons": "Dragões legacy para a janela Dragões de Krynn"
    }
   },
   "Language": {
@@ -919,6 +932,137 @@
    "Nothing": "Não há escolhas a fazer.",
    "NotOwner": "Só o dono do personagem pode concluir as escolhas.",
    "NoSource": "{name} não foi encontrado no compêndio; pegue de novo à mão."
+  },
+  "Throes": {
+   "Title": "{name}: estertores",
+   "BaazStuck": "A arma de {who} ({weapon}) fica presa na pedra:",
+   "TheWeapon": "arma",
+   "StuckEffect": "Arma Presa na Pedra",
+   "SivakShape": "O corpo assume a forma de {who}, quem o matou.",
+   "Burst": "A até {m} m:",
+   "Pool": "Na poça (seca depois de {rounds} rodadas):",
+   "InReach": "Ao alcance: {names}.",
+   "Frenzy": "Continua lutando por {rounds} rodadas (Frenesi Final), e então explode.",
+   "PoolName": "Poça de ácido do kapak"
+  },
+  "Dragons": {
+   "Title": "Dragões de Krynn",
+   "Open": "Dragões",
+   "Hint": "Os dragões cromáticos e metálicos dos seus bestiários legacy, trazidos para este mundo com os modelos de Krynn: Medo Dracônico e, para os Senhores Supremos, o ajuste de elite, o tamanho Imenso e o Totem de Crânios.",
+   "Overlords": "Os Senhores Supremos Dracônicos (Era dos Mortais)",
+   "Found": "Dragões nos seus compêndios",
+   "Bring": "Trazer",
+   "Missing": "dragão-base não encontrado",
+   "None": "Nenhum dragão legacy encontrado. Ative o bestiário legacy neste mundo.",
+   "NoBase": "Não há {name} nos seus compêndios.",
+   "NotFound": "{name} não encontrado.",
+   "NeedGM": "Só o mestre pode trazer dragões.",
+   "Imported": "{name} está nos Atores, em Dragões de Krynn.",
+   "Folder": "Dragões de Krynn",
+   "Immune": "imune",
+   "FearTitle": "{name}: Medo Dracônico",
+   "FearText": "Cada inimigo a até {m} m faz o teste de Vontade:",
+   "NearTotem": "Perto do totem de crânios",
+   "Frenzy": "Frenesi final",
+   "Dragonbane": "Lança do Dragão",
+   "Dragonmetal": "Metal dracônico",
+   "Saddle": "Sela de dragão",
+   "Disks": "Discos de Mishakal",
+   "Staff": "Cajado de Cristal Azul",
+   "Color": {
+    "black": "Negro",
+    "blue": "Azul",
+    "green": "Verde",
+    "red": "Vermelho",
+    "white": "Branco",
+    "brass": "Latão",
+    "bronze": "Bronze",
+    "copper": "Cobre",
+    "gold": "Ouro",
+    "silver": "Prata"
+   },
+   "Age": {
+    "young": "Jovem",
+    "adult": "Adulto",
+    "ancient": "Ancião"
+   }
+  },
+  "Bestiary": {
+   "baaz-draconian": {
+    "Notes": "<p>O mais comum dos draconianos: soldados feitos para ser muitos, barulhentos e de raiva fácil. Nascidos de ovos corrompidos de dragões de latão.</p>",
+    "glide": "As asas curtas do draconiano não o erguem, mas ele não sofre dano de queda e pode se mover 1,5 m para o lado a cada 3 m que cai.",
+    "brute-rush": "O baaz Anda duas vezes e faz um Golpe de espada longa. Se acertar, o alvo é empurrado 1,5 m."
+   },
+   "kapak-draconian": {
+    "Notes": "<p>Batedores, assassinos e sabotadores dos exércitos dracônicos, com veneno na boca. Nascidos de ovos de dragões de cobre.</p>",
+    "sneak-attack": "O kapak causa 1d6 de dano de precisão extra a criaturas desprevenidas.",
+    "toxic-saliva": "O kapak lambe a lâmina. O próximo Golpe dele que acertar antes do fim do turno expõe o alvo ao veneno de kapak.<hr />@Localize[KRYNN.Bestiary.Venom.kapak]"
+   },
+   "bozak-draconian": {
+    "Notes": "<p>Feiticeiros e sargentos, os bozaks comandam os draconianos menores com magia e medo. Nascidos de ovos de dragões de bronze.</p>",
+    "sorcerous-blast": "Um cone de 4,5 m de fogo vermelho: @Damage[3d6[fire]] de dano, @Check[reflex|dc:18|basic].",
+    "web-of-shadows": "<strong>Frequência</strong> uma vez por hora<hr />Fios pegajosos enchem uma explosão de 3 m a até 18 m. Cada criatura ali faz @Check[reflex|dc:18]. <strong>Falha</strong> imobilizada por 1 rodada ou até Escapar. <strong>Falha Crítica</strong> também contida até Escapar.",
+    "commander": "Um baaz ou kapak a até 9 m que ouça o bozak recebe +1 de bônus de status na próxima jogada de ataque nesta rodada."
+   },
+   "sivak-draconian": {
+    "Notes": "<p>Grandes, alados e astutos, os sivaks são os caçadores e infiltradores dos exércitos dracônicos. Nascidos de ovos de dragões de prata.</p>",
+    "take-the-face": "<strong>Requisitos</strong> O sivak matou um humanoide de tamanho Pequeno a Grande no último minuto.<hr />Ele assume a forma e a voz exatas dessa criatura, como descreve o trait polimorfia, até decidir acabar. Recebe +4 de bônus circunstancial em testes de Enganação para se passar por ela.",
+    "sky-strike": "O sivak Voa até seu deslocamento de voo e faz um Golpe de montante no fim. Se acertar, o alvo cai."
+   },
+   "aurak-draconian": {
+    "Notes": "<p>Sem asas, dourados e os mais perigosos dos draconianos: feiticeiros que comandam os outros. Nascidos de ovos de dragões de ouro.</p>",
+    "lightning-rays": "Dois raios contra um ou dois alvos a até 18 m; faça uma jogada de ataque de magia (+22) para cada. Cada acerto causa @Damage[3d8[electricity]] de dano.",
+    "golden-veil": "<strong>Frequência</strong> uma vez por hora<hr />O aurak fica invisível por 1 minuto, ou até usar uma ação hostil.",
+    "dimension-step": "<strong>Frequência</strong> uma vez a cada 10 minutos<hr />O aurak se teleporta para um lugar que vê a até 18 m.",
+    "borrowed-face": "O aurak parece qualquer humanoide do seu tamanho, uma ilusão que uma criatura que Procure e passe em @Check[perception|dc:23] percebe."
+   },
+   "bakali-warrior": {
+    "Notes": "<p>O grande povo-lagarto dos velhos pântanos do sul, orgulhoso, territorial e lento para confiar em qualquer um de sangue quente.</p>",
+    "bellow": "<strong>Frequência</strong> uma vez por minuto<hr />Cada inimigo a até 9 m faz @Check[will|dc:14]; se falhar, fica amedrontado 1."
+   },
+   "thanoi-hunter": {
+    "Notes": "<p>Povo-morsa da gelada Icereach, que caça nos blocos de gelo e ataca os acampamentos do povo do gelo.</p>",
+    "ice-adapted": "O thanoi ignora terreno difícil de gelo e neve e não é prejudicado por frio severo.",
+    "tusk-rake": "O thanoi faz um Golpe de presas. Se acertar, o alvo sofre @Damage[1d6[bleed]] de dano persistente de sangramento."
+   },
+   "aghar-scrounger": {
+    "Notes": "<p>Anões dos esgotos: o clã rejeitado, que vive do que os outros jogam fora e sobrevive a todos que os desprezam.</p>",
+    "survivor": "O aghar recebe +2 de bônus circunstancial em testes de resistência contra doenças e venenos de comida estragada e água suja.",
+    "duck-and-cover": "<strong>Gatilho</strong> Uma criatura escolhe o aghar como alvo de um Golpe.<hr />O aghar se joga no chão, recebendo +2 de bônus circunstancial na CA contra o Golpe."
+   },
+   "kyrie-skywatcher": {
+    "Notes": "<p>Povo-pássaro das ilhas do extremo sul, desconfiado de estrangeiros e das guerras terrestres de Ansalon.</p>",
+    "dive": "O kyrie Voa pelo menos 6 m para baixo e faz um Golpe de garras; se acertar, causa 1d8 de dano extra."
+   },
+   "spectral-minion": {
+    "Notes": "<p>Espíritos presos a um voto quebrado: soldados ainda guardando um portão caído, servos ainda esperando por um senhor morto.</p>",
+    "unfinished-oath": "O servo está preso à tarefa em que falhou em vida. Quando a tarefa termina ou é liberada, ele descansa. Até lá, se destruído, volta a se formar em 1d4 dias perto de onde caiu."
+   },
+   "dreamwraith": {
+    "Notes": "<p>Formas de um pesadelo tornado real: soldados retorcidos, árvores que choram e feras famintas, reais o bastante para matar.</p>",
+    "made-of-dreams": "Uma criatura que gaste uma ação para desacreditar o espectro faz @Check[will|dc:21]. Se passar, sofre metade do dano do espectro pelo resto do encontro.",
+    "dread-whisper": "Uma criatura a até 9 m faz @Check[will|dc:21]. <strong>Falha</strong> amedrontada 2. <strong>Falha Crítica</strong> amedrontada 2 e fugindo por 1 rodada."
+   },
+   "fireshadow": {
+    "Notes": "<p>Uma sombra viva de chama que assombra lugares queimados e as fogueiras de feiticeiros que chamaram mais do que podiam segurar.</p>",
+    "flicker": "A sombra some numa chama ou fonte de luz e sai de outra a até 18 m.",
+    "ember-burst": "<strong>Frequência</strong> uma vez por minuto<hr />Uma emanação de 3 m de faíscas: @Damage[6d6[fire]] de dano, @Check[reflex|dc:19|basic]."
+   },
+   "irda-wanderer": {
+    "Notes": "<p>Os altos ogros, belos e reservados, que se esconderam do mundo e de vez em quando andam por ele com rostos emprestados.</p>",
+    "many-faces": "O irda assume a forma de qualquer humanoide Médio até decidir voltar. Criaturas que Procurem com @Check[perception|dc:19] notam algo estranho.",
+    "starlight-ward": "<strong>Frequência</strong> uma vez por hora; <strong>Gatilho</strong> O irda seria atingido por um Golpe.<hr />O irda recebe +2 de bônus de status na CA contra o Golpe."
+   },
+   "Throes": {
+    "baaz": "<p>Quando o baaz morre, vira pedra. A criatura que deu o golpe fatal com uma arma corpo a corpo faz um teste de Reflexos contra a CD do baaz; se falhar, a arma fica presa na pedra até a estátua virar pó no início do próximo turno do baaz (ou até o portador passar num teste de Atletismo para Forçar Abertura contra a mesma CD).</p>",
+    "kapak": "<p>Quando o kapak morre, o corpo derrete numa poça de ácido de 3 m de diâmetro. Uma criatura na poça quando ela se forma, ou que termine o turno nela, sofre dano de ácido (Reflexos básico contra a CD do kapak). A poça seca depois de 3 rodadas.</p>",
+    "bozak": "<p>Quando o bozak morre, a carne murcha e os ossos explodem para fora. Cada criatura a até 3 m sofre dano perfurante (Reflexos básico contra a CD do bozak).</p>",
+    "sivak": "<p>Quando um humanoide mata o sivak, o corpo assume a forma do assassino por três dias: um cadáver igual a quem o matou. Se outra coisa o matar, o sivak explode em chamas: cada criatura adjacente sofre dano de fogo (Reflexos básico contra a CD do sivak).</p>",
+    "aurak": "<p>Quando o aurak chega a 0 Pontos de Vida, ainda não morre. Envolto em fogo verde, entra em frenesi por 2 rodadas: não pode ser reduzido mais, recebe +2 de bônus de status em jogadas de ataque e só age para atacar. Então explode: cada criatura a até 3 m sofre dano elétrico (Reflexos básico contra a CD do aurak).</p>"
+   },
+   "Venom": {
+    "kapak": "<strong>Veneno de Kapak</strong> (veneno) <strong>Teste de Resistência</strong> Fortitude CD 17; <strong>Duração Máxima</strong> 4 rodadas; <strong>Estágio 1</strong> @Damage[1d6[poison]] e desajeitado 1 (1 rodada); <strong>Estágio 2</strong> @Damage[1d6[poison]] e lento 1 (1 rodada); <strong>Estágio 3</strong> paralisado (1 rodada)."
+   }
   }
  }
 }

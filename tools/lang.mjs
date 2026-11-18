@@ -4,6 +4,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { calendarStrings } from "../scripts/logic/calendar.mjs";
+import { bestiaryStrings } from "../scripts/content/creatures.mjs";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const LANGS = ["en", "pt-BR"];
@@ -13,7 +14,7 @@ const nest = (f) => { const o = {}; for (const [k, v] of Object.entries(f)) { co
 const built = {};
 for (const lang of LANGS) {
   const hand = flat(JSON.parse(fs.readFileSync(path.join(ROOT, "lang/strings", `${lang}.json`), "utf8")));
-  built[lang] = { ...hand, ...calendarStrings(lang) };
+  built[lang] = { ...hand, ...calendarStrings(lang), ...bestiaryStrings(lang) };
   fs.writeFileSync(path.join(ROOT, "lang", `${lang}.json`), JSON.stringify(nest(built[lang]), null, 1) + "\n");
 }
 

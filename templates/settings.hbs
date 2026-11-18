@@ -80,6 +80,20 @@
   </fieldset>
 
   <fieldset>
+    <legend>{{localize "KRYNN.Settings.Dragons.Legend"}}</legend>
+    <div class="form-group">
+      <label>{{localize "KRYNN.Settings.Throes.Label"}}</label>
+      <div class="form-fields"><select name="deathThroes">{{#each throes}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></div>
+      <p class="hint">{{localize "KRYNN.Settings.Throes.Hint"}}</p>
+    </div>
+    <div class="form-group">
+      <label>{{localize "KRYNN.Settings.Dragons.FearCards"}}</label>
+      <div class="form-fields"><input type="checkbox" name="dragonfearCards" {{#if dragonfearCards}}checked{{/if}}></div>
+      <p class="hint">{{localize "KRYNN.Settings.Dragons.FearCardsHint"}}</p>
+    </div>
+  </fieldset>
+
+  <fieldset>
     <legend>{{localize "KRYNN.Settings.Life.Legend"}}</legend>
     {{#if life.error}}<p class="hint">{{life.error}}</p>{{else}}
     <p class="hint">{{localize "KRYNN.Settings.Life.Hint"}}</p>

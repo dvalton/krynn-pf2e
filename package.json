@@ -1,6 +1,6 @@
 {
   "name": "krynn-pf2e",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Dragonlance (Krynn) for the PF2e system on Foundry VTT 14",
   "private": true,
   "type": "module",

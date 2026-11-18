@@ -3,7 +3,7 @@ import { MODULE_ID, T, setting, template } from "./constants.mjs";
 import { PERIODS, PERIOD_DEFAULT_YEAR, periodOf } from "../logic/ages.mjs";
 import { CULTURES, STYLES } from "../logic/calendar.mjs";
 import { now, setDate, monthName, yearLabel } from "./time.mjs";
-import { MOON_MAGIC, GODS_MODE, NUITARI_SEEN } from "./settings.mjs";
+import { MOON_MAGIC, GODS_MODE, NUITARI_SEEN, THROES_MODE } from "./settings.mjs";
 import { lwData, campaign } from "./lifewrought/engine.mjs";
 
 const fa = foundry.applications;
@@ -57,6 +57,7 @@ export class KrynnSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.api.A
       hs: opts(GODS_MODE, "Settings.HighSorcery", setting("hsMode")), moonMinLevel: setting("moonMinLevel"),
       nuitari: opts(NUITARI_SEEN, "Settings.Nuitari", setting("nuitariSeen")),
       announce: setting("announce"), life,
+      throes: opts(THROES_MODE, "Settings.Throes", setting("deathThroes")), dragonfearCards: setting("dragonfearCards"),
       buttons: [{ type: "submit", icon: "fa-solid fa-floppy-disk", label: "KRYNN.Settings.Save" }],
     };
   }
@@ -70,7 +71,8 @@ export class KrynnSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.api.A
     const f = foundry.utils.expandObject(formData.object);
     const n = (x, def) => (Number.isFinite(Number(x)) ? Number(x) : def);
     await game.settings.set(MODULE_ID, "eyeDate", { year: n(f.eye?.year, 351), month: n(f.eye?.month, 0), day: n(f.eye?.day, 1) });
-    for (const k of ["moonMagic", "godsMode", "nuitariSeen", "hsMode"]) if (f[k]) await game.settings.set(MODULE_ID, k, f[k]);
+    for (const k of ["moonMagic", "godsMode", "nuitariSeen", "hsMode", "deathThroes"]) if (f[k]) await game.settings.set(MODULE_ID, k, f[k]);
+    await game.settings.set(MODULE_ID, "dragonfearCards", !!f.dragonfearCards);
     if (f.moonMinLevel !== undefined) await game.settings.set(MODULE_ID, "moonMinLevel", Math.min(20, Math.max(1, n(f.moonMinLevel, 1))));
     await game.settings.set(MODULE_ID, "announce", !!f.announce);
     if (f.lw) {
