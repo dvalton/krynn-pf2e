@@ -18,6 +18,7 @@ import { openFactions, FactionsApp } from "./foundry/peoples/factions.mjs";
 import { finishChoices, pendingChoices, sheetNotice, headerButtons } from "./foundry/lifewrought/finish.mjs";
 import { rememberHit, onActorUpdate, onCombatRound, runThroes } from "./foundry/dragons/throes.mjs";
 import { openDragons, importDragon, findDragons, onCombatStart, DragonsApp } from "./foundry/dragons/dragons.mjs";
+import { registerEnrichers, installYearClicks, refreshNowLines } from "./foundry/atlas.mjs";
 
 Hooks.once("init", () => {
   registerSettings();
@@ -26,9 +27,12 @@ Hooks.once("init", () => {
   const api = { now, setDate, sky: skyNow, state: stateNow, formatDate, openSky, selfTest, refresh: refreshSky, ages, moons, calendar,
     life: { open: openLife, lives: openLives, create: createCharacter, dryRun, LifeApp, finishChoices, pendingChoices },
     factions: { open: openFactions, FactionsApp },
+    atlas: { refresh: refreshNowLines },
     dragons: { open: openDragons, import: importDragon, find: findDragons, throes: runThroes, DragonsApp },
     magic: { syncAll, syncActor, magicFor, robeOf } };
   game.modules.get(MODULE_ID).api = api;
+  // Journals: @KrynnNow[region] and @KrynnYear[351] (the Atlas and the Timeline).
+  registerEnrichers();
   globalThis.krynn = api;
   // Portuguese names and texts for the compendiums, through Babele when it is active.
   const babele = (b) => b?.register?.({ module: MODULE_ID, lang: "pt-BR", dir: "babele/pt-BR" });
@@ -40,6 +44,7 @@ Hooks.once("setup", () => installCastGate());
 
 Hooks.once("ready", async () => {
   registerSocket();
+  installYearClicks();
   await firstRun();
   renderBanner();
   await buildPending();
@@ -65,6 +70,7 @@ Hooks.on("renderCharacterSheetPF2e", (app, html) => sheetNotice(app, html));
 
 Hooks.on("updateWorldTime", async (worldTime, delta) => {
   refreshSky();
+  refreshNowLines();
   await onWorldTime(worldTime, delta);
   await syncAll();
 });

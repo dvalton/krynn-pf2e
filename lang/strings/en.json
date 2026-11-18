@@ -346,11 +346,12 @@
         "LifeEngine": "The Lifewrought engine is loaded",
         "LifeData": "The Lifewrought tables load",
         "LifeBuild": "A random life builds from this world's PF2e compendiums",
-        "Packs": "The compendiums of Krynn (magic, gods, peoples, backgrounds, orders, tables, creatures, dragons, relics, guides)",
+        "Packs": "The compendiums of Krynn (magic, gods, peoples, backgrounds, orders, tables, creatures, dragons, relics, iconic people, atlas, guides)",
         "CastGate": "Spells check the gods and the moons when cast",
         "MoonMagic": "Tonight's moon magic for the three Orders",
         "LifePage": "The Lifewrought page finds its files",
-        "Dragons": "Legacy dragons for the Dragons of Krynn window"
+        "Dragons": "Legacy dragons for the Dragons of Krynn window",
+        "Enrichers": "The Atlas's live lines and Timeline years"
       }
     },
     "Language": {
@@ -610,6 +611,13 @@
         "adult": "Adult",
         "ancient": "Ancient"
       }
+    },
+    "Atlas": {
+      "NowIn": "Now, {year} AC",
+      "Quiet": "no great upheaval this year.",
+      "YearIs": "{year}: {what}.",
+      "GoTitle": "Bring the world to this year?",
+      "GoText": "Set the world's date to the first day of {year} ({what})? The age, the gods and the moons follow."
     }
   }
 }

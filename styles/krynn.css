@@ -99,3 +99,7 @@
 .krynn-dragons-list li .hint { flex: 1; }
 .krynn-dragons-list li button { flex: 0 0 auto; width: auto; }
 .krynn-card.krynn-throes h3, .krynn-card.krynn-dragonfear h3 { color: #7a1f24; }
+
+/* 0.6: the Atlas's live line and the Timeline's years */
+.krynn-now { display: inline-block; padding: 4px 8px; border-left: 3px solid #c9a24b; background: rgba(201, 162, 75, 0.12); }
+a.krynn-year { white-space: nowrap; }

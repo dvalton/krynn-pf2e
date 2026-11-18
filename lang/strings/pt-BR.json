@@ -346,11 +346,12 @@
         "LifeEngine": "O motor do Lifewrought está carregado",
         "LifeData": "As tabelas do Lifewrought carregam",
         "LifeBuild": "Uma vida aleatória é montada com os compêndios de PF2e deste mundo",
-        "Packs": "Os compêndios de Krynn (magia, deuses, povos, antecedentes, ordens, tabelas, criaturas, dragões, relíquias, guias)",
+        "Packs": "Os compêndios de Krynn (magia, deuses, povos, antecedentes, ordens, tabelas, criaturas, dragões, relíquias, personagens icônicos, atlas, guias)",
         "CastGate": "As magias consultam os deuses e as luas ao serem lançadas",
         "MoonMagic": "A magia lunar desta noite para as três Ordens",
         "LifePage": "A página do Lifewrought encontra seus arquivos",
-        "Dragons": "Dragões legacy para a janela Dragões de Krynn"
+        "Dragons": "Dragões legacy para a janela Dragões de Krynn",
+        "Enrichers": "As linhas vivas do Atlas e os anos da Linha do Tempo"
       }
     },
     "Language": {
@@ -610,6 +611,13 @@
         "adult": "Adulto",
         "ancient": "Ancião"
       }
+    },
+    "Atlas": {
+      "NowIn": "Agora, {year} DC",
+      "Quiet": "nenhuma grande reviravolta neste ano.",
+      "YearIs": "{year}: {what}.",
+      "GoTitle": "Levar o mundo para este ano?",
+      "GoText": "Mudar a data do mundo para o primeiro dia de {year} ({what})? A era, os deuses e as luas acompanham."
     }
   }
 }

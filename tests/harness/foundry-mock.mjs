@@ -171,6 +171,7 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
   const hb = module.flags["krynn-pf2e"]["pf2e-homebrew"];
   globalThis.CONFIG = {
     time: { worldCalendarConfig: null, worldCalendarClass: CalendarData, formatters: {} },
+    TextEditor: { enrichers: [] },
     PF2E: {
       languages: { common: "Common", draconic: "Draconic", ...Object.fromEntries(Object.entries(hb.languages).map(([k, v]) => [k, v])) },
       creatureTraits: Object.fromEntries(Object.entries(hb.creatureTraits).map(([k, v]) => [k, v.label])),

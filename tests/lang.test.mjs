@@ -21,7 +21,7 @@ for (const lang of ["en", "pt-BR"]) {
     for (const k of ["classic", "light", "narrative", "off"]) need.push(`Settings.MoonMagic.${k}`);
     for (const k of ["strict", "warn", "off"]) need.push(`Settings.Gods.${k}`);
     for (const k of ["blackRobes", "everyone", "gm"]) need.push(`Settings.Nuitari.${k}`);
-    for (const k of ["Foundry", "System", "Calendar", "CalendarAgrees", "Names", "Moons", "Languages", "Traits", "Banner", "LifeEngine", "LifeData", "LifePage", "LifeBuild", "Packs", "CastGate", "MoonMagic"]) need.push(`SelfTest.Check.${k}`);
+    for (const k of ["Foundry", "System", "Calendar", "CalendarAgrees", "Names", "Moons", "Languages", "Traits", "Banner", "LifeEngine", "LifeData", "LifePage", "LifeBuild", "Packs", "CastGate", "MoonMagic", "Dragons", "Enrichers"]) need.push(`SelfTest.Check.${k}`);
     for (const rec of Object.values(HOMEBREW)) for (const v of Object.values(rec)) {
       for (const key of typeof v === "string" ? [v] : [v.label, v.description]) need.push(key.replace(/^KRYNN\./, ""));
     }

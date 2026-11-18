@@ -20,8 +20,8 @@ export function draconianKind({ flag = null, slugs = [], name = "" } = {}) {
 // What happens when a draconian of this kind and level drops to 0 HP. `killer` is what the module knows of the last
 // creature that hurt it: { name, humanoid, weapon, melee }. Returns the plan the Foundry side carries out.
 export function throesPlan(kind, level, killer = null) {
-  const dc = stat.dc(Math.max(-1, Math.min(10, level)), "mod");
-  const area = stat.area(Math.max(-1, Math.min(10, level)));
+  const dc = stat.dc(Math.max(-1, Math.min(24, level)), "mod");
+  const area = stat.area(Math.max(-1, Math.min(24, level)));
   switch (kind) {
     case "baaz":
       return { kind, dc, token: { tint: "#8a8a8a" }, save: killer?.melee ? { type: "reflex", who: killer.name } : null, weapon: killer?.melee ? killer.weapon : null, effect: "krynn-weapon-in-stone" };
@@ -33,7 +33,7 @@ export function throesPlan(kind, level, killer = null) {
       if (killer?.humanoid) return { kind, dc, shape: killer.name, token: { mimic: true } };
       return { kind, dc, token: { tint: "#e0662b" }, burst: 5, damage: `${area}[fire]`, save: { type: "reflex", basic: true } };
     case "aurak":
-      return { kind, dc, frenzy: { rounds: 2, effect: "krynn-aurak-frenzy" }, token: { tint: "#3fbf6a" }, burst: 10, damage: `${stat.area(Math.max(-1, Math.min(10, level)))}[electricity]`, save: { type: "reflex", basic: true }, keepAlive: true };
+      return { kind, dc, frenzy: { rounds: 2, effect: "krynn-aurak-frenzy" }, token: { tint: "#3fbf6a" }, burst: 10, damage: `${stat.area(Math.max(-1, Math.min(24, level)))}[electricity]`, save: { type: "reflex", basic: true }, keepAlive: true };
     default:
       return null;
   }

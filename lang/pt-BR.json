@@ -722,11 +722,12 @@
     "LifeEngine": "O motor do Lifewrought está carregado",
     "LifeData": "As tabelas do Lifewrought carregam",
     "LifeBuild": "Uma vida aleatória é montada com os compêndios de PF2e deste mundo",
-    "Packs": "Os compêndios de Krynn (magia, deuses, povos, antecedentes, ordens, tabelas, criaturas, dragões, relíquias, guias)",
+    "Packs": "Os compêndios de Krynn (magia, deuses, povos, antecedentes, ordens, tabelas, criaturas, dragões, relíquias, personagens icônicos, atlas, guias)",
     "CastGate": "As magias consultam os deuses e as luas ao serem lançadas",
     "MoonMagic": "A magia lunar desta noite para as três Ordens",
     "LifePage": "A página do Lifewrought encontra seus arquivos",
-    "Dragons": "Dragões legacy para a janela Dragões de Krynn"
+    "Dragons": "Dragões legacy para a janela Dragões de Krynn",
+    "Enrichers": "As linhas vivas do Atlas e os anos da Linha do Tempo"
    }
   },
   "Language": {
@@ -987,6 +988,13 @@
     "ancient": "Ancião"
    }
   },
+  "Atlas": {
+   "NowIn": "Agora, {year} DC",
+   "Quiet": "nenhuma grande reviravolta neste ano.",
+   "YearIs": "{year}: {what}.",
+   "GoTitle": "Levar o mundo para este ano?",
+   "GoText": "Mudar a data do mundo para o primeiro dia de {year} ({what})? A era, os deuses e as luas acompanham."
+  },
   "Bestiary": {
    "baaz-draconian": {
     "Notes": "<p>O mais comum dos draconianos: soldados feitos para ser muitos, barulhentos e de raiva fácil. Nascidos de ovos corrompidos de dragões de latão.</p>",
@@ -1062,6 +1070,122 @@
    },
    "Venom": {
     "kapak": "<strong>Veneno de Kapak</strong> (veneno) <strong>Teste de Resistência</strong> Fortitude CD 17; <strong>Duração Máxima</strong> 4 rodadas; <strong>Estágio 1</strong> @Damage[1d6[poison]] e desajeitado 1 (1 rodada); <strong>Estágio 2</strong> @Damage[1d6[poison]] e lento 1 (1 rodada); <strong>Estágio 3</strong> paralisado (1 rodada)."
+   },
+   "tanis-351": {
+    "Notes": "<p><em>Outono de 351 DC, a Pousada do Último Lar</em></p><p>Um líder relutante, que não se sente em casa nem entre elfos nem entre humanos, e que mantém os companheiros juntos porque ninguém mais o faria.</p>",
+    "rally": "<strong>Frequência</strong> uma vez por rodada<hr />Um aliado a até 9 m recebe +1 de bônus circunstancial na próxima jogada de ataque ou teste de resistência antes do fim do próximo turno dele."
+   },
+   "raistlin-351": {
+    "Notes": "<p><em>Outono de 351 DC, a Pousada do Último Lar</em></p><p>Um jovem Manto Vermelho de poder brilhante e amargo, que passou no Teste a um preço que ninguém mais conhece por inteiro. O irmão nunca está longe.</p>",
+    "force-bolts": "Dois dardos de força atingem criaturas que ele vê a até 36 m; cada um causa @Damage[1d4+1[force]] de dano, sem jogada.",
+    "sleep-mist": "<strong>Frequência</strong> uma vez por hora<hr />Uma explosão de 1,5 m a até 9 m. Cada criatura faz @Check[will|dc:18]; se falhar, cai inconsciente por 1 minuto ou até ser ferida ou sacudida.",
+    "frail": "Depois do Teste, o corpo de Raistlin é fraco e seus olhos veem tudo murchar. Numa falha crítica de Fortitude, ele também tem um acesso de tosse: atordoado 1."
+   },
+   "caramon-351": {
+    "Notes": "<p><em>Outono de 351 DC, a Pousada do Último Lar</em></p><p>Grande, de bom coração e mais forte que todos na sala, vive para o irmão gêmeo desde que eram crianças.</p>",
+    "brothers-shield": "<strong>Gatilho</strong> Um inimigo adjacente a Caramon ataca Raistlin.<hr />Caramon faz um Golpe contra ele antes do ataque ser rolado."
+   },
+   "sturm-351": {
+    "Notes": "<p><em>Outono de 351 DC, a Pousada do Último Lar</em></p><p>Um Cavaleiro sem cavalaria, mantendo a Medida numa terra que cospe nela, com a espada e a armadura do pai.</p>",
+    "oath-and-measure": "Sturm recebe +2 de bônus de status em testes de resistência contra medo, e nunca recua enquanto um aliado está em perigo."
+   },
+   "tasslehoff-351": {
+    "Notes": "<p><em>Outono de 351 DC, a Pousada do Último Lar</em></p><p>Curioso sem fim, alegre sem fim, e dono de uma coleção enorme de coisas que os outros deixaram cair.</p>",
+    "kender-taunt": "Uma criatura a até 9 m faz @Check[will|dc:17]; se falhar, fica desprevenida contra os aliados de Tas até o fim do próximo turno dela.",
+    "fearless": "Tas é imune a medo."
+   },
+   "flint-351": {
+    "Notes": "<p><em>Outono de 351 DC, a Pousada do Último Lar</em></p><p>Um ferreiro anão das colinas que reclama de tudo e morreria por qualquer um deles. Odeia barcos, cavalos e a comida dos elfos.</p>",
+    "grumble": "Flint recebe +1 de bônus circunstancial em testes de resistência contra veneno e contra ser derrubado."
+   },
+   "goldmoon-351": {
+    "Notes": "<p><em>Outono de 351 DC, a Pousada do Último Lar</em></p><p>Filha do chefe dos Que-Shu, portadora do Cajado de Cristal Azul, e a primeira verdadeira clériga dos deuses em trezentos anos.</p>",
+    "mishakals-touch": "<strong>Frequência</strong> três vezes por dia<hr />Uma criatura que ela toca recupera @Damage[3d8+8[healing]] Pontos de Vida.",
+    "staff-refuses": "<strong>Gatilho</strong> Uma criatura profana toca ou ataca com o Cajado de Cristal Azul.<hr />Ela sofre @Damage[4d6[spirit]] de dano e o solta."
+   },
+   "riverwind-351": {
+    "Notes": "<p><em>Outono de 351 DC, a Pousada do Último Lar</em></p><p>Um caçador Que-Shu de família humilde, que partiu numa busca impossível para casar com a filha do chefe e voltou com um cajado.</p>",
+    "hunters-mark": "Riverwind marca uma criatura que vê. Seus Golpes contra ela causam 1d8 de dano extra até ele marcar outra."
+   },
+   "tika-351": {
+    "Notes": "<p><em>Outono de 351 DC, a Pousada do Último Lar</em></p><p>A garçonete da Pousada do Último Lar, corajosa, ruiva e ainda aprendendo por que lado se segura uma espada.</p>",
+    "barroom-brawler": "Tika Empurra ou Derruba uma criatura adjacente, com +2 de bônus circunstancial no teste se ela for mais alta que Tika."
+   },
+   "laurana-351": {
+    "Notes": "<p><em>Outono de 351 DC, a Pousada do Último Lar</em></p><p>A filha do Orador, que ama Tanis desde jovem e acabou de decidir que não vai mais esperá-lo em casa.</p>",
+    "princess": "Laurana recebe +2 de bônus circunstancial em Diplomacia com elfos de Qualinesti."
+   },
+   "gilthanas-351": {
+    "Notes": "<p><em>Outono de 351 DC, a Pousada do Último Lar</em></p><p>O irmão de Laurana, príncipe de Qualinesti, mago e guerreiro, e desconfiado do meio-elfo que a irmã ama.</p>",
+    "elven-spell": "Um raio de fogo contra um alvo a até 18 m: ataque de magia +16, @Damage[2d6+4[fire]] de dano."
+   },
+   "laurana-golden-general": {
+    "Notes": "<p><em>352 DC, os exércitos da Pedra Branca</em></p><p>Ela assumiu o comando quando os Cavaleiros não tinham nenhum, e os exércitos seguem seu cabelo, dourado ao sol, em cada batalha.</p>",
+    "golden-general": "<strong>Frequência</strong> uma vez por rodada<hr />Aliados a até 18 m que a vejam recebem +1 de bônus de status em jogadas de ataque e em testes contra medo até o início do próximo turno dela.",
+    "dragonrider": "Montada num dragão, a lança do dragão de Laurana causa 3d8 de dano espiritual extra a dragões."
+   },
+   "raistlin-358": {
+    "Notes": "<p><em>358 DC, Mestre do Passado e do Presente</em></p><p>Agora de manto negro, mestre da Torre de Palanthas, e decidido a algo que nenhum mago ousou: o próprio trono da Rainha das Trevas.</p>",
+    "meteor-fall": "<strong>Frequência</strong> uma vez por hora<hr />Quatro explosões de 6 m a até 150 m: @Damage[19d6[fire]] de dano, @Check[reflex|dc:36|basic].",
+    "black-bolt": "Uma criatura a até 36 m: ataque de magia +37, @Damage[8d10[void]] de dano.",
+    "time-walker": "<strong>Frequência</strong> uma vez por hora; <strong>Gatilho</strong> Raistlin seria atingido por um ataque.<hr />Ele sai do tempo por um instante: o ataque erra, e ele se teleporta até 9 m."
+   },
+   "caramon-358": {
+    "Notes": "<p><em>358 DC, depois de Istar</em></p><p>Ele seguiu o irmão até o passado e voltou sabendo que precisa deixá-lo ir.</p>",
+    "gladiator": "Caramon faz dois Golpes contra o mesmo alvo; os dois contam como um para a penalidade de ataques múltiplos."
+   },
+   "goldmoon-citadel": {
+    "Notes": "<p><em>Era dos Mortais, a Cidadela da Luz</em></p><p>Com os deuses partidos, ela achou o poder no coração, e fundou a Cidadela da Luz para ensiná-lo a qualquer um.</p>",
+    "power-of-the-heart": "<strong>Frequência</strong> três vezes por dia<hr />Misticismo, não um dom de um deus: até três criaturas a até 9 m recuperam @Damage[6d8+20[healing]] Pontos de Vida cada."
+   },
+   "kitiara-352": {
+    "Notes": "<p><em>352 DC, Senhora do Exército Dracônico Azul</em></p><p>A meia-irmã dos gêmeos, mercenária que virou Senhora Dracônica, que monta o dragão azul Skie e quer tudo.</p>",
+    "dragon-highlord": "Um aliado a até 18 m pode imediatamente dar um Passo ou fazer um Golpe como reação.",
+    "riposte": "<strong>Gatilho</strong> Uma criatura falha criticamente num Golpe contra Kitiara.<hr />Ela faz um Golpe contra ela."
+   },
+   "lord-soth": {
+    "Notes": "<p><em>O Cavaleiro da Rosa Negra</em></p><p>Um Cavaleiro de Solamnia que falhou no momento que importava, amaldiçoado a uma vida sem morte no Forte Dargaard com os guerreiros que morreram com ele.</p>",
+    "death-word": "<strong>Frequência</strong> uma vez por dia<hr />Uma criatura viva a até 9 m de nível 15 ou menor faz @Check[fortitude|dc:38]. <strong>Falha</strong> Ela morre. <strong>Sucesso</strong> @Damage[10d10[void]] de dano.",
+    "dread-presence": "18 m. Uma criatura que entre faz @Check[will|dc:38]; na falha fica amedrontada 2, na falha crítica também fugindo por 1 rodada.",
+    "hellfire": "<strong>Frequência</strong> uma vez por hora<hr />Uma explosão de 6 m a até 36 m: @Damage[20d6[fire]] de dano, @Check[reflex|dc:38|basic]."
+   },
+   "verminaard": {
+    "Notes": "<p><em>351 DC, Senhor do Exército Dracônico Vermelho</em></p><p>Um clérigo da Rainha das Trevas de elmo com chifres, que governa Abanasinia de Pax Tharkas montado no dragão vermelho Ember.</p>",
+    "nightbringer": "<strong>Frequência</strong> uma vez por rodada<hr />Depois de acertar com a maça, o alvo faz @Check[fortitude|dc:23]; se falhar, fica cego por 1 rodada.",
+    "takhisis-favour": "<strong>Frequência</strong> duas vezes por dia<hr />Ele recupera @Damage[4d8+16[healing]] Pontos de Vida."
+   },
+   "ariakas": {
+    "Notes": "<p><em>352 DC, Imperador do Império Dracônico</em></p><p>O general e imperador da Rainha das Trevas, tão forte quanto cruel, que governa os Senhores Dracônicos pelo medo.</p>",
+    "crown-of-power": "Enquanto usa a Coroa, Ariakas recebe +2 de bônus de status em testes de resistência, e quem segura a Coroa comanda os exércitos dracônicos.",
+    "dark-pulse": "Uma emanação de 9 m: @Damage[17d6[void]] de dano, @Check[fortitude|dc:34|basic]."
+   },
+   "toede": {
+    "Notes": "<p><em>351 DC, Fewmaster de Solace</em></p><p>Um oficial hobgoblin dos exércitos dracônicos, vaidoso, ganancioso e muito bom em sobreviver.</p>",
+    "cowards-command": "<strong>Gatilho</strong> Um inimigo se move para perto de Toede.<hr />Um aliado a até 9 m Anda na direção do inimigo, e Toede dá um Passo para longe."
+   },
+   "fistandantilus": {
+    "Notes": "<p><em>Antes do Cataclismo</em></p><p>O maior dos Mantos Negros, que prolonga a vida tomando a vida dos seus aprendizes.</p>",
+    "life-drain": "Uma criatura a até 9 m faz @Check[fortitude|dc:39]: @Damage[12d8[void]] de dano (básico), e Fistandantilus recupera metade em Pontos de Vida.",
+    "archmage-storm": "<strong>Frequência</strong> uma vez por hora<hr />Uma explosão de 9 m a até 150 m: @Damage[21d6[electricity]] de dano, @Check[reflex|dc:39|basic]."
+   },
+   "dalamar-358": {
+    "Notes": "<p><em>358 DC, aprendiz da Torre</em></p><p>Um Silvanesti expulso por usar o manto negro, aprendiz na Torre de Palanthas, num jogo duplo cuidadoso.</p>",
+    "black-lightning": "Uma linha de 18 m: @Damage[10d6[electricity]] de dano, @Check[reflex|dc:25|basic].",
+    "dark-elf": "Expulso pelos Silvanesti por praticar magia negra, ele serve a Raistlin e o espiona para o Conclave."
+   },
+   "takhisis-avatar": {
+    "Notes": "<p><em>A Rainha das Trevas, no portão do Abismo</em></p><p>A Rainha das Trevas na forma de um dragão de cinco cabeças. Não pode ser morta, só repelida.</p>",
+    "five-breaths": "<strong>Frequência</strong> uma vez a cada 1d4 rodadas<hr />Uma das cinco cabeças sopra, um cone de 18 m ou uma linha de 36 m: @Damage[25d6[fire]] (vermelha), elétrico (azul), veneno (verde), ácido (negra) ou frio (branca), @Check[reflex|dc:44|basic].",
+    "dark-majesty": "36 m. Criaturas que entrem fazem @Check[will|dc:44]; na falha, amedrontadas 3."
+   },
+   "mina": {
+    "Notes": "<p><em>421 DC, a Guerra das Almas</em></p><p>Uma moça de olhos cor de âmbar que saiu de uma tempestade pregando o Deus Único, e levou os Cavaleiros de Neraka de vitória em vitória.</p>",
+    "one-god": "<strong>Frequência</strong> três vezes por dia<hr />Uma criatura que ela toca recupera @Damage[6d8+24[healing]] Pontos de Vida, e fica livre de uma condição.",
+    "devotion": "Mina é imune a medo, e soldados que a seguem recebem +1 de bônus de status em testes de Vontade."
+   },
+   "palin-majere": {
+    "Notes": "<p><em>Era dos Mortais</em></p><p>O filho de Caramon, um mago que perdeu as luas com todo mundo e aprendeu a magia selvagem do mundo para seguir em frente.</p>",
+    "wild-sorcery": "Magia do mundo, sem as luas: uma explosão de 6 m a até 36 m, @Damage[10d6[fire]] de dano, @Check[reflex|dc:25|basic]."
    }
   }
  }

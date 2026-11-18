@@ -40,9 +40,10 @@ export async function selfTest({ seed } = {}) {
   check("Banner", !game.settings.get(MODULE_ID, "showBanner") || document.getElementById("krynn-banner"));
 
   // Magic: the compendiums, the gate at casting, and tonight's moon magic for each order.
-  const packs = ["magic", "deities", "peoples", "backgrounds", "orders", "tables", "creatures", "dragons", "relics", "guides", "gm-guides"].map((p) => game.packs.get(`${MODULE_ID}.${p}`));
+  const packs = ["magic", "deities", "peoples", "backgrounds", "orders", "tables", "creatures", "dragons", "relics", "iconic", "atlas", "guides", "gm-guides"].map((p) => game.packs.get(`${MODULE_ID}.${p}`));
   check("Packs", packs.every((p) => p && p.index.size > 0), packs.map((p) => (p ? p.index.size : "×")).join(" · "));
   check("CastGate", castGateInstalled());
+  check("Enrichers", (CONFIG.TextEditor?.enrichers ?? []).some((e) => e.id === "krynnNow"));
   // The legacy dragons the Dragons of Krynn window can bring in.
   const dragons = findDragons();
   check("Dragons", dragons.length > 0, `${dragons.length}`);

@@ -12,6 +12,10 @@ import { HERITAGES, ANCESTRY_FEATS, BACKGROUNDS, TABLES } from "../scripts/conte
 import { ORDER_FEATS, ORDER_EFFECTS } from "../scripts/content/orders.mjs";
 import { CREATURES, stat, fill } from "../scripts/content/creatures.mjs";
 import { DRAGON_ACTIONS, DRAGON_EFFECTS, GEAR, RELICS, DRAGON_JOURNALS } from "../scripts/content/dragons.mjs";
+import { REGIONS, POWERS, PEOPLE_NAMES, SIZE_NAMES, PAGE_NAMES } from "../scripts/content/atlas.mjs";
+import { TIMELINE, AGE_PAGES } from "../scripts/content/timeline.mjs";
+import { ICONIC } from "../scripts/content/iconic.mjs";
+import { placesOf, sizeOf, yearLabel } from "../scripts/logic/atlas.mjs";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const D = JSON.parse(fs.readFileSync(path.join(ROOT, "lifewrought/data.json"), "utf8"));
@@ -27,6 +31,8 @@ export const PACKS = [
   { name: "creatures", label: "Krynn: Draconians and Creatures", labelPt: "Krynn: Draconianos e Criaturas", type: "Actor" },
   { name: "dragons", label: "Krynn: Dragons", labelPt: "Krynn: Dragões", type: "Item" },
   { name: "relics", label: "Krynn: Relics", labelPt: "Krynn: Relíquias", type: "Item" },
+  { name: "iconic", label: "Krynn: Iconic People", labelPt: "Krynn: Personagens Icônicos", type: "Actor" },
+  { name: "atlas", label: "Krynn: Atlas of Ansalon", labelPt: "Krynn: Atlas de Ansalon", type: "JournalEntry" },
   { name: "guides", label: "Krynn: Guides", labelPt: "Krynn: Guias", type: "JournalEntry" },
   { name: "gm-guides", label: "Krynn: GM Guides", labelPt: "Krynn: Guias do Mestre", type: "JournalEntry", gmOnly: true },
 ];
@@ -150,7 +156,7 @@ export function creature(c) {
   return {
     _id, _key: `!actors!${_id}`, name: c.name.en, type: "npc", img: c.img, folder: null, sort: 0, ownership: { default: 0 }, _stats: stats,
     flags: { "krynn-pf2e": { slug: c.slug, ...(c.draconian ? { draconian: c.draconian } : {}) } },
-    prototypeToken: { name: c.name.en, texture: { src: c.img }, width: sz, height: sz, disposition: -1, actorLink: false, displayName: 20, displayBars: 20, bar1: { attribute: "attributes.hp" } },
+    prototypeToken: { name: c.name.en, texture: { src: c.img }, width: sz, height: sz, disposition: c.disposition ?? -1, actorLink: false, displayName: 20, displayBars: 20, bar1: { attribute: "attributes.hp" } },
     items,
     system: {
       abilities: Object.fromEntries(Object.entries(a).map(([k, v]) => [k, { mod: v }])),
@@ -167,7 +173,7 @@ export function creature(c) {
       perception: { mod: stat.save(L, c.perception), senses: c.senses.map((type) => ({ type })), details: "" },
       saves: Object.fromEntries(Object.entries(c.saves).map(([k, t]) => [k, { value: stat.save(L, t), saveDetail: "" }])),
       skills: Object.fromEntries(Object.entries(c.skills).map(([k, t]) => [k, { base: stat.skill(L, t) }])),
-      traits: { rarity: "common", size: { value: c.size }, value: c.traits },
+      traits: { rarity: c.rarity || "common", size: { value: c.size }, value: c.traits },
       resources: {},
     },
   };
@@ -181,6 +187,37 @@ function journal(j) {
 }
 
 const ALL_JOURNALS = [...JOURNALS, ...DRAGON_JOURNALS];
+
+// The Atlas of Ansalon: a journal per region (pages in both languages), the Timeline and the Powers of Krynn.
+const P = (t) => `<p>${t}</p>`;
+function placesPage(r, L) {
+  const list = placesOf(D, r.id);
+  if (!list.length) return null;
+  const rows = list.map((pl) => `<li><strong>${pl.name}</strong> (${SIZE_NAMES[sizeOf(pl.pop)][L]}) — ${pl.peoples.map((x) => `${PEOPLE_NAMES[x.id]?.[L] ?? x.id} ${x.pct}%`).join(", ")}</li>`).join("");
+  return `${P(L === "pt" ? "Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles." : "The places where a Lifewrought life can begin in this region, and who lives there.")}<ul>${rows}</ul>`;
+}
+export function atlasJournals() {
+  const out = REGIONS.map((r) => {
+    const pages = [];
+    const page = (slug, name, en, pt) => pages.push({ slug, name, text: { en, pt } });
+    page("land", PAGE_NAMES.land, P(r.land.en), P(r.land.pt));
+    const now = r.old ? "" : `<p class="krynn-now-line">@KrynnNow[${r.id}]</p>`;
+    page("ages", PAGE_NAMES.ages, now + P(r.ages.en), now + P(r.ages.pt));
+    const pe = placesPage(r, "en");
+    if (pe) page("places", PAGE_NAMES.places, pe, placesPage(r, "pt"));
+    for (const c of r.cities) page(`city-${c.id}`, { en: c.name, pt: c.name }, P(c.text.en), P(c.text.pt));
+    page("hooks", PAGE_NAMES.hooks, `<ul>${r.hooks.map((h) => `<li>${h.en}</li>`).join("")}</ul>`, `<ul>${r.hooks.map((h) => `<li>${h.pt}</li>`).join("")}</ul>`);
+    return { slug: `atlas-${r.id}`, name: r.name, pages };
+  });
+  const AGE_NAME = { starbirth: { en: "Age of Starbirth", pt: "Era do Nascimento das Estrelas" }, dreams: { en: "Age of Dreams", pt: "Era dos Sonhos" }, might: { en: "Age of Might", pt: "Era do Poder" },
+    despair: { en: "Age of Despair", pt: "Era do Desespero" }, mortals: { en: "Age of Mortals", pt: "Era dos Mortais" } };
+  const entry = (t, L) => `<li>${t.year != null ? `<strong>@KrynnYear[${t.year}]{${yearLabel(t.year, L)}}</strong> ` : ""}${t[L]}${t.play ? ` <em>${L === "pt" ? "No jogo" : "In play"}: ${t.play[L]}</em>` : ""}</li>`;
+  out.push({ slug: "timeline-of-krynn", name: { en: "The Timeline of Krynn", pt: "A Linha do Tempo de Krynn" }, pages: AGE_PAGES.map((a) => ({ slug: a, name: AGE_NAME[a],
+    text: Object.fromEntries(["en", "pt"].map((L) => [L, `${P(L === "pt" ? "Clique num ano (mestre) para levar o mundo até ele." : "Click a year (GM) to bring the world to it.")}<ul>${TIMELINE.filter((t) => t.age === a).map((t) => entry(t, L)).join("")}</ul>`])) })) });
+  out.push({ slug: "powers-of-krynn", name: { en: "The Powers of Krynn", pt: "Os Poderes de Krynn" }, pages: POWERS.map((x) => ({ slug: x.slug, name: x.name, text: { en: P(x.text.en), pt: P(x.text.pt) } })) });
+  for (const j of out) if (typeof j.name === "string") j.name = { en: j.name, pt: REGIONS.find((r) => `atlas-${r.id}` === j.slug)?.name.pt ?? j.name };
+  return out;
+}
 export function buildDocs() {
   return {
     magic: [...FEATS.map(feat), ...EFFECTS.map(effect)],
@@ -192,6 +229,8 @@ export function buildDocs() {
     creatures: CREATURES.map(creature),
     dragons: [...DRAGON_ACTIONS.map(action), ...DRAGON_EFFECTS.map(effect), ...GEAR.map(gear)],
     relics: RELICS.map(gear),
+    iconic: ICONIC.map(creature),
+    atlas: atlasJournals().map(journal),
     guides: ALL_JOURNALS.filter((j) => !j.gmOnly).map(journal),
     "gm-guides": ALL_JOURNALS.filter((j) => j.gmOnly).map(journal),
   };
@@ -206,6 +245,9 @@ export function buildBabele() {
     orders: { label: "Krynn: Ordens de Cavalaria", mapping: { description: "system.description.value" }, entries: entries([...ORDER_FEATS, ...ORDER_EFFECTS]) },
     creatures: { label: "Krynn: Draconianos e Criaturas", entries: Object.fromEntries(CREATURES.map((c) => [c.name.en, { name: c.name.pt, tokenName: c.name.pt }])) },
     dragons: { label: "Krynn: Dragões", mapping: { description: "system.description.value" }, entries: entries([...DRAGON_ACTIONS, ...DRAGON_EFFECTS, ...GEAR]) },
+    iconic: { label: "Krynn: Personagens Icônicos", entries: Object.fromEntries(ICONIC.map((c) => [c.name.en, { name: c.name.pt, tokenName: c.name.pt }])) },
+    atlas: { label: "Krynn: Atlas de Ansalon", entries: Object.fromEntries(atlasJournals().map((j) => [j.name.en, { name: j.name.pt,
+      pages: Object.fromEntries(j.pages.map((pg) => [pg.name.en, { name: pg.name.pt, text: pg.text.pt }])) }])) },
     relics: { label: "Krynn: Relíquias", mapping: { description: "system.description.value" }, entries: entries(RELICS) },
     tables: { label: "Krynn: Tabelas", entries: Object.fromEntries(TABLES.map((t) => [t.name.en, { name: t.name.pt,
       results: Object.fromEntries(t.results.map(([, pt], i) => [`${i + 1}-${i + 1}`, pt])) }])) },

@@ -1,0 +1,493 @@
+{
+ "label": "Krynn: Atlas de Ansalon",
+ "entries": {
+  "Abanasinia": {
+   "name": "Abanasinia",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>Planícies onduladas, as florestas de vallenwood em volta do Lago Crystalmir e as colinas que sobem até os elfos de Qualinesti. Os humanos das cidades vivem ao lado das tribos das Planícies, os Que-Shu, Que-Kiri e Que-Teh, que guardam os costumes dos antepassados. Solace, construída no alto das árvores, fica na estrada entre todos os lugares.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[abanasinia]</p><p>Por três séculos depois do Cataclismo, a terra esperou por deuses que não respondiam, e os Buscadores de Haven encheram o silêncio com outros. Em 351 veio o Exército Dracônico Vermelho: Que-Shu queimou, Solace foi tomada, e o Senhor Dracônico Verminaard governou de Pax Tharkas até os escravos se levantarem. Depois da guerra, os templos dos deuses voltaram. Na Era dos Mortais, a senhora suprema verde Beryl tomou a floresta e as planícies abaixo dela.</p>"
+    },
+    "Places": {
+     "name": "Lugares",
+     "text": "<p>Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles.</p><ul><li><strong>Haven</strong> (cidade) — humanos 82%, meio-elfos 6%, anões das colinas 4%</li><li><strong>Solace</strong> (vila grande) — humanos 80%, meio-elfos 9%, anões das colinas 6%</li><li><strong>Gateway</strong> (vila) — humanos 70%, meio-elfos 16%, elfos Qualinesti 6%</li><li><strong>New Ports</strong> (vila) — humanos 80%, minotauros 6%, goblins 5%</li><li><strong>Qué-Shu</strong> (vila) — humanos 100%</li><li><strong>Crossing</strong> (vila) — humanos 85%, minotauros 6%, goblins 5%</li><li><strong>Qué-Kiri</strong> (vila) — humanos 100%</li><li><strong>Qué-Teh</strong> (vila) — humanos 100%</li><li><strong>Darken Wood</strong> (povoado) — centauros 100%</li><li><strong>Ankatavaka</strong> (povoado) — elfos Qualinesti 90%, meio-elfos 10%</li></ul>"
+    },
+    "Solace": {
+     "name": "Solace",
+     "text": "<p>Uma cidade de casas e pontes construídas no alto das árvores de vallenwood, com a Pousada do Último Lar no centro: um lugar onde viajantes de toda parte contam o que viram, e onde as histórias começam.</p>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>Uma curandeira das Planícies pede aos heróis que levem um fragmento de cristal azul a um conselho de chefes que não confiam uns nos outros.</li><li>Um sacerdote Buscador em Haven paga bem para achar quem anda espalhando conversa sobre os velhos deuses.</li><li>Os espíritos de Darken Wood param uma caravana, e não a deixam passar até alguém responder por uma promessa antiga.</li></ul>"
+    }
+   }
+  },
+  "Qualinesti": {
+   "name": "Qualinesti",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>O reino florestal dos elfos do oeste, com a capital Qualinost de torres de quartzo unidas por pontes de metal. Os Qualinesti fazem comércio com humanos mais que os parentes do leste, e discutem mais sobre isso. O Orador do Sol governa com o Thalas-Enthia, o senado das grandes famílias.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[qualinesti]</p><p>Fechada a estrangeiros na maior parte dos anos depois do Cataclismo, Qualinesti foi abandonada em 351 com a chegada dos exércitos dracônicos: seu povo fugiu pelo mar para Ergoth do Sul e voltou depois da guerra. Os Cavaleiros de Takhisis a ocuparam depois da Guerra do Caos, e a senhora suprema verde Beryl a governou por meio deles. Em 421 Qualinost foi afogada, levando o dragão junto, e os Qualinesti partiram de novo para o exílio.</p>"
+    },
+    "Places": {
+     "name": "Lugares",
+     "text": "<p>Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles.</p><ul><li><strong>Qualinost</strong> (cidade) — elfos Qualinesti 86%, elfos Kagonesti 9%, meio-elfos 5%</li></ul>"
+    },
+    "Qualinost": {
+     "name": "Qualinost",
+     "text": "<p>A capital dos elfos do oeste: quatro torres esguias nos cantos, pontes de metal prateado entre elas, e a Torre do Sol no centro, onde fica o Orador.</p>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>Um mercador humano recebeu de um príncipe a promessa de passagem segura até Qualinost; o senado nunca ouviu falar dela.</li><li>Sob a ocupação, uma célula da resistência precisa levar mensagens além das patrulhas dos Cavaleiros Sombrios.</li><li>A herança de família de um exilado ficou numa casa agora ocupada por um inimigo.</li></ul>"
+    }
+   }
+  },
+  "Silvanesti": {
+   "name": "Silvanesti",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>A nação élfica mais antiga, nas florestas do leste ao longo do rio Thon-Thalas. Os Silvanesti mantêm as Casas, castas de ofício e dever, e acreditam que seus costumes são os certos. Seus batedores, os kirath, guardam as fronteiras por onde os outros elfos não vão.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[silvanesti]</p><p>Quando os exércitos dracônicos chegaram, o rei Lorac usou um orbe do dragão para salvar sua terra, e ele o prendeu num pesadelo que retorceu a floresta inteira. Os Silvanesti fugiram; depois da guerra voltaram para retomá-la. Mais tarde um escudo mágico selou o reino do mundo, até cair na Guerra das Almas e os minotauros tomarem a terra.</p>"
+    },
+    "Places": {
+     "name": "Lugares",
+     "text": "<p>Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles.</p><ul><li><strong>Silvanost</strong> (cidade) — elfos Silvanesti 88%, elfos Kagonesti 9%, meio-elfos 3%</li></ul>"
+    },
+    "Silvanost": {
+     "name": "Silvanost",
+     "text": "<p>A cidade branca dos Silvanesti, com jardins e torres moldados por magia, e a Torre das Estrelas onde os reis élficos são coroados.</p>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>Os kirath precisam de alguém que não seja Silvanesti para andar por um trecho da floresta do pesadelo e contar o que ainda se mexe lá.</li><li>A jovem herdeira de uma Casa quer se casar fora da sua casta, e as duas famílias querem que os heróis impeçam.</li><li>Algo sob o escudo está fazendo as árvores adoecerem.</li></ul>"
+    }
+   }
+  },
+  "Thorbardin and the Kharolis Mountains": {
+   "name": "Thorbardin e as Montanhas Kharolis",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>O grande reino anão sob as montanhas: um lago dentro da rocha, cidades nas margens, e os clãs, Hylar, Daewar, Theiwar, Daergar e Klar, cada um na sua cidade. Os Neidar, os anões das colinas, vivem do lado de fora, em vilas como Hillhome, e lembram de terem sido deixados para fora.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[thorbardin]</p><p>Thorbardin fechou os portões na Guerra do Portão Anão, depois do Cataclismo, e ficou selada por três séculos. Em 351 os abriu para os refugiados de Pax Tharkas, e o Exército Dracônico Vermelho sitiou o Portão Norte. O Martelo de Kharas foi encontrado de novo. Na Guerra do Caos o reino foi devastado por dentro, e na Era dos Mortais se selou de novo contra os dragões.</p>"
+    },
+    "Places": {
+     "name": "Lugares",
+     "text": "<p>Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles.</p><ul><li><strong>Hybardin</strong> (cidade) — anões da montanha 100%</li><li><strong>Daebardin</strong> (cidade) — anões da montanha 100%</li><li><strong>Theibardin</strong> (vila grande) — anões da montanha 100%</li><li><strong>Daerforge</strong> (vila grande) — anões da montanha 100%</li><li><strong>Klarbardin</strong> (vila grande) — anões da montanha 100%</li><li><strong>Hillhome</strong> (vila) — anões das colinas 84%, humanos 10%, gnomos 3%</li><li><strong>Northgate</strong> (povoado) — </li><li><strong>Thorbardin</strong> (povoado) — </li></ul>"
+    },
+    "Thorbardin": {
+     "name": "Thorbardin",
+     "text": "<p>A Árvore da Vida dos Hylar, uma cidade esculpida para baixo numa grande estalactite sobre o Mar Urkhan, com as outras cidades dos clãs em volta do lago e o Vale dos Thanes onde os reis descansam.</p>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>Um thane Theiwar se oferece para abrir um portão lateral para os heróis, por um favor que ainda não diz qual é.</li><li>Um ancião Neidar quer que uma dívida antiga dos anões da montanha seja paga antes de morrer.</li><li>A guarda do Portão Norte ouviu escavação do outro lado de uma parede que deveria ser rocha sólida.</li></ul>"
+    }
+   }
+  },
+  "Solamnia": {
+   "name": "Solamnia",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>O coração humano do noroeste: planícies de grãos e gado ao longo do rio Vingaard, as montanhas de Vingaard, Dargaard e Garnet, e as províncias que se separaram depois do Cataclismo. É a terra dos Cavaleiros de Solamnia, de Palanthas, a Bela, e de anões das colinas em Garnet que negociam com Kayolin.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[solamnia]</p><p>Culpados pelo Cataclismo, os Cavaleiros foram desprezados por três séculos; Solanthus os expulsou em 300 DC. Em 351 os Exércitos Dracônicos Azul e Vermelho tomaram as planícies, e os Cavaleiros seguraram a Torre do Alto Clérigo durante o inverno. Laurana, a General Dourada, libertou Solamnia em 352. Em 383 os Cavaleiros de Takhisis invadiram; na Era dos Mortais o norte caiu sob o senhor supremo azul.</p>"
+    },
+    "Places": {
+     "name": "Lugares",
+     "text": "<p>Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles.</p><ul><li><strong>Palanthas</strong> (cidade) — humanos 84%, meio-elfos 4%, gnomos 4%</li><li><strong>Solanthus</strong> (vila grande) — humanos 90%, anões das colinas 3%, meio-elfos 3%</li><li><strong>Caergoth</strong> (vila grande) — humanos 88%, gnomos 4%, anões das colinas 3%</li><li><strong>Garnet</strong> (vila) — anões das colinas 85%, humanos 12%, gnomos 3%</li><li><strong>Thelgaard</strong> (vila) — humanos 95%, anões das colinas 5%</li><li><strong>Kayolin</strong> (vila) — anões da montanha 100%</li></ul>"
+    },
+    "Palanthas": {
+     "name": "Palanthas",
+     "text": "<p>Palanthas, a Bela: uma Cidade Velha desenhada como uma roda em volta do palácio do Senhor, a Cidade Nova fora das muralhas, a Grande Biblioteca de Astinus, e a Torre da Alta Feitiçaria de que ninguém se aproxima.</p>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>Uma vila de Hinterlund esconde um velho Cavaleiro que se recusa a admitir o que é.</li><li>Carroças de grãos para Palanthas estão sumindo na estrada, e a guilda culpa os Cavaleiros.</li><li>Em Nightlund, uma família pede aos heróis que tragam de volta um filho que foi para o lado do Forte Dargaard.</li></ul>"
+    }
+   }
+  },
+  "Kalaman": {
+   "name": "Kalaman",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>Uma cidade mercante livre na foz do Vingaard, com as fazendas da sua planície e os povoados sob as Montanhas Dargaard. Kalaman conta em meses de quatro semanas e confia mais em moedas do que em reis.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[kalaman]</p><p>Os exércitos dracônicos tomaram a cidade em 351 e a seguraram até 352, quando os exércitos da Pedra Branca a libertaram. Kalaman se reconstruiu rápido e enriqueceu; muito depois pediu para entrar no novo Império de Solamnia.</p>"
+    },
+    "Places": {
+     "name": "Lugares",
+     "text": "<p>Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles.</p><ul><li><strong>Kalaman</strong> (cidade) — humanos 81%, meio-elfos 4%, anões das colinas 4%</li><li><strong>Vogler</strong> (vila grande) — humanos 92%, meio-elfos 3%, kender 3%</li></ul>"
+    },
+    "Kalaman": {
+     "name": "Kalaman",
+     "text": "<p>Murada, movimentada e orgulhosa, o porto de Kalaman se enche de navios de todas as costas, e seu conselho de mercadores discute tudo, menos dinheiro.</p>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>Um capitão precisa de tripulação para passar pelas patrulhas do exército dracônico no estuário.</li><li>Uma casa mercante está pagando resgate a alguém que diz manter seu herdeiro à sombra de Dargaard.</li><li>A cidade comemora sua libertação todo ano; este ano alguém pretende estragar o desfile.</li></ul>"
+    }
+   }
+  },
+  "Sancrist": {
+   "name": "Sancrist",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>Uma ilha a oeste de Solamnia: o último refúgio dos Cavaleiros nos anos ruins, as terras do Castelo Uth Wistan, e Mount Nevermind, onde os gnomos funileiros constroem o que ninguém pediu.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[sancrist]</p><p>Enquanto os Cavaleiros eram desprezados no continente, Sancrist os acolheu. Em 352 o Conselho da Pedra Branca se reuniu aqui, elfos, anões, gnomos e Cavaleiros, e concordou em lutar junto contra os exércitos dracônicos. Os gnomos nunca pararam de construir.</p>"
+    },
+    "Places": {
+     "name": "Lugares",
+     "text": "<p>Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles.</p><ul><li><strong>Mount Nevermind</strong> (cidade) — gnomos 96%, humanos 2%, anões das colinas 2%</li></ul>"
+    },
+    "Mount Nevermind": {
+     "name": "Mount Nevermind",
+     "text": "<p>Um vulcão oco cheio de gnomos, Guildas e barulho. Elevadores sobem e descem a vapor, e às vezes voltam.</p>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>Uma Guilda gnômica quer testemunhas para o teste de um aparelho; as últimas testemunhas ainda estão na enfermaria.</li><li>Um delegado do Conselho da Pedra Branca precisa de proteção contra alguém do próprio conselho.</li><li>As terras de um velho Cavaleiro são reivindicadas por dois primos, e a Medida diz que os dois têm razão.</li></ul>"
+    }
+   }
+  },
+  "Northern Ergoth": {
+   "name": "Ergoth do Norte",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>O que resta do velho Império de Ergoth, partido em dois pelo Cataclismo: um imperador e um senado em Gwynned, a nação kender de Hylo no norte, e Sikk'et Hul, uma província goblin concedida por serviços há muito tempo. A capital antiga, Daltigoth, fica do outro lado da água, nas mãos dos ogros.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[northern_ergoth]</p><p>O império ficou de fora da Guerra da Lança e discutiu isso por anos. Em 383 a ilha dos irda ali perto foi destruída e o Caos foi libertado. Na Era dos Mortais vieram refugiados do sul congelado, e uma kender chamada Belladonna reivindicou Hylo.</p>"
+    },
+    "Places": {
+     "name": "Lugares",
+     "text": "<p>Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles.</p><ul><li><strong>Gwynned</strong> (cidade) — humanos 88%, meio-elfos 5%, kender 4%</li><li><strong>Hylo</strong> (vila grande) — kender 92%, humanos 6%, meio-elfos 2%</li><li><strong>Sikk'et Hul</strong> (vila) — goblins 80%, hobgoblins 12%, humanos 8%</li></ul>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>Um senador quer provas de que Daltigoth pode ser retomada, e paga por uma olhada.</li><li>Os goblins de Sikk'et Hul têm uma carta imperial, e um senhor que quer as terras deles diz que é falsa.</li><li>Um kender em Hylo achou um mapa da ilha dos irda, e está feliz de mostrar para todo mundo.</li></ul>"
+    }
+   }
+  },
+  "Southern Ergoth": {
+   "name": "Ergoth do Sul",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>Uma ilha de florestas e planícies frias: os Kagonesti nos bosques, vilas ergothianas no norte, tribos goblins na planície, e ogros nas ruínas de Daltigoth.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[southern_ergoth]</p><p>Durante a Guerra da Lança as nações élficas viveram aqui no exílio, Qualimori e Silvamori, e trataram os Kagonesti como servos. Na Era dos Mortais o senhor supremo branco Gellidus enterrou a ilha sob o gelo.</p>"
+    },
+    "Places": {
+     "name": "Lugares",
+     "text": "<p>Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles.</p><ul><li><strong>Qualimori</strong> (vila grande) — elfos Qualinesti 84%, elfos Kagonesti 10%, meio-elfos 6%</li><li><strong>Silvamori</strong> (vila grande) — elfos Silvanesti 86%, elfos Kagonesti 10%, meio-elfos 4%</li><li><strong>Southern Ergoth</strong> (povoado) — </li></ul>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>Uma caçadora Kagonesti foi presa por elfos exilados por 'invadir' a própria floresta.</li><li>Dizem que um orbe do dragão está numa ruína congelada ao sul.</li><li>Sob o gelo, uma vila inteira ainda vive em túneis, e precisa de uma saída.</li></ul>"
+    }
+   }
+  },
+  "Khur": {
+   "name": "Khur",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>Uma terra dura e pedregosa de tribos nômades e da cidade de Khuri-Khan, com mercados cheios do que atravessa o deserto. Sete tribos, um dia unidas por um só khan, brigam por poços.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[khur]</p><p>Salah, da tribo Khur, esmagou as tribos que resistiram aos exércitos dracônicos, tornou-se Senhor do Exército Dracônico Verde e khan de todos, até 356; Matarc o sucedeu. Depois de 421, os Qualinesti exilados acharam abrigo no deserto.</p>"
+    },
+    "Places": {
+     "name": "Lugares",
+     "text": "<p>Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles.</p><ul><li><strong>Khuri-Khan</strong> (cidade) — humanos 90%, meio-elfos 4%, goblins 3%</li></ul>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>Duas tribos reivindicam o mesmo poço; seja qual for o lado dos heróis, o outro lembra.</li><li>Um mestre de caravana contrata guardas para a estrada do sal e não diz o que tem na carroça lacrada.</li><li>Elfos exilados precisam de um guia que saiba em quais khans se pode confiar.</li></ul>"
+    }
+   }
+  },
+  "Neraka and Taman Busuk": {
+   "name": "Neraka e Taman Busuk",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>Uma terra dura cercada de montanhas, de pastores e fortalezas. Neraka, construída em volta do templo da Rainha das Trevas, foi a capital dos exércitos dracônicos; Jelek e as vilas das colinas a abasteciam.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[neraka]</p><p>A partir dos anos 340 os exércitos da Rainha se reuniram aqui; Neraka foi a capital do Império Dracônico até o templo cair em 352. Ficou em ruínas por trinta anos, e depois virou a sede dos Cavaleiros de Takhisis, mais tarde de Neraka.</p>"
+    },
+    "Places": {
+     "name": "Lugares",
+     "text": "<p>Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles.</p><ul><li><strong>Neraka</strong> (cidade) — humanos 72%, hobgoblins 10%, goblins 8%</li><li><strong>Jelek</strong> (vila grande) — humanos 80%, goblins 8%, hobgoblins 8%</li></ul>"
+    },
+    "Neraka": {
+     "name": "Neraka",
+     "text": "<p>Uma cidade de exércitos em volta do Templo da Rainha das Trevas: acampamentos de cada exército dracônico, mercados de escravos e aço, e medo em cada rua.</p>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>Uma desertora oferece um mapa dos túneis do templo, se os heróis tirarem primeiro a família dela de Jelek.</li><li>Nas ruínas, saqueadores cavam atrás do tesouro dos Senhores Dracônicos, e algo cava de volta.</li><li>Um oficial dos Cavaleiros Sombrios quer desertar, e quer que os heróis respondam por ele.</li></ul>"
+    }
+   }
+  },
+  "Sanction": {
+   "name": "Sanction",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>Uma cidade portuária num vale de vulcões, os Senhores da Perdição, onde a lava corre em canais que os mestres da lava mantêm abertos. Quente, cheia e perigosa, sempre pertenceu a quem é mais forte.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[sanction]</p><p>Dos anos 330 até 352 Sanction foi a fortaleza dos exércitos dracônicos. Na Era dos Mortais foi uma cidade livre sitiada pelos Cavaleiros Sombrios, até o exército de Mina tomá-la em 421.</p>"
+    },
+    "Places": {
+     "name": "Lugares",
+     "text": "<p>Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles.</p><ul><li><strong>Sanction</strong> (cidade) — humanos 76%, meio-elfos 6%, goblins 5%</li></ul>"
+    },
+    "Sanction": {
+     "name": "Sanction",
+     "text": "<p>Fumaça, a luz da lava e o cheiro de enxofre sobre um porto de todas as bandeiras. Templos de todos os deuses ficam aqui, e nenhum deles é silencioso.</p>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>Um canal de lava está entupindo, e os mestres da lava dizem que é sabotagem.</li><li>Uma carga de aço deixa o porto a cada lua nova; ninguém sabe quem paga por ela.</li><li>A cidade sitiada precisa de alguém para levar uma mensagem através das linhas inimigas.</li></ul>"
+    }
+   }
+  },
+  "Balifor": {
+   "name": "Balifor",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>A savana e a baía do leste: tribos das pastagens, vilas de pescadores, Porto Balifor, e Flotsam, onde piratas, desertores e marinheiros bebem lado a lado.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[balifor]</p><p>Os exércitos dracônicos conquistaram Balifor de 348 a 352 e usaram Flotsam como porto. Na Era dos Mortais a Desolação da senhora suprema vermelha se espalhou sobre ele, e a baía foi envenenada.</p>"
+    },
+    "Places": {
+     "name": "Lugares",
+     "text": "<p>Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles.</p><ul><li><strong>Port Balifor</strong> (cidade) — humanos 80%, kender 8%, meio-elfos 6%</li><li><strong>Flotsam</strong> (cidade) — humanos 70%, meio-elfos 8%, kender 6%</li></ul>"
+    },
+    "Flotsam": {
+     "name": "Flotsam",
+     "text": "<p>Um porto de docas apodrecidas e fortunas repentinas. Tudo pode ser comprado em Flotsam, inclusive silêncio.</p>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>Em Flotsam, um capitão vende passagem para qualquer lugar, e os últimos passageiros nunca chegaram.</li><li>Uma tribo da savana pede aos heróis que descubram por que o capim está morrendo.</li><li>Um pagador do exército dracônico desertou com o baú, e três grupos estão atrás dele.</li></ul>"
+    }
+   }
+  },
+  "Goodlund": {
+   "name": "Goodlund",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>As terras kender: bosques, vilas e a cidade de Kendermore, governada por um prefeito que concorda com quase todo mundo. Viajantes perdem coisas aqui e acham outras.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[goodlund]</p><p>Os exércitos dracônicos ocuparam Goodlund de 349 a 352, e descobriram que kender são difíceis de governar. Na Era dos Mortais a senhora suprema vermelha Malystryx a transformou na Desolação; Kendermore caiu, e os kender que sobreviveram foram mudados pelo medo.</p>"
+    },
+    "Places": {
+     "name": "Lugares",
+     "text": "<p>Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles.</p><ul><li><strong>Kendermore</strong> (cidade) — kender 92%, humanos 4%, meio-elfos 2%</li><li><strong>Legup</strong> (vila grande) — kender 98%, humanos 2%</li></ul>"
+    },
+    "Kendermore": {
+     "name": "Kendermore",
+     "text": "<p>Uma cidade sem ruas retas e sem portas trancadas, onde cada casa tem uma história e a maioria é verdade.</p>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>O prefeito de Kendermore precisa de um 'pequeno favor'; a lista de favores tem três páginas.</li><li>Um acampamento kender na beira da Desolação tem uma criança que viu onde o dragão dorme.</li><li>O item muito importante de alguém apareceu na bolsa de um kender, e agora o kender sumiu.</li></ul>"
+    }
+   }
+  },
+  "Icereach": {
+   "name": "Icereach",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>As geleiras do extremo sul, terra do Povo do Gelo, caçadores humanos que velejam no gelo em barcos com patins e carregam machados de um gelo especial. Os thanoi, o povo-morsa, os atacam vindos da costa.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[icereach]</p><p>Em 350–351 o Exército Dracônico Branco segurou o Castelo Muralha de Gelo sob Feal-Thas, e os thanoi o serviam. No inverno de 351 heróis e o Povo do Gelo tomaram o castelo, e um orbe do dragão junto. Depois, dois dragões brancos seguraram a Muralha de Gelo.</p>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>A filha de um chefe quer ir à Muralha de Gelo para se provar; o pai a quer de volta viva.</li><li>Um frostreaver foi roubado, e as pegadas levam a um acampamento thanoi.</li><li>Algo está reunindo os thanoi, mais do que nunca.</li></ul>"
+    }
+   }
+  },
+  "Tarsis and the Plains of Dust": {
+   "name": "Tarsis e as Planícies de Poeira",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>Tarsis, a velha cidade portuária que ficou no interior quando o Cataclismo secou seu mar, e as largas Planícies de Poeira com seus nômades e tribos de centauros.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[tarsis_plains]</p><p>Os exércitos dracônicos atacaram Tarsis em 351 e a ocuparam até 352. Na Era dos Mortais, dragões abriram domínios nas planícies do leste.</p>"
+    },
+    "Places": {
+     "name": "Lugares",
+     "text": "<p>Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles.</p><ul><li><strong>Tarsis</strong> (cidade) — humanos 84%, meio-elfos 5%, anões das colinas 4%</li></ul>"
+    },
+    "Tarsis": {
+     "name": "Tarsis",
+     "text": "<p>Uma cidade de muralhas e docas vazias, ainda orgulhosa do mar que perdeu. Seus senhores governam uma terra que hoje é toda estrada e poeira.</p>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>Na velha biblioteca de Tarsis, um registro do porto afundado lista a carga de um navio que ninguém achou.</li><li>Uma tribo de centauros só troca cavalos com quem aposta corrida com eles.</li><li>Uma tempestade de poeira descobre os mastros de um navio no meio da planície.</li></ul>"
+    }
+   }
+  },
+  "The Blood Sea Isles": {
+   "name": "As Ilhas do Mar de Sangue",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>Mithas e Kothas, as ilhas dos minotauros, e a capital Nethosak, onde o Grande Circo decide honra, cargos e o trono do imperador em combate. Saifhum, uma ilha de marinheiros humanos, rivaliza com eles no mar. Sobre a Istar afundada gira o Redemoinho, e o mar fica vermelho perto dele.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[blood_sea_isles]</p><p>Na Guerra da Lança os minotauros navegaram pelos exércitos dracônicos. O imperador Chot governou por décadas depois; em 421, na Guerra das Almas, Hotak tomou o trono numa noite de sangue e construiu um novo império.</p>"
+    },
+    "Places": {
+     "name": "Lugares",
+     "text": "<p>Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles.</p><ul><li><strong>Nethosak</strong> (cidade) — minotauros 86%, humanos 12%, goblins 2%</li><li><strong>Saifhum</strong> (vila grande) — humanos 93%, meio-elfos 4%, minotauros 3%</li></ul>"
+    },
+    "Nethosak": {
+     "name": "Nethosak",
+     "text": "<p>A capital dos minotauros: salões de pedra, o rugido do Grande Circo, e casas que contam cada dívida de honra.</p>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>Uma casa minotauro desafia um herói no Circo, por um insulto que ninguém lembra de ter feito.</li><li>Marinheiros de Saifhum querem escolta para passar pelo Redemoinho, onde seu último navio sumiu.</li><li>Uma humana nascida em servidão em Nethosak quer comprar a liberdade da família inteira.</li></ul>"
+    }
+   }
+  },
+  "Istar (before the Cataclysm)": {
+   "name": "Istar (antes do Cataclismo)",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>O maior império de Krynn antes do Cataclismo, governado pelo Rei-Sacerdote a partir de uma cidade de templos brancos. Enriqueceu e ficou certo da própria bondade, e se voltou contra os magos, contra as raças que chamava de malignas, e por fim contra o próprio equilíbrio dos deuses.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p>O Rei-Sacerdote exigiu os poderes dos deuses. Os deuses mandaram avisos, depois retiraram seus verdadeiros clérigos, e no primeiro dia do ano uma montanha de fogo caiu sobre Istar. A cidade afundou, o mar entrou, e o mundo se partiu: é o Cataclismo, o ano 1 da contagem depois dele.</p>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>Um pergaminho dos arquivos de Istar está à venda em Palanthas; três igrejas o querem destruído.</li><li>Um mergulhador jura que viu luzes nos templos afundados sob o Mar de Sangue.</li><li>Para uma campanha antes do Cataclismo: os inquisidores do Rei-Sacerdote procuram um mago que os heróis estão escondendo.</li></ul>"
+    }
+   }
+  },
+  "The Timeline of Krynn": {
+   "name": "A Linha do Tempo de Krynn",
+   "pages": {
+    "Age of Starbirth": {
+     "name": "Era do Nascimento das Estrelas",
+     "text": "<p>Clique num ano (mestre) para levar o mundo até ele.</p><ul><li>O Deus Supremo põe o mundo em movimento; os deuses do bem, do equilíbrio e do mal moldam Krynn, e surgem os primeiros dragões e povos.</li></ul>"
+    },
+    "Age of Dreams": {
+     "name": "Era dos Sonhos",
+     "text": "<p>Clique num ano (mestre) para levar o mundo até ele.</p><ul><li>As raças antigas crescem; os ogros governam um império antes da queda; elfos e anões encontram seus lares.</li><li><strong>@KrynnYear[-4000]{4000 AC}</strong> A nação Silvanesti é fundada nas florestas do leste.</li><li><strong>@KrynnYear[-3500]{3500 AC}</strong> A primeira das Guerras dos Dragões: os elfos repelem os dragões com a ajuda dos orbes das Ordens.</li></ul>"
+    },
+    "Age of Might": {
+     "name": "Era do Poder",
+     "text": "<p>Clique num ano (mestre) para levar o mundo até ele.</p><ul><li>Vinas Solamnus funda os Cavaleiros de Solamnia. <em>No jogo: A partir daqui existem os Cavaleiros e a Medida.</em></li><li><strong>@KrynnYear[-1018]{1018 AC}</strong> A Terceira Guerra dos Dragões: Huma, o Flagelo dos Dragões, e as primeiras lanças do dragão expulsam a Rainha das Trevas e seus dragões do mundo; os dragões bondosos fazem seu juramento. <em>No jogo: Sem dragões malignos à vista no mundo até os anos 340 DC.</em></li><li><strong>@KrynnYear[-118]{118 AC}</strong> O Rei-Sacerdote de Istar proclama sua guerra contra o mal: magos, as raças que chama de malignas, e por fim qualquer um que discorde.</li></ul>"
+    },
+    "Age of Despair": {
+     "name": "Era do Desespero",
+     "text": "<p>Clique num ano (mestre) para levar o mundo até ele.</p><ul><li><strong>@KrynnYear[1]{1 DC}</strong> O Cataclismo: uma montanha de fogo cai sobre Istar; os verdadeiros deuses se calam, seus clérigos somem; os Cavaleiros são culpados. <em>No jogo: Magias divinas dos verdadeiros deuses falham ou avisam (Configurações → Krynn).</em></li><li><strong>@KrynnYear[39]{39 DC}</strong> A Guerra do Portão Anão: Thorbardin fecha os portões aos anões das colinas; o Martelo de Kharas se perde.</li><li><strong>@KrynnYear[300]{300 DC}</strong> Solanthus expulsa os Cavaleiros; os Buscadores de Haven pregam novos deuses.</li><li><strong>@KrynnYear[346]{346 DC}</strong> Os heróis se separam na Pousada do Último Lar, prometendo se reencontrar em cinco anos.</li><li><strong>@KrynnYear[348]{348 DC}</strong> Os exércitos dracônicos saem de Neraka; começa a Guerra da Lança. <em>No jogo: Dragões e draconianos no mundo.</em></li><li><strong>@KrynnYear[351]{351 DC}</strong> Outono: o reencontro na Pousada do Último Lar; o Cajado de Cristal Azul; os Discos de Mishakal são achados em Xak Tsaroth. Os clérigos dos verdadeiros deuses voltam. <em>No jogo: Os deuses voltam a responder.</em></li><li><strong>@KrynnYear[351]{351 DC}</strong> Inverno: o cerco da Torre do Alto Clérigo; um orbe do dragão quebra o ataque dos dragões.</li><li><strong>@KrynnYear[352]{352 DC}</strong> O Conselho da Pedra Branca; as lanças do dragão são forjadas; os dragões bondosos voltam; a General Dourada; o Templo de Neraka cai. Termina a Guerra da Lança. <em>No jogo: Dragões metálicos lutam; lanças do dragão podem ser encontradas.</em></li><li><strong>@KrynnYear[357]{357 DC}</strong> Raistlin viaja aos últimos dias de Istar, e volta como mestre da Torre de Palanthas.</li><li><strong>@KrynnYear[358]{358 DC}</strong> A tentativa de Raistlin no Abismo falha; Palanthas é atacada pelos exércitos sombrios e salva.</li><li><strong>@KrynnYear[370]{370 DC}</strong> Ariakan funda os Cavaleiros de Takhisis.</li><li><strong>@KrynnYear[383]{383 DC}</strong> O Verão do Caos: os Cavaleiros de Takhisis invadem; o Caos é libertado e vencido; os deuses deixam Krynn, e as luas da magia com eles. <em>No jogo: A partir de 384: sem clérigos dos verdadeiros deuses, sem Alta Feitiçaria; misticismo e feitiçaria primordial.</em></li></ul>"
+    },
+    "Age of Mortals": {
+     "name": "Era dos Mortais",
+     "text": "<p>Clique num ano (mestre) para levar o mundo até ele.</p><ul><li><strong>@KrynnYear[384]{384 DC}</strong> Começa a Era dos Mortais. Goldmoon funda a Cidadela da Luz; o Expurgo dos Dragões: grandes dragões de fora chegam a Ansalon. <em>No jogo: Os Senhores Supremos e seus domínios.</em></li><li><strong>@KrynnYear[394]{394 DC}</strong> Os Silvanesti erguem o escudo sobre sua floresta.</li><li><strong>@KrynnYear[421]{421 DC}</strong> A Guerra das Almas: Mina lidera os Cavaleiros de Neraka; o escudo cai; Qualinost é afogada; o Deus Único se revela Takhisis, e os deuses e as luas voltam. <em>No jogo: A partir de 421: deuses e luas de novo; Takhisis se foi.</em></li><li><strong>@KrynnYear[428]{428 DC}</strong> Jaymes Markham, o Lorde Marechal, faz de Solamnia um império.</li></ul>"
+    }
+   }
+  },
+  "The Powers of Krynn": {
+   "name": "Os Poderes de Krynn",
+   "pages": {
+    "The Knights of Solamnia": {
+     "name": "Os Cavaleiros de Solamnia",
+     "text": "<p>Três ordens, Coroa, Espada e Rosa, ligadas pelo Juramento e pela Medida. Desprezados por trezentos anos, renascidos na Guerra da Lança, castigados na Guerra do Caos. Sua força é cumprir a palavra; sua fraqueza é cumpri-la mesmo quando está errada.</p>"
+    },
+    "The Dragonarmies": {
+     "name": "Os Exércitos Dracônicos",
+     "text": "<p>Os exércitos da Rainha das Trevas, cinco, pela cor dos seus dragões, cada um sob um Senhor Dracônico, e o Imperador Ariakas acima de todos. Draconianos, humanos, goblins, ogros e mercenários; os Senhores tramam uns contra os outros tanto quanto contra os inimigos.</p>"
+    },
+    "The Orders of High Sorcery": {
+     "name": "As Ordens da Alta Feitiçaria",
+     "text": "<p>Mantos Brancos, Vermelhos e Negros, três ordens sob as três luas, ligadas por uma lei: a magia pertence às Ordens. Todo mago passa no Teste ou morre, e quem recusa é renegado. Veja o guia de Magia.</p>"
+    },
+    "The Knights of Takhisis": {
+     "name": "Os Cavaleiros de Takhisis",
+     "text": "<p>Fundados por Ariakan em 370, os cavaleiros sombrios da Visão: Lírio, Caveira e Espinho. Disciplinados e certos do seu destino, conquistaram boa parte de Ansalon em 383. Depois que os deuses partiram, viraram os Cavaleiros de Neraka.</p>"
+    },
+    "The Dragonlances": {
+     "name": "As Lanças do Dragão",
+     "text": "<p>Lanças de metal dracônico, forjadas com o Martelo de Kharas e o braço de prata de Ergoth, que viraram a guerra contra os dragões. Veja Krynn: Dragões para as regras.</p>"
+    },
+    "The Dragon Orbs": {
+     "name": "Os Orbes do Dragão",
+     "text": "<p>Globos de cristal feitos pelas Ordens há muito tempo, capazes de chamar dragões e de prender a mente de quem os usa. Poucos sobreviveram ao Cataclismo; cada um encontrado na Guerra da Lança mudou uma batalha, e a mente de quem olhou dentro dele.</p>"
+    },
+    "The Staff of Magius": {
+     "name": "O Cajado de Magius",
+     "text": "<p>O cajado de um grande mago de guerra de outrora, dado por um mago velho a um jovem. Ilumina o escuro, bate forte e guarda mais segredos do que seu portador sabe.</p>"
+    },
+    "The Hammer of Kharas": {
+     "name": "O Martelo de Kharas",
+     "text": "<p>O martelo do herói anão Kharas, perdido depois da Guerra do Portão Anão. Quem o encontrar pode reivindicar o trono de Thorbardin, e com ele as lanças do dragão podem ser forjadas.</p>"
+    },
+    "The Tower of High Sorcery of Palanthas": {
+     "name": "A Torre da Alta Feitiçaria de Palanthas",
+     "text": "<p>Uma torre negra no coração de Palanthas, amaldiçoada quando os homens do Rei-Sacerdote vieram por ela, guardada pelo Bosque Shoikan que nenhum ser vivo atravessa sem medo. Seu mestre virá do passado.</p>"
+    }
+   }
+  }
+ }
+}

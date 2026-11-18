@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.6.0
+
+The world.
+
+- **Krynn: Atlas of Ansalon**: a journal for each of Lifewrought's 17 ready regions, and old Istar. Each has these pages:
+  - Land and People;
+  - Through the Ages;
+  - Places: Lifewrought's towns and villages with the peoples who live there;
+  - its main cities: Palanthas, Solace, Tarsis, Kalaman, Sanction, Neraka, Qualinost, Silvanost, Thorbardin, Mount Nevermind, Kendermore, Flotsam and Nethosak;
+  - Hooks.
+- **A live line in the Atlas**: "Now, 351 AC: invaded by the Blue Dragonarmy". It follows the world's date, so change the year and the region changes with it (`@KrynnNow[region]` in any journal).
+- **The Timeline of Krynn**, from the Age of Starbirth to the War of Souls, with what each event changes in play. A GM's click on a year brings the world to it; a player's shows the age (`@KrynnYear[351]` in any journal).
+- **The Powers of Krynn**: the Knights, the dragonarmies, the Orders, the Knights of Takhisis, the Dragonlances, the Dragon Orbs, the Staff of Magius, the Hammer of Kharas and the Tower of Palanthas.
+- **Krynn: Iconic People**, 25 NPCs at the level they hold in their age:
+  - the eleven Heroes of the Lance in autumn 351;
+  - Laurana the Golden General, Raistlin Master of Past and Present, Caramon in 358, and Goldmoon of the Citadel;
+  - Kitiara, Lord Soth, Verminaard, Ariakas, Toede, Fistandantilus, Dalamar and the Avatar of Takhisis;
+  - Mina and Palin.
+  Their abilities are in English or Portuguese, and their portraits are left for the GM.
+- Self-test: the new compendiums and the journal enrichers.
+
 ## 0.5.0
 
 Dragons and draconians.

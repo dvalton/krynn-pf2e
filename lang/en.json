@@ -722,11 +722,12 @@
     "LifeEngine": "The Lifewrought engine is loaded",
     "LifeData": "The Lifewrought tables load",
     "LifeBuild": "A random life builds from this world's PF2e compendiums",
-    "Packs": "The compendiums of Krynn (magic, gods, peoples, backgrounds, orders, tables, creatures, dragons, relics, guides)",
+    "Packs": "The compendiums of Krynn (magic, gods, peoples, backgrounds, orders, tables, creatures, dragons, relics, iconic people, atlas, guides)",
     "CastGate": "Spells check the gods and the moons when cast",
     "MoonMagic": "Tonight's moon magic for the three Orders",
     "LifePage": "The Lifewrought page finds its files",
-    "Dragons": "Legacy dragons for the Dragons of Krynn window"
+    "Dragons": "Legacy dragons for the Dragons of Krynn window",
+    "Enrichers": "The Atlas's live lines and Timeline years"
    }
   },
   "Language": {
@@ -987,6 +988,13 @@
     "ancient": "Ancient"
    }
   },
+  "Atlas": {
+   "NowIn": "Now, {year} AC",
+   "Quiet": "no great upheaval this year.",
+   "YearIs": "{year}: {what}.",
+   "GoTitle": "Bring the world to this year?",
+   "GoText": "Set the world's date to the first day of {year} ({what})? The age, the gods and the moons follow."
+  },
   "Bestiary": {
    "baaz-draconian": {
     "Notes": "<p>The most common of the draconians: soldiers bred for numbers, loud and quick to anger. Born from corrupted brass dragon eggs.</p>",
@@ -1062,6 +1070,122 @@
    },
    "Venom": {
     "kapak": "<strong>Kapak Venom</strong> (poison) <strong>Saving Throw</strong> DC 17 Fortitude; <strong>Maximum Duration</strong> 4 rounds; <strong>Stage 1</strong> @Damage[1d6[poison]] and clumsy 1 (1 round); <strong>Stage 2</strong> @Damage[1d6[poison]] and slowed 1 (1 round); <strong>Stage 3</strong> paralyzed (1 round)."
+   },
+   "tanis-351": {
+    "Notes": "<p><em>Autumn 351 AC, the Inn of the Last Home</em></p><p>A reluctant leader, at home neither with elves nor humans, who holds the companions together because no one else will.</p>",
+    "rally": "<strong>Frequency</strong> once per round<hr />One ally within 30 feet gains a +1 circumstance bonus to its next attack roll or saving throw before the end of its next turn."
+   },
+   "raistlin-351": {
+    "Notes": "<p><em>Autumn 351 AC, the Inn of the Last Home</em></p><p>A young Red Robe of brilliant, bitter power, who passed the Test at a price no one else knows in full. His brother is never far.</p>",
+    "force-bolts": "Two darts of force strike creatures he can see within 120 feet; each deals @Damage[1d4+1[force]] damage, no roll needed.",
+    "sleep-mist": "<strong>Frequency</strong> once per hour<hr />A 5-foot burst within 30 feet. Each creature attempts @Check[will|dc:18]; on a failure it falls unconscious for 1 minute or until hurt or shaken awake.",
+    "frail": "After his Test, Raistlin's body is weak and his eyes see everything wither. On a critical failure on a Fortitude save, he also falls into a coughing fit: stunned 1."
+   },
+   "caramon-351": {
+    "Notes": "<p><em>Autumn 351 AC, the Inn of the Last Home</em></p><p>Big, warm-hearted and stronger than anyone in the room, he has lived for his twin since they were children.</p>",
+    "brothers-shield": "<strong>Trigger</strong> An enemy adjacent to Caramon attacks Raistlin.<hr />Caramon makes a Strike against it before the attack is rolled."
+   },
+   "sturm-351": {
+    "Notes": "<p><em>Autumn 351 AC, the Inn of the Last Home</em></p><p>A Knight without a knighthood, keeping the Measure in a land that spits on it, with his father's sword and armour.</p>",
+    "oath-and-measure": "Sturm gains a +2 status bonus to saving throws against fear, and never retreats while an ally is in danger."
+   },
+   "tasslehoff-351": {
+    "Notes": "<p><em>Autumn 351 AC, the Inn of the Last Home</em></p><p>Endlessly curious, endlessly cheerful, and owner of an enormous collection of things that other people have dropped.</p>",
+    "kender-taunt": "One creature within 30 feet attempts @Check[will|dc:17]; on a failure it is off-guard against Tas's allies until the end of its next turn.",
+    "fearless": "Tas is immune to fear."
+   },
+   "flint-351": {
+    "Notes": "<p><em>Autumn 351 AC, the Inn of the Last Home</em></p><p>A hill dwarf smith who grumbles about everything and would die for any of them. He hates boats, and horses, and elves' cooking.</p>",
+    "grumble": "Flint gains a +1 circumstance bonus to saving throws against poison and against being knocked prone."
+   },
+   "goldmoon-351": {
+    "Notes": "<p><em>Autumn 351 AC, the Inn of the Last Home</em></p><p>Chieftain's daughter of the Que-Shu, bearer of the Blue Crystal Staff, and the first true cleric of the gods in three hundred years.</p>",
+    "mishakals-touch": "<strong>Frequency</strong> three times per day<hr />A creature she touches regains @Damage[3d8+8[healing]] Hit Points.",
+    "staff-refuses": "<strong>Trigger</strong> An unholy creature touches or strikes with the Blue Crystal Staff.<hr />It takes @Damage[4d6[spirit]] damage and lets go."
+   },
+   "riverwind-351": {
+    "Notes": "<p><em>Autumn 351 AC, the Inn of the Last Home</em></p><p>A Que-Shu hunter of a low-born family, who went on an impossible quest to marry the chieftain's daughter and came back with a staff.</p>",
+    "hunters-mark": "Riverwind marks one creature he can see. His Strikes against it deal 1d8 extra damage until he marks another."
+   },
+   "tika-351": {
+    "Notes": "<p><em>Autumn 351 AC, the Inn of the Last Home</em></p><p>The barmaid of the Inn of the Last Home, brave, red-haired and still learning which end of a sword to hold.</p>",
+    "barroom-brawler": "Tika Shoves or Trips an adjacent creature, and gains a +2 circumstance bonus to the check if it is taller than she is."
+   },
+   "laurana-351": {
+    "Notes": "<p><em>Autumn 351 AC, the Inn of the Last Home</em></p><p>The Speaker's daughter, who has loved Tanis since they were young and has just decided to stop waiting for him at home.</p>",
+    "princess": "Laurana gains a +2 circumstance bonus to Diplomacy with elves of Qualinesti."
+   },
+   "gilthanas-351": {
+    "Notes": "<p><em>Autumn 351 AC, the Inn of the Last Home</em></p><p>Laurana's brother, a prince of Qualinesti, a mage and a warrior, and suspicious of the half-elf his sister loves.</p>",
+    "elven-spell": "A ray of fire at one target within 60 feet: spell attack +16, @Damage[2d6+4[fire]] damage."
+   },
+   "laurana-golden-general": {
+    "Notes": "<p><em>352 AC, the Whitestone armies</em></p><p>She took command when the Knights had none, and the armies follow her hair, gold under the sun, into every battle.</p>",
+    "golden-general": "<strong>Frequency</strong> once per round<hr />Allies within 60 feet who can see her gain a +1 status bonus to attack rolls and to saves against fear until the start of her next turn.",
+    "dragonrider": "Mounted on a dragon, Laurana's dragonlance deals 3d8 extra spirit damage to dragons."
+   },
+   "raistlin-358": {
+    "Notes": "<p><em>358 AC, Master of Past and Present</em></p><p>Now in black robes, master of the Tower of Palanthas, and set on a goal no mage has dared: the Dark Queen's own throne.</p>",
+    "meteor-fall": "<strong>Frequency</strong> once per hour<hr />Four 20-foot bursts within 500 feet: @Damage[19d6[fire]] damage, @Check[reflex|dc:36|basic].",
+    "black-bolt": "One creature within 120 feet: spell attack +37, @Damage[8d10[void]] damage.",
+    "time-walker": "<strong>Frequency</strong> once per hour; <strong>Trigger</strong> Raistlin would be hit by an attack.<hr />He steps a moment out of time: the attack misses, and he teleports up to 30 feet."
+   },
+   "caramon-358": {
+    "Notes": "<p><em>358 AC, after Istar</em></p><p>He followed his brother into the past and came back knowing he must let him go.</p>",
+    "gladiator": "Caramon makes two Strikes against the same target; both count as one for his multiple attack penalty."
+   },
+   "goldmoon-citadel": {
+    "Notes": "<p><em>Age of Mortals, the Citadel of Light</em></p><p>With the gods gone, she found the power in the heart, and founded the Citadel of Light to teach it to anyone.</p>",
+    "power-of-the-heart": "<strong>Frequency</strong> three times per day<hr />Mysticism, not a god's gift: up to three creatures within 30 feet each regain @Damage[6d8+20[healing]] Hit Points."
+   },
+   "kitiara-352": {
+    "Notes": "<p><em>352 AC, Highlord of the Blue Dragonarmy</em></p><p>The twins' half-sister, a sword for hire turned Highlord, who rides the blue dragon Skie and wants everything.</p>",
+    "dragon-highlord": "One ally within 60 feet can immediately Step or make a Strike as a reaction.",
+    "riposte": "<strong>Trigger</strong> A creature critically fails a Strike against Kitiara.<hr />She makes a Strike against it."
+   },
+   "lord-soth": {
+    "Notes": "<p><em>The Knight of the Black Rose</em></p><p>A Knight of Solamnia who failed at the moment that mattered, cursed to an undying life in Dargaard Keep with the warriors who died with him.</p>",
+    "death-word": "<strong>Frequency</strong> once per day<hr />One living creature within 30 feet of 15th level or lower attempts @Check[fortitude|dc:38]. <strong>Failure</strong> It dies. <strong>Success</strong> @Damage[10d10[void]] damage.",
+    "dread-presence": "60 feet. A creature that enters attempts @Check[will|dc:38]; on a failure it is frightened 2, on a critical failure also fleeing for 1 round.",
+    "hellfire": "<strong>Frequency</strong> once per hour<hr />A 20-foot burst within 120 feet: @Damage[20d6[fire]] damage, @Check[reflex|dc:38|basic]."
+   },
+   "verminaard": {
+    "Notes": "<p><em>351 AC, Highlord of the Red Dragonarmy</em></p><p>A cleric of the Dark Queen in a horned helmet, who rules Abanasinia from Pax Tharkas on the red dragon Ember.</p>",
+    "nightbringer": "<strong>Frequency</strong> once per round<hr />After a hit with his mace, the target attempts @Check[fortitude|dc:23]; on a failure it is blinded for 1 round.",
+    "takhisis-favour": "<strong>Frequency</strong> twice per day<hr />He regains @Damage[4d8+16[healing]] Hit Points."
+   },
+   "ariakas": {
+    "Notes": "<p><em>352 AC, Emperor of the Dragon Empire</em></p><p>The Dark Queen's general and emperor, as strong as he is cruel, ruling the Highlords by fear.</p>",
+    "crown-of-power": "While he wears the Crown, Ariakas gains a +2 status bonus to saving throws, and whoever holds the Crown commands the dragonarmies.",
+    "dark-pulse": "A 30-foot emanation: @Damage[17d6[void]] damage, @Check[fortitude|dc:34|basic]."
+   },
+   "toede": {
+    "Notes": "<p><em>351 AC, Fewmaster of Solace</em></p><p>A hobgoblin officer of the dragonarmies, vain, greedy and very good at surviving.</p>",
+    "cowards-command": "<strong>Trigger</strong> An enemy moves adjacent to Toede.<hr />An ally within 30 feet Strides toward the enemy, and Toede Steps away."
+   },
+   "fistandantilus": {
+    "Notes": "<p><em>Before the Cataclysm</em></p><p>The greatest of the Black Robes, who lengthens his life by taking the lives of his apprentices.</p>",
+    "life-drain": "One creature within 30 feet attempts @Check[fortitude|dc:39]: @Damage[12d8[void]] damage (basic), and Fistandantilus regains half as Hit Points.",
+    "archmage-storm": "<strong>Frequency</strong> once per hour<hr />A 30-foot burst within 500 feet: @Damage[21d6[electricity]] damage, @Check[reflex|dc:39|basic]."
+   },
+   "dalamar-358": {
+    "Notes": "<p><em>358 AC, apprentice of the Tower</em></p><p>A Silvanesti cast out for wearing the black robes, apprentice in the Tower of Palanthas, playing a careful double game.</p>",
+    "black-lightning": "A 60-foot line: @Damage[10d6[electricity]] damage, @Check[reflex|dc:25|basic].",
+    "dark-elf": "Cast out by the Silvanesti for practising black magic, he serves Raistlin and spies on him for the Conclave."
+   },
+   "takhisis-avatar": {
+    "Notes": "<p><em>The Queen of Darkness, at the gate of the Abyss</em></p><p>The Queen of Darkness in the shape of a five-headed dragon. She can't be killed, only driven back.</p>",
+    "five-breaths": "<strong>Frequency</strong> once per 1d4 rounds<hr />One of her five heads breathes, a 60-foot cone or a 120-foot line: @Damage[25d6[fire]] (red), electricity (blue), poison (green), acid (black) or cold (white), @Check[reflex|dc:44|basic].",
+    "dark-majesty": "120 feet. Creatures that enter attempt @Check[will|dc:44]; on a failure, frightened 3."
+   },
+   "mina": {
+    "Notes": "<p><em>421 AC, the War of Souls</em></p><p>A girl with amber eyes who walked out of a storm preaching the One God, and led the Knights of Neraka to victory after victory.</p>",
+    "one-god": "<strong>Frequency</strong> three times per day<hr />A creature she touches regains @Damage[6d8+24[healing]] Hit Points, and is freed of one condition.",
+    "devotion": "Mina is immune to fear, and soldiers who follow her gain a +1 status bonus to Will saves."
+   },
+   "palin-majere": {
+    "Notes": "<p><em>Age of Mortals</em></p><p>Caramon's son, a mage who lost the moons with everyone else and learned the wild magic of the world to keep going.</p>",
+    "wild-sorcery": "Magic of the world, without the moons: a 20-foot burst within 120 feet, @Damage[10d6[fire]] damage, @Check[reflex|dc:25|basic]."
    }
   }
  }
