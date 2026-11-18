@@ -14,6 +14,11 @@ https://github.com/dvalton/krynn-pf2e/releases/latest/download/module.json
 
 Requires Foundry VTT 14 (verified on 14.370) and Pathfinder Second Edition 8.7 or newer (verified on 8.7.1). Enable it in your world, then open **Settings → Krynn**.
 
+## Generators (0.7)
+
+- **Generators** (Actors sidebar, GM): people, encounters, rumours, treasure, travel and weather, inns, ship names, gnome inventions and kender pockets, by region and year.
+- Make the NPC from a generated person, or put a generated encounter on the scene, with one click.
+
 ## The world (0.6)
 
 - **Krynn: Atlas of Ansalon**: a journal per region with its places, cities, history and hooks, and a line that shows what is happening there in the world's current year.
@@ -63,7 +68,7 @@ The plan for the whole module is in [docs/plan.md](docs/plan.md).
 
 ## Em português
 
-Módulo de Dragonlance para o Pathfinder 2e no Foundry 14. Instale pelo link de manifest acima e abra **Configurações → Krynn**. A 0.6 traz o mundo: o Atlas de Ansalon com o que está acontecendo em cada região no ano atual, a Linha do Tempo (clique num ano para levar o mundo até ele) e os personagens icônicos de cada era. A 0.5 traz os dragões e draconianos: os estertores automáticos dos draconianos, os dragões dos bestiários legacy com o Medo Dracônico, os Senhores Supremos, as lanças do dragão e as relíquias. A 0.4 traz os povos e as ordens: heranças de Krynn (kender, elfos, anões dos clãs, gnomos funileiros), antecedentes, os Cavaleiros de Solamnia e de Takhisis, as tabelas de bolsos de kender e engenhocas, e a reputação com as facções. A 0.3 traz a magia das luas e os deuses. A 0.2 traz o Lifewrought para dentro do Foundry: cada jogador vive a vida do personagem numa janela, e no fim o personagem é criado direto, com a Crônica no Diário. A versão 0.1 traz a era e a data da campanha, o Calendário de Krynn com os nomes de cada povo, as três luas com a Noite do Olho, a faixa do céu, os avisos no chat, os idiomas e traits de Krynn e a verificação do mundo. Tudo em inglês e português.
+Módulo de Dragonlance para o Pathfinder 2e no Foundry 14. Instale pelo link de manifest acima e abra **Configurações → Krynn**. A 0.7 traz os geradores: pessoas, encontros, rumores, tesouro, viagem e clima, estalagens, navios, invenções gnômicas e bolsos de kender, por região e ano, com um clique para criar o NPC ou pôr o encontro na cena. A 0.6 traz o mundo: o Atlas de Ansalon com o que está acontecendo em cada região no ano atual, a Linha do Tempo (clique num ano para levar o mundo até ele) e os personagens icônicos de cada era. A 0.5 traz os dragões e draconianos: os estertores automáticos dos draconianos, os dragões dos bestiários legacy com o Medo Dracônico, os Senhores Supremos, as lanças do dragão e as relíquias. A 0.4 traz os povos e as ordens: heranças de Krynn (kender, elfos, anões dos clãs, gnomos funileiros), antecedentes, os Cavaleiros de Solamnia e de Takhisis, as tabelas de bolsos de kender e engenhocas, e a reputação com as facções. A 0.3 traz a magia das luas e os deuses. A 0.2 traz o Lifewrought para dentro do Foundry: cada jogador vive a vida do personagem numa janela, e no fim o personagem é criado direto, com a Crônica no Diário. A versão 0.1 traz a era e a data da campanha, o Calendário de Krynn com os nomes de cada povo, as três luas com a Noite do Olho, a faixa do céu, os avisos no chat, os idiomas e traits de Krynn e a verificação do mundo. Tudo em inglês e português.
 
 ## Development
 

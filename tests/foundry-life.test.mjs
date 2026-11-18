@@ -124,7 +124,7 @@ test("the Actors sidebar gets the buttons", async () => {
   html.innerHTML = `<header class="directory-header"><div class="header-actions"></div></header>`;
   await Hooks.callAll("renderActorDirectory", {}, html);
   const buttons = html.querySelectorAll(".krynn-life-buttons button");
-  assert.equal(buttons.length, 3, "Live a life, and Lives and Dragons for the GM");
+  assert.equal(buttons.length, 4, "Live a life, and Lives, Dragons and Generators for the GM");
   await Hooks.callAll("renderActorDirectory", {}, html);
   assert.equal(html.querySelectorAll(".krynn-life-buttons").length, 1, "not added twice");
 });

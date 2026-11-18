@@ -19,6 +19,7 @@ import { finishChoices, pendingChoices, sheetNotice, headerButtons } from "./fou
 import { rememberHit, onActorUpdate, onCombatRound, runThroes } from "./foundry/dragons/throes.mjs";
 import { openDragons, importDragon, findDragons, onCombatStart, DragonsApp } from "./foundry/dragons/dragons.mjs";
 import { registerEnrichers, installYearClicks, refreshNowLines } from "./foundry/atlas.mjs";
+import { openGenerators, GeneratorsApp, onChatCard, makeNpc, placeEncounter, creatureIndex } from "./foundry/generators/app.mjs";
 
 Hooks.once("init", () => {
   registerSettings();
@@ -28,6 +29,7 @@ Hooks.once("init", () => {
     life: { open: openLife, lives: openLives, create: createCharacter, dryRun, LifeApp, finishChoices, pendingChoices },
     factions: { open: openFactions, FactionsApp },
     atlas: { refresh: refreshNowLines },
+    generators: { open: openGenerators, run: (kind, state) => GeneratorsApp.run(kind, state), makeNpc, placeEncounter, creatureIndex, GeneratorsApp },
     dragons: { open: openDragons, import: importDragon, find: findDragons, throes: runThroes, DragonsApp },
     magic: { syncAll, syncActor, magicFor, robeOf } };
   game.modules.get(MODULE_ID).api = api;
@@ -53,7 +55,9 @@ Hooks.once("ready", async () => {
 
 for (const hook of ["createItem", "updateItem", "deleteItem"]) Hooks.on(hook, (item) => onItemChange(item));
 
-Hooks.on("renderActorDirectory", (app, html) => addDirectoryButtons(app, html, { openDragons }));
+Hooks.on("renderActorDirectory", (app, html) => addDirectoryButtons(app, html, { openDragons, openGenerators }));
+// The generators' chat cards: reveal, make the NPC, place the encounter.
+Hooks.on("renderChatMessageHTML", (message, html) => onChatCard(message, html));
 
 // Dragons and draconians: who hit whom, the death throes at 0 HP, dragonfear when an encounter begins, the acid
 // pools drying up as rounds pass.

@@ -55,7 +55,7 @@ export class LivesApp extends fa.api.HandlebarsApplicationMixin(fa.api.Applicati
 export function openLives() { (foundry.applications.instances.get("krynn-lives") ?? new LivesApp()).render({ force: true }); }
 
 // Buttons in the Actors sidebar: "Live a life on Krynn" for anyone allowed, and "Lives" for the GM.
-export function addDirectoryButtons(app, html, { openDragons } = {}) {
+export function addDirectoryButtons(app, html, { openDragons, openGenerators } = {}) {
   const root = html instanceof HTMLElement ? html : html?.[0];
   if (!root || root.querySelector(".krynn-life-buttons")) return;
   const box = document.createElement("div");
@@ -64,6 +64,7 @@ export function addDirectoryButtons(app, html, { openDragons } = {}) {
   if (canLive()) box.append(button("fa-book-open", T("Life.Open"), () => openLife()));
   if (game.user.isGM) box.append(button("fa-users", T("Lives.Open"), () => openLives()));
   if (game.user.isGM && openDragons) box.append(button("fa-dragon", T("Dragons.Open"), () => openDragons()));
+  if (game.user.isGM && openGenerators) box.append(button("fa-dice", T("Gen.Open"), () => openGenerators()));
   if (!box.children.length) return;
   const header = root.querySelector(".directory-header") || root.querySelector("header") || root;
   header.append(box);

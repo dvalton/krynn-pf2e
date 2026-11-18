@@ -103,3 +103,9 @@
 /* 0.6: the Atlas's live line and the Timeline's years */
 .krynn-now { display: inline-block; padding: 4px 8px; border-left: 3px solid #c9a24b; background: rgba(201, 162, 75, 0.12); }
 a.krynn-year { white-space: nowrap; }
+
+/* 0.7: the generators */
+.krynn-gen-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 8px 0; }
+.krynn-gen-actions button { width: 100%; }
+.krynn-gen .krynn-gen-buttons { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.krynn-gen .krynn-gen-buttons button { flex: 1 1 auto; width: auto; }

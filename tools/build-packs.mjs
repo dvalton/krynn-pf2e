@@ -16,6 +16,7 @@ import { REGIONS, POWERS, PEOPLE_NAMES, SIZE_NAMES, PAGE_NAMES } from "../script
 import { TIMELINE, AGE_PAGES } from "../scripts/content/timeline.mjs";
 import { ICONIC } from "../scripts/content/iconic.mjs";
 import { placesOf, sizeOf, yearLabel } from "../scripts/logic/atlas.mjs";
+import { buildNpc } from "../scripts/logic/npc.mjs";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const D = JSON.parse(fs.readFileSync(path.join(ROOT, "lifewrought/data.json"), "utf8"));
@@ -135,49 +136,8 @@ function gear(g) {
   return { _id, _key: `!items!${_id}`, name: g.name.en, type: g.type, img: g.img, folder: null, sort: 0, flags: { "krynn-pf2e": { slug: g.slug } }, effects: [], ownership: { default: 0 }, _stats: stats, system };
 }
 
-// The creatures of Krynn as PF2e NPCs, from the building tables (scripts/content/creatures.mjs).
-const SIZE = { tiny: 0.5, sm: 1, med: 1, lg: 2, huge: 3, grg: 4 };
-const ACTION_TYPE = (a) => (typeof a === "number" ? { actionType: { value: "action" }, actions: { value: a } } : { actionType: { value: a }, actions: { value: null } });
-export function creature(c) {
-  const _id = id(`creature:${c.slug}`), L = c.level;
-  const items = [];
-  const item = (key, data) => { const iid = id(`creature:${c.slug}:${key}`); items.push({ _id: iid, _key: `!actors.items!${_id}.${iid}`, img: c.img, effects: [], flags: {}, sort: items.length * 100000, _stats: stats, ...data }); };
-  for (const [name, t, dmg, type, traits] of c.strikes) {
-    const range = traits.map((x) => /^(?:range|thrown)-(\d+)$/.exec(x)).find(Boolean);
-    item(`strike:${name}`, { name, type: "melee", system: { slug: null, bonus: { value: stat.atk(L, t) }, damageRolls: { [id(`dmg:${c.slug}:${name}`).toLowerCase()]: { damage: dmg === "dmg" ? stat.dmg(L, t) : dmg, damageType: type } },
-      traits: { value: traits.filter((x) => !/^range-\d+$/.test(x)), rarity: "common" }, attack: { value: "" }, attackEffects: { custom: "", value: [] }, description: { value: "" }, range: range ? { increment: Number(range[1]), max: null } : null, rules: [], publication } });
-  }
-  for (const [slug, name, act, traits, text, rules] of c.actions) {
-    const desc = text.en.startsWith("@Localize") ? text.en : `@Localize[KRYNN.Bestiary.${c.slug}.${slug}]`;
-    item(`action:${slug}`, { name: name.en, type: "action", flags: { "krynn-pf2e": { slug } }, system: { slug, ...ACTION_TYPE(act), category: act === "passive" || act === "reaction" ? "defensive" : "offensive",
-      description: { value: desc }, rules: rules || [], traits: { value: traits, rarity: "common" }, publication } });
-  }
-  const a = c.abilities, sz = SIZE[c.size];
-  return {
-    _id, _key: `!actors!${_id}`, name: c.name.en, type: "npc", img: c.img, folder: null, sort: 0, ownership: { default: 0 }, _stats: stats,
-    flags: { "krynn-pf2e": { slug: c.slug, ...(c.draconian ? { draconian: c.draconian } : {}) } },
-    prototypeToken: { name: c.name.en, texture: { src: c.img }, width: sz, height: sz, disposition: c.disposition ?? -1, actorLink: false, displayName: 20, displayBars: 20, bar1: { attribute: "attributes.hp" } },
-    items,
-    system: {
-      abilities: Object.fromEntries(Object.entries(a).map(([k, v]) => [k, { mod: v }])),
-      attributes: {
-        ac: { value: stat.ac(L, c.ac), details: "" }, allSaves: { value: "" },
-        hp: { value: stat.hp(L, c.hp), max: stat.hp(L, c.hp), temp: 0, details: "" },
-        speed: { value: c.speed, otherSpeeds: c.other.map(([type, value]) => ({ type, value })) },
-        immunities: (c.immunities || []).map((type) => ({ type })),
-        resistances: (c.resistances || []).map(([type, value, exceptions]) => ({ type, value, ...(exceptions ? { exceptions } : {}) })),
-        weaknesses: (c.weaknesses || []).map(([type, value]) => ({ type, value })),
-      },
-      details: { level: { value: L }, blurb: "", languages: { value: c.languages, details: "" }, publicNotes: `@Localize[KRYNN.Bestiary.${c.slug}.Notes]`, privateNotes: "", publication },
-      initiative: { statistic: "perception" },
-      perception: { mod: stat.save(L, c.perception), senses: c.senses.map((type) => ({ type })), details: "" },
-      saves: Object.fromEntries(Object.entries(c.saves).map(([k, t]) => [k, { value: stat.save(L, t), saveDetail: "" }])),
-      skills: Object.fromEntries(Object.entries(c.skills).map(([k, t]) => [k, { base: stat.skill(L, t) }])),
-      traits: { rarity: c.rarity || "common", size: { value: c.size }, value: c.traits },
-      resources: {},
-    },
-  };
-}
+// The creatures of Krynn as PF2e NPCs (the builder is shared with the generators: scripts/logic/npc.mjs).
+export const creature = (c) => buildNpc(c, { id, publication, stats });
 
 function journal(j) {
   const _id = id(`journal:${j.slug}`);

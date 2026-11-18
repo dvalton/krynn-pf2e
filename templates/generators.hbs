@@ -1,0 +1,37 @@
+<section class="krynn-gen-form">
+  <fieldset>
+    <legend>{{localize "KRYNN.Gen.Where"}}</legend>
+    <div class="form-group"><label>{{localize "KRYNN.Gen.Region"}}</label>
+      <div class="form-fields"><select name="region">{{#each regions}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></div></div>
+    <div class="form-group"><label>{{localize "KRYNN.Gen.Place"}}</label>
+      <div class="form-fields"><select name="place"><option value="">{{localize "KRYNN.Gen.AnyPlace"}}</option>{{#each places}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></div></div>
+    <div class="form-group"><label>{{localize "KRYNN.Gen.Year"}}</label>
+      <div class="form-fields"><input type="number" name="year" value="{{s.year}}" step="1"></div></div>
+    <div class="form-group"><label>{{localize "KRYNN.Gen.TerrainLabel"}}</label>
+      <div class="form-fields"><select name="terrain"><option value="">{{localize "KRYNN.Gen.AnyTerrain"}}</option>{{#each terrains}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></div></div>
+  </fieldset>
+  <fieldset>
+    <legend>{{localize "KRYNN.Gen.Party"}}</legend>
+    <div class="form-group"><label>{{localize "KRYNN.Gen.PartyLevel"}}</label>
+      <div class="form-fields"><input type="number" name="level" value="{{s.level}}" min="1" max="20"> <input type="number" name="size" value="{{s.size}}" min="1" max="8" title="{{localize "KRYNN.Gen.PartySize"}}"></div></div>
+    <div class="form-group"><label>{{localize "KRYNN.Gen.DifficultyLabel"}}</label>
+      <div class="form-fields"><select name="difficulty">{{#each difficulties}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></div></div>
+    <div class="form-group"><label>{{localize "KRYNN.Gen.NpcAs"}}</label>
+      <div class="form-fields"><select name="role"><option value="">{{localize "KRYNN.Gen.ByTrade"}}</option>{{#each roles}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select>
+        <input type="number" name="npcLevel" value="{{s.npcLevel}}" min="-1" max="24" placeholder="{{localize "KRYNN.Gen.RoleLevel"}}"></div></div>
+    <div class="form-group"><label>{{localize "KRYNN.Gen.HoardLabel"}}</label>
+      <div class="form-fields"><select name="hoard">{{#each hoards}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></div></div>
+  </fieldset>
+  <div class="krynn-gen-actions">
+    <button type="button" data-action="person"><i class="fa-solid fa-user"></i> {{localize "KRYNN.Gen.Person"}}</button>
+    <button type="button" data-action="encounter"><i class="fa-solid fa-dragon"></i> {{localize "KRYNN.Gen.Encounter"}}</button>
+    <button type="button" data-action="rumours"><i class="fa-solid fa-comments"></i> {{localize "KRYNN.Gen.Rumours"}}</button>
+    <button type="button" data-action="treasure"><i class="fa-solid fa-coins"></i> {{localize "KRYNN.Gen.Treasure"}}</button>
+    <button type="button" data-action="travel"><i class="fa-solid fa-cloud-sun-rain"></i> {{localize "KRYNN.Gen.Travel"}}</button>
+    <button type="button" data-action="inn"><i class="fa-solid fa-beer-mug-empty"></i> {{localize "KRYNN.Gen.Inn"}}</button>
+    <button type="button" data-action="ship"><i class="fa-solid fa-ship"></i> {{localize "KRYNN.Gen.Ship"}}</button>
+    <button type="button" data-action="invention"><i class="fa-solid fa-gears"></i> {{localize "KRYNN.Gen.Invention"}}</button>
+    <button type="button" data-action="pockets"><i class="fa-solid fa-bag-shopping"></i> {{localize "KRYNN.Gen.Pockets"}}</button>
+  </div>
+  <p class="hint">{{localize "KRYNN.Gen.Hint"}}</p>
+</section>

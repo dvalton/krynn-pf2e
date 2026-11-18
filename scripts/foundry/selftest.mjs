@@ -9,6 +9,7 @@ import { lwData } from "./lifewrought/engine.mjs";
 import { dryRun } from "./lifewrought/create.mjs";
 import { castGateInstalled } from "./magic/gate.mjs";
 import { findDragons } from "./dragons/dragons.mjs";
+import { creatureIndex } from "./generators/app.mjs";
 import { moonMagic } from "../logic/magic.mjs";
 
 const newer = (have, need) => foundry.utils.isNewerVersion(have, need) || have === need;
@@ -43,6 +44,8 @@ export async function selfTest({ seed } = {}) {
   const packs = ["magic", "deities", "peoples", "backgrounds", "orders", "tables", "creatures", "dragons", "relics", "iconic", "atlas", "guides", "gm-guides"].map((p) => game.packs.get(`${MODULE_ID}.${p}`));
   check("Packs", packs.every((p) => p && p.index.size > 0), packs.map((p) => (p ? p.index.size : "×")).join(" · "));
   check("CastGate", castGateInstalled());
+  const index = await creatureIndex(true);
+  check("Bestiary", index.has("baazdraconian") && index.size > 13, `${index.size}`);
   check("Enrichers", (CONFIG.TextEditor?.enrichers ?? []).some((e) => e.id === "krynnNow"));
   // The legacy dragons the Dragons of Krynn window can bring in.
   const dragons = findDragons();

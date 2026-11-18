@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.7.0
+
+Generators.
+
+- **Generators of Krynn** (GM, Actors sidebar): choose a region, a place, a year and the party (read from PF2e's Party). Each result is a chat card whispered to you; **Show to players** reposts it without its secrets.
+  - **People**: a name from the place's own culture (Lifewrought's name lists, with patronyms and family names), a people from the place's mix, gender and pronouns, a trade, a want, a secret and a manner. **Make the NPC** builds a PF2e NPC from a role (commoner, guard, merchant, priest, mage, knight, thug, scout, veteran, captain) at the level you choose.
+  - **Encounters**: who can be met in the region's terrains in that year (draconians only in their years, the nightmare of Silvanesti in its own), found in your compendiums (the module's creatures, the Monster Core, the legacy bestiaries), within PF2e's XP budget for your party and difficulty. **Place on the scene** brings them in and puts their tokens down.
+  - **Rumours and news**: the region's news for the year, what the region talks about, and the talk of the age.
+  - **Treasure**: steel pieces, gems and art objects from PF2e's treasure by level, and sometimes an item of Krynn.
+  - **Travel and weather**: the weather for the region's climate and the calendar's season, with its effect in play, and something on the road.
+  - **Inns** (name, innkeeper, the house's dish, a rumour), **ship names**, **gnome inventions**, and **kender pockets** (drawn from the table).
+- The NPC builder is shared by the compendiums and the generators.
+- Self-test: the creatures the encounter generator can find.
+
 ## 0.6.0
 
 The world.

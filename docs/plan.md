@@ -221,7 +221,7 @@ Each step is a usable release, tested in the group's world.
 | **0.4 Peoples and orders** ✅ | Krynn heritages and ancestry feats, kender and gnome tables, Krynn backgrounds, the Knights' three orders and the Measure, factions and standing |
 | **0.5 Dragons and draconians** ✅ | Draconians with death throes, Krynn dragon templates and the Overlords, dragonlances and dragon gear, the other creatures of Krynn |
 | **0.6 The world** ✅ | Atlas of Ansalon, timeline, iconic NPCs by age |
-| **0.7 Generators** | Encounters, rumours, people, treasure, travel and weather, inns and the small tables |
+| **0.7 Generators** ✅ | Encounters, rumours, people, treasure, travel and weather, inns and the small tables |
 | **0.8 Polish** | Krynn tab, chat cards, steel, Workbench and Toolbelt integration, full Portuguese translation review |
 | **1.0** | A full campaign test: one session per age, every self-test green |
 

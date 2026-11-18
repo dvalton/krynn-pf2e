@@ -105,7 +105,7 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
     try { docs = fs.readdirSync(new URL(`packs-src/${name}/`, ROOT)).map((f) => JSON.parse(fs.readFileSync(new URL(`packs-src/${name}/${f}`, ROOT), "utf8"))); } catch (e) { /* not built */ }
     const uuid = (d) => `Compendium.krynn-pf2e.${name}.${type}.${d._id}`;
     const index = collection(`index-${name}`);
-    for (const d of docs) { index.set(d._id, { _id: d._id, name: d.name, type: d.type, uuid: uuid(d) }); packDocs[uuid(d)] = d; }
+    for (const d of docs) { index.set(d._id, { _id: d._id, name: d.name, type: d.type, uuid: uuid(d), ...(d.system ? { system: { details: { level: d.system.details?.level }, level: d.system.level, traits: d.system.traits } } : {}) }); packDocs[uuid(d)] = d; }
     packs.set(`krynn-pf2e.${name}`, { collection: `krynn-pf2e.${name}`, documentName: type, metadata: { label: name }, index,
       getDocument: async (id) => { const d = docs.find((x) => x._id === id); return d ? { ...structuredClone(d), uuid: uuid(d), toObject: () => structuredClone(d) } : null; } });
   }
@@ -116,8 +116,15 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
     const dragon = (name, level) => ({ _id: newId(), name, type: "npc", img: "systems/pf2e/icons/default-icons/npc.svg", items: [{ _id: newId(), name: "Jaws", type: "melee", system: { bonus: { value: level + 10 } } }],
       system: { details: { level: { value: level } }, traits: { size: { value: "huge" }, value: ["dragon", "fire"] }, attributes: { hp: { value: 100, max: 100 } } }, prototypeToken: { name, width: 3, height: 3 } });
     for (const [n, l] of [["Young Red Dragon", 10], ["Adult Red Dragon", 14], ["Ancient Red Dragon", 19], ["Adult Bronze Dragon", 11], ["Ancient Blue Dragon", 18], ["Red Dragon Wyrmling", 4]]) {
-      const d = dragon(n, l); docs[d._id] = d; const uuid = `Compendium.pf2e.pathfinder-bestiary.Actor.${d._id}`; legacy.set(d._id, { _id: d._id, name: n, type: "npc", uuid }); packDocs[uuid] = d;
+      const d = dragon(n, l); docs[d._id] = d; const uuid = `Compendium.pf2e.pathfinder-bestiary.Actor.${d._id}`; legacy.set(d._id, { _id: d._id, name: n, type: "npc", uuid, system: { details: { level: { value: l } } } }); packDocs[uuid] = d;
     }
+    // And a few of the Monster Core's creatures, for the encounter generator.
+    const core = collection("index-core"), coreDocs = {};
+    for (const [n, l] of [["Goblin Warrior", -1], ["Wolf", 1], ["Hobgoblin Soldier", 1], ["Hobgoblin Archer", 1], ["Ogre Warrior", 3], ["Grizzly Bear", 3], ["Warg", 2]]) {
+      const d = dragon(n, l); d.system.traits.value = ["animal"]; coreDocs[d._id] = d; const uuid = `Compendium.pf2e.pathfinder-monster-core.Actor.${d._id}`;
+      core.set(d._id, { _id: d._id, name: n, type: "npc", uuid, system: { details: { level: { value: l } } } }); packDocs[uuid] = d;
+    }
+    packs.set("pf2e.pathfinder-monster-core", { collection: "pf2e.pathfinder-monster-core", documentName: "Actor", metadata: { label: "Monster Core" }, index: core, getDocument: async (id) => (coreDocs[id] ? { ...structuredClone(coreDocs[id]), toObject: () => structuredClone(coreDocs[id]) } : null) });
     packs.set("pf2e.pathfinder-bestiary", { collection: "pf2e.pathfinder-bestiary", documentName: "Actor", metadata: { label: "Pathfinder Bestiary" }, index: legacy, getDocument: async (id) => (docs[id] ? { ...structuredClone(docs[id]), toObject: () => structuredClone(docs[id]) } : null) });
   }
   const items = JSON.parse(fs.readFileSync(new URL("tests/fixtures/pf2e-items.json", ROOT)));
