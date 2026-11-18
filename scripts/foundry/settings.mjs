@@ -31,6 +31,7 @@ export function registerSettings() {
   world("lwStart", String, "");
   world("lwScope", String, "favoured");
   world("lwNpcActors", Boolean, false);
+  world("lwKrynnHeritages", Boolean, true);
   world("lwWho", String, "everyone", { choices: { everyone: "KRYNN.Settings.Life.WhoEveryone", gm: "KRYNN.Settings.Life.WhoGM" } });
 
   // Per user: whose names for the months and days, and whether the sky banner shows.

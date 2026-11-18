@@ -8,6 +8,8 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { FEATS, EFFECTS, JOURNALS } from "../scripts/content/magic.mjs";
 import { DEITIES_PT } from "../scripts/content/deities-pt.mjs";
+import { HERITAGES, ANCESTRY_FEATS, BACKGROUNDS, TABLES } from "../scripts/content/peoples.mjs";
+import { ORDER_FEATS, ORDER_EFFECTS } from "../scripts/content/orders.mjs";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const D = JSON.parse(fs.readFileSync(path.join(ROOT, "lifewrought/data.json"), "utf8"));
@@ -16,6 +18,10 @@ const SRC = path.join(ROOT, "packs-src"), OUT = path.join(ROOT, "packs"), BAB = 
 export const PACKS = [
   { name: "magic", label: "Krynn: Magic", labelPt: "Krynn: Magia", type: "Item" },
   { name: "deities", label: "Krynn: Gods", labelPt: "Krynn: Deuses", type: "Item" },
+  { name: "peoples", label: "Krynn: Peoples", labelPt: "Krynn: Povos", type: "Item" },
+  { name: "backgrounds", label: "Krynn: Backgrounds", labelPt: "Krynn: Antecedentes", type: "Item" },
+  { name: "orders", label: "Krynn: Knightly Orders", labelPt: "Krynn: Ordens de Cavalaria", type: "Item" },
+  { name: "tables", label: "Krynn: Tables", labelPt: "Krynn: Tabelas", type: "RollTable" },
   { name: "guides", label: "Krynn: Guides", labelPt: "Krynn: Guias", type: "JournalEntry" },
   { name: "gm-guides", label: "Krynn: GM Guides", labelPt: "Krynn: Guias do Mestre", type: "JournalEntry", gmOnly: true },
 ];
@@ -25,12 +31,19 @@ const id = (s) => { const h = crypto.createHash("sha1").update(`krynn-pf2e:${s}`
 const publication = { title: "Krynn for PF2e", license: "ORC", remaster: true, authors: "" };
 const stats = { coreVersion: "14.370", systemId: "pf2e", systemVersion: "8.7.1" };
 
+// Links written in the content as @UUID[TABLE:slug] and @UUID[FEAT:Skill Feat Name] become real UUIDs.
+const SKILL_FEATS = Object.fromEntries(D.build.skill_feats.map((x) => [x.name, x.uuid]));
+export function featUuid(name) { const u = SKILL_FEATS[name]; if (!u) throw new Error(`no PF2e skill feat named ${name}`); return u; }
+export const tableUuid = (slug) => `Compendium.krynn-pf2e.tables.RollTable.${id(`table:${slug}`)}`;
+export const links = (html) => html.replace(/@UUID\[TABLE:([\w-]+)\]/g, (_, s) => `@UUID[${tableUuid(s)}]`).replace(/@UUID\[FEAT:([^\]]+)\]/g, (_, n) => `@UUID[${featUuid(n)}]`);
+const text = (t) => ({ en: links(t.en), pt: links(t.pt) });
+
 function feat(f) {
   const _id = id(`feat:${f.slug}`);
   return { _id, _key: `!items!${_id}`, name: f.name.en, type: "feat", img: f.img, folder: null, sort: 0, flags: { "krynn-pf2e": { slug: f.slug } }, effects: [], ownership: { default: 0 }, _stats: stats,
     system: {
       slug: f.slug, category: f.category, level: { value: f.level }, actionType: { value: f.actionType || "passive" }, actions: { value: null },
-      description: { value: f.description.en, gm: "" }, rules: f.rules || [], publication,
+      description: { value: links(f.description.en), gm: "" }, rules: f.rules || [], publication,
       prerequisites: { value: (f.prerequisites?.en || []).map((value) => ({ value })) },
       traits: { value: f.traits, rarity: "common", otherTags: [] },
       ...(f.frequency ? { frequency: { max: f.frequency.max, per: f.frequency.per, value: f.frequency.max } } : {}),
@@ -44,7 +57,8 @@ function effect(e) {
       duration: { value: -1, unit: "unlimited", expiry: null, sustained: false }, start: { value: 0, initiative: null }, tokenIcon: { show: true }, badge: null } };
 }
 
-const SPELL = (name) => `Compendium.pf2e.spells-srd.Item.${name}`;
+const SPELLS = Object.fromEntries(D.build.spells.map((x) => [x.name, x.uuid]));
+const SPELL = (name) => { const u = SPELLS[name]; if (!u) throw new Error(`no PF2e spell named ${name}`); return u; };
 function deity(slug, g, lang) {
   const t = lang === "pt" ? DEITIES_PT[slug] : g;
   const L = lang === "pt" ? { edicts: "Éditos", anathema: "Anátema", magic: "Os deuses da magia não têm clérigos: eles concedem a Alta Feitiçaria, pela sua lua, aos magos da sua ordem." }
@@ -60,6 +74,33 @@ function deityDoc(slug, g) {
       attribute: g.attribute, skill: [g.skill], weapons: [g.weapon], spells: g.spell ? { 1: SPELL(g.spell) } : {} } };
 }
 
+const ANCESTRIES = D.rules.ancestries;
+function heritage(h) {
+  const _id = id(`heritage:${h.slug}`), a = ANCESTRIES[h.ancestry];
+  if (!a) throw new Error(`no ancestry ${h.ancestry}`);
+  return { _id, _key: `!items!${_id}`, name: h.name.en, type: "heritage", img: h.img, folder: null, sort: 0, flags: { "krynn-pf2e": { slug: h.slug } }, effects: [], ownership: { default: 0 }, _stats: stats,
+    system: { slug: h.slug, ancestry: { name: a.name, slug: h.ancestry, uuid: a.uuid }, description: { value: links(h.description.en), gm: "" }, rules: h.rules || [], publication,
+      traits: { value: [h.ancestry], rarity: "common", otherTags: [] } } };
+}
+
+const ATTRS = ["str", "dex", "con", "int", "wis", "cha"];
+function background(b) {
+  const _id = id(`background:${b.slug}`), uuid = featUuid(b.feat);
+  return { _id, _key: `!items!${_id}`, name: b.name.en, type: "background", img: b.img, folder: null, sort: 0, flags: { "krynn-pf2e": { slug: b.slug } }, effects: [], ownership: { default: 0 }, _stats: stats,
+    system: { slug: b.slug, description: { value: links(b.description.en), gm: "" }, rules: [], publication, traits: { value: [], rarity: "common", otherTags: [] },
+      boosts: { 0: { value: b.boosts, selected: null }, 1: { value: ATTRS, selected: null } },
+      trainedSkills: { value: [b.skill], lore: [b.lore] },
+      items: { [id(`bgfeat:${b.slug}`).slice(0, 5)]: { uuid, img: "systems/pf2e/icons/features/feats/feats.webp", name: b.feat, level: 1 } } } };
+}
+
+function table(t) {
+  const _id = id(`table:${t.slug}`);
+  return { _id, _key: `!tables!${_id}`, name: t.name.en, img: t.img, description: "", formula: t.formula, replacement: true, displayRoll: true, folder: null, sort: 0,
+    flags: { "krynn-pf2e": { slug: t.slug } }, ownership: { default: 0 }, _stats: stats,
+    results: t.results.map(([en], i) => { const rid = id(`result:${t.slug}:${i}`); return { _id: rid, _key: `!tables.results!${_id}.${rid}`, type: "text", name: en, description: en, text: en,
+      img: t.img, weight: 1, range: [i + 1, i + 1], drawn: false, flags: {}, _stats: stats }; }) };
+}
+
 function journal(j) {
   const _id = id(`journal:${j.slug}`);
   return { _id, _key: `!journal!${_id}`, name: j.name.en, folder: null, sort: 0, flags: { "krynn-pf2e": { slug: j.slug } }, ownership: { default: 0 }, _stats: stats, categories: [],
@@ -71,6 +112,10 @@ export function buildDocs() {
   return {
     magic: [...FEATS.map(feat), ...EFFECTS.map(effect)],
     deities: Object.entries(D.deities).map(([slug, g]) => deityDoc(slug, g)),
+    peoples: [...HERITAGES.map(heritage), ...ANCESTRY_FEATS.map((f) => feat({ category: "ancestry", level: 1, ...f }))],
+    backgrounds: BACKGROUNDS.map(background),
+    orders: [...ORDER_FEATS.map((f) => feat({ category: "class", ...f })), ...ORDER_EFFECTS.map(effect)],
+    tables: TABLES.map(table),
     guides: JOURNALS.filter((j) => !j.gmOnly).map(journal),
     "gm-guides": JOURNALS.filter((j) => j.gmOnly).map(journal),
   };
@@ -78,7 +123,13 @@ export function buildDocs() {
 
 export function buildBabele() {
   const items = [...FEATS, ...EFFECTS];
+  const entries = (list) => Object.fromEntries(list.map((x) => [x.name.en, { name: x.name.pt, description: text(x.description).pt }]));
   const out = {
+    peoples: { label: "Krynn: Povos", mapping: { description: "system.description.value" }, entries: entries([...HERITAGES, ...ANCESTRY_FEATS]) },
+    backgrounds: { label: "Krynn: Antecedentes", mapping: { description: "system.description.value" }, entries: entries(BACKGROUNDS) },
+    orders: { label: "Krynn: Ordens de Cavalaria", mapping: { description: "system.description.value" }, entries: entries([...ORDER_FEATS, ...ORDER_EFFECTS]) },
+    tables: { label: "Krynn: Tabelas", entries: Object.fromEntries(TABLES.map((t) => [t.name.en, { name: t.name.pt,
+      results: Object.fromEntries(t.results.map(([, pt], i) => [`${i + 1}-${i + 1}`, pt])) }])) },
     magic: { label: "Krynn: Magia", mapping: { description: "system.description.value" },
       entries: Object.fromEntries(items.map((x) => [x.name.en, { name: x.name.pt, description: x.description.pt }])) },
     deities: { label: "Krynn: Deuses", mapping: { description: "system.description.value" },

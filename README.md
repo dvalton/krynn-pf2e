@@ -14,6 +14,13 @@ https://github.com/dvalton/krynn-pf2e/releases/latest/download/module.json
 
 Requires Foundry VTT 14 (verified on 14.370) and Pathfinder Second Edition 8.7 or newer (verified on 8.7.1). Enable it in your world, then open **Settings → Krynn**.
 
+## Peoples and orders (0.4)
+
+- Compendiums **Krynn: Peoples** (heritages and ancestry feats), **Krynn: Backgrounds**, **Krynn: Knightly Orders** and **Krynn: Tables**.
+- The Knights of Solamnia and of Takhisis as archetypes, each with a choice of order; the Breach of the Measure effect for the GM.
+- **Factions**: a button on the character sheet shows the character's standing with the factions of Krynn. The GM keeps it up to date.
+- Lifewrought characters get their Krynn heritage, their god from Krynn: Gods, and a **Finish choices** button for the few choices PF2e has to ask.
+
 ## Magic (0.3)
 
 - Compendiums **Krynn: Magic**, **Krynn: Gods**, **Krynn: Guides** and **Krynn: GM Guides** (in Portuguese with Babele).
@@ -43,7 +50,7 @@ The plan for the whole module is in [docs/plan.md](docs/plan.md).
 
 ## Em português
 
-Módulo de Dragonlance para o Pathfinder 2e no Foundry 14. Instale pelo link de manifest acima e abra **Configurações → Krynn**. A 0.2 traz o Lifewrought para dentro do Foundry: cada jogador vive a vida do personagem numa janela, e no fim o personagem é criado direto, com a Crônica no Diário. A versão 0.1 traz a era e a data da campanha, o Calendário de Krynn com os nomes de cada povo, as três luas com a Noite do Olho, a faixa do céu, os avisos no chat, os idiomas e traits de Krynn e a verificação do mundo. Tudo em inglês e português.
+Módulo de Dragonlance para o Pathfinder 2e no Foundry 14. Instale pelo link de manifest acima e abra **Configurações → Krynn**. A 0.4 traz os povos e as ordens: heranças de Krynn (kender, elfos, anões dos clãs, gnomos funileiros), antecedentes, os Cavaleiros de Solamnia e de Takhisis, as tabelas de bolsos de kender e engenhocas, e a reputação com as facções. A 0.3 traz a magia das luas e os deuses. A 0.2 traz o Lifewrought para dentro do Foundry: cada jogador vive a vida do personagem numa janela, e no fim o personagem é criado direto, com a Crônica no Diário. A versão 0.1 traz a era e a data da campanha, o Calendário de Krynn com os nomes de cada povo, as três luas com a Noite do Olho, a faixa do céu, os avisos no chat, os idiomas e traits de Krynn e a verificação do mundo. Tudo em inglês e português.
 
 ## Development
 

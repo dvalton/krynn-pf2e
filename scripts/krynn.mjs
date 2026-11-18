@@ -14,13 +14,16 @@ import { registerSocket, buildPending } from "./foundry/lifewrought/socket.mjs";
 import { createCharacter, dryRun } from "./foundry/lifewrought/create.mjs";
 import { syncAll, syncActor, onItemChange, magicFor, robeOf } from "./foundry/magic/moons.mjs";
 import { installCastGate } from "./foundry/magic/gate.mjs";
+import { openFactions, FactionsApp } from "./foundry/peoples/factions.mjs";
+import { finishChoices, pendingChoices, sheetNotice, headerButtons } from "./foundry/lifewrought/finish.mjs";
 
 Hooks.once("init", () => {
   registerSettings();
   CONFIG.time.formatters ??= {};
   registerCalendar();
   const api = { now, setDate, sky: skyNow, state: stateNow, formatDate, openSky, selfTest, refresh: refreshSky, ages, moons, calendar,
-    life: { open: openLife, lives: openLives, create: createCharacter, dryRun, LifeApp },
+    life: { open: openLife, lives: openLives, create: createCharacter, dryRun, LifeApp, finishChoices, pendingChoices },
+    factions: { open: openFactions, FactionsApp },
     magic: { syncAll, syncActor, magicFor, robeOf } };
   game.modules.get(MODULE_ID).api = api;
   globalThis.krynn = api;
@@ -43,6 +46,10 @@ Hooks.once("ready", async () => {
 for (const hook of ["createItem", "updateItem", "deleteItem"]) Hooks.on(hook, (item) => onItemChange(item));
 
 Hooks.on("renderActorDirectory", (app, html) => addDirectoryButtons(app, html));
+
+// The character sheet: a Factions button, and a note while PF2e choices are still open.
+Hooks.on("getActorSheetHeaderButtons", (sheet, buttons) => headerButtons(sheet, buttons, { openFactions }));
+Hooks.on("renderCharacterSheetPF2e", (app, html) => sheetNotice(app, html));
 
 Hooks.on("updateWorldTime", async (worldTime, delta) => {
   refreshSky();

@@ -1,0 +1,47 @@
+{
+ "label": "Krynn: Tabelas",
+ "entries": {
+  "Kender Pockets": {
+   "name": "Bolsos de Kender",
+   "results": {
+    "1-1": "Uma chave de latão de uma porta que você nunca viu",
+    "2-2": "Um mapa com uma cidade circulada duas vezes",
+    "3-3": "Um besouro muito pequeno e muito bravo num pote",
+    "4-4": "Metade de um medalhão de prata, com um retrato dentro",
+    "5-5": "Uma peça de aço torta de uma cidade que não existe mais",
+    "6-6": "Uma pena que é morna ao toque",
+    "7-7": "A carta muito importante de alguém, ainda lacrada",
+    "8-8": "Um anel um pouco grande demais para qualquer um",
+    "9-9": "Uma escama de dragão, ou uma falsificação convincente",
+    "10-10": "Um apito de madeira que só os cães ouvem",
+    "11-11": "A outra metade de um hoopak quebrado",
+    "12-12": "Um dado com dois seis",
+    "13-13": "Três botões azuis do casaco de um cavaleiro",
+    "14-14": "Um livrinho de mapas de lugares que estão errados",
+    "15-15": "Uma ferramenta de gnomo que faz alguma coisa, provavelmente",
+    "16-16": "Uma maçã de uma árvore que só cresce em Qualinesti",
+    "17-17": "Uma mecha de cabelo amarrada com fio vermelho",
+    "18-18": "Uma moeda com um rosto que ninguém reconhece",
+    "19-19": "Uma pequena estatueta de dragão de prata com olhos de rubi",
+    "20-20": "Exatamente o que você precisava, à escolha do mestre"
+   }
+  },
+  "Gnomish Contraption": {
+   "name": "Engenhoca Gnômica",
+   "results": {
+    "1-1": "Explode. Todos a até 3 metros sofrem 1d6 de dano de fogo (Reflexos básico contra a sua CD de classe); o problema continua.",
+    "2-2": "Pega fogo, silenciosamente. Você passa a próxima rodada apagando.",
+    "3-3": "Faz o contrário do que você queria, por pouco tempo e com muito barulho.",
+    "4-4": "Funciona, mas só enquanto você o segura com as duas mãos e conversa com ele.",
+    "5-5": "Funciona, devagar: a tarefa leva o dobro do tempo, mas fica pronta.",
+    "6-6": "Funciona, e atrai todas as criaturas num raio de 1,5 km com o barulho.",
+    "7-7": "Funciona. Você recebe +1 de bônus circunstancial em um teste para resolver o problema.",
+    "8-8": "Funciona bem. Você recebe +2 de bônus circunstancial em um teste para resolver o problema.",
+    "9-9": "Funciona, e faz mais alguma coisa útil à escolha do mestre.",
+    "10-10": "Resolve o problema de vez, e você não consegue explicar como.",
+    "11-11": "Resolve o problema e pode ser usado mais uma vez hoje.",
+    "12-12": "Brilhante. Resolve o problema; sua Guilda vai querer um relatório."
+   }
+  }
+ }
+}

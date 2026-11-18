@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.4.0
+
+Peoples and orders, and fixes for Lifewrought characters.
+
+Fixes
+- **The Lifewrought tables didn't load** (engine.js and data.json gave 404). Foundry drops the trailing slash of a route, so the page in the window looked for its files one folder too high. The window now takes the folder from the page's own address, and the self-test checks that the page finds its files.
+- **PF2e errors on Lifewrought characters** ("rulesSelections.assurance" and similar). Choices a background or feat makes for you, like Assurance in Athletics, now come with the character, and so do the simple ones (a skill, a fixed list, a champion's sanctification, a cleric's divine font, from the god of the life). A choice among compendium items, like Versatile Human's feat, is shown on the sheet with a **Finish choices** button: the item is taken again on the owner's computer, and PF2e asks.
+- A Lifewrought character's god is now the one in the Krynn: Gods compendium, with the god's real spells.
+
+Peoples and orders
+- **Krynn: Peoples**: heritages for the Qualinesti, Silvanesti and Kagonesti elves, the Neidar and the five clans of Thorbardin, tinker gnomes, kender and afflicted kender. Ancestry feats: Kender Taunt, Kender Pockets, Tinker's Contraption, Life Quest, Clan Loyalty, House Etiquette.
+- **Krynn: Backgrounds**: ten Krynn backgrounds, from Squire of the Knights to Dragonarmy Deserter, each with a PF2e skill feat.
+- **Krynn: Knightly Orders**: the Knight of Solamnia Dedication (Crown, Sword or Rose) and its three order feats, and the Breach of the Measure effect. The Knight of Takhisis Dedication (Lily, Skull or Thorn) and Lily's Menace.
+- **Krynn: Tables**: Kender Pockets (d20) and Gnomish Contraption (d12), linked from their feats.
+- **Factions**: each character has a standing with the factions of Krynn, in PF2e's attitudes from hostile to helpful. It starts from the organizations of their Lifewrought life. The GM changes it from the Factions button on the sheet or in Lives; the player sees it.
+- **Krynn heritages for Lifewrought characters** (a setting, on by default): kender, elves, dwarves and gnomes get their Krynn heritage instead of a PF2e one.
+- Everything is in English and in Portuguese (through Babele).
+
 ## 0.3.0
 
 Magic, and two fixes.

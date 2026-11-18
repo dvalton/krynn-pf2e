@@ -1,0 +1,29 @@
+<section class="krynn-factions">
+  {{#if empty}}<p class="hint">{{localize "KRYNN.Factions.None"}}</p>{{else}}
+  <table>
+    <thead><tr><th>{{localize "KRYNN.Factions.Faction"}}</th><th>{{localize "KRYNN.Factions.Standing.Label"}}</th><th>{{localize "KRYNN.Factions.Note"}}</th>{{#if gm}}<th></th>{{/if}}</tr></thead>
+    <tbody>
+      {{#each rows}}
+      <tr class="standing-{{key}}">
+        <td><strong>{{name}}</strong></td>
+        <td class="standing">
+          {{#if ../gm}}<button type="button" data-action="step" data-id="{{id}}" data-by="-1" {{#unless down}}disabled{{/unless}} aria-label="−"><i class="fa-solid fa-minus"></i></button>{{/if}}
+          <span>{{label}}</span>
+          {{#if ../gm}}<button type="button" data-action="step" data-id="{{id}}" data-by="1" {{#unless up}}disabled{{/unless}} aria-label="+"><i class="fa-solid fa-plus"></i></button>{{/if}}
+        </td>
+        <td>{{#if ../gm}}<input type="text" name="note" data-id="{{id}}" value="{{note}}">{{else}}{{note}}{{/if}}</td>
+        {{#if ../gm}}<td><button type="button" data-action="remove" data-id="{{id}}" aria-label="{{localize "KRYNN.Factions.Remove"}}"><i class="fa-solid fa-trash"></i></button></td>{{/if}}
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{/if}}
+  {{#if gm}}
+  <div class="add">
+    <select name="preset"><option value="">{{localize "KRYNN.Factions.Pick"}}</option>{{#each presets}}<option value="{{id}}">{{name}}</option>{{/each}}</select>
+    <input type="text" name="custom" placeholder="{{localize "KRYNN.Factions.Custom"}}">
+    <button type="button" data-action="add"><i class="fa-solid fa-plus"></i> {{localize "KRYNN.Factions.Add"}}</button>
+  </div>
+  {{/if}}
+  <p class="hint">{{localize "KRYNN.Factions.Hint"}}</p>
+</section>

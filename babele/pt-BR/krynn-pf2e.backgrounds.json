@@ -1,0 +1,48 @@
+{
+ "label": "Krynn: Antecedentes",
+ "mapping": {
+  "description": "system.description.value"
+ },
+ "entries": {
+  "Squire of the Knights": {
+   "name": "Escudeiro dos Cavaleiros",
+   "description": "<p>Você serviu a um Cavaleiro de Solamnia: carregou a armadura, segurou os cavalos, decorou o Juramento e aprendeu a Medida pelas regras.</p><p>Escolha dois aumentos de atributo. Um deve ser em <strong>STR</strong> ou <strong>WIS</strong>, e o outro é livre.</p><p>Você é treinado em Atletismo e em Knighthood Lore, e recebe o talento de perícia @UUID[Compendium.pf2e.feats-srd.Item.C0Tcelg3BAPhML6J]{Hefty Hauler}.</p>"
+  },
+  "Kirath Ranger": {
+   "name": "Batedor Kirath",
+   "description": "<p>Você cavalgou com os kirath, os batedores que guardam as fronteiras de Silvanesti e andam por onde os outros elfos não vão.</p><p>Escolha dois aumentos de atributo. Um deve ser em <strong>DEX</strong> ou <strong>WIS</strong>, e o outro é livre.</p><p>Você é treinado em Sobrevivência e em Silvanesti Lore, e recebe o talento de perícia @UUID[Compendium.pf2e.feats-srd.Item.urQZwmzg2kS53vd5]{Experienced Tracker}.</p>"
+  },
+  "Que-Shu Shepherd": {
+   "name": "Pastor Que-Shu",
+   "description": "<p>Você cuidou dos rebanhos das Planícies de Abanasinia, sob o céu aberto, com as canções e o orgulho da sua tribo.</p><p>Escolha dois aumentos de atributo. Um deve ser em <strong>CON</strong> ou <strong>WIS</strong>, e o outro é livre.</p><p>Você é treinado em Natureza e em Plains Lore, e recebe o talento de perícia @UUID[Compendium.pf2e.feats-srd.Item.nowEaHgIyij7im8F]{Train Animal}.</p>"
+  },
+  "Tinker Guild Apprentice": {
+   "name": "Aprendiz de Guilda Funileira",
+   "description": "<p>Você foi aprendiz numa Guilda de Mount Nevermind, onde toda ideia é boa até explodir.</p><p>Escolha dois aumentos de atributo. Um deve ser em <strong>INT</strong> ou <strong>DEX</strong>, e o outro é livre.</p><p>Você é treinado em Ofício e em Engineering Lore, e recebe o talento de perícia @UUID[Compendium.pf2e.feats-srd.Item.QLeMH5mQgh28sa5o]{Specialty Crafting}.</p>"
+  },
+  "Legion of Steel Cell": {
+   "name": "Célula da Legião do Aço",
+   "description": "<p>Você fez parte de uma célula da Legião do Aço, trabalhando em segredo contra tiranos, confiando só nos poucos que sabiam seu nome verdadeiro.</p><p>Escolha dois aumentos de atributo. Um deve ser em <strong>STR</strong> ou <strong>CHA</strong>, e o outro é livre.</p><p>Você é treinado em Enganação e em Legion Lore, e recebe o talento de perícia @UUID[Compendium.pf2e.feats-srd.Item.Dvz54d6aPhjsmUux]{Lie to Me}.</p>"
+  },
+  "Citadel of Light Novice": {
+   "name": "Noviço da Cidadela da Luz",
+   "description": "<p>Você estudou na Cidadela da Luz, onde o poder do coração é ensinado a quem quiser ouvir.</p><p>Escolha dois aumentos de atributo. Um deve ser em <strong>WIS</strong> ou <strong>CHA</strong>, e o outro é livre.</p><p>Você é treinado em Religião e em Mysticism Lore, e recebe o talento de perícia @UUID[Compendium.pf2e.feats-srd.Item.x7EMZNMavris2aHY]{Student of the Canon}.</p>"
+  },
+  "Seeker Priest": {
+   "name": "Sacerdote Buscador",
+   "description": "<p>Você pregou os novos deuses dos Buscadores nos anos em que os verdadeiros deuses se calavam. Parte daquilo você acreditava.</p><p>Escolha dois aumentos de atributo. Um deve ser em <strong>CHA</strong> ou <strong>INT</strong>, e o outro é livre.</p><p>Você é treinado em Enganação e em False Gods Lore, e recebe o talento de perícia @UUID[Compendium.pf2e.feats-srd.Item.r7cgrrHh75R8UEqN]{Deceptive Worship}.</p>"
+  },
+  "Dragonarmy Deserter": {
+   "name": "Desertor do Exército Dracônico",
+   "description": "<p>Você marchou sob a bandeira de um Senhor dos Dragões, e depois não. Em algum lugar, seu nome ainda está numa lista.</p><p>Escolha dois aumentos de atributo. Um deve ser em <strong>STR</strong> ou <strong>CON</strong>, e o outro é livre.</p><p>Você é treinado em Intimidação e em Warfare Lore, e recebe o talento de perícia @UUID[Compendium.pf2e.feats-srd.Item.xQMz6eDgX75WX2ce]{Intimidating Glare}.</p>"
+  },
+  "Mount Nevermind Refugee": {
+   "name": "Refugiado de Mount Nevermind",
+   "description": "<p>Você deixou Mount Nevermind depois de um dos seus famosos acidentes, com uma bolsa de ferramentas e a cabeça cheia de planos pela metade.</p><p>Escolha dois aumentos de atributo. Um deve ser em <strong>INT</strong> ou <strong>CON</strong>, e o outro é livre.</p><p>Você é treinado em Ofício e em Gnome Lore, e recebe o talento de perícia @UUID[Compendium.pf2e.feats-srd.Item.ASy9AKEIRxPYUi5o]{Quick Repair}.</p>"
+  },
+  "Ergothian Sailor": {
+   "name": "Marinheiro Ergothiano",
+   "description": "<p>Você foi tripulante dos navios de Ergoth, o velho império que ainda lembra de quando governava os mares.</p><p>Escolha dois aumentos de atributo. Um deve ser em <strong>STR</strong> ou <strong>DEX</strong>, e o outro é livre.</p><p>Você é treinado em Atletismo e em Sailing Lore, e recebe o talento de perícia @UUID[Compendium.pf2e.feats-srd.Item.iOY6YfGBaOvMNAor]{Underwater Marauder}.</p>"
+  }
+ }
+}

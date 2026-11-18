@@ -2,6 +2,7 @@
 // settings, localization, world time with the configured calendar, hooks, chat messages, users and the DOM.
 // It is not Foundry: it checks that the module's own code runs and does what it says, not Foundry's behaviour.
 import fs from "node:fs";
+import { PACKS } from "../../tools/build-packs.mjs";
 import { JSDOM } from "jsdom";
 import Handlebars from "handlebars";
 import { createRequire } from "node:module";
@@ -53,10 +54,11 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
   // Documents with flags, enough for actors, journals, folders and users.
   const ids = { n: 0 };
   const newId = () => `id${String(++ids.n).padStart(14, "0")}`;
-  const setPath = (o, k, v) => { const parts = k.split("."); let n = o; parts.slice(0, -1).forEach((p) => { n = n[p] ??= {}; }); n[parts.at(-1)] = v; };
+  const setPath = (o, k, v) => { const parts = k.split("."); let n = o; parts.slice(0, -1).forEach((p) => { n = n[p] ??= {}; }); const last = parts.at(-1); if (last.startsWith("-=")) delete n[last.slice(2)]; else n[last] = v; };
   class Doc {
-    constructor(data) { Object.assign(this, structuredClone(data)); this.id ??= newId(); this.flags ??= {}; this.uuid = `${this.constructor.name}.${this.id}`; }
+    constructor(data) { Object.assign(this, structuredClone(data)); this.id ??= this._id ?? newId(); this._id = this.id; this.flags ??= {}; this.uuid = `${this.constructor.name}.${this.id}`; }
     getFlag(scope, key) { return this.flags?.[scope]?.[key]; }
+    get isOwner() { return game.user.isGM || this.ownership?.[game.user.id] === 3; }
     async setFlag(scope, key, value) { (this.flags[scope] ??= {})[key] = structuredClone(value); return this; }
     async unsetFlag(scope, key) { if (this.flags[scope]) delete this.flags[scope][key]; return this; }
     async update(changes) { for (const [k, v] of Object.entries(changes)) { if (k.includes(".")) setPath(this, k, structuredClone(v)); else this[k] = structuredClone(v); } return this; }
@@ -66,6 +68,7 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
   const actors = collection("actors"), journal = collection("journal"), folders = collection("folders");
   // Embedded items, with the hooks Foundry fires when they change.
   class Items extends Map {
+    [Symbol.iterator]() { return this.values(); } // a Foundry Collection iterates its documents
     find(fn) { return [...this.values()].find(fn); }
     filter(fn) { return [...this.values()].filter(fn); }
     some(fn) { return [...this.values()].some(fn); }
@@ -75,6 +78,7 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
   class Item extends Doc {
     constructor(data, parent) { super(data); this.parent = parent; this.flags ??= {}; this.system ??= {}; }
     async delete() { return this.parent.deleteEmbeddedDocuments("Item", [this.id]); }
+    toObject() { const { parent, uuid, ...rest } = this; return structuredClone(rest); }
   }
   class Actor extends Doc {
     constructor(data) { super({ ...data, items: undefined }); this.items = new Items(); for (const i of data.items || []) { const it = new Item(i, this); this.items.set(it.id, it); } this.system ??= {}; }
@@ -93,17 +97,24 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
   globalThis.Actor = Actor; globalThis.JournalEntry = JournalEntry; globalThis.Folder = Folder;
   const casts = [];
   class SpellcastingEntry { constructor(actor, tradition) { this.actor = actor; this.tradition = tradition; } async cast(spell, options) { casts.push({ actor: this.actor.name, spell: spell.name, tradition: this.tradition }); } }
-  const packs = new Map();
-  for (const name of ["magic", "deities", "guides", "gm-guides"]) {
-    let n = 0;
-    try { n = fs.readdirSync(new URL(`packs-src/${name}/`, ROOT)).length; } catch (e) { /* not built */ }
-    packs.set(`krynn-pf2e.${name}`, { index: { size: n } });
+  // The module's packs, read from packs-src (npm run check builds it first), with an index and their documents.
+  const packs = new Map(), packDocs = {};
+  for (const { name, type } of PACKS) {
+    let docs = [];
+    try { docs = fs.readdirSync(new URL(`packs-src/${name}/`, ROOT)).map((f) => JSON.parse(fs.readFileSync(new URL(`packs-src/${name}/${f}`, ROOT), "utf8"))); } catch (e) { /* not built */ }
+    const uuid = (d) => `Compendium.krynn-pf2e.${name}.${type}.${d._id}`;
+    const index = collection(`index-${name}`);
+    for (const d of docs) { index.set(d._id, { _id: d._id, name: d.name, type: d.type, uuid: uuid(d) }); packDocs[uuid(d)] = d; }
+    packs.set(`krynn-pf2e.${name}`, { collection: `krynn-pf2e.${name}`, documentName: type, index,
+      getDocument: async (id) => { const d = docs.find((x) => x._id === id); return d ? { ...structuredClone(d), uuid: uuid(d), toObject: () => structuredClone(d) } : null; } });
   }
   globalThis.CONST = { DOCUMENT_OWNERSHIP_LEVELS: { INHERIT: -1, NONE: 0, LIMITED: 1, OBSERVER: 2, OWNER: 3 } };
   const items = JSON.parse(fs.readFileSync(new URL("tests/fixtures/pf2e-items.json", ROOT)));
-  globalThis.fromUuid = async (uuid) => (items[uuid] ? { toObject: () => structuredClone(items[uuid]) } : null);
+  globalThis.fromUuid = async (uuid) => { const d = items[uuid] ?? packDocs[uuid]; return d ? { uuid, toObject: () => structuredClone(d) } : null; };
   globalThis.fetch = async (url) => {
-    const file = String(url).replace(/^\/?modules\/krynn-pf2e\//, "");
+    const path = new URL(String(url), "http://localhost:30000/game").pathname;
+    if (!path.startsWith("/modules/krynn-pf2e/")) return { ok: false, status: 404 };
+    const file = path.slice("/modules/krynn-pf2e/".length);
     try { const text = fs.readFileSync(new URL(file, ROOT), "utf8"); return { ok: true, status: 200, json: async () => JSON.parse(text), text: async () => text }; } catch (e) { return { ok: false, status: 404 }; }
   };
   // Lifewrought's engine, as module.json's "scripts" would load it.
@@ -193,7 +204,7 @@ export function installFoundry({ lang = "en", isGM = true, worldTime = 0, robe =
       expandObject: (o) => { const out = {}; for (const [k, v] of Object.entries(o)) { const parts = k.split("."); let n = out; parts.slice(0, -1).forEach((p) => { n = n[p] ??= {}; }); n[parts.at(-1)] = v; } return out; },
       isNewerVersion: (a, b) => { const pa = String(a).split(".").map(Number), pb = String(b).split(".").map(Number); for (let i = 0; i < Math.max(pa.length, pb.length); i++) { if ((pa[i] || 0) !== (pb[i] || 0)) return (pa[i] || 0) > (pb[i] || 0); } return false; },
       debouncedReload: () => { globalThis.__reloaded = true; },
-      getRoute: (p) => `/${p}`,
+      getRoute: (p) => `/${p}`.replace(/\/+$/, ""), // like Foundry: no trailing slash
       mergeObject: (a, b) => { const out = structuredClone(a); const m = (x, y) => { for (const [k, v] of Object.entries(y || {})) { if (v && typeof v === "object" && !Array.isArray(v) && x[k] && typeof x[k] === "object") m(x[k], v); else x[k] = v; } }; m(out, b); return out; },
       randomID: () => newId(),
       debounce: (fn) => fn,

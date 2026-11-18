@@ -3,6 +3,9 @@
 import { MODULE_ID, T, setting } from "../constants.mjs";
 import { LW, lwData } from "./engine.mjs";
 import { replayLife, buildActorData, chroniclePages, calendarCultureOf, peopleOf, randomLife } from "../../logic/lifewrought.mjs";
+import { useKrynnDeity, openChoices, factionsFromLife, krynnHeritageOf, swapHeritage } from "../../logic/peoples.mjs";
+import { FACTIONS } from "../../content/orders.mjs";
+import { HERITAGES } from "../../content/peoples.mjs";
 
 const OWN = () => CONST.DOCUMENT_OWNERSHIP_LEVELS;
 
@@ -13,6 +16,25 @@ async function folderFor(type, name, parent = null) {
 
 async function fetchItem(uuid) {
   try { const doc = await fromUuid(uuid); return doc ? doc.toObject() : null; } catch (e) { return null; }
+}
+
+// The character's god as the Krynn Gods pack has it (with its spells and sanctification), when the pack is there.
+async function krynnDeity(v, D) {
+  const slug = v.l1?.deity, g = slug && D.deities?.[slug];
+  const pack = g && game.packs.get(`${MODULE_ID}.deities`);
+  const entry = pack?.index?.find?.((e) => e.name === g.name);
+  if (!entry) return null;
+  const doc = await pack.getDocument(entry._id).catch(() => null);
+  return doc ? { deity: doc.toObject(), uuid: doc.uuid ?? `Compendium.${MODULE_ID}.deities.Item.${entry._id}` } : null;
+}
+
+// A document of one of the module's packs, by its slug flag (the pack's index has names; ids are stable per slug).
+async function packDoc(pack, name) {
+  const p = game.packs.get(`${MODULE_ID}.${pack}`);
+  const entry = name && p?.index?.find?.((e) => e.name === name);
+  if (!entry) return null;
+  const doc = await p.getDocument(entry._id).catch(() => null);
+  return doc ? { doc: doc.toObject(), uuid: doc.uuid ?? `Compendium.${MODULE_ID}.${pack}.Item.${entry._id}` } : null;
 }
 
 export function pageTitles() {
@@ -33,6 +55,15 @@ export async function createCharacter(record, userId) {
   const D = await lwData(), lw = LW();
   const { v, extraDraws } = await replayLife(lw, D, record);
   const { data, missing } = await buildActorData(lw, v, D, fetchItem);
+  const god = await krynnDeity(v, D);
+  if (god) useKrynnDeity(data, god.deity, god.uuid);
+  let heritage = null;
+  if (setting("lwKrynnHeritages")) {
+    const h = HERITAGES.find((x) => x.slug === krynnHeritageOf(v));
+    const found = h && (await packDoc("peoples", h.name.en));
+    if (found && swapHeritage(data, found.doc, found.uuid)) heritage = found.doc.name;
+  }
+  const open = openChoices(data.items);
   const user = game.users.get(userId);
   const root = await folderFor("Actor", T("Life.Folder"));
   const actor = await Actor.create({ name: data.name, type: "character", folder: root.id });
@@ -59,13 +90,22 @@ export async function createCharacter(record, userId) {
 
   await actor.update({ folder: root.id, ownership, [`flags.${MODULE_ID}`]: {
     culture,
+    factions: factionsFromLife(lw.organizationsOf?.(v, D) ?? [], FACTIONS),
     lifewrought: { record, journal: journal.id, npcs: npcIds, user: userId, built: game.modules.get(MODULE_ID).version, at: Date.now() },
   } });
   if (user && !user.isGM && !user.character) await user.update({ character: actor.id });
   // An arcane caster on Krynn belongs to an order, or is a renegade: point the player to the feat.
   const arcane = (data.items || []).some((i) => i.type === "spellcastingEntry" && i.system?.tradition?.value === "arcane");
   if (arcane) await suggestOrder(actor, user);
-  return { actorId: actor.id, journalId: journal.id, name: data.name, missing, extraDraws, npcs: npcIds.length, arcane };
+  if (open.length) await tellChoices(actor, user, open);
+  return { actorId: actor.id, journalId: journal.id, name: data.name, missing, extraDraws, npcs: npcIds.length, arcane, open: open.map((o) => o.name), deity: god?.uuid ?? null, heritage };
+}
+
+// Choices PF2e must ask for (a feat among compendium feats...): the owner finishes them from the sheet.
+async function tellChoices(actor, user, open) {
+  const names = open.map((o) => foundry.utils.escapeHTML(o.name)).join(", ");
+  await ChatMessage.create({ speaker: { alias: T("Chat.Speaker") }, whisper: [...game.users.filter((u) => u.isGM).map((u) => u.id), ...(user && !user.isGM ? [user.id] : [])],
+    content: `<div class="krynn-card"><h3>${T("Finish.Title", { name: foundry.utils.escapeHTML(actor.name) })}</h3><p>${T("Finish.Text", { items: names })}</p></div>` });
 }
 
 async function suggestOrder(actor, user) {

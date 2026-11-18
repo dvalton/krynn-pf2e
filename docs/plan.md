@@ -215,10 +215,10 @@ Each step is a usable release, tested in the group's world.
 
 | Version | What it brings |
 |---|---|
-| **0.1 Foundations** | Module skeleton, settings menu, languages and traits, age selector, calendar with cultural names, the three moons and their widget, CI and self-test |
-| **0.2 Lifewrought in Foundry** | The app as a Foundry window, the actor created directly, the Chronicle journal, the people of the life |
-| **0.3 Magic** | Orders of High Sorcery, moon magic in all four modes, the Test and renegades, the pantheon as deities, the gods' presence by age, mysticism and primal sorcery |
-| **0.4 Peoples and orders** | Krynn heritages and ancestry feats, kender and gnome tables, Krynn backgrounds, the Knights' three orders and the Measure, factions and standing |
+| **0.1 Foundations** ✅ | Module skeleton, settings menu, languages and traits, age selector, calendar with cultural names, the three moons and their widget, CI and self-test |
+| **0.2 Lifewrought in Foundry** ✅ | The app as a Foundry window, the actor created directly, the Chronicle journal, the people of the life |
+| **0.3 Magic** ✅ | Orders of High Sorcery, moon magic in all four modes, the Test and renegades, the pantheon as deities, the gods' presence by age, mysticism and primal sorcery |
+| **0.4 Peoples and orders** ✅ | Krynn heritages and ancestry feats, kender and gnome tables, Krynn backgrounds, the Knights' three orders and the Measure, factions and standing |
 | **0.5 Dragons and draconians** | Draconians with death throes, Krynn dragon templates and the Overlords, dragonlances and dragon gear, the other creatures of Krynn |
 | **0.6 The world** | Atlas of Ansalon, timeline, iconic NPCs by age |
 | **0.7 Generators** | Encounters, rumours, people, treasure, travel and weather, inns and the small tables |

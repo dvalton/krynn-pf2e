@@ -29,6 +29,7 @@
     <li>
       <button type="button" data-action="actor" data-id="{{id}}"><i class="fa-solid fa-user"></i> {{name}}</button>
       {{#if journal}}<button type="button" data-action="journal" data-id="{{journal}}"><i class="fa-solid fa-book"></i> {{localize "KRYNN.Lives.Chronicle"}}</button>{{/if}}
+      <button type="button" data-action="factions" data-id="{{id}}"><i class="fa-solid fa-flag"></i> {{localize "KRYNN.Factions.Short"}}</button>
       {{#if owner}}<span class="hint">{{owner}}</span>{{/if}}
     </li>
     {{/each}}

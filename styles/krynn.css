@@ -75,3 +75,19 @@
 #krynn-settings .form-footer { position: sticky; bottom: 0; z-index: 1; padding: 0.5rem 0; background: var(--color-cool-5, #0b0a13); }
 .krynn-sky .my-magic { padding: 0.4rem 0.6rem; border-left: 3px solid var(--color-warm-2, #ee9b3a); background: rgba(0, 0, 0, 0.12); }
 .krynn-sky .my-magic p { margin: 0.15rem 0; }
+
+/* 0.4: factions and the finish-choices note */
+.krynn-factions table { width: 100%; border-collapse: collapse; }
+.krynn-factions td, .krynn-factions th { padding: 4px 6px; text-align: left; }
+.krynn-factions td.standing { white-space: nowrap; }
+.krynn-factions td.standing span { display: inline-block; min-width: 6.5em; text-align: center; font-weight: 600; }
+.krynn-factions td.standing button { width: 24px; height: 24px; line-height: 20px; padding: 0; }
+.krynn-factions tr.standing-hostile span { color: #b3261e; }
+.krynn-factions tr.standing-unfriendly span { color: #c26a1b; }
+.krynn-factions tr.standing-friendly span { color: #2f7d32; }
+.krynn-factions tr.standing-helpful span { color: #1b5e20; }
+.krynn-factions .add { display: flex; gap: 6px; margin-top: 8px; }
+.krynn-factions .add select, .krynn-factions .add input { flex: 1; }
+.krynn-finish { display: flex; align-items: center; gap: 8px; margin: 4px 8px; padding: 6px 10px; border: 1px solid #c9a24b; border-radius: 4px; background: rgba(201, 162, 75, 0.15); }
+.krynn-finish span { flex: 1; }
+.krynn-finish button { flex: 0 0 auto; width: auto; }

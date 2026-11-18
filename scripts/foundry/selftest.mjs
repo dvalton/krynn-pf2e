@@ -1,5 +1,6 @@
 // "Krynn: check this world": checks that the module is wired into this Foundry and PF2e, and reports in a GM chat card.
 // Later versions add their own checks here (moon magic modifiers, the gods' absence, Lifewrought actors).
+import { lifePage } from "./lifewrought/app.mjs";
 import { MODULE_ID, T, setting } from "./constants.mjs";
 import { now, skyNow } from "./time.mjs";
 import { daysPerYear, CULTURES } from "../logic/calendar.mjs";
@@ -38,7 +39,7 @@ export async function selfTest({ seed } = {}) {
   check("Banner", !game.settings.get(MODULE_ID, "showBanner") || document.getElementById("krynn-banner"));
 
   // Magic: the compendiums, the gate at casting, and tonight's moon magic for each order.
-  const packs = ["magic", "deities", "guides", "gm-guides"].map((p) => game.packs.get(`${MODULE_ID}.${p}`));
+  const packs = ["magic", "deities", "peoples", "backgrounds", "orders", "tables", "guides", "gm-guides"].map((p) => game.packs.get(`${MODULE_ID}.${p}`));
   check("Packs", packs.every((p) => p && p.index.size > 0), packs.map((p) => (p ? p.index.size : "×")).join(" · "));
   check("CastGate", castGateInstalled());
   const tonight = ["white", "red", "black"].map((robe) => moonMagic({ mode: setting("moonMagic"), robe, sky, moons: true }));
@@ -49,6 +50,10 @@ export async function selfTest({ seed } = {}) {
   let D = null;
   try { D = await lwData(); } catch (e) { /* reported below */ }
   check("LifeData", !!D?.regions?.length, D ? `${D.regions.filter((r) => r.content === "ready").length}` : "");
+  // What the page in the window loads, from the folder it is written into.
+  const { base } = lifePage();
+  const loads = await Promise.all(["engine.js", "data.json"].map((f) => fetch(base + f, { method: "HEAD" }).then((r) => r.ok).catch(() => false)));
+  check("LifePage", loads.every(Boolean), base);
   if (globalThis.LW && D) {
     try {
       const r = await dryRun({ seed });

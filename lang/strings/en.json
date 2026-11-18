@@ -80,7 +80,9 @@
         "WhoGM": "Only the GM",
         "NpcActors": "The people of each life as NPCs",
         "NpcActorsHint": "Besides the Chronicle journal, create an NPC actor for each person met in the life (family, mentors, rivals, loves).",
-        "ToCome": "content to come"
+        "ToCome": "content to come",
+        "KrynnHeritages": "Krynn heritages for Lifewrought characters",
+        "KrynnHeritagesHint": "Kender, the elven nations, the Neidar and the clans of Thorbardin, and tinker gnomes get the heritage of the Krynn: Peoples compendium instead of a PF2e one."
       },
       "HighSorcery": {
         "Label": "When the moons are gone",
@@ -332,9 +334,10 @@
         "LifeEngine": "The Lifewrought engine is loaded",
         "LifeData": "The Lifewrought tables load",
         "LifeBuild": "A random life builds from this world's PF2e compendiums",
-        "Packs": "The compendiums Krynn: Magic, Gods and Guides",
+        "Packs": "The compendiums of Krynn (magic, gods, peoples, backgrounds, orders, tables, guides)",
         "CastGate": "Spells check the gods and the moons when cast",
-        "MoonMagic": "Tonight's moon magic for the three Orders"
+        "MoonMagic": "Tonight's moon magic for the three Orders",
+        "LifePage": "The Lifewrought page finds its files"
       }
     },
     "Language": {
@@ -363,7 +366,8 @@
       "bakali": "Bakali",
       "highSorcery": "High Sorcery",
       "solamnicKnight": "Solamnic Knight",
-      "mystic": "Mystic"
+      "mystic": "Mystic",
+      "darkKnight": "Dark Knight"
     },
     "TraitText": {
       "kender": "Small, fearless and endlessly curious folk of Krynn, related to halflings.",
@@ -374,7 +378,8 @@
       "bakali": "Ancient lizard-folk of Krynn's swamps.",
       "highSorcery": "Tied to the Orders of High Sorcery and the moons of magic.",
       "solamnicKnight": "Tied to the Oath and the Measure of the Knights of Solamnia.",
-      "mystic": "Magic of the heart, drawn from within rather than from a god."
+      "mystic": "Magic of the heart, drawn from within rather than from a god.",
+      "darkKnight": "Belongs to the Knights of Takhisis (later of Neraka), the dark order sworn to the Vision of the Queen of Darkness."
     },
     "Life": {
       "Title": "Live a life on Krynn",
@@ -477,6 +482,67 @@
       "BlockedMoons": "{who} reaches for {spell}, but the moons of magic are gone. The spell fails; nothing is spent.",
       "WarnGods": "{who} cast {spell}, a divine spell, in {year}, when the gods are absent.",
       "WarnMoons": "{who} cast {spell} through High Sorcery in {year}, when the moons are gone."
+    },
+    "Rule": {
+      "InForest": "In a forest",
+      "Stonework": "Stonework or Thorbardin",
+      "LifeQuest": "Life Quest",
+      "Clan": "Your clan",
+      "ElvenCourt": "At an elven court"
+    },
+    "Heritage": {
+      "SilvanestiComposure": "Silvanesti composure",
+      "KagonestiWays": "Kagonesti ways",
+      "NeidarHardy": "Neidar hardiness",
+      "TinkerRepair": "Tinker's hands",
+      "KenderFearless": "Kender fearlessness",
+      "AfflictedWary": "Afflicted wariness"
+    },
+    "Knight": {
+      "ChooseOrder": "Choose your order",
+      "crown": "Order of the Crown",
+      "sword": "Order of the Sword",
+      "rose": "Order of the Rose",
+      "lily": "Order of the Lily",
+      "skull": "Order of the Skull",
+      "thorn": "Order of the Thorn",
+      "Guarding": "Protecting someone in your charge",
+      "CrownsVigilance": "Crown's Vigilance",
+      "SwordsCourage": "Sword's Courage",
+      "RosesJudgement": "Rose's Judgement",
+      "LilysMenace": "Lily's Menace"
+    },
+    "Factions": {
+      "Title": "Factions",
+      "TitleOf": "Factions of {name}",
+      "Short": "Factions",
+      "Faction": "Faction",
+      "Note": "Note",
+      "None": "No factions yet.",
+      "Pick": "A faction of Krynn…",
+      "Custom": "…or another name",
+      "Add": "Add",
+      "Remove": "Remove",
+      "NoActor": "Choose a character first.",
+      "Hint": "Standing uses PF2e's attitudes. The GM changes it as the story goes; the player sees it here.",
+      "Standing": {
+        "Label": "Standing",
+        "hostile": "Hostile",
+        "unfriendly": "Unfriendly",
+        "indifferent": "Indifferent",
+        "friendly": "Friendly",
+        "helpful": "Helpful"
+      }
+    },
+    "Finish": {
+      "Title": "{name}: choices to make",
+      "Text": "PF2e still needs a few choices for {items}. Open the character sheet and press <strong>Finish choices</strong>: PF2e will ask for them.",
+      "Notice": "Choices still to make: {items}.",
+      "Button": "Finish choices",
+      "Done": "Taken again, with PF2e's choices: {items}.",
+      "Nothing": "No choices left to make.",
+      "NotOwner": "Only the character's owner can finish its choices.",
+      "NoSource": "{name} could not be found in its compendium; take it again by hand."
     }
   }
 }

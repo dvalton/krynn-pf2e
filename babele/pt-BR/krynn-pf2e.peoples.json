@@ -1,0 +1,80 @@
+{
+ "label": "Krynn: Povos",
+ "mapping": {
+  "description": "system.description.value"
+ },
+ "entries": {
+  "Qualinesti Elf": {
+   "name": "Elfo Qualinesti",
+   "description": "<p>Você vem dos elfos do oeste, da floresta de Qualinesti, mais próximos dos humanos do que os parentes Silvanesti e mais rápidos em confiar neles. Você é treinado em Natureza. Se você já fosse treinado nessa perícia, fica treinado em outra perícia à sua escolha (avise o mestre).</p><p>Entre as árvores você se move como sombra: recebe +1 de bônus circunstancial em testes de Furtividade em florestas.</p>"
+  },
+  "Silvanesti Elf": {
+   "name": "Elfo Silvanesti",
+   "description": "<p>Você é da mais antiga nação élfica, os Silvanesti do leste, ligado a uma Casa e a tradições mais velhas que a memória humana. Você é treinado em Arcanismo. Se você já fosse treinado nessa perícia, fica treinado em outra perícia à sua escolha (avise o mestre).</p><p>A compostura do seu povo é profunda: você recebe +1 de bônus circunstancial em testes de resistência contra efeitos de emoção.</p>"
+  },
+  "Kagonesti Elf": {
+   "name": "Elfo Kagonesti",
+   "description": "<p>Você é um elfo selvagem, dos Kagonesti que vivem nas terras abertas e florestas e guardam os modos antigos que as outras nações esqueceram. Você é treinado em Sobrevivência. Se você já fosse treinado nessa perícia, fica treinado em outra perícia à sua escolha (avise o mestre).</p><p>Você recebe +1 de bônus circunstancial em testes de Sobrevivência para Subsistir e Rastrear na natureza.</p>"
+  },
+  "Neidar (Hill Dwarf)": {
+   "name": "Neidar (Anão das Colinas)",
+   "description": "<p>Você é dos anões das colinas, que vivem sob o céu aberto e têm longa memória do dia em que Thorbardin fechou os portões para eles. Você é treinado em Sobrevivência. Se você já fosse treinado nessa perícia, fica treinado em outra perícia à sua escolha (avise o mestre).</p><p>Estradas difíceis não o desgastam: você recebe +1 de bônus circunstancial em testes de Fortitude contra efeitos de frio.</p>"
+  },
+  "Hylar (Mountain Dwarf)": {
+   "name": "Hylar (Anão da Montanha)",
+   "description": "<p>Você é dos Hylar, o clã mais antigo e orgulhoso de Thorbardin, seus construtores e governantes. Você é treinado em Ofício. Se você já fosse treinado nessa perícia, fica treinado em outra perícia à sua escolha (avise o mestre).</p><p>Você conhece a pedra como as próprias mãos: recebe +1 de bônus circunstancial em testes de Percepção para notar trabalhos de pedra incomuns e para Recordar Conhecimento sobre Thorbardin.</p>"
+  },
+  "Daewar (Mountain Dwarf)": {
+   "name": "Daewar (Anão da Montanha)",
+   "description": "<p>Você é dos Daewar, o clã guerreiro de Thorbardin, guardião de seus salões e de sua honra. Você é treinado em Atletismo. Se você já fosse treinado nessa perícia, fica treinado em outra perícia à sua escolha (avise o mestre).</p><p>Você conhece a pedra como as próprias mãos: recebe +1 de bônus circunstancial em testes de Percepção para notar trabalhos de pedra incomuns e para Recordar Conhecimento sobre Thorbardin.</p>"
+  },
+  "Theiwar (Mountain Dwarf)": {
+   "name": "Theiwar (Anão da Montanha)",
+   "description": "<p>Você é dos Theiwar, o clã de olhos escuros de Thorbardin, malvisto pelo gosto pela magia e pela ambição. Você é treinado em Arcanismo. Se você já fosse treinado nessa perícia, fica treinado em outra perícia à sua escolha (avise o mestre).</p><p>Você conhece a pedra como as próprias mãos: recebe +1 de bônus circunstancial em testes de Percepção para notar trabalhos de pedra incomuns e para Recordar Conhecimento sobre Thorbardin.</p>"
+  },
+  "Daergar (Mountain Dwarf)": {
+   "name": "Daergar (Anão da Montanha)",
+   "description": "<p>Você é dos Daergar, o clã das forjas profundas de Thorbardin, que fica no escuro e guarda seus segredos. Você é treinado em Furtividade. Se você já fosse treinado nessa perícia, fica treinado em outra perícia à sua escolha (avise o mestre).</p><p>Você conhece a pedra como as próprias mãos: recebe +1 de bônus circunstancial em testes de Percepção para notar trabalhos de pedra incomuns e para Recordar Conhecimento sobre Thorbardin.</p>"
+  },
+  "Klar (Mountain Dwarf)": {
+   "name": "Klar (Anão da Montanha)",
+   "description": "<p>Você é dos Klar, o clã selvagem de Thorbardin, feroz, leal e desprezado. Você é treinado em Intimidação. Se você já fosse treinado nessa perícia, fica treinado em outra perícia à sua escolha (avise o mestre).</p><p>Você conhece a pedra como as próprias mãos: recebe +1 de bônus circunstancial em testes de Percepção para notar trabalhos de pedra incomuns e para Recordar Conhecimento sobre Thorbardin.</p>"
+  },
+  "Tinker Gnome": {
+   "name": "Gnomo Funileiro",
+   "description": "<p>Você é um gnomo de Mount Nevermind, nascido numa Guilda e numa Busca de Vida: uma invenção que sua família aperfeiçoa há gerações. Você é treinado em Ofício. Se você já fosse treinado nessa perícia, fica treinado em outra perícia à sua escolha (avise o mestre).</p><p>Você fala rápido, pensa mais rápido ainda, e recebe +1 de bônus circunstancial em testes de Ofício para Consertar.</p>"
+  },
+  "Kender": {
+   "name": "Kender",
+   "description": "<p>Você é um kender: pequeno, rápido, curioso sem fim e muito difícil de assustar. As coisas vão parar nos seus bolsos; você ficaria magoado se chamassem isso de roubo. Você tem o trait kender.</p><p>Você recebe +2 de bônus circunstancial em testes de resistência contra efeitos de medo.</p>"
+  },
+  "Afflicted Kender": {
+   "name": "Kender Aflito",
+   "description": "<p>Você é um kender mudado pelos horrores depois da Guerra do Caos: aprendeu o medo, e com ele uma cautela atenta que seus parentes não têm. Você tem o trait kender.</p><p>Você recebe +1 de bônus circunstancial em testes de Percepção para iniciativa.</p>"
+  },
+  "Kender Taunt": {
+   "name": "Provocação Kender",
+   "description": "<p>Você acha exatamente as palavras que fazem um inimigo perder a cabeça. Faça um teste de Enganação contra a CD de Vontade de uma criatura a até 9 metros que possa ouvi-lo.</p><p><strong>Sucesso Crítico</strong> O alvo fica desprevenido e sofre −1 de penalidade circunstancial em jogadas de ataque contra qualquer um que não seja você até o fim do próximo turno dele.</p><p><strong>Sucesso</strong> O alvo fica desprevenido contra os seus ataques até o fim do próximo turno dele.</p><p><strong>Falha</strong> Nada acontece. O alvo fica imune às suas provocações por 1 minuto.</p>"
+  },
+  "Kender Pockets": {
+   "name": "Bolsos de Kender",
+   "description": "<p><strong>Frequência</strong> uma vez por dia</p><p>Você remexe as bolsas e encontra algo que com certeza alguém deixou cair. Role na tabela @UUID[Compendium.krynn-pf2e.tables.RollTable.egHFE3d6K0TDbX8v]{Bolsos de Kender}; o mestre decide de quem era.</p>"
+  },
+  "Tinker's Contraption": {
+   "name": "Engenhoca de Funileiro",
+   "description": "<p><strong>Frequência</strong> uma vez por dia</p><p>Você tira o aparelho que vem aprimorando e o põe para resolver um problema à sua frente. Role na tabela @UUID[Compendium.krynn-pf2e.tables.RollTable.CNjOqHOUHikaEDCw]{Engenhoca Gnômica} para ver o que ele faz desta vez.</p>"
+  },
+  "Life Quest": {
+   "name": "Busca de Vida",
+   "description": "<p>Você carrega a Busca de Vida da sua família: uma única invenção que pretende terminar, e com ela a honra dos antepassados. Dê um nome a ela com o mestre. Quando Recordar Conhecimento ou Criar algo relacionado a ela, ligue a opção Busca de Vida: você recebe +1 de bônus circunstancial.</p>"
+  },
+  "Clan Loyalty": {
+   "name": "Lealdade ao Clã",
+   "description": "<p>Seu clã está ao seu lado, e você ao lado dele. Você recebe +1 de bônus circunstancial em testes de Diplomacia com anões do seu clã, e em testes de Vontade contra efeitos que o voltariam contra eles (use a opção quando se aplicar).</p>"
+  },
+  "House Etiquette": {
+   "name": "Etiqueta das Casas",
+   "description": "<p>Você foi criado nos costumes das Casas e cortes élficas. Você é treinado em Sociedade, e recebe +1 de bônus circunstancial em testes de Diplomacia numa corte élfica (use a opção).</p>"
+  }
+ }
+}

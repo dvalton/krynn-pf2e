@@ -14,7 +14,7 @@ const D = JSON.parse(fs.readFileSync(path.join(ROOT, "lifewrought/data.json"), "
 const ITEMS = {};
 for (const g of ["core", "feats", "features", "spells", "equipment"]) Object.assign(ITEMS, JSON.parse(fs.readFileSync(path.join(src, "web/items", `${g}.json`), "utf8")));
 
-const SPECS = [[11, 351, "solamnia", "Vingaard Keep"], [23, 381, "abanasinia", ""], [37, 410, "qualinesti", ""], [41, 352, "thorbardin", ""], [59, 381, "kalaman", "Kalaman"], [73, 422, "khur", ""]];
+const SPECS = [[11, 351, "solamnia", "Vingaard Keep"], [23, 381, "abanasinia", ""], [37, 410, "qualinesti", ""], [41, 352, "thorbardin", ""], [59, 381, "kalaman", "Kalaman"], [73, 422, "khur", ""], [159, 356, "solamnia", ""], [150, 356, "solamnia", ""]];
 export const SELFTEST_SEED = 7;
 const lives = [], needed = new Set();
 for (const [seed, year, region, start] of SPECS) {

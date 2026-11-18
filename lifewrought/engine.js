@@ -1245,6 +1245,42 @@ const LW = (() => {
   // ---------------- Foundry actor (pf2e) ----------------
   // Builds the actor the way the pf2e system stores a finished level-1 character: the ancestry, heritage, background
   // and class with their choices, what they grant at level 1, the feats, spells and gear. "items" maps UUID -> source.
+  // A stable pick for a choice with no better reason: the same life, the same answer.
+  function stableIndex(text, n) { let h = 2166136261; for (const c of text) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return Math.abs(h) % n; }
+  const dromedary = (t) => String(t).toLowerCase().replace(/[^a-z0-9]+(.)/g, (_, c) => c.toUpperCase()).replace(/[^a-zA-Z0-9]/g, "");
+  function resolveChoices(v, D, f, out) {
+    const like = pull(v, D.adapter.skills);
+    const trained = new Set([...f.fixed, ...f.chosen]);
+    const want = (s) => (like[s] || 0) + 1.2 * (f.mod[SKILL_ATTR[s]] || 0);
+    const isSkill = (x) => typeof x === "string" && x in SKILL_ATTR;
+    for (const d of out) {
+      const rules = (d.system && d.system.rules) || [];
+      for (const r of rules) {
+        if (r.key !== "ChoiceSet" || r.selection !== undefined) continue;
+        const flag = r.flag || dromedary(r.slug || d.system.slug || d.name);
+        d.flags = d.flags || {}; d.flags.pf2e = d.flags.pf2e || {}; d.flags.pf2e.rulesSelections = d.flags.pf2e.rulesSelections || {};
+        if (d.flags.pf2e.rulesSelections[flag] !== undefined) { r.selection = d.flags.pf2e.rulesSelections[flag]; continue; }
+        let value;
+        const ch = r.choices;
+        if (ch && !Array.isArray(ch) && ch.config === "skills") {
+          const best = Object.keys(SKILL_ATTR).filter((s) => !trained.has(s)).sort((a, b) => want(b) - want(a))[0];
+          if (best) { value = best; trained.add(best); }
+        } else if (Array.isArray(ch) && ch.length) {
+          const vals = ch.map((o) => (o && typeof o === "object" && "value" in o ? o : { value: o }));
+          const god = v.l1 && v.l1.deity ? D.deities[v.l1.deity] : null;
+          const has = (x) => vals.some((o) => o.value === x);
+          if (flag === "fighterSkill" && f.clChoice) value = f.clChoice;
+          else if (flag === "sanctification") value = god && has(god.sanct) ? god.sanct : has("none") ? "none" : undefined;
+          else if (flag === "divineFont") value = god ? (god.font || []).find(has) : undefined;
+          else if (vals.some((o) => JSON.stringify(o.predicate || "").includes("deity:"))) value = undefined; // depends on a god we don't have
+          else if (vals.every((o) => isSkill(o.value))) value = [...vals].sort((a, b) => (trained.has(a.value) - trained.has(b.value)) || (want(b.value) - want(a.value)))[0].value;
+          else { const open = vals.filter((o) => !o.predicate); const pool = open.length ? open : vals; value = pool[stableIndex(`${v.name.full}:${d.name}:${flag}`, pool.length)].value; }
+        }
+        if (value !== undefined) { r.selection = value; d.flags.pf2e.rulesSelections[flag] = value; }
+      }
+    }
+  }
+
   function foundryActor(v, D, f, items) {
     const ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const newId = () => Array.from({ length: 16 }, () => ABC[Math.floor(Math.random() * ABC.length)]).join("");
@@ -1267,10 +1303,34 @@ const LW = (() => {
         if (slot) slot.selected = pick;
       }
     };
+    // A granted item whose granter preset its choice (a background's Assurance in Athletics): the choice goes on the
+    // granted item's flags, where PF2e reads it ({item|flags.pf2e.rulesSelections.<flag>}).
+    const presets = (granter, uuid) => {
+      const rule = (granter.system.rules || []).find((r) => r.key === "GrantItem" && r.uuid === uuid && r.preselectChoices);
+      if (!rule) return null;
+      const sel = {};
+      for (const [k, val] of Object.entries(rule.preselectChoices)) {
+        const m = String(val).match(/^\{item\|flags\.(?:system|pf2e)\.rulesSelections\.(\w+)\}$/);
+        const v = m ? (((granter.flags || {}).pf2e || {}).rulesSelections || {})[m[1]] : val;
+        if (v !== undefined && v !== null) sel[k] = v;
+      }
+      return { sel, flag: rule.flag };
+    };
     const grant = (granter, list, level) => {
       for (const u of list || []) {
-        const g = copy(u, (d) => { d.system.location = granter._id; if (d.system.level && d.system.category === "classfeature") d.system.level.value = d.system.level.value || 1; });
-        if (g) out.push(g);
+        const pre = presets(granter, u);
+        const g = copy(u, (d) => {
+          d.system.location = granter._id;
+          if (d.system.level && d.system.category === "classfeature") d.system.level.value = d.system.level.value || 1;
+          if (pre) {
+            d.flags = { ...(d.flags || {}), pf2e: { ...((d.flags || {}).pf2e || {}), rulesSelections: { ...((((d.flags || {}).pf2e) || {}).rulesSelections || {}), ...pre.sel }, grantedBy: { id: granter._id, onDelete: "cascade" } } };
+            for (const r of d.system.rules || []) if (r.key === "ChoiceSet" && pre.sel[r.flag] !== undefined) r.selection = pre.sel[r.flag];
+          }
+        });
+        if (g) {
+          out.push(g);
+          if (pre) { granter.flags = granter.flags || {}; granter.flags.pf2e = granter.flags.pf2e || {}; granter.flags.pf2e.itemGrants = { ...(granter.flags.pf2e.itemGrants || {}), [pre.flag || g.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")]: { id: g._id, onDelete: "detach" } }; }
+        }
       }
     };
     const R = D.rules, mapA = D.adapter.ancestries[v.ancestry.id];
@@ -1366,6 +1426,10 @@ const LW = (() => {
 
     const body = bodyNumbers(v), P = v.personality, SD = sheetData(v, D);
     const trained = [...f.fixed, ...f.chosen];
+    // Choices PF2e would ask for when an item is added (a skill, an energy type, one of a list): made here from the
+    // life, so the imported character has them. Choices among compendium items (a feat, a deity) are left for the
+    // player to make in Foundry. No dice: the same life always gives the same answers.
+    resolveChoices(v, D, f, out);
     return {
       name: v.name.full, type: "character", img: "systems/pf2e/icons/default-icons/character.svg",
       system: {

@@ -149,5 +149,5 @@ test("strict High Sorcery: without the moons the Orders' magic fails, unless the
 
 test("the self-test sees the packs, the gate and tonight's moon magic", async () => {
   const r = await K.selfTest({ seed: 7 });
-  for (const k of ["Packs", "CastGate", "MoonMagic"]) assert.ok(r.results.find((x) => x.key === k && x.ok), k);
+  for (const k of ["Packs", "CastGate", "MoonMagic", "LifePage"]) assert.ok(r.results.find((x) => x.key === k && x.ok), k);
 });

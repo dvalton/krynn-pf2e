@@ -1,0 +1,36 @@
+{
+ "label": "Krynn: Ordens de Cavalaria",
+ "mapping": {
+  "description": "system.description.value"
+ },
+ "entries": {
+  "Knight of Solamnia Dedication": {
+   "name": "Dedicação de Cavaleiro de Solamnia",
+   "description": "<p>Você fez o Juramento, <em>minha honra é minha vida</em>, e vive pela Medida, o longo código dos Cavaleiros de Solamnia. Escolha sua ordem: a Coroa (lealdade e obediência), a Espada (coragem) ou a Rosa (sabedoria e justiça). A maioria dos cavaleiros começa na Coroa; subir para a Espada ou a Rosa é o mestre quem concede.</p><p>Você fica treinado em Diplomacia e em Conhecimento de Cavalaria (avise o mestre se já for). Quebrar a Medida tem consequências: o mestre pode dar o efeito Quebra da Medida até você cumprir a penitência.</p>"
+  },
+  "Crown's Vigilance": {
+   "name": "Vigilância da Coroa",
+   "description": "<p>Você é leal antes de tudo. Enquanto protege alguém sob sua guarda (ligue a opção), recebe +2 de bônus circunstancial em testes de Percepção para iniciativa.</p>"
+  },
+  "Sword's Courage": {
+   "name": "Coragem da Espada",
+   "description": "<p>O medo encontra pouco espaço em você. Você recebe +1 de bônus de status em testes de resistência contra efeitos de medo, e quando ficaria amedrontado, reduz o valor em 1 (o mestre aplica).</p>"
+  },
+  "Rose's Judgement": {
+   "name": "Juízo da Rosa",
+   "description": "<p>Você pesa o que é justo antes do que é lícito. Você recebe +1 de bônus circunstancial em testes de Percepção para Sentir Motivação.</p>"
+  },
+  "Knight of Takhisis Dedication": {
+   "name": "Dedicação de Cavaleiro de Takhisis",
+   "description": "<p>Você serve à Visão da Rainha das Trevas (depois que ela parte, os cavaleiros são os Cavaleiros de Neraka). Escolha sua ordem: o Lírio (guerreiros), a Caveira (sacerdotes e inquisidores) ou o Espinho (os feiticeiros de manto cinza).</p><p>Você fica treinado em Intimidação. Sua ordem espera obediência; o mestre pode cobrá-la.</p>"
+  },
+  "Lily's Menace": {
+   "name": "Ameaça do Lírio",
+   "description": "<p>Sua presença no campo já é uma ameaça. Você recebe +1 de bônus circunstancial em testes de Intimidação para Desmoralizar.</p>"
+  },
+  "Breach of the Measure": {
+   "name": "Quebra da Medida",
+   "description": "<p>Este cavaleiro quebrou a Medida e ainda não cumpriu a penitência. Ele sofre −1 de penalidade de status em testes de Diplomacia com Cavaleiros de Solamnia, e a ordem pode lhe negar ajuda. Remova o efeito quando a penitência for cumprida.</p>"
+  }
+ }
+}

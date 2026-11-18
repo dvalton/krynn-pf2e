@@ -38,7 +38,7 @@ export class KrynnSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.api.A
         regions: D.regions.filter((r) => c.year >= r.years[0] && c.year <= r.years[1]).map((r) => ({ value: r.id, label: r.name + (r.content === "ready" ? "" : ` (${T("Settings.Life.ToCome")})`), selected: r.id === setting("lwRegion") })),
         scopes: Object.entries(D.scope.scopes).map(([id, x]) => ({ value: id, label: x.text, selected: id === setting("lwScope") })),
         yearWorld: setting("lwYearMode") === "world", year: setting("lwYear"), start: setting("lwStart"),
-        npcActors: setting("lwNpcActors"), whoEveryone: setting("lwWho") === "everyone",
+        npcActors: setting("lwNpcActors"), krynnHeritages: setting("lwKrynnHeritages"), whoEveryone: setting("lwWho") === "everyone",
         summary: T("Settings.Life.Summary", { year: c.year, region: (D.regions.find((r) => r.id === c.region) || {}).name || c.region }), clamped: c.clamped,
       };
     } catch (e) { life = { error: e.message }; }
@@ -80,6 +80,7 @@ export class KrynnSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.api.A
       if (f.lw.scope) await game.settings.set(MODULE_ID, "lwScope", f.lw.scope);
       await game.settings.set(MODULE_ID, "lwStart", String(f.lw.start ?? "").trim());
       await game.settings.set(MODULE_ID, "lwNpcActors", !!f.lw.npcActors);
+      await game.settings.set(MODULE_ID, "lwKrynnHeritages", !!f.lw.krynnHeritages);
       await game.settings.set(MODULE_ID, "lwWho", f.lw.who === "gm" ? "gm" : "everyone");
     }
     const d = now();

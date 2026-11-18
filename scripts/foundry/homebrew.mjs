@@ -32,6 +32,7 @@ export const KRYNN_FEAT_TRAITS = {
   "high-sorcery": { label: "KRYNN.Trait.highSorcery", description: "KRYNN.TraitText.highSorcery" },
   "solamnic-knight": { label: "KRYNN.Trait.solamnicKnight", description: "KRYNN.TraitText.solamnicKnight" },
   mystic: { label: "KRYNN.Trait.mystic", description: "KRYNN.TraitText.mystic" },
+  "dark-knight": { label: "KRYNN.Trait.darkKnight", description: "KRYNN.TraitText.darkKnight" },
 };
 
 export const HOMEBREW = { languages: KRYNN_LANGUAGES, creatureTraits: KRYNN_CREATURE_TRAITS, featTraits: KRYNN_FEAT_TRAITS };

@@ -80,7 +80,9 @@
         "WhoGM": "Só o mestre",
         "NpcActors": "As pessoas de cada vida como NPCs",
         "NpcActorsHint": "Além do journal da Crônica, cria um ator NPC para cada pessoa da vida (família, mentores, rivais, amores).",
-        "ToCome": "conteúdo por vir"
+        "ToCome": "conteúdo por vir",
+        "KrynnHeritages": "Heranças de Krynn nos personagens do Lifewrought",
+        "KrynnHeritagesHint": "Kender, as nações élficas, os Neidar e os clãs de Thorbardin, e os gnomos funileiros recebem a herança do compêndio Krynn: Povos em vez de uma do PF2e."
       },
       "HighSorcery": {
         "Label": "Quando as luas se foram",
@@ -332,9 +334,10 @@
         "LifeEngine": "O motor do Lifewrought está carregado",
         "LifeData": "As tabelas do Lifewrought carregam",
         "LifeBuild": "Uma vida aleatória é montada com os compêndios de PF2e deste mundo",
-        "Packs": "Os compêndios Krynn: Magia, Deuses e Guias",
+        "Packs": "Os compêndios de Krynn (magia, deuses, povos, antecedentes, ordens, tabelas, guias)",
         "CastGate": "As magias consultam os deuses e as luas ao serem lançadas",
-        "MoonMagic": "A magia lunar desta noite para as três Ordens"
+        "MoonMagic": "A magia lunar desta noite para as três Ordens",
+        "LifePage": "A página do Lifewrought encontra seus arquivos"
       }
     },
     "Language": {
@@ -363,7 +366,8 @@
       "bakali": "Bakali",
       "highSorcery": "Alta Feitiçaria",
       "solamnicKnight": "Cavaleiro de Solamnia",
-      "mystic": "Místico"
+      "mystic": "Místico",
+      "darkKnight": "Cavaleiro Sombrio"
     },
     "TraitText": {
       "kender": "Povo pequeno, destemido e infinitamente curioso de Krynn, aparentado dos halflings.",
@@ -374,7 +378,8 @@
       "bakali": "Antigo povo-lagarto dos pântanos de Krynn.",
       "highSorcery": "Ligado às Ordens da Alta Feitiçaria e às luas da magia.",
       "solamnicKnight": "Ligado ao Juramento e à Medida dos Cavaleiros de Solamnia.",
-      "mystic": "Magia do coração, tirada de dentro e não de um deus."
+      "mystic": "Magia do coração, tirada de dentro e não de um deus.",
+      "darkKnight": "Pertence aos Cavaleiros de Takhisis (depois, de Neraka), a ordem sombria jurada à Visão da Rainha das Trevas."
     },
     "Life": {
       "Title": "Viver uma vida em Krynn",
@@ -477,6 +482,67 @@
       "BlockedMoons": "{who} busca {spell}, mas as luas da magia se foram. A magia falha; nada é gasto.",
       "WarnGods": "{who} lançou {spell}, uma magia divina, em {year}, quando os deuses estão ausentes.",
       "WarnMoons": "{who} lançou {spell} pela Alta Feitiçaria em {year}, quando as luas se foram."
+    },
+    "Rule": {
+      "InForest": "Numa floresta",
+      "Stonework": "Trabalho em pedra ou Thorbardin",
+      "LifeQuest": "Busca de Vida",
+      "Clan": "Seu clã",
+      "ElvenCourt": "Numa corte élfica"
+    },
+    "Heritage": {
+      "SilvanestiComposure": "Compostura Silvanesti",
+      "KagonestiWays": "Modos Kagonesti",
+      "NeidarHardy": "Resistência Neidar",
+      "TinkerRepair": "Mãos de funileiro",
+      "KenderFearless": "Destemor kender",
+      "AfflictedWary": "Cautela do aflito"
+    },
+    "Knight": {
+      "ChooseOrder": "Escolha sua ordem",
+      "crown": "Ordem da Coroa",
+      "sword": "Ordem da Espada",
+      "rose": "Ordem da Rosa",
+      "lily": "Ordem do Lírio",
+      "skull": "Ordem da Caveira",
+      "thorn": "Ordem do Espinho",
+      "Guarding": "Protegendo alguém sob sua guarda",
+      "CrownsVigilance": "Vigilância da Coroa",
+      "SwordsCourage": "Coragem da Espada",
+      "RosesJudgement": "Juízo da Rosa",
+      "LilysMenace": "Ameaça do Lírio"
+    },
+    "Factions": {
+      "Title": "Facções",
+      "TitleOf": "Facções de {name}",
+      "Short": "Facções",
+      "Faction": "Facção",
+      "Note": "Nota",
+      "None": "Nenhuma facção ainda.",
+      "Pick": "Uma facção de Krynn…",
+      "Custom": "…ou outro nome",
+      "Add": "Adicionar",
+      "Remove": "Remover",
+      "NoActor": "Escolha um personagem primeiro.",
+      "Hint": "A reputação usa as atitudes do PF2e. O mestre muda conforme a história; o jogador vê aqui.",
+      "Standing": {
+        "Label": "Reputação",
+        "hostile": "Hostil",
+        "unfriendly": "Inamistoso",
+        "indifferent": "Indiferente",
+        "friendly": "Amistoso",
+        "helpful": "Prestativo"
+      }
+    },
+    "Finish": {
+      "Title": "{name}: escolhas a fazer",
+      "Text": "O PF2e ainda precisa de algumas escolhas para {items}. Abra a ficha do personagem e aperte <strong>Concluir escolhas</strong>: o PF2e vai perguntar.",
+      "Notice": "Escolhas a fazer: {items}.",
+      "Button": "Concluir escolhas",
+      "Done": "Refeitos, com as escolhas do PF2e: {items}.",
+      "Nothing": "Não há escolhas a fazer.",
+      "NotOwner": "Só o dono do personagem pode concluir as escolhas.",
+      "NoSource": "{name} não foi encontrado no compêndio; pegue de novo à mão."
     }
   }
 }

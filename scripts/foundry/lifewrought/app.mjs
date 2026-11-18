@@ -7,6 +7,12 @@ import { embedHTML } from "../../logic/embed.mjs";
 
 const fa = foundry.applications;
 
+// The page's address, and the folder its files load from (getRoute drops a trailing slash, so it comes from the page).
+export function lifePage() {
+  const page = new URL(lwPath("index.html"), window.location.href).href;
+  return { page, base: page.slice(0, page.lastIndexOf("/") + 1) };
+}
+
 export class LifeApp extends fa.api.ApplicationV2 {
   static DEFAULT_OPTIONS = {
     classes: ["krynn", "krynn-life"],
@@ -32,8 +38,9 @@ export class LifeApp extends fa.api.ApplicationV2 {
     f.className = "krynn-life-frame";
     f.title = T("Life.Title");
     // Foundry serves module HTML as text, so the page is written into the frame (see logic/embed.mjs).
-    const base = new URL(lwPath(""), window.location.href).href;
-    const r = await fetch(lwPath("index.html"));
+    const { page, base } = lifePage();
+    const r = await fetch(page);
+    if (!r.ok) throw new Error(`${page}: ${r.status}`);
     f.srcdoc = embedHTML(await r.text(), base);
     this.frame = f;
     return f;

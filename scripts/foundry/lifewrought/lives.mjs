@@ -3,6 +3,7 @@ import { MODULE_ID, T, template } from "../constants.mjs";
 import { openLife, LifeApp } from "./app.mjs";
 import { canLive } from "./engine.mjs";
 import { createCharacter } from "./create.mjs";
+import { openFactions } from "../peoples/factions.mjs";
 
 const fa = foundry.applications;
 
@@ -18,6 +19,7 @@ export class LivesApp extends fa.api.HandlebarsApplicationMixin(fa.api.Applicati
       build: LivesApp.#onBuild,
       actor: (e, t) => game.actors.get(t.dataset.id)?.sheet.render(true),
       journal: (e, t) => game.journal.get(t.dataset.id)?.sheet.render(true),
+      factions: (e, t) => openFactions(game.actors.get(t.dataset.id)),
     },
   };
   static PARTS = { lives: { template: template("lives") } };
