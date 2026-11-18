@@ -1,0 +1,343 @@
+{
+  "KRYNN": {
+    "Settings": {
+      "Menu": {
+        "Name": "Krynn",
+        "Label": "Abrir as configurações de Krynn",
+        "Hint": "A era e a data da campanha, o calendário, as luas da magia e os deuses."
+      },
+      "UserCulture": {
+        "Name": "Nomes do calendário",
+        "Hint": "De qual povo são os nomes dos meses e dos dias da semana que você vê.",
+        "World": "O padrão do mundo"
+      },
+      "ShowBanner": {
+        "Name": "Mostrar a faixa do céu",
+        "Hint": "Uma faixa no alto da tela com a data, o período e as luas."
+      },
+      "Save": "Salvar",
+      "Date": {
+        "Legend": "Era e data",
+        "Hint": "O ano decide quais deuses respondem, se as luas da magia brilham e quais ordens e exércitos existem.",
+        "Period": "Período",
+        "Jump": "Ir para este período",
+        "Date": "Data",
+        "Day": "Dia",
+        "Month": "Mês",
+        "Year": "Ano",
+        "YearHint": "Anos depois do Cataclismo são positivos (351 é 351 DC); anos antes dele são negativos (-1018 é 1018 AC)."
+      },
+      "Calendar": {
+        "Legend": "Calendário",
+        "Style": "Como o ano é contado",
+        "Culture": "Nomes padrão dos meses e dias",
+        "CultureHint": "Cada jogador pode escolher os seus nas configurações do módulo (Nomes do calendário).",
+        "Eye": "Uma Noite do Olho",
+        "EyeHint": "A data de uma noite em que as três luas estiveram cheias juntas. Todas as fases partem dela; o Olho volta a cada 504 dias."
+      },
+      "Magic": {
+        "Legend": "Magia e deuses"
+      },
+      "MoonMagic": {
+        "Label": "Magia lunar",
+        "Hint": "O quanto as luas mudam a Alta Feitiçaria. As regras chegam na versão 0.3; a escolha fica guardada até lá.",
+        "classic": "Clássica: bônus e penalidades por fase, alinhamentos, a Noite do Olho",
+        "light": "Leve: um bônus só no Alto Santuário",
+        "narrative": "Narrativa: notas no chat e na ficha, sem números",
+        "off": "Desligada: só o calendário"
+      },
+      "Gods": {
+        "Label": "Quando os deuses estão ausentes",
+        "Hint": "O que acontece com a magia divina nos anos em que os deuses não respondem (antes de 351 DC e de 384 a 420 DC). Chega na versão 0.3.",
+        "strict": "Estrita: magias divinas de um deus ausente falham",
+        "warn": "Aviso: funcionam, e o mestre é avisado",
+        "off": "Desligada: nada muda"
+      },
+      "Nuitari": {
+        "Label": "Quem vê Nuitari",
+        "blackRobes": "O mestre e os Mantos Negros",
+        "everyone": "Todos",
+        "gm": "Só o mestre"
+      },
+      "Announce": {
+        "Label": "Anunciar o céu no chat",
+        "Hint": "Publica um cartão quando uma lua chega ao Alto Santuário, na Noite do Olho, nos dias santos e quando a era muda."
+      }
+    },
+    "Calendar": {
+      "Name": "O Calendário de Krynn",
+      "Style": {
+        "classic": "Clássico: doze meses de trinta dias (360 dias)",
+        "kalaman": "Kalaman: doze meses de quatro semanas (336 dias)"
+      },
+      "Culture": {
+        "ergothian": "Ergothiano",
+        "solamnic": "Solâmnico",
+        "plainsmen": "Povo das Planícies",
+        "dwarven": "Anão",
+        "elven": "Élfico",
+        "kender": "Kender",
+        "goblin": "Goblin",
+        "gods": "Os dias dos deuses"
+      },
+      "Season": {
+        "spring": "Primavera",
+        "summer": "Verão",
+        "autumn": "Outono",
+        "winter": "Inverno"
+      }
+    },
+    "Date": {
+      "Format": "{weekday}, {day} de {month} de {year}",
+      "AC": "{year} DC",
+      "PC": "{year} AC"
+    },
+    "Age": {
+      "starbirth": {
+        "Name": "Era do Nascimento das Estrelas"
+      },
+      "dreams": {
+        "Name": "Era dos Sonhos"
+      },
+      "might": {
+        "Name": "Era do Poder"
+      },
+      "despair": {
+        "Name": "Era do Desespero"
+      },
+      "mortals": {
+        "Name": "Era dos Mortais"
+      }
+    },
+    "Period": {
+      "before": {
+        "Name": "Antes do Cataclismo",
+        "Years": "AC",
+        "Text": "Os deuses caminham com seus sacerdotes; Istar se ergue, e cai."
+      },
+      "despair": {
+        "Name": "Os anos de desespero",
+        "Years": "0–347 DC",
+        "Text": "Os deuses estão em silêncio; falsos sacerdotes, anos difíceis e exércitos se reunindo no leste."
+      },
+      "war": {
+        "Name": "A Guerra da Lança",
+        "Years": "348–352 DC",
+        "Text": "Os exércitos dracônicos marcham, os verdadeiros deuses voltam e os Heróis da Lança se erguem."
+      },
+      "after": {
+        "Name": "Depois da guerra",
+        "Years": "353–382 DC",
+        "Text": "Os deuses voltaram e os Cavaleiros renasceram; novas ordens crescem no escuro."
+      },
+      "chaos": {
+        "Name": "A Guerra do Caos",
+        "Years": "383 DC",
+        "Text": "O Verão do Caos: o Pai de Tudo e de Nada se liberta."
+      },
+      "mortals": {
+        "Name": "A Era dos Mortais",
+        "Years": "384–420 DC",
+        "Text": "Os deuses e as luas da magia se foram; os grandes dragões governam, e os mortais encontram uma magia própria."
+      },
+      "souls": {
+        "Name": "Depois da Guerra das Almas",
+        "Years": "421 DC em diante",
+        "Text": "Os deuses voltaram, e as luas da magia brilham de novo."
+      }
+    },
+    "Moon": {
+      "solinari": "Solinari",
+      "lunitari": "Lunitari",
+      "nuitari": "Nuitari"
+    },
+    "Robe": {
+      "white": "os Mantos Brancos",
+      "red": "os Mantos Vermelhos",
+      "black": "os Mantos Negros"
+    },
+    "Phase": {
+      "high": "Alto Santuário",
+      "waning": "Minguante",
+      "low": "Baixo Santuário",
+      "waxing": "Crescente"
+    },
+    "Sky": {
+      "Title": "O céu de Krynn",
+      "Open": "Abrir o céu de Krynn",
+      "MoonAria": "{moon}: {phase}, {pct}% iluminada",
+      "GodsPresent": "Os deuses respondem",
+      "GodsAbsent": "Os deuses estão em silêncio",
+      "MoonsPresent": "As luas da magia brilham",
+      "MoonsAbsent": "As luas da magia se foram",
+      "EyeTonight": "Hoje é a Noite do Olho: as três luas estão juntas, cheias.",
+      "HighNow": "No Alto Santuário agora",
+      "HighIn": "Alto Santuário em {days} dias",
+      "NuitariHidden": "Só os Mantos Negros veem a lua negra.",
+      "Aligned": "Em alinhamento:",
+      "NoAlignment": "Nenhuma lua está alinhada esta noite.",
+      "EyeIn": "A próxima Noite do Olho é em {days} dias ({date}).",
+      "PaleMoon": "Uma única lua pálida cruza o céu. As luas da magia se foram.",
+      "Advance": "Tempo",
+      "MinusDay": "−1 dia",
+      "Hour": "+1 hora",
+      "Rest": "+8 horas",
+      "Day": "+1 dia",
+      "Week": "+1 semana",
+      "Settings": "Data e configurações"
+    },
+    "Holiday": {
+      "yearDay": {
+        "Name": "Dia do Ano",
+        "Text": "O primeiro dia do ano: presentes e promessas renovadas."
+      },
+      "darkDay": {
+        "Name": "Dia Sombrio",
+        "Text": "O aniversário do Cataclismo, guardado de preto e em silêncio."
+      },
+      "harnkeggerfest": {
+        "Name": "Harnkeggerfest",
+        "Text": "Cinco dias dos anões das colinas, abrindo o primeiro barril da cerveja de verão."
+      },
+      "kithKanandras": {
+        "Name": "Kith-Kanandras",
+        "Text": "Homenagem a Kith-Kanan e à fundação de Qualinesti; todos os povos são bem-vindos."
+      },
+      "silvanosdras": {
+        "Name": "Silvanosdras",
+        "Text": "Os elfos guardam o aniversário de Silvanos, que uniu as primeiras tribos élficas."
+      },
+      "springDawning": {
+        "Name": "Alvorecer da Primavera",
+        "Text": "O equinócio de primavera: o festival de Solace e as disputas de armas dos Cavaleiros."
+      },
+      "harrowing": {
+        "Name": "Gradagem",
+        "Text": "Começa a época do plantio em Ansalon."
+      },
+      "midyearDay": {
+        "Name": "Dia do Meio do Ano",
+        "Text": "O dia mais longo: luzes e danças, e em Thorbardin as forjas reacesas."
+      },
+      "festivalOfCandles": {
+        "Name": "Festival das Velas",
+        "Text": "Os anões lembram seus mortos com lanternas flutuantes."
+      },
+      "summersEnd": {
+        "Name": "Fim do Verão",
+        "Text": "O equinócio de outono, e o começo da colheita."
+      },
+      "festivalOfKnights": {
+        "Name": "Festival dos Cavaleiros",
+        "Text": "Um dia para os Cavaleiros de Solamnia."
+      },
+      "genealogyDay": {
+        "Name": "Dia da Genealogia",
+        "Text": "Os gnomos registram correções em seus nomes na Guilda da Genealogia."
+      },
+      "thanksALotDay": {
+        "Name": "Dia do Muito Obrigado",
+        "Text": "Os kender agradecem por tudo que caiu em seus bolsos este ano."
+      },
+      "yule": {
+        "Name": "Yule",
+        "Text": "O solstício de inverno: acende-se o tronco de Yule, e as famílias se reúnem antes das neves."
+      }
+    },
+    "Chat": {
+      "Speaker": "Krynn",
+      "Eye": "A Noite do Olho: Solinari, Lunitari e Nuitari estão juntas, cheias.",
+      "High": "{moon} chega ao Alto Santuário, a força de {robe} ({date}).",
+      "NewTimes": "Krynn, {year}",
+      "DarkMoon": "A lua negra",
+      "Change": {
+        "age": {
+          "starbirth": "A Era do Nascimento das Estrelas.",
+          "dreams": "Começa a Era dos Sonhos.",
+          "might": "Começa a Era do Poder: o tempo de Istar.",
+          "despair": "A Era do Desespero: o Cataclismo caiu.",
+          "mortals": "Começa a Era dos Mortais."
+        },
+        "period": {
+          "before": "Antes do Cataclismo.",
+          "despair": "Os anos de desespero.",
+          "war": "A Guerra da Lança começou.",
+          "after": "A guerra acabou.",
+          "chaos": "A Guerra do Caos.",
+          "mortals": "A Era dos Mortais: chegam os grandes dragões.",
+          "souls": "A Guerra das Almas acabou."
+        },
+        "gods": {
+          "return": "Os verdadeiros deuses voltam a atender as preces: a magia divina retorna.",
+          "leave": "Os deuses deixaram Krynn: a magia divina silenciou."
+        },
+        "moons": {
+          "return": "As luas da magia brilham de novo: a Alta Feitiçaria retorna.",
+          "leave": "As luas da magia desapareceram: uma única lua pálida nasce, e a Alta Feitiçaria falha."
+        }
+      },
+      "Welcome": {
+        "Title": "Bem-vindos a Krynn",
+        "Text": "O calendário agora é o Calendário de Krynn, em {date}. Mude a era, a data, as luas e os deuses em Configurações → Krynn."
+      }
+    },
+    "SelfTest": {
+      "Legend": "Verificar este mundo",
+      "Hint": "Confere se o módulo está bem instalado neste Foundry e neste PF2e, e manda o resultado ao mestre no chat.",
+      "Run": "Fazer a verificação",
+      "AllGood": "Krynn: tudo no lugar",
+      "Problems": "Krynn: algo precisa de atenção",
+      "Version": "Krynn para PF2e {version}",
+      "Check": {
+        "Foundry": "Foundry VTT versão 14",
+        "System": "Pathfinder Second Edition 8.7 ou mais novo",
+        "Calendar": "O calendário de Krynn é o calendário do mundo",
+        "CalendarAgrees": "A data do Foundry e a de Krynn batem",
+        "Names": "Nomes de meses e dias para cada povo",
+        "Moons": "As três luas e a Noite do Olho",
+        "Languages": "Os idiomas de Krynn estão registrados",
+        "Traits": "Os traits de criatura de Krynn estão registrados",
+        "Banner": "A faixa do céu está visível"
+      }
+    },
+    "Language": {
+      "solamnic": "Solâmnico",
+      "ergot": "Ergot",
+      "abanasinian": "Abanasiniano",
+      "queShu": "Que-Shu",
+      "khurish": "Khurish",
+      "nerakan": "Nerakano",
+      "kenderspeak": "Língua kender",
+      "qualinesti": "Qualinesti",
+      "silvanesti": "Silvanesti",
+      "kagonesti": "Kagonesti",
+      "kothian": "Kothiano",
+      "ogre": "Ogro",
+      "istarian": "Istariano",
+      "iceFolk": "Povo do Gelo",
+      "saifhum": "Saifhum"
+    },
+    "Trait": {
+      "kender": "Kender",
+      "draconian": "Draconiano",
+      "aghar": "Aghar",
+      "irda": "Irda",
+      "thanoi": "Thanoi",
+      "bakali": "Bakali",
+      "highSorcery": "Alta Feitiçaria",
+      "solamnicKnight": "Cavaleiro de Solamnia",
+      "mystic": "Místico"
+    },
+    "TraitText": {
+      "kender": "Povo pequeno, destemido e infinitamente curioso de Krynn, aparentado dos halflings.",
+      "draconian": "Homens-dragão criados de ovos de dragão corrompidos; cada tipo morre de um jeito.",
+      "aghar": "Os anões tolos: os mais baixos dos anões, sobreviventes de tudo.",
+      "irda": "Os altos ogros do extremo sul, belos e misteriosos metamorfos.",
+      "thanoi": "O povo-morsa de Icereach.",
+      "bakali": "Antigo povo-lagarto dos pântanos de Krynn.",
+      "highSorcery": "Ligado às Ordens da Alta Feitiçaria e às luas da magia.",
+      "solamnicKnight": "Ligado ao Juramento e à Medida dos Cavaleiros de Solamnia.",
+      "mystic": "Magia do coração, tirada de dentro e não de um deus."
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "krynn-pf2e",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "lang": "node tools/lang.mjs",
+    "check": "node tools/lang.mjs --check && node --test && node tools/build.mjs && node tools/manifest-check.mjs",
+    "build": "node tools/build.mjs"
+  },
+  "devDependencies": {
+    "handlebars": "^4.7.10",
+    "jsdom": "^25.0.1"
+  }
+}

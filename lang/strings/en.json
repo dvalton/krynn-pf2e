@@ -1,0 +1,343 @@
+{
+  "KRYNN": {
+    "Settings": {
+      "Menu": {
+        "Name": "Krynn",
+        "Label": "Open the Krynn settings",
+        "Hint": "The age and date of the campaign, the calendar, the moons of magic and the gods."
+      },
+      "UserCulture": {
+        "Name": "Calendar names",
+        "Hint": "Whose names you see for the months and the days of the week.",
+        "World": "The world's default"
+      },
+      "ShowBanner": {
+        "Name": "Show the sky banner",
+        "Hint": "A strip at the top of the screen with the date, the period and the moons."
+      },
+      "Save": "Save",
+      "Date": {
+        "Legend": "Age and date",
+        "Hint": "The year decides which gods answer, whether the moons of magic shine, and which orders and armies stand.",
+        "Period": "Period",
+        "Jump": "Go to this period",
+        "Date": "Date",
+        "Day": "Day",
+        "Month": "Month",
+        "Year": "Year",
+        "YearHint": "Years after the Cataclysm are positive (351 is 351 AC); years before it are negative (-1018 is 1018 PC)."
+      },
+      "Calendar": {
+        "Legend": "Calendar",
+        "Style": "How the year is counted",
+        "Culture": "Default month and day names",
+        "CultureHint": "Each player can choose their own in the module's settings (Calendar names).",
+        "Eye": "A Night of the Eye",
+        "EyeHint": "The date of one night when all three moons were full together. Every phase follows from it; the Eye returns every 504 days."
+      },
+      "Magic": {
+        "Legend": "Magic and the gods"
+      },
+      "MoonMagic": {
+        "Label": "Moon magic",
+        "Hint": "How strongly the moons change High Sorcery. The rules arrive in version 0.3; the choice is kept until then.",
+        "classic": "Classic: bonuses and penalties by phase, alignments, the Night of the Eye",
+        "light": "Light: a bonus at High Sanction only",
+        "narrative": "Narrative: chat and sheet notes, no numbers",
+        "off": "Off: the calendar only"
+      },
+      "Gods": {
+        "Label": "When the gods are absent",
+        "Hint": "What happens to divine magic in years the gods do not answer (before 351 AC, and from 384 to 420 AC). Arrives in version 0.3.",
+        "strict": "Strict: divine spells of an absent god fail",
+        "warn": "Warn: they work, and the GM is told",
+        "off": "Off: nothing changes"
+      },
+      "Nuitari": {
+        "Label": "Who sees Nuitari",
+        "blackRobes": "The GM and the Black Robes",
+        "everyone": "Everyone",
+        "gm": "Only the GM"
+      },
+      "Announce": {
+        "Label": "Announce the sky in chat",
+        "Hint": "Post a card when a moon reaches High Sanction, on the Night of the Eye, on holy days and when the age changes."
+      }
+    },
+    "Calendar": {
+      "Name": "The Calendar of Krynn",
+      "Style": {
+        "classic": "Classic: twelve months of thirty days (360 days)",
+        "kalaman": "Kalaman: twelve months of four weeks (336 days)"
+      },
+      "Culture": {
+        "ergothian": "Ergothian",
+        "solamnic": "Solamnic",
+        "plainsmen": "Plainsmen",
+        "dwarven": "Dwarven",
+        "elven": "Elven",
+        "kender": "Kender",
+        "goblin": "Goblin",
+        "gods": "The gods' days"
+      },
+      "Season": {
+        "spring": "Spring",
+        "summer": "Summer",
+        "autumn": "Autumn",
+        "winter": "Winter"
+      }
+    },
+    "Date": {
+      "Format": "{weekday}, {day} {month}, {year}",
+      "AC": "{year} AC",
+      "PC": "{year} PC"
+    },
+    "Age": {
+      "starbirth": {
+        "Name": "Age of Starbirth"
+      },
+      "dreams": {
+        "Name": "Age of Dreams"
+      },
+      "might": {
+        "Name": "Age of Might"
+      },
+      "despair": {
+        "Name": "Age of Despair"
+      },
+      "mortals": {
+        "Name": "Age of Mortals"
+      }
+    },
+    "Period": {
+      "before": {
+        "Name": "Before the Cataclysm",
+        "Years": "PC",
+        "Text": "The gods walk with their priests; Istar rises, and falls."
+      },
+      "despair": {
+        "Name": "The years of despair",
+        "Years": "0–347 AC",
+        "Text": "The gods are silent; false priests, hard years, and armies gathering in the east."
+      },
+      "war": {
+        "Name": "The War of the Lance",
+        "Years": "348–352 AC",
+        "Text": "The dragonarmies march, the true gods return, and the Heroes of the Lance rise."
+      },
+      "after": {
+        "Name": "After the war",
+        "Years": "353–382 AC",
+        "Text": "The gods have returned and the Knights are reborn; new orders grow in the dark."
+      },
+      "chaos": {
+        "Name": "The Chaos War",
+        "Years": "383 AC",
+        "Text": "The Summer of Chaos: the Father of All and of Nothing breaks free."
+      },
+      "mortals": {
+        "Name": "The Age of Mortals",
+        "Years": "384–420 AC",
+        "Text": "The gods and the moons of magic are gone; the great dragons rule, and mortals find magic of their own."
+      },
+      "souls": {
+        "Name": "After the War of Souls",
+        "Years": "421 AC onwards",
+        "Text": "The gods have returned, and the moons of magic shine again."
+      }
+    },
+    "Moon": {
+      "solinari": "Solinari",
+      "lunitari": "Lunitari",
+      "nuitari": "Nuitari"
+    },
+    "Robe": {
+      "white": "the White Robes",
+      "red": "the Red Robes",
+      "black": "the Black Robes"
+    },
+    "Phase": {
+      "high": "High Sanction",
+      "waning": "Waning",
+      "low": "Low Sanction",
+      "waxing": "Waxing"
+    },
+    "Sky": {
+      "Title": "The sky of Krynn",
+      "Open": "Open the sky of Krynn",
+      "MoonAria": "{moon}: {phase}, {pct}% lit",
+      "GodsPresent": "The gods answer",
+      "GodsAbsent": "The gods are silent",
+      "MoonsPresent": "The moons of magic shine",
+      "MoonsAbsent": "The moons of magic are gone",
+      "EyeTonight": "Tonight is the Night of the Eye: the three moons stand together, full.",
+      "HighNow": "At High Sanction now",
+      "HighIn": "High Sanction in {days} days",
+      "NuitariHidden": "Only the Black Robes see the black moon.",
+      "Aligned": "In alignment:",
+      "NoAlignment": "No moons stand together tonight.",
+      "EyeIn": "The next Night of the Eye is in {days} days ({date}).",
+      "PaleMoon": "A single pale moon crosses the sky. The moons of magic are gone.",
+      "Advance": "Time",
+      "MinusDay": "−1 day",
+      "Hour": "+1 hour",
+      "Rest": "+8 hours",
+      "Day": "+1 day",
+      "Week": "+1 week",
+      "Settings": "Date and settings"
+    },
+    "Holiday": {
+      "yearDay": {
+        "Name": "Year Day",
+        "Text": "The first day of the year: gifts, and promises renewed."
+      },
+      "darkDay": {
+        "Name": "Dark Day",
+        "Text": "The anniversary of the Cataclysm, kept in black and in silence."
+      },
+      "harnkeggerfest": {
+        "Name": "Harnkeggerfest",
+        "Text": "Five days of the hill dwarves, opening the first keg of summer ale."
+      },
+      "kithKanandras": {
+        "Name": "Kith-Kanandras",
+        "Text": "Honouring Kith-Kanan and the founding of Qualinesti; all peoples welcome."
+      },
+      "silvanosdras": {
+        "Name": "Silvanosdras",
+        "Text": "The elves keep the birthday of Silvanos, who united the first elven tribes."
+      },
+      "springDawning": {
+        "Name": "Spring Dawning",
+        "Text": "The spring equinox: the festival of Solace, and the Knights' contests of arms."
+      },
+      "harrowing": {
+        "Name": "Harrowing",
+        "Text": "The planting season begins across Ansalon."
+      },
+      "midyearDay": {
+        "Name": "Midyear Day",
+        "Text": "The longest day: lights and dancing, and in Thorbardin the forges relit."
+      },
+      "festivalOfCandles": {
+        "Name": "Festival of Candles",
+        "Text": "The dwarves remember their dead with floating lanterns."
+      },
+      "summersEnd": {
+        "Name": "Summer's End",
+        "Text": "The autumn equinox, and the start of the harvest."
+      },
+      "festivalOfKnights": {
+        "Name": "Festival of Knights",
+        "Text": "A day for the Knights of Solamnia."
+      },
+      "genealogyDay": {
+        "Name": "Genealogy Day",
+        "Text": "Gnomes file corrections to their names with the Genealogy Guild."
+      },
+      "thanksALotDay": {
+        "Name": "Thanks-a-Lot Day",
+        "Text": "Kender give thanks for everything that fell into their pockets this year."
+      },
+      "yule": {
+        "Name": "Yule",
+        "Text": "The winter solstice: the Yule log is lit, and families gather before the snows."
+      }
+    },
+    "Chat": {
+      "Speaker": "Krynn",
+      "Eye": "The Night of the Eye: Solinari, Lunitari and Nuitari stand together, full.",
+      "High": "{moon} reaches High Sanction, the strength of {robe} ({date}).",
+      "NewTimes": "Krynn, {year}",
+      "DarkMoon": "The black moon",
+      "Change": {
+        "age": {
+          "starbirth": "The Age of Starbirth.",
+          "dreams": "The Age of Dreams begins.",
+          "might": "The Age of Might begins: the time of Istar.",
+          "despair": "The Age of Despair: the Cataclysm has fallen.",
+          "mortals": "The Age of Mortals begins."
+        },
+        "period": {
+          "before": "Before the Cataclysm.",
+          "despair": "The years of despair.",
+          "war": "The War of the Lance has begun.",
+          "after": "The war is over.",
+          "chaos": "The Chaos War.",
+          "mortals": "The Age of Mortals: the great dragons come.",
+          "souls": "The War of Souls is over."
+        },
+        "gods": {
+          "return": "The true gods answer prayers again: divine magic returns.",
+          "leave": "The gods are gone from Krynn: divine magic is silent."
+        },
+        "moons": {
+          "return": "The moons of magic shine again: High Sorcery returns.",
+          "leave": "The moons of magic have vanished: a single pale moon rises, and High Sorcery fails."
+        }
+      },
+      "Welcome": {
+        "Title": "Welcome to Krynn",
+        "Text": "The calendar is now the Calendar of Krynn, set to {date}. Change the age, date, moons and gods in Settings → Krynn."
+      }
+    },
+    "SelfTest": {
+      "Legend": "Check this world",
+      "Hint": "Checks that the module is set up in this Foundry and PF2e, and posts the result to the GM in chat.",
+      "Run": "Run the check",
+      "AllGood": "Krynn: everything is in place",
+      "Problems": "Krynn: something needs attention",
+      "Version": "Krynn for PF2e {version}",
+      "Check": {
+        "Foundry": "Foundry VTT version 14",
+        "System": "Pathfinder Second Edition 8.7 or newer",
+        "Calendar": "The Krynn calendar is the world calendar",
+        "CalendarAgrees": "Foundry's date and Krynn's date agree",
+        "Names": "Month and day names for every culture",
+        "Moons": "The three moons and the Night of the Eye",
+        "Languages": "The languages of Krynn are registered",
+        "Traits": "The creature traits of Krynn are registered",
+        "Banner": "The sky banner is shown"
+      }
+    },
+    "Language": {
+      "solamnic": "Solamnic",
+      "ergot": "Ergot",
+      "abanasinian": "Abanasinian",
+      "queShu": "Que-Shu",
+      "khurish": "Khurish",
+      "nerakan": "Nerakan",
+      "kenderspeak": "Kenderspeak",
+      "qualinesti": "Qualinesti",
+      "silvanesti": "Silvanesti",
+      "kagonesti": "Kagonesti",
+      "kothian": "Kothian",
+      "ogre": "Ogre",
+      "istarian": "Istarian",
+      "iceFolk": "Ice Folk",
+      "saifhum": "Saifhum"
+    },
+    "Trait": {
+      "kender": "Kender",
+      "draconian": "Draconian",
+      "aghar": "Aghar",
+      "irda": "Irda",
+      "thanoi": "Thanoi",
+      "bakali": "Bakali",
+      "highSorcery": "High Sorcery",
+      "solamnicKnight": "Solamnic Knight",
+      "mystic": "Mystic"
+    },
+    "TraitText": {
+      "kender": "Small, fearless and endlessly curious folk of Krynn, related to halflings.",
+      "draconian": "Dragonmen bred from corrupted dragon eggs; each kind dies in its own way.",
+      "aghar": "The gully dwarves: the lowest of dwarvenkind, survivors of everything.",
+      "irda": "The high ogres of the far south, beautiful and secretive shapechangers.",
+      "thanoi": "The walrus-folk of Icereach.",
+      "bakali": "Ancient lizard-folk of Krynn's swamps.",
+      "highSorcery": "Tied to the Orders of High Sorcery and the moons of magic.",
+      "solamnicKnight": "Tied to the Oath and the Measure of the Knights of Solamnia.",
+      "mystic": "Magic of the heart, drawn from within rather than from a god."
+    }
+  }
+}

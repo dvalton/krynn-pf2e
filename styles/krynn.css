@@ -1,0 +1,59 @@
+/* Krynn for PF2e. Uses Foundry's own theme variables, so it follows the light and dark interface themes. */
+
+/* ---------------- the sky banner ---------------- */
+.krynn-banner {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  margin: 0.4rem auto 0; padding: 0.25rem 0.75rem; min-height: 2rem;
+  width: auto; max-width: 34rem; pointer-events: all;
+  font-family: var(--font-body); font-size: var(--font-size-13, 13px); line-height: 1.2;
+  color: var(--color-text-primary, #e6e6e6);
+  background: var(--color-cool-5-75, rgba(11, 10, 19, 0.75));
+  border: 1px solid var(--color-cool-4, #302831); border-radius: 999px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4); cursor: pointer;
+}
+.krynn-banner:hover, .krynn-banner:focus-visible { border-color: var(--color-warm-2, #ee9b3a); }
+.krynn-banner .moons { display: inline-flex; gap: 0.2rem; }
+.krynn-banner .date { font-weight: 600; white-space: nowrap; }
+.krynn-banner .age { opacity: 0.75; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.krynn-banner.eye { border-color: #c8372d; box-shadow: 0 0 10px rgba(200, 55, 45, 0.6); }
+#ui-top > .krynn-banner { align-self: center; }
+
+.krynn .pale, .krynn-banner .pale {
+  display: inline-block; width: 18px; height: 18px; border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #f3f1e8, #b9b7ad 70%); opacity: 0.85;
+}
+
+/* ---------------- the sky window ---------------- */
+.krynn-sky { display: flex; flex-direction: column; gap: 0.75rem; }
+.krynn-sky header h2 { margin: 0; border: none; font-size: var(--font-size-20, 20px); }
+.krynn-sky .sub, .krynn-sky .age { margin: 0.1rem 0; }
+.krynn-sky .hint { color: var(--color-text-secondary, #a8a8a8); font-size: var(--font-size-12, 12px); margin: 0.2rem 0; }
+.krynn-sky .flags { display: flex; gap: 1rem; list-style: none; margin: 0.4rem 0 0; padding: 0; }
+.krynn-sky .flags .off { opacity: 0.65; }
+.krynn-sky .moons { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); gap: 0.5rem; }
+.krynn-sky .moon { display: flex; gap: 0.6rem; align-items: center; padding: 0.4rem; border: 1px solid var(--color-border, #4b4a44); border-radius: 6px; }
+.krynn-sky .moon.high { border-color: var(--color-warm-2, #ee9b3a); }
+.krynn-sky .moon h3 { margin: 0; border: none; font-size: var(--font-size-16, 16px); }
+.krynn-sky .moon p { margin: 0; }
+.krynn-sky .moon .robe { font-size: var(--font-size-12, 12px); opacity: 0.8; }
+.krynn-sky .moon .phase { font-weight: 600; }
+.krynn-sky .eye-now { font-weight: 700; color: #e0574b; }
+.krynn-sky .holidays p { margin: 0.2rem 0; }
+.krynn-sky .pale-moon { display: flex; align-items: center; gap: 0.5rem; }
+.krynn-sky .gm h3 { margin: 0 0 0.3rem; border: none; font-size: var(--font-size-14, 14px); }
+.krynn-sky .gm .buttons { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.krynn-sky .gm .buttons button { flex: 0 0 auto; width: auto; }
+
+/* ---------------- settings ---------------- */
+.krynn-settings fieldset { margin-bottom: 0.5rem; }
+.krynn-settings .form-fields input[type="number"] { max-width: 5.5rem; }
+
+/* ---------------- chat cards ---------------- */
+.krynn-card h3 { margin: 0 0 0.3rem; border-bottom: 1px solid var(--color-border, #7a7971); }
+.krynn-card ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.25rem; }
+.krynn-card li i { width: 1.1em; text-align: center; }
+.krynn-card li.change { font-weight: 600; }
+.krynn-card.selftest li.ok i { color: #3c8a3a; }
+.krynn-card.selftest li.bad i { color: #b33a2c; }
+.krynn-card .detail { opacity: 0.7; font-size: 0.9em; }
+.krynn-card .hint { opacity: 0.7; font-size: 0.9em; margin: 0.4rem 0 0; }

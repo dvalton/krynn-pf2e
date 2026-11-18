@@ -1,0 +1,54 @@
+<section class="krynn-sky">
+  <header>
+    <h2>{{date}}</h2>
+    <p class="sub">{{dateTime}}{{#if season}} · {{season}}{{/if}}</p>
+    <p class="age"><strong>{{age}}</strong> · {{period}}</p>
+    <p class="hint">{{periodText}}</p>
+    <ul class="flags">
+      <li class="{{#if gods}}on{{else}}off{{/if}}"><i class="fa-solid {{#if gods}}fa-sun{{else}}fa-cloud{{/if}}"></i> {{#if gods}}{{localize "KRYNN.Sky.GodsPresent"}}{{else}}{{localize "KRYNN.Sky.GodsAbsent"}}{{/if}}</li>
+      <li class="{{#if moonsPresent}}on{{else}}off{{/if}}"><i class="fa-solid fa-moon"></i> {{#if moonsPresent}}{{localize "KRYNN.Sky.MoonsPresent"}}{{else}}{{localize "KRYNN.Sky.MoonsAbsent"}}{{/if}}</li>
+    </ul>
+  </header>
+
+  {{#if holidays.length}}
+  <div class="holidays">
+    {{#each holidays}}<p><i class="fa-solid fa-star"></i> <strong>{{name}}</strong>: {{text}}</p>{{/each}}
+  </div>
+  {{/if}}
+
+  {{#if moonsPresent}}
+    {{#if eye}}<p class="eye-now"><i class="fa-solid fa-eye"></i> {{localize "KRYNN.Sky.EyeTonight"}}</p>{{/if}}
+    <ol class="moons">
+      {{#each moons}}
+      <li class="moon {{id}} {{#if high}}high{{/if}}">
+        {{{svg}}}
+        <div>
+          <h3>{{name}}</h3>
+          <p class="robe">{{robe}}</p>
+          <p class="phase">{{phase}}</p>
+          <p class="hint">{{#if high}}{{localize "KRYNN.Sky.HighNow"}}{{else}}{{localize "KRYNN.Sky.HighIn" days=toHigh}}{{/if}}</p>
+        </div>
+      </li>
+      {{/each}}
+    </ol>
+    {{#unless seeNuitari}}<p class="hint">{{localize "KRYNN.Sky.NuitariHidden"}}</p>{{/unless}}
+    <p>{{#if alignments.length}}<strong>{{localize "KRYNN.Sky.Aligned"}}</strong> {{#each alignments}}{{this}}{{#unless @last}}; {{/unless}}{{/each}}.{{else}}{{localize "KRYNN.Sky.NoAlignment"}}{{/if}}</p>
+    {{#unless eye}}<p>{{localize "KRYNN.Sky.EyeIn" days=toEye date=eyeDate}}</p>{{/unless}}
+  {{else}}
+    <p class="pale-moon"><span class="pale" aria-hidden="true"></span> {{localize "KRYNN.Sky.PaleMoon"}}</p>
+  {{/if}}
+
+  {{#if isGM}}
+  <footer class="gm">
+    <h3>{{localize "KRYNN.Sky.Advance"}}</h3>
+    <div class="buttons">
+      <button type="button" data-action="advance" data-seconds="-86400">{{localize "KRYNN.Sky.MinusDay"}}</button>
+      <button type="button" data-action="advance" data-seconds="3600">{{localize "KRYNN.Sky.Hour"}}</button>
+      <button type="button" data-action="advance" data-seconds="28800">{{localize "KRYNN.Sky.Rest"}}</button>
+      <button type="button" data-action="advance" data-seconds="86400">{{localize "KRYNN.Sky.Day"}}</button>
+      <button type="button" data-action="advance" data-seconds="604800">{{localize "KRYNN.Sky.Week"}}</button>
+      <button type="button" data-action="openSettings"><i class="fa-solid fa-gear"></i> {{localize "KRYNN.Sky.Settings"}}</button>
+    </div>
+  </footer>
+  {{/if}}
+</section>

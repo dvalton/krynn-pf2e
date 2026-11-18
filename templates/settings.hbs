@@ -1,0 +1,77 @@
+<section class="krynn-settings">
+  <fieldset>
+    <legend>{{localize "KRYNN.Settings.Date.Legend"}}</legend>
+    <p class="hint">{{localize "KRYNN.Settings.Date.Hint"}}</p>
+    <div class="form-group">
+      <label>{{localize "KRYNN.Settings.Date.Period"}}</label>
+      <div class="form-fields">
+        <select name="period">
+          {{#each periods}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}} ({{hint}})</option>{{/each}}
+        </select>
+        <button type="button" data-action="jumpToPeriod">{{localize "KRYNN.Settings.Date.Jump"}}</button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "KRYNN.Settings.Date.Date"}}</label>
+      <div class="form-fields">
+        <input type="number" name="day" value="{{date.day}}" min="1" max="{{monthDays}}" step="1" aria-label="{{localize "KRYNN.Settings.Date.Day"}}">
+        <select name="month" aria-label="{{localize "KRYNN.Settings.Date.Month"}}">
+          {{#each months}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}
+        </select>
+        <input type="number" name="year" value="{{date.year}}" step="1" aria-label="{{localize "KRYNN.Settings.Date.Year"}}">
+      </div>
+      <p class="hint">{{localize "KRYNN.Settings.Date.YearHint"}}</p>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>{{localize "KRYNN.Settings.Calendar.Legend"}}</legend>
+    <div class="form-group">
+      <label>{{localize "KRYNN.Settings.Calendar.Style"}}</label>
+      <div class="form-fields"><select name="calendarStyle">{{#each styles}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "KRYNN.Settings.Calendar.Culture"}}</label>
+      <div class="form-fields"><select name="worldCulture">{{#each cultures}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></div>
+      <p class="hint">{{localize "KRYNN.Settings.Calendar.CultureHint"}}</p>
+    </div>
+    <div class="form-group">
+      <label>{{localize "KRYNN.Settings.Calendar.Eye"}}</label>
+      <div class="form-fields">
+        <input type="number" name="eye.day" value="{{eye.day}}" min="1" max="{{monthDays}}" step="1" aria-label="{{localize "KRYNN.Settings.Date.Day"}}">
+        <select name="eye.month" aria-label="{{localize "KRYNN.Settings.Date.Month"}}">{{#each eyeMonths}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select>
+        <input type="number" name="eye.year" value="{{eye.year}}" step="1" aria-label="{{localize "KRYNN.Settings.Date.Year"}}">
+      </div>
+      <p class="hint">{{localize "KRYNN.Settings.Calendar.EyeHint"}}</p>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>{{localize "KRYNN.Settings.Magic.Legend"}}</legend>
+    <div class="form-group">
+      <label>{{localize "KRYNN.Settings.MoonMagic.Label"}}</label>
+      <div class="form-fields"><select name="moonMagic">{{#each moonMagic}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></div>
+      <p class="hint">{{localize "KRYNN.Settings.MoonMagic.Hint"}}</p>
+    </div>
+    <div class="form-group">
+      <label>{{localize "KRYNN.Settings.Gods.Label"}}</label>
+      <div class="form-fields"><select name="godsMode">{{#each gods}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></div>
+      <p class="hint">{{localize "KRYNN.Settings.Gods.Hint"}}</p>
+    </div>
+    <div class="form-group">
+      <label>{{localize "KRYNN.Settings.Nuitari.Label"}}</label>
+      <div class="form-fields"><select name="nuitariSeen">{{#each nuitari}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "KRYNN.Settings.Announce.Label"}}</label>
+      <div class="form-fields"><input type="checkbox" name="announce" {{#if announce}}checked{{/if}}></div>
+      <p class="hint">{{localize "KRYNN.Settings.Announce.Hint"}}</p>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>{{localize "KRYNN.SelfTest.Legend"}}</legend>
+    <p class="hint">{{localize "KRYNN.SelfTest.Hint"}}</p>
+    <button type="button" data-action="selfTest"><i class="fa-solid fa-stethoscope"></i> {{localize "KRYNN.SelfTest.Run"}}</button>
+  </fieldset>
+</section>
