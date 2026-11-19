@@ -12,10 +12,10 @@ await import("../scripts/krynn.mjs");
 await F.start();
 const K = globalThis.krynn;
 const { createCharacter } = await import("../scripts/foundry/lifewrought/create.mjs");
-const life = (name) => LIVES.find((l) => l.name === name).record;
+const life = (name) => LIVES.find((l) => l.role === name).record;
 
 test("the champion's god is the Krynn Gods pack's Paladine", async () => {
-  const r = await createCharacter(life("Isaude Proud"), "pl1");
+  const r = await createCharacter(life("champion-paladine"), "pl1");
   assert.match(r.deity, /^Compendium\.krynn-pf2e\.deities\.Item\./);
   const a = game.actors.get(r.actorId);
   assert.equal(a.deity.flags["krynn-pf2e"].slug, "paladine");
@@ -25,7 +25,7 @@ test("the champion's god is the Krynn Gods pack's Paladine", async () => {
 
 test("open choices are told to the player, and the owner finishes them by taking the item again", async () => {
   const before = F.chat.length;
-  const r = await createCharacter(life("Halden Tumbler"), "pl1");
+  const r = await createCharacter(life("versatile-human"), "pl1");
   assert.deepEqual(r.open, ["Versatile Human"]);
   const msg = F.chat.slice(before).find((m) => m.content.includes("choices to make"));
   assert.ok(msg && msg.content.includes("Versatile Human"));
@@ -43,7 +43,7 @@ test("open choices are told to the player, and the owner finishes them by taking
 });
 
 test("the sheet shows the open choices with a button", async () => {
-  const r = await createCharacter(life("Odile Thessarin"), "pl1");
+  const r = await createCharacter(life("versatile-human-2"), "pl1");
   const a = game.actors.get(r.actorId);
   const { sheetNotice } = await import("../scripts/foundry/lifewrought/finish.mjs");
   const html = document.createElement("div");
@@ -56,7 +56,7 @@ test("the sheet shows the open choices with a button", async () => {
 });
 
 test("factions: started from the life, kept by the GM, in PF2e's attitudes", async () => {
-  const r = await createCharacter(life("Isaude Proud"), "pl1");
+  const r = await createCharacter(life("champion-paladine"), "pl1");
   const a = game.actors.get(r.actorId);
   const start = a.getFlag("krynn-pf2e", "factions");
   assert.equal(typeof start, "object");
@@ -93,17 +93,17 @@ test("the sheet gets a Krynn header button", async () => {
 });
 
 test("Lifewrought's peoples get the Krynn heritage (a setting): a kender is a kender, not a halfling heritage", async () => {
-  const r = await createCharacter(life("Tansy Lightpocket"), "pl1");
+  const r = await createCharacter(life("kender-cleric-mishakal"), "pl1");
   assert.equal(r.heritage, "Kender");
   const a = game.actors.get(r.actorId);
   const hs = a.items.filter((i) => i.type === "heritage");
   assert.equal(hs.length, 1);
   assert.equal(hs[0].flags["krynn-pf2e"].slug, "kender");
   assert.match(hs[0]._stats.compendiumSource, /^Compendium\.krynn-pf2e\.peoples\.Item\./);
-  const dwarf = await createCharacter(life("Morra Anvilsong"), "pl1");
+  const dwarf = await createCharacter(life("hill-dwarf"), "pl1");
   assert.equal(dwarf.heritage, "Neidar (Hill Dwarf)");
   await game.settings.set("krynn-pf2e", "lwKrynnHeritages", false);
-  const plain = await createCharacter(life("Tansy Lightpocket"), "pl1");
+  const plain = await createCharacter(life("kender-cleric-mishakal"), "pl1");
   assert.equal(plain.heritage, null);
   assert.ok(!game.actors.get(plain.actorId).items.find((i) => i.type === "heritage").flags["krynn-pf2e"], "PF2e's own heritage");
   await game.settings.set("krynn-pf2e", "lwKrynnHeritages", true);

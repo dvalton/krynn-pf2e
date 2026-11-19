@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.1.0
+
+Lifewrought v0.13 inside Foundry.
+
+- **Four ways of playing**, chosen by each player in the Lifewrought window (the GM's campaign stays locked):
+  - pure fate: every roll stands;
+  - fate points: three for the life, to reroll a table or move one row up or down;
+  - choose among the life's offers: on the tables that make the character (heritage, god, class options and feat, spells, weapon, Known As, the calling and others);
+  - concept: a chosen ancestry and, optionally, a class the life leans towards.
+- **Quick lives**: about half the events, and the looks, personality and outcomes roll themselves. About 75 clicks instead of 160.
+- **Events at a sensible age**: no more opportunities at 3 for goblins; every event has a minimum age.
+- **39 new events** for the years after the war (353 to 382) and the Age of Mortals.
+- Every way of playing replays exactly when the character is created (tested in every mode, full and quick). Lives saved before keep working.
+- The Player's Guide explains the ways of playing.
+
 ## 1.0.0
 
 The whole of Krynn, tested across its ages.

@@ -15,7 +15,7 @@ const LW = createRequire(import.meta.url)(new URL("../lifewrought/engine.js", im
 const ITEMS = JSON.parse(fs.readFileSync(new URL("./fixtures/pf2e-items.json", import.meta.url)));
 const LIVES = JSON.parse(fs.readFileSync(new URL("./fixtures/lives.json", import.meta.url)));
 const docs = buildDocs(), bab = buildBabele();
-const build = async (name) => { const { v } = await replayLife(LW, D, LIVES.find((l) => l.name === name).record); return { v, ...(await buildActorData(LW, v, D, async (u) => (ITEMS[u] ? structuredClone(ITEMS[u]) : null))) }; };
+const build = async (name) => { const { v } = await replayLife(LW, D, LIVES.find((l) => l.role === name || l.name === name).record); return { v, ...(await buildActorData(LW, v, D, async (u) => (ITEMS[u] ? structuredClone(ITEMS[u]) : null))) }; };
 
 test("the 0.4 packs are built, every link resolved, every text in both languages", () => {
   for (const p of ["peoples", "backgrounds", "orders", "tables"]) assert.ok(PACKS.some((x) => x.name === p), p);
@@ -62,7 +62,7 @@ test("the knightly orders are archetypes with a choice of order", () => {
 });
 
 test("the deity Lifewrought writes is replaced by the Krynn Gods pack's, and the champion's choice points to it", async () => {
-  const { data } = await build("Isaude Proud");
+  const { data } = await build("champion-paladine");
   const paladine = docs.deities.find((d) => d.name === "Paladine");
   const uuid = `Compendium.krynn-pf2e.deities.Item.${paladine._id}`;
   const oldId = data.items.find((i) => i.type === "deity")._id;
@@ -78,13 +78,13 @@ test("the deity Lifewrought writes is replaced by the Krynn Gods pack's, and the
 });
 
 test("Lifewrought makes the cleric's divine font from her god", async () => {
-  const { data } = await build("Tansy Lightpocket");
+  const { data } = await build("kender-cleric-mishakal");
   const font = data.items.find((i) => i.name === "Divine Font");
   assert.equal(font?.flags.pf2e.rulesSelections.divineFont, "heal", "Mishakal heals");
 });
 
 test("open choices: only those PF2e must still ask for, on items the player can take again", async () => {
-  const { data } = await build("Halden Tumbler");
+  const { data } = await build("versatile-human");
   const open = openChoices(data.items);
   assert.deepEqual(open.map((o) => [o.name, o.flags]), [["Versatile Human", ["versatileHeritage"]]]);
   assert.match(open[0].source, /^Compendium\.pf2e\.heritages\.Item\./);

@@ -146,6 +146,12 @@ td .why span.down { background: var(--wound-soft); color: var(--wound); }
 td .note { display: block; font-size: 13.5px; color: var(--ink-2); }
 tr.hit td { background: var(--verdigris-soft); color: var(--ink); font-weight: 600; }
 table.rolled tr:not(.hit) td { opacity: 0.45; }
+.fate-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.roll.auto { gap: 6px; padding-top: 6px; }
+.roll.auto h3 { font-size: 16px; }
+.card.auto { padding-top: 10px; padding-bottom: 10px; }
+.btn.pick { padding: 4px 10px; font-size: 14px; }
+.now .fate { margin-left: 10px; color: var(--verdigris); font-weight: 600; }
 .dice-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
 .die { min-width: 74px; text-align: center; font: 700 30px/1 var(--display); font-variant-numeric: tabular-nums; padding: 10px 12px; border: 2px solid var(--ink); border-radius: 10px; background: var(--leaf); }
 .die.stop { border-color: var(--verdigris); color: var(--verdigris); }
@@ -217,7 +223,7 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
 </header>
 <div class="band" id="band" hidden>
   <div class="band-inner">
-    <div class="now" aria-live="polite"><span class="where" id="now-where"></span><span class="step" id="now-step"></span><span class="age" id="now-age"></span></div>
+    <div class="now" aria-live="polite"><span class="where" id="now-where"></span><span class="step" id="now-step"></span><span class="age" id="now-age"></span><span class="fate" id="now-fate" hidden></span></div>
     <div class="bar" id="bar" aria-label="Progress through the life"></div>
   </div>
 </div>
@@ -230,7 +236,7 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
     </section>
     <section class="card" id="prologue">
       <h2>Prologue</h2>
-      <p>You are about to live a whole life on Krynn, from birth to the first day of adventure. The dice decide what happens; you decide how to respond to it. Every table is shown before it is rolled, with the reasons its odds look the way they do. Nothing on the character sheet is chosen directly: your class, your background and the rest grow out of what you lived. There is no death, no reroll, and no going back on a decision.</p>
+      <p>You are about to live a whole life on Krynn, from birth to the first day of adventure. The dice decide what happens; you decide how to respond to it. Every table is shown before it is rolled, with the reasons its odds look the way they do. In pure fate, nothing on the character sheet is chosen directly: your class, your background and the rest grow out of what you lived. There is no death and no going back on a decision; whether the dice can be bent a little is up to you, below.</p>
       <form class="prologue" id="prologue-form">
         <label for="f-age">Age of the campaign
           <select id="f-age" name="age"></select>
@@ -256,9 +262,30 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
           <select id="f-scope" name="scope"></select>
         </label>
         <p class="small wide" id="scope-note"></p>
+        <label class="play" for="f-mode">How much the dice decide
+          <select id="f-mode" name="mode">
+            <option value="fate">Pure fate: every roll stands</option>
+            <option value="points">Fate points: three to bend the dice</option>
+            <option value="choose">Choose among the life's offers</option>
+            <option value="concept">Concept: start from an idea</option>
+          </select>
+        </label>
+        <label class="play" for="f-length">Length of the life
+          <select id="f-length" name="length">
+            <option value="full">Full: every stage of the life</option>
+            <option value="quick">Quick: about half the events</option>
+          </select>
+        </label>
+        <p class="small wide play" id="mode-note"></p>
+        <label class="play concept" for="f-people" hidden>Ancestry
+          <select id="f-people" name="people"></select>
+        </label>
+        <label class="play concept" for="f-class" hidden>A class the life leans towards
+          <select id="f-class" name="cls"></select>
+        </label>
         <div class="row">
           <button class="btn" type="submit" id="start" disabled>Loading the tables</button>
-          <span class="small">The game master sets these. A life takes about 15 to 25 minutes, and is saved as you go.</span>
+          <span class="small" id="length-note">The game master sets the campaign. A full life takes about 20 to 25 minutes, a quick one about 13; both are saved as you go.</span>
         </div>
       </form>
     </section>
@@ -334,7 +361,7 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
   const KIND = { M: "What drives you", W: "Wounds", S: "Strengths", T: "Ties and debts", X: "Secrets", K: "Know-how", R: "Standing", H: "Lived history", O: "From birth" };
 
   const chronicle = $("#chronicle"), portrait = $("#portrait");
-  let D = null, current = null, plan = [], replaying = false, life = null;
+  let D = null, current = null, plan = [], replaying = false, life = null, fateCard = null;
 
   function put(node) {
     chronicle.append(node);
@@ -351,6 +378,9 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
     let step = n.step || "";
     if (n.total) step = `${n.step === "Event" || n.step === "Opportunity" || n.step === "History" ? (n.step === "Event" ? "event" : n.step.toLowerCase()) : n.step} ${n.index} of ${n.total}`;
     $("#now-step").textContent = step && step !== LW.STAGE_NAMES[n.stage] ? "· " + step : "";
+    const fate = $("#now-fate");
+    fate.hidden = n.fate === null || n.fate === undefined;
+    if (!fate.hidden) fate.textContent = `fate ${"●".repeat(n.fate)}${"○".repeat(Math.max(0, LW.FATE_POINTS - n.fate))}`;
     $("#now-age").textContent = n.year === null || n.year === undefined ? "before birth" : n.age === 0 ? `born ${n.year} AC` : `age ${n.age} · ${n.year} AC`;
     const bar = $("#bar");
     if (!plan.length) { bar.replaceChildren(el("div", { class: "seg current", style: "flex: 1" }, el("div", { class: "ticks" }, el("i", { class: "here" })), el("span", { text: "Origin" }))); return; }
@@ -516,6 +546,23 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
     return el("div", { class: "result" }, el("span", { class: "label", text: res.label }), el("p", { class: "text", text: res.text }), res.sub ? el("p", { class: "sub", text: res.sub }) : null,
       changes.length ? el("div", { class: "chips" }, ...changes) : null, stampText(now) ? el("span", { class: "stamp", text: stampText(now) }) : null);
   }
+  // Fate points: keep the roll, reroll it, or move to the row above or below. Rows that cannot come up are skipped.
+  function fateChoice(c, t) {
+    const ranged = t.rows.map((r) => !!r.range);
+    const step = (dir) => { let j = t.idx; do { j += dir; } while (j >= 0 && j < ranged.length && !ranged[j]); return j >= 0 && j < ranged.length; };
+    return new Promise((resolve) => {
+      const row = el("div", { class: "fate-row" }, el("span", { class: "small", text: `Fate points: ${t.fate} left; a change costs one.` }));
+      const mk = (text, act, ok = true) => { const b = el("button", { class: "btn alt", type: "button", text }); if (!ok) b.disabled = true;
+        b.addEventListener("click", () => { row.remove(); resolve(act); }); row.append(b); return b; };
+      const keep = mk("Keep it", { action: "keep" });
+      mk("Reroll", { action: "reroll" });
+      mk("▲ Row above", { action: "nudge", dir: -1 }, step(-1));
+      mk("▼ Row below", { action: "nudge", dir: 1 }, step(1));
+      c.block.append(row);
+      row.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "nearest" });
+      keep.focus({ preventScroll: true });
+    });
+  }
   async function cont(host) {
     if (replaying) return;
     const btn = el("button", { class: "btn alt", type: "button", text: "Continue" });
@@ -530,33 +577,73 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
   const ui = {
     now(n) { paintBand(n); },
     plan(p) { plan = p; },
+    // A table card. Pure fate: roll, see the result. Fate points: after the roll, keep it or spend a point to reroll
+    // or move one row (the same card updates). Choosing: the rows are offered as buttons and nothing is rolled.
+    // Quick lives roll the looks, the personality and an event's outcome without a click (t.auto).
     async table(t) {
       replaying = t.replay;
-      const inside = t.kind === "outcome" && current;
-      const body = el("tbody");
-      const trs = t.rows.map((r) => {
-        const cell = el("td", {}, r.text);
-        if (r.note) cell.append(el("span", { class: "note", text: r.note }));
-        if (r.why && r.why.length) cell.append(el("span", { class: "why" }, ...r.why.map((w) => el("span", { class: w.up ? "" : "down", text: (w.up ? "▲ " : "▼ ") + w.text }))));
-        const tr = el("tr", {}, el("td", { class: "num", text: rangeText(r.range) }), el("td", { class: "num", text: r.pct + "%" }), cell);
-        body.append(tr);
-        return tr;
-      });
       const size = t.die || 100;
-      const table = el("table", {}, el("thead", {}, el("tr", {}, el("th", { text: "d" + size }), el("th", { text: "Chance" }), el("th", { text: inside ? "What could happen" : "Result" }))), body);
-      const die = el("div", { class: "die", "aria-live": "polite", text: "??" });
-      const btn = el("button", { class: "btn", type: "button", text: "Roll d" + size });
-      const hasWhy = t.rows.some((r) => r.why && r.why.length);
-      const block = el("div", { class: "roll" }, el("h3", { text: t.title }), inside ? null : el("p", { class: "ask", text: t.ask }),
-        hasWhy ? el("p", { class: "small", text: "Marked lines show what in your life changed the odds." }) : null,
-        el("div", { class: "scroll" }, table), el("div", { class: "dice-row" }, die, replaying ? null : btn));
-      const host = inside ? current : put(el("section", { class: "card" }));
-      host.append(block);
-      if (!replaying) { block.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "nearest" }); btn.focus({ preventScroll: true }); await click(btn); btn.remove(); }
-      await spin(die, t.rolled, size);
-      trs[t.idx].classList.add("hit");
-      table.classList.add("rolled");
-      if (t.result) { host.append(resultCard(t.result, t.now)); await cont(host); }
+      const pointsCard = t.fate !== undefined && t.fate !== null;
+      let c = t.again && fateCard ? fateCard : null;
+      if (!c) {
+        const inside = t.kind === "outcome" && current;
+        const choosing = t.choose && !t.chosen && !replaying;
+        const compact = t.auto && !(pointsCard && t.fate > 0) && !t.choose;
+        const body = el("tbody");
+        let pickResolve = null;
+        const picked = new Promise((r) => { pickResolve = r; });
+        const pickBtns = [];
+        const trs = t.rows.map((r, i) => {
+          const cell = el("td", {}, r.text);
+          if (r.note) cell.append(el("span", { class: "note", text: r.note }));
+          if (r.why && r.why.length) cell.append(el("span", { class: "why" }, ...r.why.map((w) => el("span", { class: w.up ? "" : "down", text: (w.up ? "▲ " : "▼ ") + w.text }))));
+          const first = t.choose ? el("td", { class: "num" }, choosing ? (() => {
+            const b = el("button", { class: "btn alt pick", type: "button", text: "Take this", "aria-label": "Take: " + r.text });
+            b.addEventListener("click", () => { pickBtns.forEach((x) => { x.disabled = true; }); pickResolve(i); });
+            pickBtns.push(b); return b; })() : null) : el("td", { class: "num", text: rangeText(r.range) });
+          const tr = el("tr", {}, first, el("td", { class: "num", text: r.pct + "%" }), cell);
+          body.append(tr);
+          return tr;
+        });
+        const head = t.choose ? "Your pick" : "d" + size;
+        const table = el("table", {}, el("thead", {}, el("tr", {}, el("th", { text: head }), el("th", { text: "Chance" }), el("th", { text: inside ? "What could happen" : "Result" }))), body);
+        const die = el("div", { class: "die", "aria-live": "polite", text: t.choose ? "✓" : "??" });
+        const btn = el("button", { class: "btn", type: "button", text: "Roll d" + size });
+        const hasWhy = t.rows.some((r) => r.why && r.why.length);
+        const ask = t.choose ? (t.ask || "") + " This life offers these; take the one you want." : t.ask;
+        const scroll = el("div", { class: "scroll" }, table);
+        const block = el("div", { class: "roll" + (compact ? " auto" : "") }, el("h3", { text: t.title }), inside || compact ? null : el("p", { class: "ask", text: ask }),
+          hasWhy && !compact ? el("p", { class: "small", text: "Marked lines show what in your life changed the odds." }) : null,
+          compact ? el("details", {}, el("summary", { text: "The table" }), scroll) : scroll,
+          t.choose ? null : el("div", { class: "dice-row" }, die, replaying || compact ? null : btn));
+        const host = inside ? current : put(el("section", { class: "card" + (compact ? " auto" : "") }));
+        host.append(block);
+        c = { block, trs, die, host, table, compact };
+        if (t.choose) {
+          if (choosing) { block.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "nearest" }); if (pickBtns[0]) pickBtns[0].focus({ preventScroll: true }); }
+          const idx = choosing ? await picked : t.idx;
+          trs[idx].classList.add("hit"); table.classList.add("rolled");
+          const res = t.results ? t.results[idx] : null;
+          if (res) { host.append(resultCard(res, t.now)); if (!compact) await cont(host); }
+          return { pick: idx };
+        }
+        if (!replaying && !compact) { block.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "nearest" }); btn.focus({ preventScroll: true }); await click(btn); btn.remove(); }
+        await spin(die, t.rolled, size);
+      } else {
+        // The same card, after a fate point: a new roll, or the row next to the last one.
+        c.trs.forEach((tr) => tr.classList.remove("hit"));
+        c.die.classList.remove("stop");
+        if (t.again === "reroll") await spin(c.die, t.rolled, size); else { c.die.textContent = String(t.rolled).padStart(2, "0"); c.die.classList.add("stop"); }
+      }
+      c.trs[t.idx].classList.add("hit");
+      c.table.classList.add("rolled");
+      fateCard = null;
+      if (pointsCard && t.fate > 0 && !replaying) {
+        const action = await fateChoice(c, t);
+        if (action.action !== "keep") { fateCard = c; return action; }
+      } else if (pointsCard && replaying && t.final === false) { fateCard = c; return undefined; }
+      if (t.result) { c.host.append(resultCard(t.result, t.now)); if (!c.compact) await cont(c.host); }
+      return { action: "keep" };
     },
     async number(t) {
       replaying = t.replay;
@@ -623,7 +710,7 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
   function theCharacter(v) {
     replaying = false;
     const scopeName = ((D.scope.scopes[v.scope] || {}).text || "").split(":")[0];
-    put(el("div", { class: "stage" }, el("span", { text: "The Character" }), el("small", { text: `${v.year} AC, age ${v.age}` + (scopeName ? ` · canon: ${scopeName}` : "") })));
+    put(el("div", { class: "stage" }, el("span", { text: "The Character" }), el("small", { text: `${v.year} AC, age ${v.age}` + (scopeName ? ` · canon: ${scopeName}` : "") + playWords({ mode: v.mode, length: v.length }).replace(/, /g, " · ") })));
     const f = LW.buildSheet(v, D), sd = LW.sheetData(v, D), S = (v.l1 || {}).spells;
     tabNow = "character"; paint(v);
     const attrs = el("div", { class: "attrs" }, ...LW.ATTR.map((a) => el("div", { class: a === f.key ? "key" : "" }, el("b", { text: sign(f.mod[a]) }), el("span", { text: ATTR_NAME[a] }))));
@@ -718,6 +805,38 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
     sel.value = S.default;
     noteScope();
   }
+  const MODE_NOTES = {
+    fate: "Every table is rolled and every roll stands. The way Lifewrought was meant to be played.",
+    points: "Three fate points for the whole life. After any roll except an event's outcome, spend one to reroll the table (the new roll stands) or to move one row up or down.",
+    choose: "The dice still run your life, but on the tables that make the character (heritage, the gift of your people, god, class options and feat, how you fight, spells, weapon, Known As and the calling) you take the row you want from the ones this life offers.",
+    concept: "Start from an idea: pick an ancestry (you are born where that people lives) and, if you like, a class your life leans towards (always among your callings, at three times its weight). The rest is rolled.",
+  };
+  const MODE_WORDS = { points: "fate points", choose: "choosing among the offers", concept: "from a concept" };
+  const playWords = (cfg) => [MODE_WORDS[cfg.mode], cfg.length === "quick" ? "a quick life" : null].filter(Boolean).map((x) => ", " + x).join("");
+  function noteMode() {
+    const m = $("#f-mode").value;
+    $("#mode-note").textContent = MODE_NOTES[m] || "";
+    document.querySelectorAll("label.concept").forEach((n) => { n.hidden = m !== "concept"; });
+  }
+  function fillConcept() {
+    const A = D.origin.ancestries;
+    $("#f-people").replaceChildren(el("option", { value: "", text: "Any: the dice choose" }),
+      ...Object.keys(A).filter((id) => Object.values(D.origin.places).some((p) => p.pop > 0 && (p.people || {})[id] > 0)).map((id) => el("option", { value: id, text: A[id].text })));
+    fillConceptClasses();
+  }
+  // Only the classes the chosen canon allows.
+  function fillConceptClasses() {
+    const sel = $("#f-class"), keep = sel.value, S = D.scope, sc = S.scopes[scopeValue()] || {};
+    const ok = Object.keys(D.rules.classes).filter((c) => (sc.allow || []).includes((S.classes[c] || { tier: "adaptation" }).tier)).sort((a, b) => D.rules.classes[a].name.localeCompare(D.rules.classes[b].name));
+    sel.replaceChildren(el("option", { value: "", text: "Any: wherever the life leads" }), ...ok.map((c) => el("option", { value: c, text: D.rules.classes[c].name })));
+    sel.value = ok.includes(keep) ? keep : "";
+  }
+  const scopeValue = () => (EMBED && host.state.cfg ? host.state.cfg.scope : $("#f-scope").value);
+  function playOptions() {
+    const mode = $("#f-mode").value, length = $("#f-length").value;
+    const concept = mode === "concept" ? { people: $("#f-people").value || null, cls: $("#f-class").value || null } : null;
+    return { mode, length, concept };
+  }
   function noteScope() { const x = D.scope.scopes[$("#f-scope").value]; $("#scope-note").textContent = x ? x.note : ""; }
   function noteRegion() {
     const r = D.regions.find((x) => x.id === $("#f-region").value);
@@ -749,7 +868,9 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
     D = d;
     fillAges();
     fillScopes();
-    $("#f-scope").addEventListener("change", noteScope);
+    $("#f-scope").addEventListener("change", () => { noteScope(); fillConceptClasses(); });
+    fillConcept(); noteMode();
+    $("#f-mode").addEventListener("change", noteMode);
     $("#f-age").addEventListener("change", () => setAge($("#f-age").value));
     $("#f-year").addEventListener("input", noteYear);
     const nudge = (d) => { const r = $("#f-year"); r.value = Math.min(+r.max, Math.max(+r.min, +r.value + d)); noteYear(); };
@@ -764,7 +885,9 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
   function lockToHost() {
     const c = host.state.cfg;
     const r = D.regions.find((x) => x.id === c.region), sc = (D.scope.scopes[c.scope] || {}).text || "";
-    $("#prologue-form").querySelectorAll("label, .year-pick, .small.wide, p.small, .row .small").forEach((n) => { n.hidden = true; });
+    // The ways of playing and the length stay the player's to choose.
+    $("#prologue-form").querySelectorAll("label, .year-pick, .small.wide, p.small, .row .small").forEach((n) => { if (!n.classList.contains("play")) n.hidden = true; });
+    fillConceptClasses(); noteMode();
     const note = el("p", { class: "wide", text: `Your game master has set the campaign: ${c.year} AC, ${r ? r.name : c.region}${c.start ? ", in " + c.start : ""}. Canon: ${sc.split(":")[0]}.` });
     $("#prologue-form").prepend(note);
   }
@@ -780,7 +903,7 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
     if (saved && saved.draws && saved.draws.length) {
       $("#resume").hidden = false;
       const sa = (D.ages || []).find((a) => a.years && saved.cfg.year >= a.years[0] && saved.cfg.year <= a.years[1]);
-      $("#resume-text").textContent = `${saved.name || "An unnamed character"}, campaign ${saved.cfg.year} AC${sa ? ", " + sa.name : ""}. Pick up where you left off, or start again.`;
+      $("#resume-text").textContent = `${saved.name || "An unnamed character"}, campaign ${saved.cfg.year} AC${sa ? ", " + sa.name : ""}${playWords(saved.cfg)}. Pick up where you left off, or start again.`;
       $("#resume-go").addEventListener("click", () => run(saved.cfg, saved));
       $("#resume-new").addEventListener("click", () => { store.clear(); $("#resume").hidden = true; });
     }
@@ -791,9 +914,9 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
     if (!D) return;
     if (EMBED && host.state.readonly) return;
     store.clear();
-    if (EMBED && host.state.cfg) { const c = host.state.cfg; run({ year: c.year, region: c.region, start: c.start || "", scope: c.scope, recent: recent.get() }, null); return; }
+    if (EMBED && host.state.cfg) { const c = host.state.cfg; run({ year: c.year, region: c.region, start: c.start || "", scope: c.scope, recent: recent.get(), ...playOptions() }, null); return; }
     const year = Math.min(430, Math.max(1, parseInt($("#f-year").value, 10) || 381));
-    run({ year, region: $("#f-region").value, start: $("#f-start").value.trim(), scope: $("#f-scope").value, recent: recent.get() }, null);
+    run({ year, region: $("#f-region").value, start: $("#f-start").value.trim(), scope: $("#f-scope").value, recent: recent.get(), ...playOptions() }, null);
   });
 })();
 </script>

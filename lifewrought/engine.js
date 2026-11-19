@@ -54,7 +54,7 @@ const LW = (() => {
   }
   function attachTracking(v, ui, cfg) {
     const saved = cfg.saved || { draws: [], answers: [] };
-    const rec = { cfg: { year: cfg.year, region: cfg.region, start: cfg.start, recent: cfg.recent || [], scope: cfg.scope }, draws: [], answers: [] };
+    const rec = { cfg: { year: cfg.year, region: cfg.region, start: cfg.start, recent: cfg.recent || [], scope: cfg.scope, mode: cfg.mode || "fate", length: cfg.length || "full", concept: cfg.concept || null }, draws: [], answers: [] };
     const base = cfg.rng || defaultRng();
     let di = 0, ai = 0;
     v.rng = () => { const x = di < saved.draws.length ? saved.draws[di] : base(); di++; rec.draws.push(x); return x; };
@@ -63,7 +63,7 @@ const LW = (() => {
     v.answer = (a) => { rec.answers.push(a); ai++; };
     v.save = () => { if (cfg.onSave) cfg.onSave(rec); };
     v.at = { stage: "origin", step: "Ancestry", index: 0, total: 0 };
-    v.nowInfo = () => ({ ...v.at, year: v.curYear ?? null, age: v.curAge ?? null, born: v.born ?? null });
+    v.nowInfo = () => ({ ...v.at, year: v.curYear ?? null, age: v.curAge ?? null, born: v.born ?? null, fate: v.mode === "points" ? v.fate : null });
     v.now = (patch) => { Object.assign(v.at, patch); ui.now && ui.now(v.nowInfo()); };
   }
 
@@ -80,6 +80,8 @@ const LW = (() => {
     if (m) return v.dom(m[1]) >= +m[2];
     m = c.match(/^year(>=|<=)(\d+)$/);
     if (m) return m[1] === ">=" ? year >= +m[2] : year <= +m[2];
+    m = c.match(/^age(>=|<=)(\d+)$/);
+    if (m) { const age = (year ?? v.curYear ?? v.year) - v.born; return m[1] === ">=" ? age >= +m[2] : age <= +m[2]; }
     m = c.match(/^born(>|<)(\d+)$/);
     if (m) return m[1] === ">" ? v.born > +m[2] : v.born < +m[2];
     if (c.startsWith("mark.")) return v.marks.has(c.slice(5));
@@ -299,20 +301,61 @@ const LW = (() => {
     }
     return { w: Math.max(0, w), why };
   }
+  // A visible roll on a table. The ways of playing (cfg.mode) change what the player may do with it:
+  // - "fate" (pure fate): the roll stands.
+  // - "points": three fate points a life; on any table but an event's outcome, one point rerolls it (the new result
+  //   stands) or nudges it one row up or down.
+  // - "choose": on the character tables (info.character), the player picks one of the rows the life offers.
+  // What the player did is kept in the life's answers, so the same life always replays to the same result.
   async function rollTable(v, D, ui, info, rows, year) {
     const all = rows;
     rows = rows.filter((r) => requiresOk(v, r.requires, year));
     if (!rows.length) rows = all.filter((r) => !r.requires);
     if (!rows.length) rows = all;
+    if (info.only) { const only = rows.filter((r) => r.id === info.only); if (only.length) rows = only; }
     const ws = rows.map((r) => weightOf(v, D, r, year));
     const fx = bands(ws.map((x) => x.w));
     const size = fx[0].size;
-    const n = v.int(1, size);
-    const idx = fx.findIndex((f) => f.range && n >= f.range[0] && n <= f.range[1]);
     const rep = v.seen();
+    const at = (n) => fx.findIndex((f) => f.range && n >= f.range[0] && n <= f.range[1]);
+    const card = (n, idx, extra = {}) => ui.table({ ...info, die: size, rows: rows.map((r, i) => ({ text: fill(v, D, r.text), note: r.note || (typeof r.why === "string" ? r.why : "") || "", why: ws[i].why, ...fx[i] })),
+      rolled: n, idx, replay: rep || extra.replay, result: idx >= 0 && info.result ? info.result(rows[idx], fx[idx]) : null, now: v.nowInfo(), auto: !!info.auto && v.length === "quick", ...extra });
+    const choose = v.mode === "choose" && info.character && rows.length > 1;
+    const points = v.mode === "points" && info.kind !== "outcome" && rows.length > 1;
+    const prior = choose || points ? v.savedAnswer() : null;
+    const saved = Array.isArray(prior) ? prior : null;
+    let n = null, idx = -1;
+    const acts = [];
+    if (choose) {
+      // The player picks; no die is rolled. The card knows every row's result, to show the one picked.
+      const results = info.result ? rows.map((r, i) => info.result(r, fx[i])) : null;
+      let pick = saved && saved[0] ? saved[0].pick : undefined;
+      if (pick === undefined) { const a = await card(null, -1, { choose: true, results }); pick = a && Number.isInteger(a.pick) ? a.pick : 0; }
+      else await card(null, Math.max(0, Math.min(rows.length - 1, pick)), { choose: true, chosen: true, results });
+      idx = Math.max(0, Math.min(rows.length - 1, pick));
+      acts.push({ pick: idx });
+    } else {
+      n = v.int(1, size); idx = at(n);
+      if (points) {
+        for (let k = 0; ; k++) {
+          const left = v.fate;
+          let a;
+          const again = k ? acts[k - 1].action : null;
+          if (saved) { a = saved[k]; await card(n, idx, { fate: left, again, replay: true, final: !a || !a.action || a.action === "keep" }); }
+          else a = left > 0 ? await card(n, idx, { fate: left, again }) : (await card(n, idx, { fate: 0, again }), null);
+          if (!a || !a.action || a.action === "keep" || v.fate <= 0) { acts.push({ action: "keep" }); break; }
+          v.fate--; acts.push(a);
+          if (a.action === "reroll") { n = v.int(1, size); idx = at(n); }
+          else if (a.action === "nudge") {
+            let j = idx;
+            do { j += a.dir > 0 ? 1 : -1; } while (j >= 0 && j < fx.length && !fx[j].range);
+            if (j >= 0 && j < fx.length) { idx = j; n = fx[j].range[0]; }
+          }
+        }
+      } else await card(n, idx);
+    }
+    if (choose || points) v.answer(acts);
     v.lastPct = fx[idx].pct;
-    await ui.table({ ...info, die: size, rows: rows.map((r, i) => ({ text: fill(v, D, r.text), note: r.note || (typeof r.why === "string" ? r.why : "") || "", why: ws[i].why, ...fx[i] })),
-      rolled: n, idx, replay: rep, result: info.result ? info.result(rows[idx], fx[idx]) : null, now: v.nowInfo() });
     v.save();
     return rows[idx];
   }
@@ -401,7 +444,7 @@ const LW = (() => {
       const why = [...(fits ? [{ text: `born in ${where}`, up: true }] : []), ...(pref ? [{ text: pref[1], up: true }] : [])];
       return { id: h.uuid, w: (fits ? 30 : 10) * (pref ? pref[0] : 1), text: h.name, note: firstSentence(h.text), fixedWhy: why, opt: h };
     });
-    const row = await rollTable(v, D, ui, { kind: "origin", title: "Heritage", ask: "Which line of your people do you come from? Where you were born tips the odds.",
+    const row = await rollTable(v, D, ui, { character: true, kind: "origin", title: "Heritage", ask: "Which line of your people do you come from? Where you were born tips the odds.",
       result: (r) => ({ label: "Heritage", text: r.text, sub: r.note, changes: [] }) }, rows, v.born);
     v.l1.heritage = { uuid: row.id, name: row.text };
     v.origin.push({ title: "Heritage", text: row.text });
@@ -413,7 +456,7 @@ const LW = (() => {
   async function ancestryFeatStep(v, D, ui) {
     v.l1 = v.l1 || {};
     const pool = D.build.ancestry_feats[pfAncestry(v, D)].filter((f) => !(f.prereq || []).length);
-    const row = await rollTable(v, D, ui, { kind: "emerge", title: "A gift of your people", ask: "Growing up, which of your people's ways did you take to? (Ancestry feat)",
+    const row = await rollTable(v, D, ui, { character: true, kind: "emerge", title: "A gift of your people", ask: "Growing up, which of your people's ways did you take to? (Ancestry feat)",
       result: (r) => ({ label: "Ancestry feat", text: r.text, sub: r.note, changes: [] }) }, fitRows(v, pool, 5), v.curYear);
     v.l1.ancestryFeat = { uuid: row.id, name: row.text };
   }
@@ -429,7 +472,7 @@ const LW = (() => {
     const gods = Object.entries(D.deities).filter(([, g]) => !filter || filter(g));
     const rows = gods.map(([id, g]) => { const f = deityFit(v, D, g); return { id, w: Math.max(1, Math.round(f.s * f.s)), text: g.name, note: g.title, fixedWhy: f.why }; })
       .sort((a, b) => b.w - a.w).slice(0, 5);
-    const row = await rollTable(v, D, ui, { kind: "emerge", title: "Your god", ask: "Which god answered when you called? The ones your life leaned towards:",
+    const row = await rollTable(v, D, ui, { character: true, kind: "emerge", title: "Your god", ask: "Which god answered when you called? The ones your life leaned towards:",
       result: (r) => ({ label: "Your god", text: r.text, sub: r.note, changes: [] }) }, rows, v.year);
     v.l1.deity = row.id;
   }
@@ -447,7 +490,7 @@ const LW = (() => {
         if (fit.length) opts = fit;
       }
       if (!opts.length) continue;
-      const row = await rollTable(v, D, ui, { kind: "emerge", title: c.feature, ask: `Your ${D.rules.classes[cls].name.toLowerCase()} way: which ${c.feature.toLowerCase()} did your life lead to?`,
+      const row = await rollTable(v, D, ui, { character: true, kind: "emerge", title: c.feature, ask: `Your ${D.rules.classes[cls].name.toLowerCase()} way: which ${c.feature.toLowerCase()} did your life lead to?`,
         result: (r) => ({ label: c.feature, text: r.text, sub: r.note, changes: [] }) }, fitRows(v, opts, 5), v.year);
       seen.add(row.id);
       v.l1.choices.push({ feature: c.feature, featureUuid: c.featureUuid, flag: c.flag, uuid: row.id, name: row.text, text: row.opt.text });
@@ -455,7 +498,7 @@ const LW = (() => {
     if ((D.build.feat_levels[cls] || {}).classFeat) {
       const pool = (D.build.class_feats[cls] || []).filter((f) => !(f.prereq || []).length);
       if (pool.length) {
-        const row = await rollTable(v, D, ui, { kind: "emerge", title: "Class feat", ask: "The first thing your training made you good at:",
+        const row = await rollTable(v, D, ui, { character: true, kind: "emerge", title: "Class feat", ask: "The first thing your training made you good at:",
           result: (r) => ({ label: "Class feat", text: r.text, sub: r.note, changes: [] }) }, fitRows(v, pool, 5), v.year);
         v.l1.classFeat = { uuid: row.id, name: row.text };
       }
@@ -480,7 +523,7 @@ const LW = (() => {
       const bias = ((D.adapter.styles[v.klass] || {}).bias || {})[id] || 1;
       return { id, w: Math.max(1, Math.round(bias * s * s / 4)), text: STYLE_TEXT[id], fixedWhy: why.sort((a, b) => b[0] - a[0]).slice(0, 2).map(([, t]) => ({ text: t, up: true })) };
     });
-    const row = await rollTable(v, D, ui, { kind: "emerge", title: "How you fight", ask: "When it comes to a fight, what did your life teach your hands?",
+    const row = await rollTable(v, D, ui, { character: true, kind: "emerge", title: "How you fight", ask: "When it comes to a fight, what did your life teach your hands?",
       result: (r) => ({ label: "How you fight", text: r.text, changes: [] }) }, rows, v.year);
     v.l1.style = row.id;
     const keys = D.rules.classes[v.klass].key;
@@ -495,7 +538,7 @@ const LW = (() => {
     const pick = async (rank, n, title) => {
       const opts = pool.filter((sp) => sp.rank === rank).map((sp) => ({ ...sp, text: sp.text }));
       const rows = fitRows(v, opts, 6);
-      const row = await rollTable(v, D, ui, { kind: "emerge", title, ask: rank === 0 ? "The first cantrip you ever cast, the one that comes most naturally:" : "Your first real spell:",
+      const row = await rollTable(v, D, ui, { character: true, kind: "emerge", title, ask: rank === 0 ? "The first cantrip you ever cast, the one that comes most naturally:" : "Your first real spell:",
         result: (r) => ({ label: title, text: r.text, sub: r.note, changes: [] }) }, rows, v.year);
       const rest = fitRows(v, opts.filter((sp) => sp.uuid !== row.id), opts.length).map((r) => r.opt);
       // The rest by fit, with a little chance so two similar lives don't know the same list.
@@ -535,7 +578,7 @@ const LW = (() => {
       return { id: e.uuid, w: Math.max(1, Math.round(s)), text: `${e.name} (${e.group})`, note: `${(e.cp / 100).toFixed(e.cp % 100 ? 1 : 0)} gp`, fixedWhy: why.sort((a, b) => b[0] - a[0]).slice(0, 2).map(([, t]) => ({ text: t, up: true })), opt: e };
     }).sort((a, b) => b.w - a.w).slice(0, 3);
     if (wRows.length) {
-      const row = await rollTable(v, D, ui, { kind: "emerge", title: "Your weapon", ask: "What do you carry for when it comes to that?",
+      const row = await rollTable(v, D, ui, { character: true, kind: "emerge", title: "Your weapon", ask: "What do you carry for when it comes to that?",
         result: (r) => ({ label: "Your weapon", text: r.text, changes: [] }) }, wRows, v.year);
       buy(row.opt);
     }
@@ -557,9 +600,18 @@ const LW = (() => {
   }
 
   // ---------------- origin ----------------
+  // Concept mode with a chosen ancestry: only the regions and places where that people is born.
+  function conceptPlaces(v, D) {
+    const want = v.concept && v.concept.people;
+    if (!want) return null;
+    const ok = Object.entries(D.origin.places).filter(([, p]) => p.pop > 0 && (p.people || {})[want] > 0).map(([id]) => id);
+    return ok.length ? new Set(ok) : null;
+  }
   async function birthRegion(v, D, ui) {
     const B = D.origin.birth_regions;
-    const regs = Object.entries(B).filter(([k]) => k !== "share_home");
+    const cp = conceptPlaces(v, D);
+    const inRegion = (k) => !cp || [...cp].some((id) => D.origin.places[id].region === k);
+    const regs = Object.entries(B).filter(([k]) => k !== "share_home" && inRegion(k));
     const home = regs.find(([k]) => k === v.campaign), others = regs.filter(([k]) => k !== v.campaign);
     const sum = others.reduce((s, [, r]) => s + r.births, 0);
     const share = home && others.length ? B.share_home : home ? 100 : 0;
@@ -573,7 +625,8 @@ const LW = (() => {
   }
   async function birthplace(v, D, ui) {
     const P = D.origin.places;
-    const rows = Object.entries(P).filter(([, p]) => p.region === v.birthRegion && p.pop > 0)
+    const cp = conceptPlaces(v, D);
+    const rows = Object.entries(P).filter(([id, p]) => p.region === v.birthRegion && p.pop > 0 && (!cp || cp.has(id)))
       .map(([id, p]) => ({ id, w: p.pop, mods: p.pop_mods, text: p.born || p.name, note: p.note || "" }));
     const row = await rollTable(v, D, ui, { kind: "origin", title: "Birthplace", ask: "Where exactly? The more people live in a place, the more are born there.",
       result: (r) => ({ label: "Birthplace", text: r.text, changes: [] }) }, rows, v.year);
@@ -592,7 +645,8 @@ const LW = (() => {
   }
   async function ancestryStep(v, D, ui) {
     const p = D.origin.places[v.birthplace], A = D.origin.ancestries;
-    const rows = Object.entries(p.people).map(([id, w]) => ({ id, w, text: A[id].text }));
+    const want = v.concept && v.concept.people && (p.people || {})[v.concept.people] > 0 ? v.concept.people : null;
+    const rows = Object.entries(p.people).filter(([id]) => !want || id === want).map(([id, w]) => ({ id, w, text: A[id].text, fixedWhy: want ? [{ text: "your concept", up: true }] : [] }));
     const row = await rollTable(v, D, ui, { kind: "origin", title: "Ancestry", ask: `Who is born in ${p.name}? The chances follow who lives there.`,
       result: (r) => ({ label: "Ancestry", text: r.text, changes: [] }) }, rows, v.year);
     const facts = [...A[row.id].facts, ...cultureFacts(v, D, row.id)];
@@ -762,7 +816,10 @@ const LW = (() => {
     const name = step.table;
     const t = tableFor(v, D, name);
     const looks = (r, f) => (standsOut(v, name, r, f.pct) ? [{ kind: "O", text: "stands out" }] : []);
-    const row = await rollTable(v, D, ui, { kind: "origin", title: t.title, ask: t.ask, result: (r, f) => ({ label: t.title, text: r.text, changes: [...changesOf(v, D, r.set), ...looks(r, f)] }) },
+    // In a quick life the looks tables (skin, hair, eyes, build, height, feature) roll together, without a click each;
+    // so do the personality tables and an event's outcome, once the choice is made.
+    const auto = ["skin", "hair", "eyes", "build", "height", "feature"].includes(name);
+    const row = await rollTable(v, D, ui, { kind: "origin", title: t.title, ask: t.ask, auto, result: (r, f) => ({ label: t.title, text: r.text, changes: [...changesOf(v, D, r.set), ...looks(r, f)] }) },
       tableRows(v, D, name), v.year && v.curYear ? v.curYear : v.born);
     if (name === "sex") { v.sex = row.id.startsWith("intersex") ? "intersex" : row.id; v.raisedAs = row.id === "intersex_f" ? "female" : row.id === "intersex_m" ? "male" : row.id; }
     if (name === "family") v.facts.add("family." + row.id);
@@ -786,7 +843,8 @@ const LW = (() => {
   // ---------------- the life ----------------
   function spans(v) {
     const e = v.stages, age = v.age;
-    const s = { childhood: [Math.min(e.youth - 1, Math.max(Math.floor(e.youth / 2), 4)), e.youth - 1], youth: [e.youth, e.training - 1] };
+    // Childhood events begin at 4 (an earlier childhood is too young to remember); see origin.min_age.
+    const s = { childhood: [Math.max(4, Math.min(e.youth - 1, Math.floor(e.youth / 2))), Math.max(4, e.youth - 1)], youth: [e.youth, e.training - 1] };
     if (v.band && v.band !== "young") {
       // Older lives: training ends at adulthood; then the long years (long-lived peoples), perhaps the old road, and the settled years.
       let cur;
@@ -834,7 +892,7 @@ const LW = (() => {
     v.answer(pickedId);
     v.save();
     const choice = choices.find((c) => c.id === pickedId);
-    const out = await rollTable(v, D, ui, { kind: "outcome", title: "What could happen", ask: fill(v, D, choice.text) },
+    const out = await rollTable(v, D, ui, { kind: "outcome", auto: true, title: "What could happen", ask: fill(v, D, choice.text) },
       choice.outcomes.map((o) => ({ ...o, w: o.base_chance })), year);
     const got = apply(v, D, out.effects);
     got.motive = (out.effects.add || []).filter((m) => m.startsWith("motive_"));
@@ -845,6 +903,17 @@ const LW = (() => {
     await ui.outcome({ ...rec, replay: v.seen(), now: v.nowInfo() });
   }
 
+  // The youngest age an event can happen at: its own min_age, else the floor for its kind (data: origin.min_age).
+  // Below it the event does not fire; a history event instead reaches the character once they are old enough.
+  function minAge(D, ev) {
+    if (ev.min_age !== undefined) return ev.min_age;
+    const M = D.origin.min_age || {};
+    if (ev.history) return (M.history || {})[ev.history.exposure] ?? 0;
+    if (ev.type === "opportunity") return M.opportunity ?? 0;
+    if (ev.phases.includes("childhood")) return M.childhood ?? 0;
+    if (ev.phases.includes("youth")) return M.youth ?? 0;
+    return 0;
+  }
   async function playStage(v, D, ui, stage, i0, i1) {
     const O = D.origin;
     const a0 = v.born + i0, a1 = v.born + i1;
@@ -861,8 +930,8 @@ const LW = (() => {
       for (const h of historic) {
         if (v.used.has(h.id) || !h.phases.includes(stage)) continue;
         const hi = h.history;
-        if (v.historyCount >= O.history_limit && !hi.continues) continue;
-        const y0 = Math.max(hi.years[0], now), y1 = Math.min(hi.years[1], a1);
+        if (v.historyCount >= (v.length === "quick" && O.quick ? O.quick.history_limit : O.history_limit) && !hi.continues) continue;
+        const y0 = Math.max(hi.years[0], now, v.born + minAge(D, h)), y1 = Math.min(hi.years[1], a1);
         if (y0 <= y1 && requiresOk(v, h.requires, y0) && romanceOk(v, D, h, y0)) {
           if (!(h.id in v.luck)) v.luck[h.id] = v.rng() * 100 < (hi.chance ?? 100);
           if (v.luck[h.id]) cand.push([y0, h]);
@@ -881,7 +950,7 @@ const LW = (() => {
       }
       if (next === null) break;
       const year = Math.max(years.shift(), now);
-      let ok = regular.filter((e) => e.phases.includes(stage) && !v.used.has(e.id) && requiresOk(v, e.requires, year) && romanceOk(v, D, e, year));
+      let ok = regular.filter((e) => e.phases.includes(stage) && !v.used.has(e.id) && year - v.born >= minAge(D, e) && requiresOk(v, e.requires, year) && romanceOk(v, D, e, year));
       const hasPath = [...v.marks].some((m) => m.startsWith("path_"));
       if (first && stage === "training" && !hasPath) { const op = ok.filter((e) => e.type === "opportunity" && eventWeight(v, e, year) > 0); ok = op.length ? op : ok; }
       first = false;
@@ -970,7 +1039,7 @@ const LW = (() => {
   async function knownAs(v, D, ui) {
     v.now({ stage: v.at.stage, step: "Known As", index: 0, total: 0 });
     const rows = backgroundOffers(v, D).map(([b, s, why]) => ({ id: b, w: fitWeight(s), text: D.rules.backgrounds[b].name, note: D.lifeshape.background_lives[b], fixedWhy: [...why, ...reasons(v, D, D.adapter.backgrounds[b], 3 - why.length)] }));
-    const row = await rollTable(v, D, ui, { kind: "emerge", title: "Known As", ask: "By now people knew you for something. The three that fit your life best, weighted by how well they fit:",
+    const row = await rollTable(v, D, ui, { character: true, kind: "emerge", title: "Known As", ask: "By now people knew you for something. The three that fit your life best, weighted by how well they fit:",
       result: (r) => ({ label: "Known As", text: r.text, sub: r.note, changes: [] }) }, rows, v.curYear);
     v.background = row.id;
     v.facts.add("background." + row.id);
@@ -981,8 +1050,16 @@ const LW = (() => {
   async function calling(v, D, ui) {
     v.curYear = v.year; v.curAge = v.age;
     v.now({ stage: "calling", step: "Calling", index: 0, total: 0 });
-    const rows = classOffers(v, D).map(([c, s, why]) => ({ id: c, w: fitWeight(s), text: D.rules.classes[c].name, note: D.lifeshape.class_calls[c], fixedWhy: [...why, ...reasons(v, D, D.classes.classes[c], 3 - why.length)] }));
-    const row = await rollTable(v, D, ui, { kind: "emerge", title: "The Calling", ask: "Everything you lived points somewhere. These are the doors your life opened, weighted by how wide:",
+    const offers = classOffers(v, D);
+    // Concept mode with a chosen class: it is always among the doors, at three times its weight.
+    const want = v.concept && v.concept.cls && classScope(v, D, v.concept.cls) ? v.concept.cls : null;
+    if (want && !offers.some(([c]) => c === want)) {
+      const s = classScope(v, D, want);
+      offers.push([want, score(v, D.classes.classes[want], D) * s.f, s.why]);
+    }
+    const rows = offers.map(([c, s, why]) => ({ id: c, w: fitWeight(s) * (c === want ? CONCEPT_TIMES : 1), text: D.rules.classes[c].name, note: D.lifeshape.class_calls[c],
+      fixedWhy: [...(c === want ? [{ text: "your concept (×" + CONCEPT_TIMES + ")", up: true }] : []), ...why, ...reasons(v, D, D.classes.classes[c], 3 - why.length)] }));
+    const row = await rollTable(v, D, ui, { character: true, kind: "emerge", title: "The Calling", ask: "Everything you lived points somewhere. These are the doors your life opened, weighted by how wide:",
       result: (r) => ({ label: "Your calling", text: r.text, sub: r.note, changes: [] }) }, rows, v.year);
     v.klass = row.id;
     ui.state(v);
@@ -1004,7 +1081,7 @@ const LW = (() => {
         }).sort((a, b) => b[1] - a[1]).slice(0, 4);
         const rows = scored.map(([it, s]) => ({ w: fitWeight(s), text: it.text,
           fixedWhy: (it.marks || []).filter((m) => v.marks.has(m)).slice(0, 3).map((m) => ({ text: human(m), up: true })) }));
-        const row = await rollTable(v, D, ui, { kind: "emerge", title: cat.title, ask: cat.pick === 2 ? (p === 0 ? "The first of two:" : "And the second:") : "What the life made of you:",
+        const row = await rollTable(v, D, ui, { kind: "emerge", auto: true, title: cat.title, ask: cat.pick === 2 ? (p === 0 ? "The first of two:" : "And the second:") : "What the life made of you:",
           result: (r) => ({ label: cat.title, text: r.text, changes: [] }) }, rows, v.year);
         picked.push(row.text);
       }
@@ -1060,8 +1137,8 @@ const LW = (() => {
     v.counts = v.counts || {};
     for (const st of Object.keys(sp)) {
       if (v.counts[st] !== undefined) continue;
-      const n = O.events_per_stage[st];
-      v.counts[st] = st === "settled" ? (v.band === "old" ? n[1] : n[0]) : Array.isArray(n) ? v.int(n[0], n[1]) : n;
+      const n = (v.length === "quick" && O.quick ? O.quick.events_per_stage : O.events_per_stage)[st];
+      v.counts[st] = !Array.isArray(n) ? n : st === "settled" ? (v.band === "old" ? n[1] : n[0]) : v.int(n[0], n[1]);
     }
     v.plan = [{ stage: "origin", steps: ORIGIN_STEPS, events: 0, from: v.born, to: v.born }];
     const knownAt = v.band && v.band !== "young" ? "settled" : "training";
@@ -1081,6 +1158,9 @@ const LW = (() => {
     if (ui.plan) ui.plan(v.plan, total);
   }
 
+  // The ways of playing a life, and how long it is. See rollTable, ancestryStep and calling.
+  const MODES = ["fate", "points", "choose", "concept"];
+  const FATE_POINTS = 3, CONCEPT_TIMES = 3;
   async function live(D, cfg, ui) {
     const v = newLife(Math.random);
     attachTracking(v, ui, cfg);
@@ -1090,6 +1170,10 @@ const LW = (() => {
     v.facts.add("campaign." + v.campaign);
     v.recent = cfg.recent || [];
     v.scope = cfg.scope || (D.scope || {}).default || "favoured";
+    v.mode = MODES.includes(cfg.mode) ? cfg.mode : "fate";
+    v.length = cfg.length === "quick" ? "quick" : "full";
+    v.concept = v.mode === "concept" && cfg.concept ? { people: cfg.concept.people || null, cls: cfg.concept.cls || null } : null;
+    v.fate = v.mode === "points" ? FATE_POINTS : 0;
     await ui.stage("origin");
     for (const step of D.origin.origin_steps) await originStep(v, D, ui, step);
     const older = v.band !== "young";
@@ -1728,7 +1812,7 @@ const LW = (() => {
     ].filter(Boolean).join(" ");
   }
 
-  return { live, sheetData, sheetText, organizationsOf, summaryText, buildSheet, checkSheet, backstoryText, foundryMacro, foundryActor, statBlock, languages, appearanceText, bodyNumbers, cultureText, tieLine, genderText, nameStoryText,
+  return { MODES, FATE_POINTS, CONCEPT_TIMES, minAge, live, sheetData, sheetText, organizationsOf, summaryText, buildSheet, checkSheet, backstoryText, foundryMacro, foundryActor, statBlock, languages, appearanceText, bodyNumbers, cultureText, tieLine, genderText, nameStoryText,
     bands, ATTR, DOMAIN_NAMES, STAGE_NAMES, human, ALLY_ROLES, ENEMY_ROLES };
 })();
 if (typeof module !== "undefined") module.exports = LW;

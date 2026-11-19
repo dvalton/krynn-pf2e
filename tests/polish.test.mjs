@@ -18,7 +18,7 @@ test("the Portuguese review finds nothing left in English", () => {
 });
 
 test("the Krynn panel: god and age, knighthood, factions, the life and its Chronicle", async () => {
-  const r = await createCharacter(LIVES.find((l) => l.name === "Isaude Proud").record, "pl1");
+  const r = await createCharacter(LIVES.find((l) => l.role === "champion-paladine").record, "pl1");
   const a = game.actors.get(r.actorId);
   const ctx = K.panel.context(a);
   assert.equal(ctx.god.name, "Paladine");

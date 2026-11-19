@@ -23,12 +23,18 @@ export async function replayLife(LW, D, record) {
 export function seeded(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
 
 // A life lived by nobody, choices at random: for the self-test (does it build here?) and the test fixtures.
-export async function randomLife(LW, D, { seed = Math.floor(Math.random() * 1e9), year = 351, region = "abanasinia", start = "" } = {}) {
+// With a way of playing (mode: points, choose or concept) it also spends fate points and picks rows at random.
+export async function randomLife(LW, D, { seed = Math.floor(Math.random() * 1e9), year = 351, region = "abanasinia", start = "", mode = "fate", length = "full", concept = null } = {}) {
   const pick = seeded(seed * 3 + 1);
   let last = null;
-  const ui = { table: async () => {}, number: async () => {}, reveal: async () => {}, stage: async () => {}, outcome: async () => {}, state: () => {}, now: () => {}, plan: () => {},
+  const table = async (t) => {
+    if (t.choose && !t.chosen) return { pick: Math.floor(pick() * t.rows.length) };
+    if (t.fate > 0 && pick() < 0.25) return pick() < 0.5 ? { action: "reroll" } : { action: "nudge", dir: pick() < 0.5 ? 1 : -1 };
+    return undefined;
+  };
+  const ui = { table, number: async () => {}, reveal: async () => {}, stage: async () => {}, outcome: async () => {}, state: () => {}, now: () => {}, plan: () => {},
     event: async (c, o) => o[Math.floor(pick() * o.length)].id };
-  const v = await LW.live(D, { year, region, start, scope: D.scope.default, recent: [], rng: seeded(seed), onSave: (r) => { last = r; } }, ui);
+  const v = await LW.live(D, { year, region, start, scope: D.scope.default, recent: [], mode, length, concept, rng: seeded(seed), onSave: (r) => { last = r; } }, ui);
   return { v, record: JSON.parse(JSON.stringify({ ...last, done: true, name: v.name.full, stage: "The Road" })) };
 }
 
