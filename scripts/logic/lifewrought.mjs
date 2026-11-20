@@ -24,7 +24,7 @@ export function seeded(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2
 
 // A life lived by nobody, choices at random: for the self-test (does it build here?) and the test fixtures.
 // With a way of playing (mode: points, choose or concept) it also spends fate points and picks rows at random.
-export async function randomLife(LW, D, { seed = Math.floor(Math.random() * 1e9), year = 351, region = "abanasinia", start = "", mode = "fate", length = "full", concept = null } = {}) {
+export async function randomLife(LW, D, { seed = Math.floor(Math.random() * 1e9), year = 351, region = "abanasinia", start = "", mode = "fate", length = "full", concept = null, name = "" } = {}) {
   const pick = seeded(seed * 3 + 1);
   let last = null;
   const table = async (t) => {
@@ -34,7 +34,7 @@ export async function randomLife(LW, D, { seed = Math.floor(Math.random() * 1e9)
   };
   const ui = { table, number: async () => {}, reveal: async () => {}, stage: async () => {}, outcome: async () => {}, state: () => {}, now: () => {}, plan: () => {},
     event: async (c, o) => o[Math.floor(pick() * o.length)].id };
-  const v = await LW.live(D, { year, region, start, scope: D.scope.default, recent: [], mode, length, concept, rng: seeded(seed), onSave: (r) => { last = r; } }, ui);
+  const v = await LW.live(D, { year, region, start, scope: D.scope.default, recent: [], mode, length, concept, name, rng: seeded(seed), onSave: (r) => { last = r; } }, ui);
   return { v, record: JSON.parse(JSON.stringify({ ...last, done: true, name: v.name.full, stage: "The Road" })) };
 }
 

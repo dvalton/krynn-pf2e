@@ -214,6 +214,73 @@ export const REGIONS = [
       { en: "A diver swears he saw lights in the drowned temples under the Blood Sea.", pt: "Um mergulhador jura que viu luzes nos templos afundados sob o Mar de Sangue." },
       { en: "For a campaign before the Cataclysm: the Kingpriest's inquisitors are looking for a mage the heroes are hiding.", pt: "Para uma campanha antes do Cataclismo: os inquisidores do Rei-Sacerdote procuram um mago que os heróis estão escondendo." },
     ], cities: [] },
+
+  { id: "estwilde", name: { en: "Estwilde", pt: "Estwilde" },
+    land: { en: "Rough hills and windswept plains between Solamnia and the Khalkists. The hill tribes herd sheep and shaggy cattle, raise cairns over their dead, and trade wool for iron with the dwarves of Kayolin to the west. To the north the land turns grey and quiet: Nightlund, where Lord Soth's keep stands.",
+      pt: "Colinas ásperas e planícies varridas pelo vento entre Solamnia e os Khalkists. As tribos das colinas criam ovelhas e gado peludo, erguem marcos de pedra sobre seus mortos e trocam lã por ferro com os anões de Kayolin, a oeste. Ao norte a terra fica cinzenta e silenciosa: Nightlund, onde fica a fortaleza de Lorde Soth." },
+    ages: { en: "The tribes resented Istar's trade roads long before the Cataclysm, and after it they fought Solamnic farmers over the western valleys for generations. In the War of the Lance the dragonarmies marched through on their way to Solamnia, while Kayolin shut its gates and held. In the Age of Mortals the Knights of Neraka built garrisons on the Solamnic road and taxed the tribes for their protection.",
+      pt: "As tribos se ressentiam das estradas de comércio de Istar muito antes do Cataclismo, e depois dele lutaram por gerações com fazendeiros solâmnicos pelos vales do oeste. Na Guerra da Lança os exércitos dracônicos passaram por ali a caminho de Solamnia, enquanto Kayolin fechava os portões e resistia. Na Era dos Mortais os Cavaleiros de Neraka ergueram guarnições na estrada solâmnica e cobraram das tribos pela sua proteção." },
+    hooks: [
+      { en: "A tribe's cairn has been opened, and the dead chief's sword is gone; the tribe blames the dwarves.", pt: "O marco de pedra de uma tribo foi aberto, e a espada do chefe morto sumiu; a tribo culpa os anões." },
+      { en: "A goat-herder crossed the white stones into Nightlund and came back the next morning thirty years older.", pt: "Um pastor de cabras cruzou as pedras brancas para dentro de Nightlund e voltou na manhã seguinte trinta anos mais velho." },
+      { en: "The garrison commander wants guides who know the high passes, and pays in coin the tribes need.", pt: "O comandante da guarnição quer guias que conheçam as passagens altas, e paga com moedas de que as tribos precisam." },
+    ], cities: [] },
+
+  { id: "nordmaar", name: { en: "Nordmaar", pt: "Nordmaar" },
+    land: { en: "A hot kingdom in the far north-east: highland horse-clans on the high grass, jungle villages on stilts along the coast, and North Keep, the king's city. Nordmaar took in the refugees of Istar's ruin, and their descendants still keep the old feasts of a city at the bottom of the sea.",
+      pt: "Um reino quente no extremo nordeste: clãs de cavaleiros nas pastagens altas, vilas de palafitas na selva do litoral, e North Keep, a cidade do rei. Nordmaar acolheu os refugiados da ruína de Istar, e seus descendentes ainda guardam as velhas festas de uma cidade no fundo do mar." },
+    ages: { en: "In 348 the War of the Lance began here: the Red and Green Dragonarmies invaded, took North Keep and razed the port of Valkinord, before anyone else understood there was a war. The horse-clans fought on from the hills. In the Age of Mortals a black dragon's swamp crept up from the south.",
+      pt: "Em 348 a Guerra da Lança começou aqui: os Exércitos Dracônicos Vermelho e Verde invadiram, tomaram North Keep e arrasaram o porto de Valkinord, antes que qualquer outro lugar entendesse que havia uma guerra. Os clãs de cavaleiros continuaram lutando das colinas. Na Era dos Mortais o pântano de um dragão negro avançou a partir do sul." },
+    hooks: [
+      { en: "A horse-clan's storm mare, the best in the highlands, has been stolen by someone who left no tracks.", pt: "A égua da tempestade de um clã, a melhor das terras altas, foi roubada por alguém que não deixou rastros." },
+      { en: "A spice captain pays well for guards, and better for not looking into the third hold.", pt: "Um capitão de especiarias paga bem por guardas, e melhor ainda para ninguém olhar o terceiro porão." },
+      { en: "Something walks out of the southern swamp every new moon and takes one sheep, always from the same farm.", pt: "Algo sai do pântano do sul a cada lua nova e leva uma ovelha, sempre da mesma fazenda." },
+    ],
+    cities: [{ id: "north_keep", name: "North Keep", text: { en: "The king's city of Nordmaar, a hill fort grown into a town of timber halls, horse markets and lords' banners, with the jungle green on the horizon.", pt: "A cidade do rei de Nordmaar, um forte na colina que cresceu até virar uma cidade de salões de madeira, mercados de cavalos e estandartes de senhores, com o verde da selva no horizonte." } }] },
+
+  { id: "lemish", name: { en: "Lemish", pt: "Lemish" },
+    land: { en: "A small, proud human nation on the coast south of Solamnia, between the Kayolin and the southern Dargaard mountains. Its lords keep towers and grudges; its villages edge the Godsfell Woods, where a hobgoblin tribe takes its toll; a monastery of Majere keeps to itself in the hills.",
+      pt: "Uma pequena e orgulhosa nação humana no litoral ao sul de Solamnia, entre as montanhas de Kayolin e o sul de Dargaard. Seus senhores guardam torres e rancores; suas vilas margeiam a Floresta de Godsfell, onde uma tribo de hobgoblins cobra seu pedágio; um mosteiro de Majere vive à parte nas colinas." },
+    ages: { en: "After the Cataclysm Lemish turned against the Knights who had taxed it and failed it, and burned the old Solamnic charter every year. In the War of the Lance its lords let the Red Dragonarmy through to the Throtyl Gap, for a promise of Solamnic land. When the war was lost, Lemish paid for its choice.",
+      pt: "Depois do Cataclismo, Lemish se voltou contra os Cavaleiros que a tinham taxado e abandonado, e queimava todo ano a velha carta solâmnica. Na Guerra da Lança seus senhores deixaram o Exército Dracônico Vermelho passar até o Desfiladeiro de Throtyl, pela promessa de terras solâmnicas. Quando a guerra foi perdida, Lemish pagou pela escolha." },
+    hooks: [
+      { en: "A Lemish lord wants proof that his neighbour sold horses to the dragonarmies, and doesn't care how it's found.", pt: "Um senhor de Lemish quer provas de que o vizinho vendeu cavalos aos exércitos dracônicos, e não se importa como sejam achadas." },
+      { en: "The Godsfell hobgoblins have doubled their toll, and someone is selling them Solamnic steel.", pt: "Os hobgoblins de Godsfell dobraram o pedágio, e alguém está vendendo aço solâmnico para eles." },
+      { en: "A monk of Majere walks out of the hills and asks the heroes to carry a sealed bowl to Palanthas, without opening it.", pt: "Um monge de Majere desce das colinas e pede aos heróis que levem uma tigela lacrada até Palanthas, sem abri-la." },
+    ], cities: [] },
+
+  { id: "throtyl", name: { en: "Throtyl", pt: "Throtyl" },
+    land: { en: "The Throtyl Gap, the pass from the mountains into eastern Solamnia, held by hobgoblin warchiefs in timber forts, with goblin warrens on the slopes and wolf riders on the road. Caravans pay to pass, and pay again if two warchiefs claim the same stretch.",
+      pt: "O Desfiladeiro de Throtyl, a passagem das montanhas para o leste de Solamnia, nas mãos de chefes guerreiros hobgoblins em fortes de madeira, com tocas de goblins nas encostas e cavaleiros de lobos na estrada. As caravanas pagam para passar, e pagam de novo quando dois chefes reivindicam o mesmo trecho." },
+    ages: { en: "For centuries the warchiefs fought each other over the Gap road. In 349 the Red Dragonarmy came up the Gap with the hobgoblins of Throtyl beside it, overran Gaardlund and Heartlund and took Solanthus and Thelgaard. When the war turned, Solamnic knights rode south to burn the forts that had sent the warbands north.",
+      pt: "Por séculos os chefes guerreiros lutaram entre si pela estrada do desfiladeiro. Em 349 o Exército Dracônico Vermelho subiu o desfiladeiro com os hobgoblins de Throtyl ao lado, tomou Gaardlund e Heartlund e conquistou Solanthus e Thelgaard. Quando a guerra virou, cavaleiros solâmnicos desceram para queimar os fortes que tinham mandado os bandos para o norte." },
+    hooks: [
+      { en: "A caravan master wants the heroes to talk the toll down; the toll-keeper is a goblin who counts better than any merchant.", pt: "Um mestre de caravana quer que os heróis negociem o pedágio; o cobrador é um goblin que conta melhor que qualquer mercador." },
+      { en: "An old warchief is about to be challenged, and he is the only one keeping the wolf riders off the border farms.", pt: "Um velho chefe guerreiro vai ser desafiado, e ele é o único que mantém os cavaleiros de lobos longe das fazendas da fronteira." },
+      { en: "A human captive raised in the Gap wants to go home, to a family who think she is dead.", pt: "Uma cativa humana criada no desfiladeiro quer voltar para casa, para uma família que a julga morta." },
+    ], cities: [] },
+
+  { id: "blode_kern", name: { en: "Blöde and Kern", pt: "Blöde e Kern" },
+    land: { en: "The ogre realms of the east, the ruins of an ancient empire whose builders fell into brutality. Ogre lords rule by strength from their halls and mines; humans live under them as slaves, goblins and hobgoblins as servants and soldiers, and runaways hide in the hills.",
+      pt: "Os reinos ogros do leste, as ruínas de um império antigo cujos construtores caíram na brutalidade. Senhores ogros governam pela força a partir de seus salões e minas; humanos vivem sob eles como escravos, goblins e hobgoblins como servos e soldados, e fugitivos se escondem nas colinas." },
+    ages: { en: "The ogre lords warred among themselves through the Age of Despair, and their slaves paid for it. In the War of the Lance the ogres marched for the dragonarmies, taking their slaves to carry and dig. In the Age of Mortals some ogres became titans, tall and clever and full of dark magic that needs elven blood to last.",
+      pt: "Os senhores ogros guerrearam entre si durante a Era do Desespero, e seus escravos pagaram por isso. Na Guerra da Lança os ogros marcharam pelos exércitos dracônicos, levando os escravos para carregar e cavar. Na Era dos Mortais alguns ogros viraram titãs, altos e astutos e cheios de uma magia sombria que precisa de sangue élfico para durar." },
+    hooks: [
+      { en: "The runaways' road needs a new guide: the last one never came back from the slave-catchers' valley.", pt: "A estrada dos fugitivos precisa de um novo guia: o último nunca voltou do vale dos caçadores de escravos." },
+      { en: "A Silvanesti envoy has vanished on the way to an ogre lord's hall, and the titans are smiling.", pt: "Um enviado Silvanesti desapareceu a caminho do salão de um senhor ogro, e os titãs estão sorrindo." },
+      { en: "An ogre lord promises freedom to any slave who wins three bouts in his games; nobody ever has.", pt: "Um senhor ogro promete liberdade ao escravo que vencer três lutas nos seus jogos; ninguém nunca venceu." },
+    ], cities: [] },
+
+  { id: "zhakar", name: { en: "Zhakar", pt: "Zhakar" },
+    land: { en: "A dwarven realm deep under the Khalkists, grown from the ruin of old Thoradin. A mould plague made its dwarves outcasts among their own kind: hair gone, eyes milk-white, skin flaking in patches. They go masked among outsiders, and sell good steel to anyone who pays.",
+      pt: "Um reino anão nas profundezas dos Khalkists, nascido da ruína da antiga Thoradin. Uma praga de mofo fez de seus anões párias entre os seus: sem cabelo, olhos brancos como leite, pele descascando em manchas. Andam mascarados entre estrangeiros, e vendem bom aço a quem pagar." },
+    ages: { en: "After the Cataclysm the mould took Thoradin, and the survivors became the Zhakar, feared and alone. The plague came back every few years. In 413 Severus Stonehand, who had led dwarves out of Thorbardin, took Zhakar with his army and founded Thoradin again.",
+      pt: "Depois do Cataclismo o mofo tomou Thoradin, e os sobreviventes viraram os Zhakar, temidos e sozinhos. A praga voltava a cada poucos anos. Em 413 Severus Stonehand, que tinha levado anões para fora de Thorbardin, tomou Zhakar com seu exército e fundou Thoradin de novo." },
+    hooks: [
+      { en: "A masked trader offers a fine blade at half its price, and wants the heroes to carry a message back up the long stair.", pt: "Um mercador mascarado oferece uma lâmina excelente pela metade do preço, e quer que os heróis levem uma mensagem de volta pela longa escadaria." },
+      { en: "A mould-gardener believes she has found a cure, and the ruler of Zhakar wants her silenced.", pt: "Uma jardineira do mofo acredita ter achado uma cura, e o governante de Zhakar a quer calada." },
+      { en: "Stonehand's dwarves and the Zhakar who knelt to them share one city and no trust; a murder in the forges could start a war.", pt: "Os anões de Stonehand e os Zhakar que se curvaram a eles dividem uma cidade e nenhuma confiança; um assassinato nas forjas pode começar uma guerra." },
+    ], cities: [] },
 ];
 
 // Lifewrought's region status lines (the "now" of each region), in Portuguese.
@@ -234,6 +301,10 @@ export const STATUS_PT = {
   "the Desolation, under the red overlord Malystryx": "a Desolação, sob a senhora suprema vermelha Malystryx", "under the White Dragonarmy at Icewall": "sob o Exército Dracônico Branco na Muralha de Gelo", "Icewall held by two white dragons": "a Muralha de Gelo nas mãos de dois dragões brancos",
   "attacked and occupied by the Dragonarmies": "atacada e ocupada pelos Exércitos Dracônicos", "dragon realms in the eastern plains": "domínios de dragões nas planícies do leste", "minotaurs sailing for the dragonarmies": "minotauros navegando pelos exércitos dracônicos",
   "the empire of Hotak": "o império de Hotak", "overrun by the Dragonarmies": "tomada pelos Exércitos Dracônicos",
+  "crossed by the dragonarmies": "atravessada pelos exércitos dracônicos", "in the shadow of the Knights of Neraka": "à sombra dos Cavaleiros de Neraka",
+  "with a black dragon's swamp to the south": "com o pântano de um dragão negro ao sul", "ogres marching for the dragonarmies": "ogros marchando pelos exércitos dracônicos",
+  "where the ogre titans rise": "onde os titãs ogros se erguem", "retaken by Stonehand's dwarves": "retomada pelos anões de Stonehand",
+  "the Red Dragonarmy's road into Solamnia": "o caminho do Exército Dracônico Vermelho para Solamnia", "allied to the dragonarmies": "aliada dos exércitos dracônicos",
 };
 
 // The powers of Krynn: factions and artefacts (one journal, a page each).

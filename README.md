@@ -49,7 +49,7 @@ Requires Foundry VTT 14 (verified on 14.370) and Pathfinder Second Edition 8.7 o
 
 **Lifewrought**
 - Players live their characters' lives inside Foundry.
-- Each player chooses how much the dice decide (pure fate, three fate points, choosing among the life's offers, or a concept) and a full or quick life.
+- Each player chooses how much the dice decide (pure fate, three fate points, free rerolls, choosing among the life's offers, or a concept) and a full or quick life. Every hero ends with a faith.
 - The character is built from your own compendiums, with its Chronicle journal and the people of the life.
 - A GM view of every life at the table.
 

@@ -169,18 +169,68 @@ table.rolled tr:not(.hit) td { opacity: 0.45; }
 .result .stamp { font-size: 13.5px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
 .big { font-family: var(--display); font-size: 30px; font-weight: 700; }
 
-form.prologue { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px 16px; }
+/* the prologue: two parts (the GM's campaign, the player's life), a summary, and the button */
+.prologue-card { gap: 18px; padding: 24px 24px 22px; }
+.pro-head { display: flex; flex-direction: column; gap: 8px; }
+.eyebrow { margin: 0; font: 600 12px var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--bronze); }
+.pro-head h2 { font-size: 30px; }
+.lede { margin: 0; font-size: 18px; color: var(--ink); max-width: 60ch; }
+.how { font-size: 15px; color: var(--ink-2); }
+.how summary { cursor: pointer; font-weight: 600; color: var(--verdigris); width: fit-content; }
+.how ul { margin: 8px 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+form.prologue { display: flex; flex-direction: column; gap: 16px; }
+form.prologue .part { margin: 0; padding: 16px 18px 18px; border: 1px solid var(--line); border-radius: 10px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+form.prologue .part.play { background: linear-gradient(var(--verdigris-soft), transparent 140px); border-color: color-mix(in srgb, var(--verdigris) 35%, var(--line)); }
+form.prologue legend { display: flex; align-items: baseline; gap: 10px; padding: 0 6px; margin-left: -6px; }
+form.prologue legend .num { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: var(--leaf); font: 700 13px/1 var(--body); transform: translateY(-2px); }
+form.prologue .part.play legend .num { background: var(--verdigris); }
+form.prologue legend .ttl { font: 700 20px/1.2 var(--display); }
+form.prologue legend .who { font-size: 13px; color: var(--ink-2); }
+form.prologue .fields { display: flex; flex-direction: column; gap: 10px; }
+form.prologue .pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px 16px; }
 form.prologue label { display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: var(--ink-2); }
-form.prologue input, form.prologue select { padding: 9px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); }
-form.prologue .wide { grid-column: 1 / -1; }
+form.prologue .opt { font-size: 12px; color: var(--ink-2); font-style: italic; }
+form.prologue input:not([type]), form.prologue input[type=text], form.prologue select, form.prologue #f-start, form.prologue #f-name { padding: 9px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--leaf); color: var(--ink); }
+form.prologue .hint { margin: -4px 0 0; font-size: 13.5px; color: var(--ink-2); }
+form.prologue .hint:empty { display: none; }
+form.prologue .locked { margin: 0; font-size: 15px; }
 form.prologue .year-pick { display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: var(--ink-2); }
-form.prologue .year-pick output { font-weight: 600; color: var(--ink); }
+form.prologue .year-pick output { font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
 form.prologue input[type=range] { padding: 0; border: 0; background: transparent; width: 100%; accent-color: var(--verdigris); min-height: 28px; }
 form.prologue .year-ends { display: flex; justify-content: space-between; }
 form.prologue .year-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+form.prologue .year-head label { display: inline; }
 form.prologue .nudge { min-width: 32px; min-height: 32px; border: 1px solid var(--line); border-radius: 8px; background: var(--leaf); color: var(--ink); font-size: 18px; line-height: 1; cursor: pointer; }
-form.prologue .nudge:focus-visible { outline: 2px solid var(--verdigris); outline-offset: 2px; }
-form.prologue .row { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+form.prologue .group { display: flex; flex-direction: column; gap: 8px; }
+form.prologue .group-label { font-size: 14px; font-weight: 600; color: var(--ink); }
+.modes { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 9px; overflow: hidden; background: var(--leaf); }
+.mode { position: relative; cursor: pointer; padding: 9px 14px 9px 40px !important; flex-direction: row !important; flex-wrap: wrap; align-items: baseline; gap: 2px 10px !important; }
+.mode + .mode { border-top: 1px solid var(--line); }
+.mode input { position: absolute; left: 14px; top: 13px; margin: 0; accent-color: var(--verdigris); }
+.mode .m-name { min-width: 150px; }
+.mode .m-name { font-weight: 600; color: var(--ink); font-size: 15px; }
+.mode .m-line { font-size: 13px; color: var(--ink-2); line-height: 1.35; }
+.mode:hover { background: var(--paper); }
+.mode:has(input:checked) { background: var(--verdigris-soft); box-shadow: inset 4px 0 0 var(--verdigris); }
+.mode:has(input:focus-visible) { outline: 3px solid var(--verdigris); outline-offset: -3px; }
+.seg-pick { display: inline-flex; border: 1px solid var(--line); border-radius: 9px; overflow: hidden; width: fit-content; background: var(--leaf); }
+.seg-pick label { flex-direction: row !important; align-items: center; cursor: pointer; }
+.seg-pick input { position: absolute; opacity: 0; pointer-events: none; }
+.seg-pick span { padding: 8px 16px; font-weight: 600; color: var(--ink); display: flex; gap: 8px; align-items: baseline; }
+.seg-pick small { font-weight: 400; color: var(--ink-2); font-size: 12.5px; }
+.seg-pick label + label span { border-left: 1px solid var(--line); }
+.seg-pick label:has(input:checked) span { background: var(--verdigris); color: var(--leaf); }
+.seg-pick label:has(input:checked) small { color: var(--leaf); opacity: 0.85; }
+.seg-pick label:has(input:focus-visible) span { outline: 3px solid var(--verdigris); outline-offset: -3px; }
+form.prologue .go { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; padding-top: 4px; border-top: 1px dashed var(--line); }
+form.prologue .summary { margin: 8px 0 0; font-size: 15px; color: var(--ink-2); flex: 1 1 260px; }
+form.prologue .summary b { color: var(--ink); font-weight: 600; }
+form.prologue .go .btn { padding: 12px 26px; font-size: 17px; margin-top: 8px; }
+.card.chapter { border: 1px solid color-mix(in srgb, var(--bronze) 45%, var(--line)); background: linear-gradient(var(--bronze-soft), var(--leaf) 160px); }
+.card.chapter h2 { font-size: 26px; }
+.card.faith { border-left: 5px solid var(--verdigris); }
+.badge.ch { background: var(--bronze); color: var(--leaf); }
+.badge.fa { background: var(--verdigris-soft); color: var(--verdigris); }
 .small { font-size: 14.5px; color: var(--ink-2); }
 
 .attrs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
@@ -234,58 +284,93 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
       <p id="resume-text"></p>
       <div class="copies"><button class="btn" type="button" id="resume-go">Carry on with it</button><button class="btn alt" type="button" id="resume-new">Start a new life</button></div>
     </section>
-    <section class="card" id="prologue">
-      <h2>Prologue</h2>
-      <p>You are about to live a whole life on Krynn, from birth to the first day of adventure. The dice decide what happens; you decide how to respond to it. Every table is shown before it is rolled, with the reasons its odds look the way they do. In pure fate, nothing on the character sheet is chosen directly: your class, your background and the rest grow out of what you lived. There is no death and no going back on a decision; whether the dice can be bent a little is up to you, below.</p>
+    <section class="card prologue-card" id="prologue">
+      <header class="pro-head">
+        <p class="eyebrow">Prologue</p>
+        <h2>Live a life on Krynn</h2>
+        <p class="lede">From the day you are born to the first day of adventure. The dice decide what happens; you decide how to answer it. Your class, your background and the rest grow out of what you lived.</p>
+        <details class="how">
+          <summary>How it works</summary>
+          <ul>
+            <li>Every table is shown before it is rolled, with the reasons its odds look the way they do.</li>
+            <li>Each stage of life opens with a new chapter, and events follow: you choose how to respond, the dice say what comes of it.</li>
+            <li>There is no death and no going back on a decision. Whether the dice can be bent is up to you, below.</li>
+            <li>The life is saved as you go, and ends as a level 1 Pathfinder character, ready for Foundry.</li>
+          </ul>
+        </details>
+      </header>
       <form class="prologue" id="prologue-form">
-        <label for="f-age">Age of the campaign
-          <select id="f-age" name="age"></select>
-        </label>
-        <div class="year-pick wide">
-          <div class="year-head"><label for="f-year">Year the campaign starts:</label>
-            <button class="nudge" type="button" id="f-year-down" aria-label="One year earlier">‹</button>
-            <output id="f-year-out" for="f-year">381 AC</output>
-            <button class="nudge" type="button" id="f-year-up" aria-label="One year later">›</button></div>
-          <input id="f-year" name="year" type="range" min="1" max="383" step="1" value="381" list="f-year-ticks">
-          <datalist id="f-year-ticks"></datalist>
-          <div class="year-ends small"><span id="f-year-min"></span><span id="f-year-max"></span></div>
-        </div>
-        <p class="small wide" id="year-note"></p>
-        <label class="wide" for="f-start">Where the campaign begins (town, village, keep, or one you invent)
-          <input id="f-start" name="start" autocomplete="off" placeholder="Leave empty and the dice choose a town in the region">
-        </label>
-        <label for="f-region">Region of the starting town
-          <select id="f-region" name="region"></select>
-        </label>
-        <p class="small wide" id="region-note"></p>
-        <label class="wide" for="f-scope">Dragonlance canon (which classes and backgrounds can emerge)
-          <select id="f-scope" name="scope"></select>
-        </label>
-        <p class="small wide" id="scope-note"></p>
-        <label class="play" for="f-mode">How much the dice decide
-          <select id="f-mode" name="mode">
-            <option value="fate">Pure fate: every roll stands</option>
-            <option value="points">Fate points: three to bend the dice</option>
-            <option value="choose">Choose among the life's offers</option>
-            <option value="concept">Concept: start from an idea</option>
-          </select>
-        </label>
-        <label class="play" for="f-length">Length of the life
-          <select id="f-length" name="length">
-            <option value="full">Full: every stage of the life</option>
-            <option value="quick">Quick: about half the events</option>
-          </select>
-        </label>
-        <p class="small wide play" id="mode-note"></p>
-        <label class="play concept" for="f-people" hidden>Ancestry
-          <select id="f-people" name="people"></select>
-        </label>
-        <label class="play concept" for="f-class" hidden>A class the life leans towards
-          <select id="f-class" name="cls"></select>
-        </label>
-        <div class="row">
+        <fieldset class="part" id="part-campaign">
+          <legend><span class="num" aria-hidden="true">1</span><span class="ttl">The campaign</span><span class="who">set by the game master</span></legend>
+          <p class="locked" id="campaign-locked" hidden></p>
+          <div class="fields" id="campaign-fields">
+            <div class="pair">
+              <label for="f-age">Age of the campaign
+                <select id="f-age" name="age"></select>
+              </label>
+              <div class="year-pick">
+                <div class="year-head"><label for="f-year">Year the campaign starts</label>
+                  <button class="nudge" type="button" id="f-year-down" aria-label="One year earlier">‹</button>
+                  <output id="f-year-out" for="f-year">381 AC</output>
+                  <button class="nudge" type="button" id="f-year-up" aria-label="One year later">›</button></div>
+                <input id="f-year" name="year" type="range" min="1" max="383" step="1" value="381" list="f-year-ticks">
+                <datalist id="f-year-ticks"></datalist>
+                <div class="year-ends small"><span id="f-year-min"></span><span id="f-year-max"></span></div>
+              </div>
+            </div>
+            <p class="hint" id="year-note"></p>
+            <div class="pair">
+              <label for="f-region">Region of the starting town
+                <select id="f-region" name="region"></select>
+              </label>
+              <label for="f-start"><span>Starting town <span class="opt">optional</span></span>
+                <input id="f-start" name="start" autocomplete="off" placeholder="Leave empty and the dice choose">
+              </label>
+            </div>
+            <p class="hint" id="region-note"></p>
+            <label for="f-scope">Dragonlance canon: which classes and backgrounds can emerge
+              <select id="f-scope" name="scope"></select>
+            </label>
+            <p class="hint" id="scope-note"></p>
+          </div>
+        </fieldset>
+
+        <fieldset class="part play" id="part-life">
+          <legend><span class="num" aria-hidden="true">2</span><span class="ttl">Your life</span><span class="who">your choice</span></legend>
+          <div class="group" role="radiogroup" aria-labelledby="mode-label">
+            <span class="group-label" id="mode-label">How much the dice decide</span>
+            <div class="modes">
+              <label class="mode"><input type="radio" name="mode" value="fate" checked><span class="m-name">Pure fate</span><span class="m-line">Every roll stands.</span></label>
+              <label class="mode"><input type="radio" name="mode" value="points"><span class="m-name">Fate points</span><span class="m-line">Three chances to bend a roll.</span></label>
+              <label class="mode"><input type="radio" name="mode" value="free"><span class="m-name">Free rerolls</span><span class="m-line">Bend any roll, as often as you like.</span></label>
+              <label class="mode"><input type="radio" name="mode" value="choose"><span class="m-name">Choose your offers</span><span class="m-line">Pick from what your life offers.</span></label>
+              <label class="mode"><input type="radio" name="mode" value="concept"><span class="m-name">Concept</span><span class="m-line">Start from an ancestry and a class.</span></label>
+            </div>
+            <p class="hint" id="mode-note" aria-live="polite"></p>
+          </div>
+          <div class="pair concept-fields" id="concept-fields" hidden>
+            <label for="f-people">Ancestry
+              <select id="f-people" name="people"></select>
+            </label>
+            <label for="f-class">A class the life leans towards
+              <select id="f-class" name="cls"></select>
+            </label>
+          </div>
+          <label class="name-field" id="name-field" for="f-name" hidden><span>Your name <span class="opt">optional</span></span>
+            <input id="f-name" name="name" autocomplete="off" maxlength="60" placeholder="Leave empty and your family names you">
+          </label>
+          <div class="group" role="radiogroup" aria-labelledby="length-label">
+            <span class="group-label" id="length-label">Length of the life</span>
+            <div class="seg-pick">
+              <label><input type="radio" name="length" value="full" checked><span>Full <small>about 25 minutes</small></span></label>
+              <label><input type="radio" name="length" value="quick"><span>Quick <small>about 13 minutes</small></span></label>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="go">
+          <p class="summary" id="summary" aria-live="polite"></p>
           <button class="btn" type="submit" id="start" disabled>Loading the tables</button>
-          <span class="small" id="length-note">The game master sets the campaign. A full life takes about 20 to 25 minutes, a quick one about 13; both are saved as you go.</span>
         </div>
       </form>
     </section>
@@ -343,6 +428,11 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
     get() { try { return JSON.parse(localStorage.getItem(RECENT)) || []; } catch (e) { return []; } },
     add(ids) { try { localStorage.setItem(RECENT, JSON.stringify([...recent.get(), ids].slice(-5))); } catch (e) { /* storage unavailable */ } },
   };
+  // A life left unfinished still counts for the novelty memory: its events are remembered when it is set aside (v0.14).
+  function retire() {
+    const old = store.get();
+    if (old && !old.done && Array.isArray(old.used) && old.used.length) recent.add(old.used);
+  }
   const store = EMBED ? {
     get() { return host.state.saved; },
     set(x) { host.state.saved = x; if (!host.state.readonly) host.post("save", { record: x }); },
@@ -380,7 +470,7 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
     $("#now-step").textContent = step && step !== LW.STAGE_NAMES[n.stage] ? "· " + step : "";
     const fate = $("#now-fate");
     fate.hidden = n.fate === null || n.fate === undefined;
-    if (!fate.hidden) fate.textContent = `fate ${"●".repeat(n.fate)}${"○".repeat(Math.max(0, LW.FATE_POINTS - n.fate))}`;
+    if (!fate.hidden) fate.textContent = n.fate === "free" ? "free rerolls" : `fate ${"●".repeat(n.fate)}${"○".repeat(Math.max(0, LW.FATE_POINTS - n.fate))}`;
     $("#now-age").textContent = n.year === null || n.year === undefined ? "before birth" : n.age === 0 ? `born ${n.year} AC` : `age ${n.age} · ${n.year} AC`;
     const bar = $("#bar");
     if (!plan.length) { bar.replaceChildren(el("div", { class: "seg current", style: "flex: 1" }, el("div", { class: "ticks" }, el("i", { class: "here" })), el("span", { text: "Origin" }))); return; }
@@ -389,10 +479,10 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
       const steps = x.steps.length;
       let at = -1;
       if (i === si) {
-        if (x.stage === "origin") at = x.steps.indexOf(n.step);
-        else if (x.stage === "youth" && n.step === "Coming of age") at = 0;
-        else if (n.step === "Known As") at = steps - 1;
-        else if (n.index) at = (x.stage === "youth" ? 1 : 0) + n.index - 1;
+        const named = x.steps.indexOf(n.step);
+        if (x.stage === "origin") at = named;
+        else if (named >= 0) at = named; // A new chapter, Coming of age, Known As, Faith, After your training
+        else if (n.index) at = x.steps.indexOf("Event 1") + n.index - 1;
         else if (x.stage === "becoming" || x.stage === "road") at = Math.max(0, (n.index || 1) - 1);
         else at = 0;
         at = Math.min(at, steps - 1);
@@ -414,7 +504,7 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
   function tabCharacter(s, v) {
     const c = s.character, out = [];
     out.push(lines([["Ancestry", c.ancestry], ["Heritage", c.heritage], ["Background", c.background], ["Class", c.klass],
-      ...c.classChoices.map((x) => [x.split(": ")[0], x.split(": ").slice(1).join(": ")]), c.style && ["How you fight", c.style], c.deity && ["Deity", c.deity]]));
+      ...c.classChoices.map((x) => [x.split(": ")[0], x.split(": ").slice(1).join(": ")]), c.style && ["How you fight", c.style], c.deity && ["Deity", c.deity], c.faith && ["Faith", c.faith]]));
     if (c.attributes) {
       out.push(section("Attributes", el("div", { class: "attrs" }, ...c.attributes.map((a) => el("div", { class: a.key ? "key" : "", title: a.key ? "Key attribute" : "" }, el("b", { text: sign(a.mod) }), el("span", { text: ATTR_NAME[a.id] })))),
         el("p", { class: "small", text: `Boosts: ancestry ${c.boosts.ancestry.map((x) => ATTR_NAME[x]).join(", ")}${c.boosts.flaws.length ? ` (flaw ${c.boosts.flaws.map((x) => ATTR_NAME[x]).join(", ")})` : ""}; background ${c.boosts.background.map((x) => ATTR_NAME[x]).join(", ")}; class ${ATTR_NAME[c.boosts.klass]}; free ${c.boosts.free.map((x) => ATTR_NAME[x]).join(", ")}.` })));
@@ -551,7 +641,7 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
     const ranged = t.rows.map((r) => !!r.range);
     const step = (dir) => { let j = t.idx; do { j += dir; } while (j >= 0 && j < ranged.length && !ranged[j]); return j >= 0 && j < ranged.length; };
     return new Promise((resolve) => {
-      const row = el("div", { class: "fate-row" }, el("span", { class: "small", text: `Fate points: ${t.fate} left; a change costs one.` }));
+      const row = el("div", { class: "fate-row" }, el("span", { class: "small", text: isFinite(t.fate) ? `Fate points: ${t.fate} left; a change costs one.` : "Free rerolls: change it as often as you like." }));
       const mk = (text, act, ok = true) => { const b = el("button", { class: "btn alt", type: "button", text }); if (!ok) b.disabled = true;
         b.addEventListener("click", () => { row.remove(); resolve(act); }); row.append(b); return b; };
       const keep = mk("Keep it", { action: "keep" });
@@ -657,6 +747,8 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
     },
     async reveal(t) {
       replaying = t.replay;
+      // inline: the result of a chapter's choice, shown in its own card without another click.
+      if (t.inline && current) { current.append(resultCard({ label: t.title, text: t.text, sub: t.note }, t.now)); current = null; return; }
       const host = put(el("section", { class: "card" }, resultCard({ label: t.title, text: t.text, sub: t.note }, t.now)));
       await cont(host);
     },
@@ -670,7 +762,8 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
       replaying = ctx.replay;
       return new Promise((resolve) => {
         const meta = el("div", { class: "meta" }, el("span", { text: `${ctx.year} AC` }), el("span", { text: `age ${ctx.age}` }),
-          ctx.history ? el("span", { class: "badge", text: "History of Krynn" }) : null, ctx.opportunity ? el("span", { class: "badge op", text: "Opportunity" }) : null);
+          ctx.history ? el("span", { class: "badge", text: "History of Krynn" }) : null, ctx.opportunity ? el("span", { class: "badge op", text: "Opportunity" }) : null,
+          ctx.chapter ? el("span", { class: "badge ch", text: "A new chapter" }) : null, ctx.faith ? el("span", { class: "badge fa", text: "Faith" }) : null);
         const echo = ctx.echoes.length ? el("p", { class: "echo" }, el("span", { text: "Shaped by:" }), ...ctx.echoes.map((e) => el("span", { class: "chip", text: e }))) : null;
         const list = el("div", { class: "choices" });
         const btns = opts.map((o) => {
@@ -679,7 +772,8 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
           list.append(b);
           return b;
         });
-        current = put(el("section", { class: "card" + (ctx.history ? " history" : ctx.opportunity ? " opportunity" : "") }, meta, el("h2", { text: ctx.title }), echo, el("p", { text: ctx.scene }), list));
+        const kind = ctx.chapter ? " chapter" : ctx.faith ? " faith" : ctx.history ? " history" : ctx.opportunity ? " opportunity" : "";
+        current = put(el("section", { class: "card" + kind }, meta, el("h2", { text: ctx.title }), echo, el("p", { text: ctx.scene }), list));
         if (ctx.replay) { const i = opts.findIndex((o) => o.id === ctx.replayAnswer); btns.forEach((x) => { x.disabled = true; }); if (i >= 0) btns[i].classList.add("made"); resolve(ctx.replayAnswer); }
       });
     },
@@ -807,16 +901,32 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
   }
   const MODE_NOTES = {
     fate: "Every table is rolled and every roll stands. The way Lifewrought was meant to be played.",
+    free: "Like fate points, without the limit: after any roll except an event's outcome, reroll the table or move one row up or down, as often as you like. Good for building a character you already have in mind.",
     points: "Three fate points for the whole life. After any roll except an event's outcome, spend one to reroll the table (the new roll stands) or to move one row up or down.",
     choose: "The dice still run your life, but on the tables that make the character (heritage, the gift of your people, god, class options and feat, how you fight, spells, weapon, Known As and the calling) you take the row you want from the ones this life offers.",
     concept: "Start from an idea: pick an ancestry (you are born where that people lives) and, if you like, a class your life leans towards (always among your callings, at three times its weight). The rest is rolled.",
   };
-  const MODE_WORDS = { points: "fate points", choose: "choosing among the offers", concept: "from a concept" };
+  const MODE_WORDS = { points: "fate points", free: "free rerolls", choose: "choosing among the offers", concept: "from a concept" };
+  const MODE_NAMES = { fate: "Pure fate", points: "Fate points", free: "Free rerolls", choose: "Choose your offers", concept: "Concept" };
+  const radio = (name) => { const n = document.querySelector(`#prologue-form input[name=${name}]:checked`); return n ? n.value : null; };
   const playWords = (cfg) => [MODE_WORDS[cfg.mode], cfg.length === "quick" ? "a quick life" : null].filter(Boolean).map((x) => ", " + x).join("");
   function noteMode() {
-    const m = $("#f-mode").value;
+    const m = radio("mode") || "fate";
     $("#mode-note").textContent = MODE_NOTES[m] || "";
-    document.querySelectorAll("label.concept").forEach((n) => { n.hidden = m !== "concept"; });
+    $("#concept-fields").hidden = m !== "concept";
+    $("#name-field").hidden = !["choose", "concept"].includes(m);
+    summarize();
+  }
+  // The line above the button: the whole setup at a glance.
+  function summarize() {
+    if (!D) return;
+    const c = EMBED && host.state.cfg ? host.state.cfg : { year: parseInt($("#f-year").value, 10) || 381, region: $("#f-region").value, start: $("#f-start").value.trim() };
+    const r = D.regions.find((x) => x.id === c.region);
+    const m = radio("mode") || "fate", len = radio("length") || "full";
+    const bits = [`${c.year} AC`, (c.start ? c.start + ", " : "") + (r ? r.name : c.region), MODE_NAMES[m], len === "quick" ? "a quick life (about 13 minutes)" : "a full life (about 25 minutes)"];
+    if (m === "concept") { const pp = $("#f-people").value, cl = $("#f-class").value; if (pp) bits.push(D.origin.ancestries[pp].text); if (cl) bits.push("leaning " + D.rules.classes[cl].name); }
+    if (["choose", "concept"].includes(m) && $("#f-name").value.trim()) bits.push("named " + $("#f-name").value.trim());
+    $("#summary").replaceChildren(...bits.flatMap((b, i) => [i ? " · " : "", el("b", { text: b })]));
   }
   function fillConcept() {
     const A = D.origin.ancestries;
@@ -833,9 +943,10 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
   }
   const scopeValue = () => (EMBED && host.state.cfg ? host.state.cfg.scope : $("#f-scope").value);
   function playOptions() {
-    const mode = $("#f-mode").value, length = $("#f-length").value;
+    const mode = radio("mode") || "fate", length = radio("length") || "full";
     const concept = mode === "concept" ? { people: $("#f-people").value || null, cls: $("#f-class").value || null } : null;
-    return { mode, length, concept };
+    const name = ["choose", "concept"].includes(mode) ? $("#f-name").value.trim() : "";
+    return { mode, length, concept, name };
   }
   function noteScope() { const x = D.scope.scopes[$("#f-scope").value]; $("#scope-note").textContent = x ? x.note : ""; }
   function noteRegion() {
@@ -845,13 +956,14 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
       : `${r.name} has no tables and events of its own yet: characters are born in the regions the app knows, and travel there.`;
     const year = parseInt($("#f-year").value, 10) || 381;
     if (year < 320) $("#region-note").textContent += ` Before 320 AC the app has little recorded history yet: lives will be mostly personal, with few events from the wider world.`;
+    summarize();
   }
 
   async function run(cfg, saved) {
     $("#prologue").hidden = true; $("#resume").hidden = true;
     if (EMBED && host.state.readonly) chronicle.prepend(el("section", { class: "card" }, el("h2", { text: "Watching" }), el("p", { text: "This is the life as far as the player has lived it. Choices are theirs to make." })));
     try {
-      const v = await LW.live(D, { ...cfg, saved, onSave: (rec) => store.set({ ...rec, name: life && life.name ? life.name.full : "", stage: (plan.find(() => true) && $("#now-where").textContent) || "" }) }, ui);
+      const v = await LW.live(D, { ...cfg, saved, onSave: (rec, lv) => store.set({ ...rec, used: lv ? [...lv.used] : [], name: life && life.name ? life.name.full : "", stage: (plan.find(() => true) && $("#now-where").textContent) || "" }) }, ui);
       if (!saved || !saved.done) recent.add([...v.used]);
       store.set({ ...(store.get() || {}), done: true });
       theCharacter(v);
@@ -870,7 +982,8 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
     fillScopes();
     $("#f-scope").addEventListener("change", () => { noteScope(); fillConceptClasses(); });
     fillConcept(); noteMode();
-    $("#f-mode").addEventListener("change", noteMode);
+    $("#prologue-form").addEventListener("change", (e) => { if (e.target.name === "mode") noteMode(); else summarize(); });
+    $("#prologue-form").addEventListener("input", summarize);
     $("#f-age").addEventListener("change", () => setAge($("#f-age").value));
     $("#f-year").addEventListener("input", noteYear);
     const nudge = (d) => { const r = $("#f-year"); r.value = Math.min(+r.max, Math.max(+r.min, +r.value + d)); noteYear(); };
@@ -885,11 +998,12 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
   function lockToHost() {
     const c = host.state.cfg;
     const r = D.regions.find((x) => x.id === c.region), sc = (D.scope.scopes[c.scope] || {}).text || "";
-    // The ways of playing and the length stay the player's to choose.
-    $("#prologue-form").querySelectorAll("label, .year-pick, .small.wide, p.small, .row .small").forEach((n) => { if (!n.classList.contains("play")) n.hidden = true; });
+    // The campaign is the GM's: shown as a line. The ways of playing, the length and the name stay the player's.
+    $("#campaign-fields").hidden = true;
+    const box = $("#campaign-locked");
+    box.hidden = false;
+    box.replaceChildren(el("b", { text: `${c.year} AC, ${r ? r.name : c.region}${c.start ? ", in " + c.start : ""}` }), `. Canon: ${sc.split(":")[0]}. Your game master has set this.`);
     fillConceptClasses(); noteMode();
-    const note = el("p", { class: "wide", text: `Your game master has set the campaign: ${c.year} AC, ${r ? r.name : c.region}${c.start ? ", in " + c.start : ""}. Canon: ${sc.split(":")[0]}.` });
-    $("#prologue-form").prepend(note);
   }
 
   function afterLoad() {
@@ -905,7 +1019,7 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
       const sa = (D.ages || []).find((a) => a.years && saved.cfg.year >= a.years[0] && saved.cfg.year <= a.years[1]);
       $("#resume-text").textContent = `${saved.name || "An unnamed character"}, campaign ${saved.cfg.year} AC${sa ? ", " + sa.name : ""}${playWords(saved.cfg)}. Pick up where you left off, or start again.`;
       $("#resume-go").addEventListener("click", () => run(saved.cfg, saved));
-      $("#resume-new").addEventListener("click", () => { store.clear(); $("#resume").hidden = true; });
+      $("#resume-new").addEventListener("click", () => { retire(); store.clear(); $("#resume").hidden = true; });
     }
   }
 
@@ -913,6 +1027,7 @@ textarea.out { width: 100%; min-height: 160px; font: 13px/1.4 ui-monospace, Menl
     e.preventDefault();
     if (!D) return;
     if (EMBED && host.state.readonly) return;
+    retire();
     store.clear();
     if (EMBED && host.state.cfg) { const c = host.state.cfg; run({ year: c.year, region: c.region, start: c.start || "", scope: c.scope, recent: recent.get(), ...playOptions() }, null); return; }
     const year = Math.min(430, Math.max(1, parseInt($("#f-year").value, 10) || 381));

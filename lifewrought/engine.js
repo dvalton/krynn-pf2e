@@ -25,10 +25,11 @@ const LW = (() => {
     }
     return Math.random;
   }
-  // Weights -> whole bands on a real die (largest remainders): a d100, or a d1000 when some line is rarer than 1%.
+  // Weights -> whole bands on a d100 (largest remainders). Every line that can happen gets at least 1%, so a line
+  // rarer than that is rounded up (v0.14). Only a table with more than 100 possible lines uses a d1000.
   function bands(weights) {
     const total = weights.reduce((s, w) => s + w, 0);
-    const size = weights.some((w) => w > 0 && (100 * w) / total < 1) ? 1000 : 100;
+    const size = weights.filter((w) => w > 0).length > 100 ? 1000 : 100;
     const raw = weights.map((w) => (size * w) / total);
     const pct = raw.map((r, i) => (weights[i] > 0 ? Math.max(1, Math.floor(r)) : 0));
     let gap = size - pct.reduce((s, p) => s + p, 0);
@@ -54,16 +55,16 @@ const LW = (() => {
   }
   function attachTracking(v, ui, cfg) {
     const saved = cfg.saved || { draws: [], answers: [] };
-    const rec = { cfg: { year: cfg.year, region: cfg.region, start: cfg.start, recent: cfg.recent || [], scope: cfg.scope, mode: cfg.mode || "fate", length: cfg.length || "full", concept: cfg.concept || null }, draws: [], answers: [] };
+    const rec = { cfg: { year: cfg.year, region: cfg.region, start: cfg.start, recent: cfg.recent || [], scope: cfg.scope, mode: cfg.mode || "fate", length: cfg.length || "full", concept: cfg.concept || null, name: cfg.name || "" }, draws: [], answers: [] };
     const base = cfg.rng || defaultRng();
     let di = 0, ai = 0;
     v.rng = () => { const x = di < saved.draws.length ? saved.draws[di] : base(); di++; rec.draws.push(x); return x; };
     v.seen = () => di <= saved.draws.length && saved.draws.length > 0;
     v.savedAnswer = () => (ai < saved.answers.length ? saved.answers[ai] : null);
     v.answer = (a) => { rec.answers.push(a); ai++; };
-    v.save = () => { if (cfg.onSave) cfg.onSave(rec); };
+    v.save = () => { if (cfg.onSave) cfg.onSave(rec, v); };
     v.at = { stage: "origin", step: "Ancestry", index: 0, total: 0 };
-    v.nowInfo = () => ({ ...v.at, year: v.curYear ?? null, age: v.curAge ?? null, born: v.born ?? null, fate: v.mode === "points" ? v.fate : null });
+    v.nowInfo = () => ({ ...v.at, year: v.curYear ?? null, age: v.curAge ?? null, born: v.born ?? null, fate: v.mode === "points" ? v.fate : v.mode === "free" ? "free" : null });
     v.now = (patch) => { Object.assign(v.at, patch); ui.now && ui.now(v.nowInfo()); };
   }
 
@@ -258,6 +259,9 @@ const LW = (() => {
     [...v.facts].filter((f) => f.startsWith("place.") || f.startsWith("region.")).forEach((f) => v.facts.delete(f));
     v.place = id;
     v.facts.add("place." + id);
+    // The kind of place you live in (town, coast, plains, mountain, forest, cold), for events that fit some homes only.
+    [...v.facts].filter((f) => f.startsWith("setting.")).forEach((f) => v.facts.delete(f));
+    v.facts.add("setting." + ((P[id] || {}).kind || "town"));
     v.facts.add("region." + ((P[id] || {}).region || "abanasinia"));
   }
 
@@ -321,7 +325,7 @@ const LW = (() => {
     const card = (n, idx, extra = {}) => ui.table({ ...info, die: size, rows: rows.map((r, i) => ({ text: fill(v, D, r.text), note: r.note || (typeof r.why === "string" ? r.why : "") || "", why: ws[i].why, ...fx[i] })),
       rolled: n, idx, replay: rep || extra.replay, result: idx >= 0 && info.result ? info.result(rows[idx], fx[idx]) : null, now: v.nowInfo(), auto: !!info.auto && v.length === "quick", ...extra });
     const choose = v.mode === "choose" && info.character && rows.length > 1;
-    const points = v.mode === "points" && info.kind !== "outcome" && rows.length > 1;
+    const points = (v.mode === "points" || v.mode === "free") && info.kind !== "outcome" && rows.length > 1;
     const prior = choose || points ? v.savedAnswer() : null;
     const saved = Array.isArray(prior) ? prior : null;
     let n = null, idx = -1;
@@ -338,13 +342,14 @@ const LW = (() => {
       n = v.int(1, size); idx = at(n);
       if (points) {
         for (let k = 0; ; k++) {
-          const left = v.fate;
+          const left = v.mode === "free" ? Infinity : v.fate;
           let a;
           const again = k ? acts[k - 1].action : null;
           if (saved) { a = saved[k]; await card(n, idx, { fate: left, again, replay: true, final: !a || !a.action || a.action === "keep" }); }
           else a = left > 0 ? await card(n, idx, { fate: left, again }) : (await card(n, idx, { fate: 0, again }), null);
-          if (!a || !a.action || a.action === "keep" || v.fate <= 0) { acts.push({ action: "keep" }); break; }
-          v.fate--; acts.push(a);
+          if (!a || !a.action || a.action === "keep" || left <= 0 || k >= 200) { acts.push({ action: "keep" }); break; }
+          if (v.mode !== "free") v.fate--;
+          acts.push(a);
           if (a.action === "reroll") { n = v.int(1, size); idx = at(n); }
           else if (a.action === "nudge") {
             let j = idx;
@@ -470,16 +475,74 @@ const LW = (() => {
   }
   async function deityStep(v, D, ui, filter) {
     const gods = Object.entries(D.deities).filter(([, g]) => !filter || filter(g));
-    const rows = gods.map(([id, g]) => { const f = deityFit(v, D, g); return { id, w: Math.max(1, Math.round(f.s * f.s)), text: g.name, note: g.title, fixedWhy: f.why }; })
-      .sort((a, b) => b.w - a.w).slice(0, 5);
+    const mine = v.faith && v.faith.stance === "follow" ? v.faith.god : null;
+    let rows = gods.map(([id, g]) => { const f = deityFit(v, D, g); return { id, w: Math.max(1, Math.round(f.s * f.s)), text: g.name, note: g.title, fixedWhy: f.why }; })
+      .sort((a, b) => b.w - a.w);
+    const top = rows.slice(0, 5);
+    if (mine && !top.some((r) => r.id === mine) && rows.some((r) => r.id === mine)) top.push(rows.find((r) => r.id === mine));
+    rows = top.map((r) => (r.id === mine ? { ...r, w: r.w * 6, fixedWhy: [{ text: "your faith (×6)", up: true }, ...r.fixedWhy.slice(0, 2)] } : r));
     const row = await rollTable(v, D, ui, { character: true, kind: "emerge", title: "Your god", ask: "Which god answered when you called? The ones your life leaned towards:",
       result: (r) => ({ label: "Your god", text: r.text, sub: r.note, changes: [] }) }, rows, v.year);
     v.l1.deity = row.id;
+  }
+  // ---------------- faith (v0.14) ----------------
+  // On Krynn everyone stands somewhere towards the gods. After Known As, the character decides (keep the faith they
+  // were raised in, seek a god of their own, or turn against the gods), then a roll says which god.
+  const godsSilent = (y) => !((y >= 351 && y <= 383) || y >= 421);
+  const AGAINST = { chemosh: ["lost_kin_young", "buried_a_child", "met_death_early", "widowed"], morgion: ["survived_the_fever", "fled_the_plague", "frail_health", "nursed_the_sick"],
+    zeboim: ["survived_a_shipwreck", "fear_of_water", "sailors_blood"], takhisis: ["lived_under_the_blue_army", "lived_through_the_occupation", "resisted_the_occupation", "lived_under_the_overlords"],
+    hiddukel: ["family_swindled", "was_robbed", "heavy_debt"], sargonnas: ["has_a_rival", "home_burned"], paladine: ["doubts_the_gods", "heard_the_seekers", "family_scorned"] };
+  async function faithStep(v, D, ui) {
+    const year = v.curYear ?? v.year, silent = godsSilent(year);
+    v.now({ stage: v.at.stage, step: "Faith", index: 0, total: 0 });
+    const opts = silent
+      ? [{ id: "keep", text: "Keep faith with the gods your family honoured, though they are silent" },
+        { id: "seek", text: "Choose a god of your own, and wait for an answer that may never come" },
+        { id: "against", text: "Turn your back on gods who left the world" }]
+      : [{ id: "keep", text: "Keep the faith you were raised in" },
+        { id: "seek", text: "Seek a god of your own" },
+        { id: "against", text: "Turn against the gods, or one of them" }];
+    const scene = silent
+      ? "No prayer has been answered in your lifetime; the gods are silent, or gone. Still, everyone on Krynn stands somewhere towards them: the old shrines, the oaths your family swears by, the god whose name you curse. Where do you stand?"
+      : "The gods of Krynn answer prayers again, and their clerics walk the roads. Everyone stands somewhere towards them, even those who never pray. Where do you stand?";
+    const ctx = { stage: v.at.stage, year, age: year - v.born, id: "faith", title: "Your Faith", scene, history: false, opportunity: false, faith: true, echoes: [] };
+    const prior = v.savedAnswer();
+    const stance = await ui.event({ ...ctx, replay: prior !== null, replayAnswer: prior, now: v.nowInfo() }, opts);
+    v.answer(stance); v.save();
+    let rows;
+    if (stance === "against") {
+      rows = [{ id: "all", w: 30 + (v.marks.has("doubts_the_gods") ? 20 : 0) + (silent ? 20 : 0), text: silent ? "All of them, for leaving" : "All of them, for the Cataclysm", note: "No god will have your prayers" }];
+      for (const [g, ms] of Object.entries(AGAINST)) {
+        const hits = ms.filter((m) => v.marks.has(m)).length;
+        rows.push({ id: g, w: 8 + 14 * hits, text: D.deities[g].name, note: D.deities[g].title, fixedWhy: ms.filter((m) => v.marks.has(m)).slice(0, 2).map((m) => ({ text: human(m), up: true })) });
+      }
+    } else {
+      rows = Object.entries(D.deities).map(([id, g]) => {
+        const f = stance === "keep" ? deityFit(v, D, g) : deityFit(v, D, { ...g, facts: {} });
+        return { id, w: Math.max(1, Math.round(f.s * f.s)), text: g.name, note: g.title, fixedWhy: f.why };
+      }).sort((a, b) => b.w - a.w).slice(0, 6);
+    }
+    const ask = stance === "against" ? "Against whom?" : stance === "keep" ? "Which god did your family honour? The ones your people and your life lean towards:" : "Which god do you choose? The ones your own life leans towards:";
+    const row = await rollTable(v, D, ui, { character: true, kind: "emerge", title: "Your faith", ask,
+      result: (r) => ({ label: stance === "against" ? "Against" : "Your god", text: r.text, sub: r.note, changes: [] }) }, rows, year);
+    v.faith = { stance: stance === "against" ? "against" : "follow", god: row.id === "all" ? null : row.id, silent };
+    v.facts.add("faith." + v.faith.stance);
+    if (v.faith.god) v.facts.add("faith.god." + v.faith.god);
+    if (v.faith.stance === "against") v.marks.add("turned_from_the_gods"); else v.marks.add(stance === "keep" ? "keeps_the_family_faith" : "chose_a_god");
+    v.origin.push({ title: "Faith", text: faithText(v, D) });
+    ui.state(v);
+  }
+  function faithText(v, D) {
+    const F = v.faith;
+    if (!F) return "";
+    if (F.stance === "against") return F.god ? `Against ${D.deities[F.god].name}` : "Against all the gods";
+    return `Follows ${D.deities[F.god].name}${F.silent ? ", though the gods are silent" : ""}`;
   }
   async function classChoices(v, D, ui) {
     const cls = v.klass, choices = D.build.class_choices[cls] || [];
     v.l1.choices = [];
     if (["cleric", "champion"].includes(cls)) await deityStep(v, D, ui, cls === "champion" ? (g) => g.sanct !== "none" : null);
+    else if (v.faith && v.faith.stance === "follow" && v.faith.god) v.l1.deity = v.faith.god; // a follower: the god goes on the sheet
     const seen = new Set();
     for (const c of choices) {
       if (!Array.isArray(c.options) || !c.options.length) continue;
@@ -643,12 +706,36 @@ const LW = (() => {
     if ((p.people_culture || {})[id]) out.push("culture." + p.people_culture[id]); // e.g. minotaurs of Mithas and of Kothas
     return out;
   }
+  const RARE = "__rare", RARE_PCT = 3;
+  // The peoples not living in a place, weighted by how many of them the world's places hold.
+  function rareHere(v, D, p) {
+    const A = D.origin.ancestries, count = {};
+    for (const q of Object.values(D.origin.places)) {
+      if (!(q.pop > 0)) continue;
+      const tot = Object.values(q.people || {}).reduce((t, w) => t + w, 0) || 1;
+      for (const [id, w] of Object.entries(q.people || {})) count[id] = (count[id] || 0) + (q.pop * w) / tot;
+    }
+    return Object.keys(A).filter((id) => !((p.people || {})[id] > 0) && count[id] > 0)
+      .map((id) => ({ id, w: Math.sqrt(count[id]), text: A[id].text }));
+  }
   async function ancestryStep(v, D, ui) {
     const p = D.origin.places[v.birthplace], A = D.origin.ancestries;
     const want = v.concept && v.concept.people && (p.people || {})[v.concept.people] > 0 ? v.concept.people : null;
     const rows = Object.entries(p.people).filter(([id]) => !want || id === want).map(([id, w]) => ({ id, w, text: A[id].text, fixedWhy: want ? [{ text: "your concept", up: true }] : [] }));
-    const row = await rollTable(v, D, ui, { kind: "origin", title: "Ancestry", ask: `Who is born in ${p.name}? The chances follow who lives there.`,
-      result: (r) => ({ label: "Ancestry", text: r.text, changes: [] }) }, rows, v.year);
+    // A few are born where their people is rarely seen: travellers' children, the shipwrecked, the fostered (v0.14).
+    const elsewhere = want ? [] : rareHere(v, D, p);
+    if (elsewhere.length) {
+      const sum = rows.reduce((t, r) => t + r.w, 0);
+      rows.push({ id: RARE, w: (sum * RARE_PCT) / (100 - RARE_PCT), text: "Someone rarely seen here", note: `One of a people that doesn't live in ${p.name}` });
+    }
+    let row = await rollTable(v, D, ui, { kind: "origin", title: "Ancestry", ask: `Who is born in ${p.name}? The chances follow who lives there.`,
+      result: (r) => (r.id === RARE ? { label: "Ancestry", text: "Someone rarely seen here", sub: "Which people, then?", changes: [] } : { label: "Ancestry", text: r.text, changes: [] }) }, rows, v.year);
+    if (row.id === RARE) {
+      row = await rollTable(v, D, ui, { kind: "origin", title: "Far from your people", ask: `Your family is not of the peoples of ${p.name}. Which people are you? The more of them there are in the world, the likelier.`,
+        result: (r) => ({ label: "Ancestry", text: r.text, sub: "Born where your people is rarely seen", changes: [{ kind: "O", text: "rare among the neighbours" }] }) }, elsewhere, v.year);
+      v.marks.add("rare_among_neighbours");
+      v.facts.add("origin.rare_here");
+    }
     const facts = [...A[row.id].facts, ...cultureFacts(v, D, row.id)];
     facts.forEach((f) => v.facts.add(f));
     const where = { thorbardin: "of Thorbardin", kayolin: "of Kayolin" }[(p.dwarves || "thorbardin")];
@@ -672,7 +759,7 @@ const LW = (() => {
   async function naming(v, D, ui) {
     const T = D.origin.tables.naming, key = stockKey(v, D), stock = nameStock(v, D);
     const row = await rollTable(v, D, ui, { kind: "origin", title: T.title, ask: T.ask }, (T.by && T.by[key]) || T.rows, v.born);
-    const g = drawName(v, stock, v.raisedAs, row.kind, v.ties.map((t) => t.name)) || drawName(v, stock, v.raisedAs, row.kind);
+    const g = { ...(drawName(v, stock, v.raisedAs, row.kind, v.ties.map((t) => t.name)) || drawName(v, stock, v.raisedAs, row.kind)) };
     let family = "", famMeans = "", full;
     const house = stock.inherited && (["inherited", "clan"].includes(stock.family) || ["status.wealthy", "family.gentry", "family.knightly", "family.guild", "family.noble_house"].some((f) => v.facts.has(f)));
     const clan = clanOf(v, D);
@@ -690,6 +777,13 @@ const LW = (() => {
       v.parentName = { name: parent, role: byMother ? "mother" : "father" };
       v.nameKind = "patronym";
     } else v.nameKind = "none";
+    // A name the player typed (choose and concept modes): the first word is the given name; the rest, if any, the family name.
+    const typed = (v.typedName || "").trim().replace(/\s+/g, " ");
+    if (typed) {
+      const [given, ...rest] = typed.split(" ");
+      g.name = given; g.means = "";
+      if (rest.length) { family = rest.join(" "); famMeans = ""; if (v.nameKind === "patronym") v.nameKind = "house"; }
+    }
     full = !family ? g.name : v.nameKind === "patronym" ? `${g.name}, ${family}` : `${g.name} ${family}`;
     v.name = { given: g.name, means: g.means, family, full, tongue: stock.tongue };
     for (const s of v.siblings) { if (s.name === g.name) s.name = makeName(v, D, s.sex); }
@@ -914,6 +1008,66 @@ const LW = (() => {
     if (ev.phases.includes("youth")) return M.youth ?? 0;
     return 0;
   }
+  // ---------------- a new chapter (v0.14) ----------------
+  // Each stage opens with a chapter card: what the character carries into it, and three directions to be drawn to
+  // (the strongest domain, one in the middle, one life hasn't touched). The one chosen gets +1, and in this stage the
+  // events that train it are 1.6 times likelier.
+  const PULL = {
+    arms: "Towards a fight worth winning: sticks, then blades, and who stands their ground",
+    craft: "Towards things made by hand: tools, wood, metal, the pleasure of a good joint",
+    wild: "Towards the open land: tracks, weather, animals, and nights outside",
+    street: "Towards the crowd and its corners: who owes whom, and how to get by",
+    faith: "Towards the holy: shrines, old prayers, and what the priests won't say",
+    arcane: "Towards the strange: odd lights, old books, and the feeling of something more",
+    court: "Towards the people who decide: rank, manners, and the rooms where it happens",
+    sea: "Towards the water: boats, ropes, tides, and the edge of the map",
+    stage: "Towards an audience: songs, stories, and being looked at",
+    healing: "Towards the hurt: fevers, wounds, herbs, and steady hands",
+    learning: "Towards what is written: letters, maps, and the past",
+    trade: "Towards the market: prices, bargains, and a full purse",
+    vigor: "Towards hard work and hard weather: the body as a tool",
+    agility: "Towards speed: climbing, running, and never being caught",
+    intellect: "Towards puzzles: how things work, and why",
+    instinct: "Towards what others miss: faces, lies, and danger before it comes",
+    presence: "Towards people: friends, followers, and being heard",
+  };
+  const CHAPTER_ASK = { childhood: "What draws the child now?", youth: "What draws you, half-grown?", training: "What draws you as you come of age?",
+    long_years: "What draws you through the long years?", old_road: "What draws you on the road?", settled: "What draws you in the settled years?", threshold: "What draws you, at the edge of a new life?" };
+  const affinityCache = new Map();
+  function affinity(ev) {
+    if (!affinityCache.has(ev.id)) {
+      const ds = new Set();
+      for (const c of ev.choices || []) for (const o of c.outcomes || []) for (const d of Object.keys((o.effects || {}).domains || {})) ds.add(d);
+      affinityCache.set(ev.id, ds);
+    }
+    return affinityCache.get(ev.id);
+  }
+  const pullOf = (v, stage, ev) => (v.pull && v.pull.stage === stage && affinity(ev).has(v.pull.domain) ? PULL_TIMES : 1);
+  const PULL_TIMES = 1.6;
+  async function chapter(v, D, ui, stage, a0, a1, i0, i1) {
+    v.curYear = a0; v.curAge = i0;
+    v.now({ stage, step: "A new chapter", index: 0, total: 0 });
+    const doms = Object.keys(PULL);
+    const byVal = doms.map((d) => [d, v.dom(d)]).sort((a, b) => b[1] - a[1] || doms.indexOf(a[0]) - doms.indexOf(b[0]));
+    const top = byVal[0][0];
+    const zero = byVal.filter(([d, n]) => n === 0 && d !== top).map(([d]) => d);
+    const fresh = zero.length ? zero[Math.floor(v.rng() * zero.length)] : byVal[byVal.length - 1][0];
+    const middle = byVal.filter(([d]) => d !== top && d !== fresh).slice(1, 6).map(([d]) => d);
+    const mid = middle[Math.floor(v.rng() * middle.length)];
+    const opts = [top, mid, fresh].map((d) => ({ id: d, text: PULL[d] }));
+    const carry = byVal.filter(([, n]) => n > 0).slice(0, 2).map(([d, n]) => `${DOMAIN_NAMES[d]} ${n}`);
+    const ages = i0 === i1 ? `Age ${i0}, ${a0} AC` : `Ages ${i0} to ${i1}, ${a0} to ${a1} AC`;
+    const scene = `${ages}. ${carry.length ? "You carry into it " + carry.join(" and ") + "." : "Everything is still ahead of you."} ${CHAPTER_ASK[stage] || "What draws you now?"}`;
+    const ctx = { stage, year: a0, age: i0, id: "chapter." + stage, title: `A New Chapter: ${STAGE_NAMES[stage]}`, scene, history: false, opportunity: false, chapter: true, echoes: [] };
+    const prior = v.savedAnswer();
+    const d = await ui.event({ ...ctx, replay: prior !== null, replayAnswer: prior, now: v.nowInfo() }, opts);
+    v.answer(d); v.save();
+    v.domains[d] = (v.domains[d] || 0) + 1;
+    v.pull = { stage, domain: d };
+    ui.state(v);
+    await ui.reveal({ title: "This chapter", text: `Drawn ${PULL[d].charAt(0).toLowerCase() + PULL[d].slice(1)}`, note: `${DOMAIN_NAMES[d]} +1. In these years, what trains it comes more often.`, inline: true, replay: v.seen(), now: v.nowInfo() });
+  }
+
   async function playStage(v, D, ui, stage, i0, i1) {
     const O = D.origin;
     const a0 = v.born + i0, a1 = v.born + i1;
@@ -921,6 +1075,8 @@ const LW = (() => {
     const years = Array.from({ length: n }, () => v.int(a0, a1)).sort((x, y) => x - y);
     v.now({ stage, step: "", index: 0, total: (v.plan.find((p) => p.stage === stage) || {}).events || n });
     await ui.stage(stage, a0, a1, i0, i1);
+    await chapter(v, D, ui, stage, a0, a1, i0, i1);
+    v.now({ stage, step: "", index: 0, total: (v.plan.find((p) => p.stage === stage) || {}).events || n });
     for (const step of (O.stage_steps || {})[stage] || []) { v.curYear = a0; v.curAge = i0; v.now({ step: "Coming of age" }); await originStep(v, D, ui, step); }
 
     const regular = D.events.filter((e) => !e.history), historic = D.events.filter((e) => e.history);
@@ -956,7 +1112,7 @@ const LW = (() => {
       first = false;
       ok = ok.filter((e) => eventWeight(v, e, year) > 0);
       if (!ok.length) continue;
-      await playEvent(v, D, ui, weighted(v, ok, (e) => eventWeight(v, e, year) * novelty(v, e.id)), year, stage);
+      await playEvent(v, D, ui, weighted(v, ok, (e) => eventWeight(v, e, year) * novelty(v, e.id) * pullOf(v, stage, e)), year, stage);
       now = year;
     }
   }
@@ -1144,8 +1300,8 @@ const LW = (() => {
     const knownAt = v.band && v.band !== "young" ? "settled" : "training";
     for (const st of Object.keys(sp)) {
       const n = v.counts[st];
-      const steps = [...(st === "training" ? ["Coming of age"] : []), ...Array.from({ length: n }, (_, i) => `Event ${i + 1}`),
-        ...(st === "training" && v.band && v.band !== "young" ? ["After your training"] : []), ...(st === knownAt ? ["Known As"] : [])];
+      const steps = ["A new chapter", ...(st === "training" ? ["Coming of age"] : []), ...Array.from({ length: n }, (_, i) => `Event ${i + 1}`),
+        ...(st === "training" && v.band && v.band !== "young" ? ["After your training"] : []), ...(st === knownAt ? ["Known As", "Faith"] : [])];
 
       v.plan.push({ stage: st, steps, events: n, from: v.born + sp[st][0], to: v.born + sp[st][1] });
     }
@@ -1159,7 +1315,7 @@ const LW = (() => {
   }
 
   // The ways of playing a life, and how long it is. See rollTable, ancestryStep and calling.
-  const MODES = ["fate", "points", "choose", "concept"];
+  const MODES = ["fate", "points", "free", "choose", "concept"];
   const FATE_POINTS = 3, CONCEPT_TIMES = 3;
   async function live(D, cfg, ui) {
     const v = newLife(Math.random);
@@ -1172,6 +1328,7 @@ const LW = (() => {
     v.scope = cfg.scope || (D.scope || {}).default || "favoured";
     v.mode = MODES.includes(cfg.mode) ? cfg.mode : "fate";
     v.length = cfg.length === "quick" ? "quick" : "full";
+    v.typedName = ["choose", "concept"].includes(v.mode) && typeof cfg.name === "string" ? cfg.name.slice(0, 60) : "";
     v.concept = v.mode === "concept" && cfg.concept ? { people: cfg.concept.people || null, cls: cfg.concept.cls || null } : null;
     v.fate = v.mode === "points" ? FATE_POINTS : 0;
     await ui.stage("origin");
@@ -1182,7 +1339,7 @@ const LW = (() => {
       if (!sp) continue;
       await playStage(v, D, ui, stage, sp[0], sp[1]);
       if (stage === "training" && older) await laterYears(v, D, ui);
-      if (stage === (older ? "settled" : "training")) await knownAs(v, D, ui);
+      if (stage === (older ? "settled" : "training")) { await knownAs(v, D, ui); await faithStep(v, D, ui); }
     }
     await ui.stage("calling", v.year, v.year, v.age, v.age);
     await calling(v, D, ui);
@@ -1581,6 +1738,7 @@ const LW = (() => {
       classChoices: choices.map((c) => `${c.feature}: ${c.name}`),
       style: v.l1 && (v.l1.style || v.l1.weaponStyle) ? ({ strength: "Strength (heavy melee weapons)", finesse: "Finesse (quick, light weapons)", ranged: "Ranged (bows, slings, crossbows)" })[v.l1.style || v.l1.weaponStyle] || cap(v.l1.style || v.l1.weaponStyle) : "",
       deity: v.l1 && v.l1.deity ? D.deities[v.l1.deity].name : "",
+      faith: faithText(v, D),
       gender: genderText(v), age: v.age != null ? String(v.age) : "", born: v.born != null ? `${v.born} AC` : "",
       ethnicity: v.ancestry ? cultureText(v) : "", nationality: v.ancestry ? nationOf(v, D) : "",
       drawnTo: (v.origin.find((o) => o.title === "Drawn to") || {}).text || "",
@@ -1659,7 +1817,7 @@ const LW = (() => {
     L.push(`${s.header.name}: level ${s.header.level}`, s.header.traits.join(", "));
     L.push(`HP ${s.strip.hp} | AC ${s.strip.ac} | Perception ${s.strip.perception} | Speed ${s.strip.speed} | Fort ${s.strip.fortitude}, Ref ${s.strip.reflex}, Will ${s.strip.will} | Class DC ${s.strip.classDC}`);
     L.push("", "CHARACTER", `Ancestry: ${c.ancestry}; heritage: ${c.heritage}`, `Background: ${c.background}`, `Class: ${c.klass}${c.classChoices.length ? " (" + c.classChoices.join("; ") + ")" : ""}`,
-      ...(c.style ? [`How you fight: ${c.style}`] : []), ...(c.deity ? [`Deity: ${c.deity}`] : []), `Gender/pronouns: ${c.gender}`, `Age: ${c.age} (born ${c.born})`, `Ethnicity: ${c.ethnicity}`, `Nationality: ${c.nationality}`,
+      ...(c.style ? [`How you fight: ${c.style}`] : []), ...(c.deity ? [`Deity: ${c.deity}`] : []), ...(c.faith ? [`Faith: ${c.faith}`] : []), `Gender/pronouns: ${c.gender}`, `Age: ${c.age} (born ${c.born})`, `Ethnicity: ${c.ethnicity}`, `Nationality: ${c.nationality}`,
       ...(c.drawnTo ? [`Drawn to: ${c.drawnTo}`] : []), `Languages: ${(c.languages || []).join(", ")}`);
     if (c.attributes) L.push(`Attributes: ${c.attributes.map((a) => `${a.id.toUpperCase()} ${sgn(a.mod)}${a.key ? " (key)" : ""}`).join(", ")}`);
     L.push("", "ACTIONS", ...s.actions.strikes.map((a) => `Strike: ${a.name} ${a.attack} (${a.map.join("/")}), ${a.damage}${a.traits.length ? "; " + a.traits.join(", ") : ""}`),

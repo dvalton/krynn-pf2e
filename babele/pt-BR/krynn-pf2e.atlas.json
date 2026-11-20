@@ -423,6 +423,128 @@
     }
    }
   },
+  "Estwilde": {
+   "name": "Estwilde",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>Colinas ásperas e planícies varridas pelo vento entre Solamnia e os Khalkists. As tribos das colinas criam ovelhas e gado peludo, erguem marcos de pedra sobre seus mortos e trocam lã por ferro com os anões de Kayolin, a oeste. Ao norte a terra fica cinzenta e silenciosa: Nightlund, onde fica a fortaleza de Lorde Soth.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[estwilde]</p><p>As tribos se ressentiam das estradas de comércio de Istar muito antes do Cataclismo, e depois dele lutaram por gerações com fazendeiros solâmnicos pelos vales do oeste. Na Guerra da Lança os exércitos dracônicos passaram por ali a caminho de Solamnia, enquanto Kayolin fechava os portões e resistia. Na Era dos Mortais os Cavaleiros de Neraka ergueram guarnições na estrada solâmnica e cobraram das tribos pela sua proteção.</p>"
+    },
+    "Places": {
+     "name": "Lugares",
+     "text": "<p>Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles.</p><ul><li><strong>Garnet Road market</strong> (vila) — humanos 76%, anões das colinas 14%, meio-elfos 6%</li></ul>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>O marco de pedra de uma tribo foi aberto, e a espada do chefe morto sumiu; a tribo culpa os anões.</li><li>Um pastor de cabras cruzou as pedras brancas para dentro de Nightlund e voltou na manhã seguinte trinta anos mais velho.</li><li>O comandante da guarnição quer guias que conheçam as passagens altas, e paga com moedas de que as tribos precisam.</li></ul>"
+    }
+   }
+  },
+  "Nordmaar": {
+   "name": "Nordmaar",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>Um reino quente no extremo nordeste: clãs de cavaleiros nas pastagens altas, vilas de palafitas na selva do litoral, e North Keep, a cidade do rei. Nordmaar acolheu os refugiados da ruína de Istar, e seus descendentes ainda guardam as velhas festas de uma cidade no fundo do mar.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[nordmaar]</p><p>Em 348 a Guerra da Lança começou aqui: os Exércitos Dracônicos Vermelho e Verde invadiram, tomaram North Keep e arrasaram o porto de Valkinord, antes que qualquer outro lugar entendesse que havia uma guerra. Os clãs de cavaleiros continuaram lutando das colinas. Na Era dos Mortais o pântano de um dragão negro avançou a partir do sul.</p>"
+    },
+    "Places": {
+     "name": "Lugares",
+     "text": "<p>Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles.</p><ul><li><strong>North Keep</strong> (vila grande) — humanos 88%, meio-elfos 5%, minotauros 3%</li><li><strong>Valkinord</strong> (vila grande) — humanos 86%, minotauros 6%, meio-elfos 4%</li></ul>"
+    },
+    "North Keep": {
+     "name": "North Keep",
+     "text": "<p>A cidade do rei de Nordmaar, um forte na colina que cresceu até virar uma cidade de salões de madeira, mercados de cavalos e estandartes de senhores, com o verde da selva no horizonte.</p>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>A égua da tempestade de um clã, a melhor das terras altas, foi roubada por alguém que não deixou rastros.</li><li>Um capitão de especiarias paga bem por guardas, e melhor ainda para ninguém olhar o terceiro porão.</li><li>Algo sai do pântano do sul a cada lua nova e leva uma ovelha, sempre da mesma fazenda.</li></ul>"
+    }
+   }
+  },
+  "Lemish": {
+   "name": "Lemish",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>Uma pequena e orgulhosa nação humana no litoral ao sul de Solamnia, entre as montanhas de Kayolin e o sul de Dargaard. Seus senhores guardam torres e rancores; suas vilas margeiam a Floresta de Godsfell, onde uma tribo de hobgoblins cobra seu pedágio; um mosteiro de Majere vive à parte nas colinas.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[lemish]</p><p>Depois do Cataclismo, Lemish se voltou contra os Cavaleiros que a tinham taxado e abandonado, e queimava todo ano a velha carta solâmnica. Na Guerra da Lança seus senhores deixaram o Exército Dracônico Vermelho passar até o Desfiladeiro de Throtyl, pela promessa de terras solâmnicas. Quando a guerra foi perdida, Lemish pagou pela escolha.</p>"
+    },
+    "Places": {
+     "name": "Lugares",
+     "text": "<p>Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles.</p><ul><li><strong>Lemish</strong> (vila grande) — humanos 88%, meio-elfos 4%, hobgoblins 4%</li><li><strong>Caermish</strong> (vila) — humanos 90%, meio-elfos 6%, kender 2%</li></ul>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>Um senhor de Lemish quer provas de que o vizinho vendeu cavalos aos exércitos dracônicos, e não se importa como sejam achadas.</li><li>Os hobgoblins de Godsfell dobraram o pedágio, e alguém está vendendo aço solâmnico para eles.</li><li>Um monge de Majere desce das colinas e pede aos heróis que levem uma tigela lacrada até Palanthas, sem abri-la.</li></ul>"
+    }
+   }
+  },
+  "Throtyl": {
+   "name": "Throtyl",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>O Desfiladeiro de Throtyl, a passagem das montanhas para o leste de Solamnia, nas mãos de chefes guerreiros hobgoblins em fortes de madeira, com tocas de goblins nas encostas e cavaleiros de lobos na estrada. As caravanas pagam para passar, e pagam de novo quando dois chefes reivindicam o mesmo trecho.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[throtyl]</p><p>Por séculos os chefes guerreiros lutaram entre si pela estrada do desfiladeiro. Em 349 o Exército Dracônico Vermelho subiu o desfiladeiro com os hobgoblins de Throtyl ao lado, tomou Gaardlund e Heartlund e conquistou Solanthus e Thelgaard. Quando a guerra virou, cavaleiros solâmnicos desceram para queimar os fortes que tinham mandado os bandos para o norte.</p>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>Um mestre de caravana quer que os heróis negociem o pedágio; o cobrador é um goblin que conta melhor que qualquer mercador.</li><li>Um velho chefe guerreiro vai ser desafiado, e ele é o único que mantém os cavaleiros de lobos longe das fazendas da fronteira.</li><li>Uma cativa humana criada no desfiladeiro quer voltar para casa, para uma família que a julga morta.</li></ul>"
+    }
+   }
+  },
+  "Blöde and Kern": {
+   "name": "Blöde e Kern",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>Os reinos ogros do leste, as ruínas de um império antigo cujos construtores caíram na brutalidade. Senhores ogros governam pela força a partir de seus salões e minas; humanos vivem sob eles como escravos, goblins e hobgoblins como servos e soldados, e fugitivos se escondem nas colinas.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[blode_kern]</p><p>Os senhores ogros guerrearam entre si durante a Era do Desespero, e seus escravos pagaram por isso. Na Guerra da Lança os ogros marcharam pelos exércitos dracônicos, levando os escravos para carregar e cavar. Na Era dos Mortais alguns ogros viraram titãs, altos e astutos e cheios de uma magia sombria que precisa de sangue élfico para durar.</p>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>A estrada dos fugitivos precisa de um novo guia: o último nunca voltou do vale dos caçadores de escravos.</li><li>Um enviado Silvanesti desapareceu a caminho do salão de um senhor ogro, e os titãs estão sorrindo.</li><li>Um senhor ogro promete liberdade ao escravo que vencer três lutas nos seus jogos; ninguém nunca venceu.</li></ul>"
+    }
+   }
+  },
+  "Zhakar": {
+   "name": "Zhakar",
+   "pages": {
+    "Land and People": {
+     "name": "Terra e Povos",
+     "text": "<p>Um reino anão nas profundezas dos Khalkists, nascido da ruína da antiga Thoradin. Uma praga de mofo fez de seus anões párias entre os seus: sem cabelo, olhos brancos como leite, pele descascando em manchas. Andam mascarados entre estrangeiros, e vendem bom aço a quem pagar.</p>"
+    },
+    "Through the Ages": {
+     "name": "Através das Eras",
+     "text": "<p class=\"krynn-now-line\">@KrynnNow[zhakar]</p><p>Depois do Cataclismo o mofo tomou Thoradin, e os sobreviventes viraram os Zhakar, temidos e sozinhos. A praga voltava a cada poucos anos. Em 413 Severus Stonehand, que tinha levado anões para fora de Thorbardin, tomou Zhakar com seu exército e fundou Thoradin de novo.</p>"
+    },
+    "Places": {
+     "name": "Lugares",
+     "text": "<p>Os lugares onde uma vida do Lifewrought pode começar nesta região, e quem vive neles.</p><ul><li><strong>Zhakar</strong> (vila grande) — anões da montanha 94%, goblins 4%, humanos 2%</li></ul>"
+    },
+    "Hooks": {
+     "name": "Ganchos",
+     "text": "<ul><li>Um mercador mascarado oferece uma lâmina excelente pela metade do preço, e quer que os heróis levem uma mensagem de volta pela longa escadaria.</li><li>Uma jardineira do mofo acredita ter achado uma cura, e o governante de Zhakar a quer calada.</li><li>Os anões de Stonehand e os Zhakar que se curvaram a eles dividem uma cidade e nenhuma confiança; um assassinato nas forjas pode começar uma guerra.</li></ul>"
+    }
+   }
+  },
   "The Timeline of Krynn": {
    "name": "A Linha do Tempo de Krynn",
    "pages": {

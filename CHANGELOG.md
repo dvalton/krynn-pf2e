@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.2.0
+
+Lifewrought v0.14 inside Foundry.
+
+- **A new chapter** opens each stage of a life: choose what draws you in those years (that side of you grows, and its events come more often).
+- **Faith for everyone**: keep the faith you were raised in, seek your own god, or turn against the gods. Followers arrive in Foundry with their god as a deity item (from the Krynn Gods pack, as before).
+- **Free rerolls**, a fifth way of playing; in Choose and Concept you can **type your name**.
+- A **redesigned prologue**: your GM's campaign as one locked line, and your life's options with a summary.
+- **Every region of Ansalon**: Estwilde, Nordmaar, Lemish, Throtyl, Blöde and Kern, and Zhakar join, so lives can be born anywhere; each gets its Atlas journal (both languages).
+- Fewer repeated early events (29 new childhood events, and unfinished lives now count), richer looks and quirks, a small chance of being born where your people are rarely seen, and every chance at least 1%.
+
 ## 1.1.0
 
 Lifewrought v0.13 inside Foundry.

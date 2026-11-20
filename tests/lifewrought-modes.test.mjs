@@ -54,3 +54,35 @@ test("lives saved before v0.13 (no mode in the record) still replay as pure fate
   assert.equal(v.mode, "fate");
   assert.equal(v.name.full, lives[0].name);
 });
+
+// 1.2: Lifewrought v0.14 gives everyone a faith, and a follower's god travels to Foundry as a deity item.
+test("every life has a faith, and a follower's god becomes a deity item", async () => {
+  const { buildActorData } = await import("../scripts/logic/lifewrought.mjs");
+  const ITEMS = JSON.parse(fs.readFileSync(new URL("./fixtures/pf2e-items.json", import.meta.url)));
+  const lives = JSON.parse(fs.readFileSync(new URL("./fixtures/lives.json", import.meta.url)));
+  let followers = 0;
+  for (const life of lives) {
+    const { v } = await replayLife(LW, D, life.record);
+    assert.ok(v.faith && ["follow", "against"].includes(v.faith.stance), `${life.name} has a faith`);
+    assert.ok(LW.sheetData(v, D).character.faith, `${life.name}'s sheet shows it`);
+    const { data } = await buildActorData(LW, v, D, async (u) => (ITEMS[u] ? structuredClone(ITEMS[u]) : null));
+    const deity = data.items.find((i) => i.type === "deity");
+    if (v.faith.stance === "follow") { followers++; assert.ok(deity, `${life.name} follows a god and has a deity item`); }
+    if (["cleric", "champion"].includes(v.klass)) assert.ok(deity);
+  }
+  assert.ok(followers > 0);
+});
+
+test("free rerolls never run out, and a typed name is used in choose and concept modes", async () => {
+  const { v } = await randomLife(LW, D, { seed: 5, year: 381, region: "abanasinia", mode: "free" });
+  assert.equal(v.mode, "free");
+  for (const mode of ["choose", "concept"]) {
+    const { v: n, record } = await randomLife(LW, D, { seed: 9, year: 381, region: "solamnia", mode, concept: mode === "concept" ? { people: "human" } : null, name: "Wren Lightfoot" });
+    assert.equal(n.name.full.startsWith("Wren"), true, n.name.full);
+    const { v: again, extraDraws } = await replayLife(LW, D, record);
+    assert.equal(extraDraws, 0);
+    assert.equal(again.name.full, n.name.full);
+  }
+  const { v: pure } = await randomLife(LW, D, { seed: 9, year: 381, region: "solamnia", name: "Wren Lightfoot" });
+  assert.notEqual(pure.name.given, "Wren", "pure fate ignores a typed name");
+});
